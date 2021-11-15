@@ -4,11 +4,6 @@
 \ifdefined\pdfpxdimen
    \let\sphinxpxdimen\pdfpxdimen\else\newdimen\sphinxpxdimen
 \fi \sphinxpxdimen=.75bp\relax
-\ifdefined\pdfimageresolution
-    \pdfimageresolution= \numexpr \dimexpr1in\relax/\sphinxpxdimen\relax
-\fi
-%% let collapsible pdf bookmarks panel have high depth per default
-\PassOptionsToPackage{bookmarksdepth=5}{hyperref}
 
 \PassOptionsToPackage{warn}{textcomp}
 \usepackage[utf8]{inputenc}
@@ -33,16 +28,34 @@
 
 
 
-\usepackage{tgtermes}
-\usepackage{tgheros}
-\renewcommand{\ttdefault}{txtt}
-
+\usepackage{times}
+\expandafter\ifx\csname T@LGR\endcsname\relax
+\else
+% LGR was declared as font encoding
+  \substitutefont{LGR}{\rmdefault}{cmr}
+  \substitutefont{LGR}{\sfdefault}{cmss}
+  \substitutefont{LGR}{\ttdefault}{cmtt}
+\fi
+\expandafter\ifx\csname T@X2\endcsname\relax
+  \expandafter\ifx\csname T@T2A\endcsname\relax
+  \else
+  % T2A was declared as font encoding
+    \substitutefont{T2A}{\rmdefault}{cmr}
+    \substitutefont{T2A}{\sfdefault}{cmss}
+    \substitutefont{T2A}{\ttdefault}{cmtt}
+  \fi
+\else
+% X2 was declared as font encoding
+  \substitutefont{X2}{\rmdefault}{cmr}
+  \substitutefont{X2}{\sfdefault}{cmss}
+  \substitutefont{X2}{\ttdefault}{cmtt}
+\fi
 
 
 \usepackage[Bjarne]{fncychap}
 \usepackage{sphinx}
 
-\fvset{fontsize=auto}
+\fvset{fontsize=\small}
 \usepackage{geometry}
 
 
@@ -68,7 +81,7 @@
     
 
 \title{Environmental Library Documentation}
-\date{Nov 14, 2021}
+\date{Nov 15, 2021}
 \release{V0.0.1}
 \author{UC3M}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -92,39 +105,49 @@
 
 \chapter{What is EnVLiB?}
 \label{\detokenize{index:what-is-envlib}}
-\sphinxAtStartPar
 ENVLIB is a libray that calculates algorithmic climate change functions (aCCFs).
 It is distributed under the GNU Lesser General Public License v3.0.
 
-\sphinxAtStartPar
-\sphinxstylestrong{Citation info}: A. Simorgh, M. Soler, D. Daniel González\sphinxhyphen{}Arribas, Environmental library (EnVLiB), an open source toolbox developed to calculate algorithmic climate change functions (aCCF), quantifying climate impacts of aviation.
+\sphinxstylestrong{Citation info}: A. Simorgh, M. Soler, D. Daniel González\sphinxhyphen{}Arribas, Environmental library (EnVLiB), an open source toolbox developed to calculate algorithmic climate change functions (aCCF), which quantifies climate impacts of aviation.
 
 
 \chapter{How to run the library}
 \label{\detokenize{index:how-to-run-the-library}}\begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\setcounter{enumi}{-1}
 \item {} 
-\sphinxAtStartPar
+it is highly recomended to create a virtual environment with Python version 3.8:
+
+\end{enumerate}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{conda} \PYG{n}{create} \PYG{o}{\PYGZhy{}}\PYG{n}{n} \PYG{n}{name\PYGZus{}env} \PYG{n}{python}\PYG{o}{=}\PYG{l+m+mf}{3.8}
+\PYG{n}{conda} \PYG{n}{activate} \PYG{n}{name\PYGZus{}env}
+\end{sphinxVerbatim}
+\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\item {} 
 Clone or download the repository.
 
 \item {} 
-\sphinxAtStartPar
-Install all the dependencies.
+Locate yourself in the envlib (library folder) path, and run the following line, using terminal (MacOS) or cmd (Windows), which will install all dependencies:
 
 \end{enumerate}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{python} \PYG{n}{setup}\PYG{o}{.}\PYG{n}{py} \PYG{n}{install}
+\end{sphinxVerbatim}
 
 
 \chapter{How to use it}
 \label{\detokenize{index:how-to-use-it}}\begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \item {} 
-\sphinxAtStartPar
 import library:
 
 \end{enumerate}
 \begin{description}
 \item[{::}] \leavevmode
-\sphinxAtStartPar
 import envlib,
 from envlib import main\_processing
 
@@ -133,7 +156,6 @@ from envlib import main\_processing
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \setcounter{enumi}{1}
 \item {} 
-\sphinxAtStartPar
 Specify the directories for datasets containing variables on pressure levels and surface in a dictioary as:
 
 \end{enumerate}
@@ -145,13 +167,11 @@ Specify the directories for datasets containing variables on pressure levels and
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \setcounter{enumi}{2}
 \item {} 
-\sphinxAtStartPar
 Specify the directory for the output file:
 
 \end{enumerate}
 \begin{description}
 \item[{::}] \leavevmode
-\sphinxAtStartPar
 path\_save = location\_results
 
 \end{description}
@@ -160,20 +180,20 @@ path\_save = location\_results
 \setcounter{enumi}{3}
 \item {} \begin{description}
 \item[{Set the preferred configurations in a dictionary:}] \leavevmode
-\sphinxAtStartPar
-efficay: True, False
-emission\_scenario: ‘sustained’, ‘future\_scenario’, pulse
-climate\_indicator: ATR, GWP
-TimeHorizon: 20, 50, 100
-PMO: True, False
-merged: True, False
-NOx: True, False
-Chotspots: True, False
-hotspots\_thr: constant, varying
-binary: True, False
-variables: True, False
-mean: True, False
-std: True, False
+Set the preferred configurations in a dictionary. Settings are \textendash{}\textgreater{}
+efficay: True, False //
+emission\_scenario: sustained, future\_scenario, pulse //
+climate\_indicator: ATR, GWP //
+TimeHorizon: 20, 50, 100 //
+PMO: True, False //
+merged: True, False //
+NOx: True, False //
+Chotspots: True, False //
+hotspots\_thr: constant, varying //
+binary: True, False //
+variables: True, False //
+mean: True, False //
+std: True, False //
 
 \end{description}
 
@@ -188,7 +208,6 @@ std: True, False
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \setcounter{enumi}{4}
 \item {} 
-\sphinxAtStartPar
 Process inputted data:
 
 \end{enumerate}
@@ -201,7 +220,6 @@ Process inputted data:
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \setcounter{enumi}{5}
 \item {} 
-\sphinxAtStartPar
 Calculate aCCFs with respect to the defined settings in the dictionary, Confg, and store the results in a netCDF file:
 
 \end{enumerate}
@@ -211,33 +229,56 @@ Calculate aCCFs with respect to the defined settings in the dictionary, Confg, a
 \end{sphinxVerbatim}
 
 
+\chapter{An example}
+\label{\detokenize{index:an-example}}\begin{enumerate}
+\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
+\setcounter{enumi}{-1}
+\item {} 
+Here is an example how one can use sample data in test directory of envlib to generate output for a set of user\sphinxhyphen{}difned configurations:
+
+\end{enumerate}
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{envlib}
+\PYG{k+kn}{from} \PYG{n+nn}{envlib} \PYG{k+kn}{import} \PYG{n}{main\PYGZus{}processing}
+
+\PYG{n}{path\PYGZus{}here} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{envlib/}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{test\PYGZus{}path} \PYG{o}{=} \PYG{n}{path\PYGZus{}here} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/test/sample\PYGZus{}data/}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{path\PYGZus{}} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}pl}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{sample\PYGZus{}pl.nc}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}sur}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{sample\PYGZus{}sur.nc}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{\PYGZcb{}}
+\PYG{n}{path\PYGZus{}save} \PYG{o}{=} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{env\PYGZus{}processed.nc}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{confg} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{efficacy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{False}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{emission\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{pulse}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{climate\PYGZus{}indicator}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ATR}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TimeHorizon}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mi}{20}\PYG{p}{,}
+             \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{PMO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{False}\PYG{p}{,}
+             \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{merged}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{True}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{True}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Chotspots}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{True}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{binary}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{True}\PYG{p}{,}
+             \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}thr}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{l+m+mf}{1e\PYGZhy{}13}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{variables}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{False}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{False}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{std}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{k+kc}{False}\PYG{p}{\PYGZcb{}}
+
+\PYG{n}{CI} \PYG{o}{=} \PYG{n}{main\PYGZus{}processing}\PYG{o}{.}\PYG{n}{ClimateImpact}\PYG{p}{(}\PYG{n}{path\PYGZus{}}\PYG{p}{,} \PYG{n}{horizontal\PYGZus{}resolution}\PYG{o}{=}\PYG{l+m+mf}{0.75}\PYG{p}{,} \PYG{n}{lat\PYGZus{}bound}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{35}\PYG{p}{,} \PYG{l+m+mf}{60.0}\PYG{p}{)}\PYG{p}{,} \PYG{n}{lon\PYGZus{}bound}\PYG{o}{=}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mi}{35}\PYG{p}{)}\PYG{p}{,}
+                                          \PYG{n}{save\PYGZus{}path}\PYG{o}{=}\PYG{n}{path\PYGZus{}save}\PYG{p}{)}
+\PYG{n}{CI}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}accfs}\PYG{p}{(}\PYG{o}{*}\PYG{o}{*}\PYG{n}{confg}\PYG{p}{)}
+\end{sphinxVerbatim}
+
+
 \chapter{How to compile documentation pdf?}
 \label{\detokenize{index:how-to-compile-documentation-pdf}}
-\sphinxAtStartPar
 You can use the Makefile created by Sphinx to create your documentation. Locate yourself in the doc path.
 
-\sphinxAtStartPar
 First clean the \_build directory to avoid error or legacy information. Just call:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{make} \PYG{n}{clean}
 \end{sphinxVerbatim}
 
-\sphinxAtStartPar
 In case you want to build your documentation in latex call \sphinxstylestrong{twice}:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{make} \PYG{n}{latexpdf}
 \end{sphinxVerbatim}
 
-\sphinxAtStartPar
 if you want to do build your in html call:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{make} \PYG{n}{html}
 \end{sphinxVerbatim}
 
-\sphinxAtStartPar
 Note that you \sphinxstylestrong{should not see} any error or warning, this information appears as red text in the terminal.
 
 
@@ -258,26 +299,21 @@ Note that you \sphinxstylestrong{should not see} any error or warning, this info
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{envlib.accf.}}\sphinxbfcode{\sphinxupquote{CalAccf}}}{\emph{\DUrole{n}{wd\_inf}}}{}
-\sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 
-\sphinxAtStartPar
 Calculation of algorithmic climate change functions (aCCFs).
 \index{accf\_ch4() (envlib.accf.CalAccf method)@\spxentry{accf\_ch4()}\spxextra{envlib.accf.CalAccf method}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf.accf_ch4}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{accf\_ch4}}}{}{}
-\sphinxAtStartPar
 Calculates the aCCF of Methane for pulse emission scenario, average temperature response as climate
 indicator and 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}methane {[}K/kg(NO2){]}). To calculate the aCCF of Methane, meteorological
 variables geopotential and incoming solar radiation are required.
 \begin{quote}\begin{description}
 \item[{Returns accf}] \leavevmode
-\sphinxAtStartPar
 Algorithmic climate change function of methane.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -288,7 +324,6 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf.accf_dcontrail}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{accf\_dcontrail}}}{}{}
-\sphinxAtStartPar
 Calculates the aCCF of day\sphinxhyphen{}time contrails for pulse emission scenario, average temperature response as
 climate indicator and 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}contrails {[}K/km{]}). To calculate the aCCF of day\sphinxhyphen{}time contrails,
 meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
@@ -296,11 +331,9 @@ are required. Notice that, temperature and relative humidies are required for th
 contrial formation areas.
 \begin{quote}\begin{description}
 \item[{Returns accf}] \leavevmode
-\sphinxAtStartPar
 Algorithmic climate change function of day\sphinxhyphen{}time contrails.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -311,17 +344,14 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf.accf_h2o}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{accf\_h2o}}}{}{}
-\sphinxAtStartPar
 Calculates the aCCF of water vapour for pulse emission scenario, average temperature response as
 climate indicator and 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}water\sphinxhyphen{}vapour {[}K/kg(fuel){]}). To calculate the aCCF of water vapour,
 meteorological variable potential vorticity is required.
 \begin{quote}\begin{description}
 \item[{Returns accf}] \leavevmode
-\sphinxAtStartPar
 Algorithmic climate change function of water vapour.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -332,18 +362,15 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf.accf_ncontrail}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{accf\_ncontrail}}}{}{}
-\sphinxAtStartPar
 Calculates the aCCF of night\sphinxhyphen{}time contrails for pulse emission scenario, average temperature response as
 climate indicator and 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}contrails {[}K/km{]}). To calculate the aCCF of nighttime contrails,
 meteorological variables temperature and relative humidities over ice and water are required. Notice that,
 relative humidies are required for the detemiation of presistent contrial formation areas.
 \begin{quote}\begin{description}
 \item[{Returns accf}] \leavevmode
-\sphinxAtStartPar
 Algorithmic climate change function of nighttime contrails.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -354,17 +381,14 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf.accf_o3}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{accf\_o3}}}{}{}
-\sphinxAtStartPar
 Calculates the aCCF of Ozone for pulse emission scenario, average temperature response as climate
 indicator and 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}ozone {[}K/kg(NO2){]}). To calculate the aCCF of Ozone, meteorological variables
 temperature and geopotential are required.
 \begin{quote}\begin{description}
 \item[{Returns accf}] \leavevmode
-\sphinxAtStartPar
 Algorithmic climate change function of Ozone.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -375,7 +399,6 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf.get_accfs}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_accfs}}}{\emph{\DUrole{o}{**}\DUrole{n}{problem\_config}}}{}
-\sphinxAtStartPar
 Gets the formulations of aCCFs, and calculated user\sphinxhyphen{}defined conversions or functions.
 
 \end{fulllineitems}
@@ -384,31 +407,25 @@ Gets the formulations of aCCFs, and calculated user\sphinxhyphen{}defined conver
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf.get_std}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_std}}}{\emph{\DUrole{n}{var}}, \emph{\DUrole{n}{normalize}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
-\sphinxAtStartPar
 Calculates standard deviation of a variable over ensemble members.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{var}} \textendash{} variable.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{normalize}} \textendash{} If True, it calculated standard deviation over the normalized variable, if False,
 
 \end{itemize}
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
 
-\sphinxAtStartPar
 from the original variable.
 :rtype: bool
 
-\sphinxAtStartPar
 :returns standard deviation of the variable.
 :rtype: numpy.ndarray
 
@@ -418,20 +435,16 @@ from the original variable.
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.accf.CalAccf.get_xarray}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_xarray}}}{}{}
-\sphinxAtStartPar
 Build xarray dataset.
 \begin{quote}\begin{description}
 \item[{Returns ds}] \leavevmode
-\sphinxAtStartPar
 xarray dataset containing user\sphinxhyphen{}difned variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 dataset
 
 \end{description}\end{quote}
 
-\sphinxAtStartPar
 :returns encoding
 :rtype: dict
 
@@ -471,19 +484,15 @@ dataset
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.calc_altrv_vars.get_pvu}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_pvu}}}{\emph{\DUrole{n}{ds}}}{}
-\sphinxAtStartPar
 Caclulates potential vorticity from meteorological variables temperature and components of winds.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
 \item[{Returns PVUU}] \leavevmode
-\sphinxAtStartPar
 potential vorticity unit
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -500,19 +509,15 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.calc_altrv_vars.get_rh_ice}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_rh\_ice}}}{\emph{\DUrole{n}{ds}}}{}
-\sphinxAtStartPar
 Calculates the relative humidity over ice from realtive humidity over water
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
 \item[{Returns rh\_ice}] \leavevmode
-\sphinxAtStartPar
 relative humidity over ice
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -523,19 +528,15 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.calc_altrv_vars.get_rh_sd}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_rh\_sd}}}{\emph{\DUrole{n}{ds}}}{}
-\sphinxAtStartPar
 Calculates the relative humidity from specific humidity
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
 \item[{Returns rh\_sd}] \leavevmode
-\sphinxAtStartPar
 relative humidity
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -546,19 +547,15 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.calc_altrv_vars.get_rh_wa}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_rh\_wa}}}{\emph{\DUrole{n}{ds}}}{}
-\sphinxAtStartPar
 Calculates the relative humidity over water from specific humidity
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
 \item[{Returns rh\_wa}] \leavevmode
-\sphinxAtStartPar
 relative humidity over water
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -572,41 +569,32 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.contrail.get_cont_form_thr}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_cont\_form\_thr}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}}{}
-\sphinxAtStartPar
 Calculates the thresholds of temperature and relative humidity over water needed for determining the
 formation criteria of contrails.
 \begin{quote}
 \begin{quote}\begin{description}
 \item[{param ds}] \leavevmode
-\sphinxAtStartPar
 Dataset openned with xarray.
 
 \item[{type ds}] \leavevmode
-\sphinxAtStartPar
 Dataset
 
 \item[{param member}] \leavevmode
-\sphinxAtStartPar
 Detemines the presense of ensemble forecasts in the given dataset.
 
 \item[{type member}] \leavevmode
-\sphinxAtStartPar
 bool
 
 \item[{returns rcontr}] \leavevmode
-\sphinxAtStartPar
 Thresholds of relative humidity over water.
 
 \item[{rtype}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \item[{returns TLM\_e}] \leavevmode
-\sphinxAtStartPar
 Thresholds of temperature.
 
 \item[{rtype}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -618,26 +606,21 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.contrail.get_pcfa}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_pcfa}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}, \emph{\DUrole{o}{**}\DUrole{n}{problem\_config}}}{}
-\sphinxAtStartPar
 Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
 
 \end{itemize}
 
 \item[{Returns pcfa{\color{red}\bfseries{}pcfa\_}}] \leavevmode
-\sphinxAtStartPar
 Presistent contrail formation areas.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -648,7 +631,6 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.contrail.get_relative_hum}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_relative\_hum}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}, \emph{\DUrole{n}{intrp}\DUrole{o}{=}\DUrole{default_value}{True}}}{}
-\sphinxAtStartPar
 Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
 dataset. In ECMWF data: Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
 respect to saturation over ice below \sphinxhyphen{}23C and with respect to saturation over water above 0C. In the regime in
@@ -656,35 +638,27 @@ between a quadratic interpolation is applied.
 \begin{quote}
 \begin{quote}\begin{description}
 \item[{param ds}] \leavevmode
-\sphinxAtStartPar
 Dataset openned with xarray.
 
 \item[{type ds}] \leavevmode
-\sphinxAtStartPar
 Dataset
 
 \item[{param member}] \leavevmode
-\sphinxAtStartPar
 Detemines the presense of ensemble forecasts in the given dataset.
 
 \item[{type member}] \leavevmode
-\sphinxAtStartPar
 bool
 
 \item[{returns rcontr}] \leavevmode
-\sphinxAtStartPar
 Thresholds of relative humidity over water.
 
 \item[{rtype}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \item[{returns TLM\_e}] \leavevmode
-\sphinxAtStartPar
 Thresholds of temperature.
 
 \item[{rtype}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -696,26 +670,21 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.contrail.get_rw_from_specific_hum}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_rw\_from\_specific\_hum}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}}{}
-\sphinxAtStartPar
 Calculates of relative humidity over water from specific humidity.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
 
 \end{itemize}
 
 \item[{Returns r\_w}] \leavevmode
-\sphinxAtStartPar
 Relative humidity over water.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -741,44 +710,35 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.extend_dim.extend_dimensions}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.extend\_dim.}}\sphinxbfcode{\sphinxupquote{extend\_dimensions}}}{\emph{\DUrole{n}{inf\_coord}}, \emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{ds\_sur}}, \emph{\DUrole{n}{ex\_variables}}}{}
-\sphinxAtStartPar
 Unifies the dimension of all types of given data as either 4\sphinxhyphen{}dimensional or 5\sphinxhyphen{}dimensional arrays, depending on
 the exsitance of ensemple members. e.g., for a data only has two fields, latitude and longitude, this function
 addds time and level fields.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} information on original coordinates.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} \textendash{} Dataset openned with xarray containg variables on pressure levels.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds\_sur}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing surface parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{inf\_coord}} \textendash{} new coordinates
 
 \end{itemize}
 
 \item[{Returns ds\_pl}] \leavevmode
-\sphinxAtStartPar
 new dataset of pressure level variables regarding the added coordinates
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 dataset
 
 \item[{Returns ds\_surf}] \leavevmode
-\sphinxAtStartPar
 new dataset of surface parameters regarding the added coordinates
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 dataset
 
 \end{description}\end{quote}
@@ -792,34 +752,27 @@ dataset
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.extract_data.extract_coordinates}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.extract\_data.}}\sphinxbfcode{\sphinxupquote{extract\_coordinates}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{ex\_variables}}, \emph{\DUrole{n}{ds\_sur}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
-\sphinxAtStartPar
 Extract coordinates (axes) in the dataset defined with different possible names.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds\_sur}} \textendash{} 
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
 \end{itemize}
 
 \item[{Returns ex\_var\_name}] \leavevmode
-\sphinxAtStartPar
 List of available coordinates.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 list
 
 \item[{Returns variables}] \leavevmode
-\sphinxAtStartPar
 Assigns bool to the axes (e.g., if ensmeble members are not available, it assgins False).
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 dict
 
 \end{description}\end{quote}
@@ -830,38 +783,30 @@ dict
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.extract_data.extract_data_variables}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.extract\_data.}}\sphinxbfcode{\sphinxupquote{extract\_data\_variables}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{ds\_sr}\DUrole{o}{=}\DUrole{default_value}{None}}, \emph{\DUrole{n}{verbose}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
-\sphinxAtStartPar
 Extract available required variables in the dataset defined with different possible names.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{ds\_sr}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing surface parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{verbose}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Used to show more information.
 
 \end{itemize}
 
 \item[{Returns ex\_var\_name}] \leavevmode
-\sphinxAtStartPar
 Available required weather variables.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 list
 
 \item[{Returns variables}] \leavevmode
-\sphinxAtStartPar
 Assigns bool to the required wethear variables.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 dict
 
 \end{description}\end{quote}
@@ -872,19 +817,15 @@ dict
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.extract_data.logic_cal_accfs}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.extract\_data.}}\sphinxbfcode{\sphinxupquote{logic\_cal\_accfs}}}{\emph{\DUrole{n}{variables}}}{}
-\sphinxAtStartPar
 Build a dictionary containing logical valules correspond to the possibility to calculate of aCCF.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{variables}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) \textendash{} variables available in the given dataset.
 
 \item[{Returns}] \leavevmode
-\sphinxAtStartPar
 Dictionary containing logical valules correspond to the possibility to calculate of aCCFs.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 dict
 
 \end{description}\end{quote}
@@ -901,7 +842,6 @@ dict
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.main_processing.ClimateImpact}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{envlib.main\_processing.}}\sphinxbfcode{\sphinxupquote{ClimateImpact}}}{\emph{\DUrole{n}{path}}, \emph{\DUrole{o}{**}\DUrole{n}{problem\_config}}}{}
-\sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 \index{auto\_plotting() (envlib.main\_processing.ClimateImpact method)@\spxentry{auto\_plotting()}\spxextra{envlib.main\_processing.ClimateImpact method}}
 
@@ -931,36 +871,29 @@ Bases: \sphinxcode{\sphinxupquote{object}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.processing_surf_vars.extend_olr_pl_4d}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.processing\_surf\_vars.}}\sphinxbfcode{\sphinxupquote{extend\_olr\_pl\_4d}}}{\emph{\DUrole{n}{sur\_var}}, \emph{\DUrole{n}{pl\_var}}, \emph{\DUrole{n}{index}}, \emph{\DUrole{n}{fore\_step}}}{}
-\sphinxAtStartPar
 Calculate outgoing longwave radiation (OLR) {[}W/m2{]} at TOA from the parameter, top net thermal radiation (ttr)
 {[}J/m2{]}, and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
 regarding inputted index, OLR is calculated in 3D (i.e, level, latitude, longitude).
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{sur\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing surface parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{pl\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing pressure level parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{index}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} Index of the time that exist in the dataset of pressure level parameters at this step.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{fore\_step}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} Forecast step in hours.
 
 \end{itemize}
 
 \item[{Returns arr}] \leavevmode
-\sphinxAtStartPar
 OLR with 3D dimensiones (i.e., level, latitude, longitude).
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 array
 
 \end{description}\end{quote}
@@ -971,36 +904,29 @@ array
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.processing_surf_vars.extend_olr_pl_5d}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.processing\_surf\_vars.}}\sphinxbfcode{\sphinxupquote{extend\_olr\_pl\_5d}}}{\emph{\DUrole{n}{sur\_var}}, \emph{\DUrole{n}{pl\_var}}, \emph{\DUrole{n}{index}}, \emph{\DUrole{n}{fore\_step}}}{}
-\sphinxAtStartPar
 Calculate outgoing longwave radiation (OLR) {[}W/m2{]} at TOA from the parameter, top net thermal radiation (ttr)
 {[}J/m2{]}, and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
 regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude, longitude).
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{sur\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing surface parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{pl\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing pressure level parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{index}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} Index of the time that exist in the dataset of pressure level parameters at this step.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{fore\_step}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} Forecast step in hours.
 
 \end{itemize}
 
 \item[{Returns arr}] \leavevmode
-\sphinxAtStartPar
 OLR with 4D dimensiones (i.e., number, level, latitude, longitude).
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 array
 
 \end{description}\end{quote}
@@ -1011,35 +937,28 @@ array
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.processing_surf_vars.get_olr}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.processing\_surf\_vars.}}\sphinxbfcode{\sphinxupquote{get\_olr}}}{\emph{\DUrole{n}{sur\_var}}, \emph{\DUrole{n}{pl\_var}}, \emph{\DUrole{n}{number}\DUrole{o}{=}\DUrole{default_value}{True}}, \emph{\DUrole{n}{fore\_step}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
-\sphinxAtStartPar
 Calculate outgoing longwave radiation (OLR) {[}W/m2{]} at TOA from the parameter, top net thermal radiation (ttr)
 {[}J/m2{]}. OLR is calculated in 5D or 4D depending on the existance of ensemble members.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{sur\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing surface parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{pl\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} Dataset containing pressure level parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{number}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Determines whether the weather data contains ensemble members or not.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{fore\_step}} \textendash{} Forecast step in hours.
 
 \end{itemize}
 
 \item[{Returns arr}] \leavevmode
-\sphinxAtStartPar
 OLR.
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -1050,35 +969,28 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.processing_surf_vars.get_olr_4d}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.processing\_surf\_vars.}}\sphinxbfcode{\sphinxupquote{get\_olr\_4d}}}{\emph{\DUrole{n}{sur\_var}}, \emph{\DUrole{n}{pl\_var}}, \emph{\DUrole{n}{thr}}, \emph{\DUrole{n}{fore\_step}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
-\sphinxAtStartPar
 Calculate outgoing longwave radiation (OLR) {[}W/m2{]} at TOA from the parameter, top net thermal radiation (ttr)
 {[}J/m2{]}. OLR is calculated in 4D (i.e, time, level, latitude, longitude).
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{sur\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing surface parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{pl\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} Dataset containing pressure level parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{thr}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) \textendash{} Thresholds to automatically determine forecast steps.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{fore\_step}} \textendash{} Forecast step in hours.
 
 \end{itemize}
 
 \item[{Returns arr}] \leavevmode
-\sphinxAtStartPar
 OLR with 4D dimensiones (i.e., time, level, latitude, longitude).
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -1089,35 +1001,28 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.processing_surf_vars.get_olr_5d}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.processing\_surf\_vars.}}\sphinxbfcode{\sphinxupquote{get\_olr\_5d}}}{\emph{\DUrole{n}{sur\_var}}, \emph{\DUrole{n}{pl\_var}}, \emph{\DUrole{n}{thr}}, \emph{\DUrole{n}{fore\_step}\DUrole{o}{=}\DUrole{default_value}{None}}}{}
-\sphinxAtStartPar
 Calculate outgoing longwave radiation (OLR) {[}W/m2{]} at TOA from the parameter, top net thermal radiation (ttr)
 {[}J/m2{]}. OLR is calculated in 5D (i.e, time, number, level, latitude, longitude).
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{sur\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset containing surface parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{pl\_var}} (\sphinxstyleliteralemphasis{\sphinxupquote{int}}) \textendash{} Dataset containing pressure level parameters openned with xarray.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{thr}} (\sphinxstyleliteralemphasis{\sphinxupquote{dict}}) \textendash{} Thresholds to automatically determine forecast steps.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{fore\_step}} \textendash{} Forecast step in hours.
 
 \end{itemize}
 
 \item[{Returns arr}] \leavevmode
-\sphinxAtStartPar
 OLR with 5D dimensiones (i.e., time, number, level, latitude, longitude).
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 numpy.ndarray
 
 \end{description}\end{quote}
@@ -1131,7 +1036,6 @@ numpy.ndarray
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.weather_store.GeoArrayHandler}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{envlib.weather\_store.}}\sphinxbfcode{\sphinxupquote{GeoArrayHandler}}}
-\sphinxAtStartPar
 Bases: \sphinxcode{\sphinxupquote{object}}
 \index{axes (envlib.weather\_store.GeoArrayHandler attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.GeoArrayHandler attribute}}
 
@@ -1173,7 +1077,6 @@ Bases: \sphinxcode{\sphinxupquote{object}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.weather_store.GeoArrayHandler.down2}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{down2}}}{\emph{\DUrole{n}{array}}}{}
-\sphinxAtStartPar
 Decimates a 2D array by a factor of two after applying a triangular filter
 
 \end{fulllineitems}
@@ -1203,30 +1106,25 @@ Decimates a 2D array by a factor of two after applying a triangular filter
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.weather_store.WeatherStore}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{envlib.weather\_store.}}\sphinxbfcode{\sphinxupquote{WeatherStore}}}{\emph{\DUrole{n}{weather\_data}}, \emph{\DUrole{n}{weather\_data\_sur}\DUrole{o}{=}\DUrole{default_value}{None}}, \emph{\DUrole{n}{flipud}\DUrole{o}{=}\DUrole{default_value}{\textquotesingle{}auto\textquotesingle{}}}, \emph{\DUrole{o}{**}\DUrole{n}{weather\_config}}}{}
-\sphinxAtStartPar
 Bases: {\hyperref[\detokenize{envlib:envlib.weather_store.WeatherStore_}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{envlib.weather\_store.WeatherStore\_}}}}}
 
-\sphinxAtStartPar
 Processing weather data
 \index{axes (envlib.weather\_store.WeatherStore attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.WeatherStore attribute}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{envlib:envlib.weather_store.WeatherStore.axes}}\pysigline{\sphinxbfcode{\sphinxupquote{axes}}\sphinxbfcode{\sphinxupquote{: dict}}}
+\phantomsection\label{\detokenize{envlib:envlib.weather_store.WeatherStore.axes}}\pysigline{\sphinxbfcode{\sphinxupquote{axes}}}
 \end{fulllineitems}
 
 \index{get\_xarray() (envlib.weather\_store.WeatherStore method)@\spxentry{get\_xarray()}\spxextra{envlib.weather\_store.WeatherStore method}}
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.weather_store.WeatherStore.get_xarray}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{get\_xarray}}}{}{}
-\sphinxAtStartPar
 Build xarray dataset.
 \begin{quote}\begin{description}
 \item[{Returns ds}] \leavevmode
-\sphinxAtStartPar
 xarray dataset containing user\sphinxhyphen{}difned variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 dataset
 
 \end{description}\end{quote}
@@ -1237,15 +1135,12 @@ dataset
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.weather_store.WeatherStore.reduce_domain}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{reduce\_domain}}}{\emph{\DUrole{n}{bounds}}, \emph{\DUrole{n}{verbose}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
-\sphinxAtStartPar
 Reduces horizontal domain and time .
 \begin{quote}\begin{description}
 \item[{Returns bounds}] \leavevmode
-\sphinxAtStartPar
 ranges defined as tuple (e.g., lat\_bound=(35, 60.0)).
 
 \item[{Return type}] \leavevmode
-\sphinxAtStartPar
 dict
 
 \end{description}\end{quote}
@@ -1259,12 +1154,11 @@ dict
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.weather_store.WeatherStore_}}\pysigline{\sphinxbfcode{\sphinxupquote{class }}\sphinxcode{\sphinxupquote{envlib.weather\_store.}}\sphinxbfcode{\sphinxupquote{WeatherStore\_}}}
-\sphinxAtStartPar
 Bases: {\hyperref[\detokenize{envlib:envlib.weather_store.GeoArrayHandler}]{\sphinxcrossref{\sphinxcode{\sphinxupquote{envlib.weather\_store.GeoArrayHandler}}}}}
 \index{axes (envlib.weather\_store.WeatherStore\_ attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.WeatherStore\_ attribute}}
 
 \begin{fulllineitems}
-\phantomsection\label{\detokenize{envlib:envlib.weather_store.WeatherStore_.axes}}\pysigline{\sphinxbfcode{\sphinxupquote{axes}}\sphinxbfcode{\sphinxupquote{: dict}}}
+\phantomsection\label{\detokenize{envlib:envlib.weather_store.WeatherStore_.axes}}\pysigline{\sphinxbfcode{\sphinxupquote{axes}}}
 \end{fulllineitems}
 
 
@@ -1274,31 +1168,25 @@ Bases: {\hyperref[\detokenize{envlib:envlib.weather_store.GeoArrayHandler}]{\sph
 
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{envlib:envlib.weather_store.get_bound_indexes}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.weather\_store.}}\sphinxbfcode{\sphinxupquote{get\_bound\_indexes}}}{\emph{\DUrole{n}{arr}}, \emph{\DUrole{n}{bounds}}, \emph{\DUrole{n}{verbose}\DUrole{o}{=}\DUrole{default_value}{False}}}{}
-\sphinxAtStartPar
 Determine indices of a given array (e.g., latitude and longitude) needed for cutting geographical areas with respect to the user\sphinxhyphen{}difined bounds.
 \begin{quote}\begin{description}
 \item[{Parameters}] \leavevmode\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{arr}} (\sphinxstyleliteralemphasis{\sphinxupquote{numpy.ndarray}}) \textendash{} a given array (e.g., latitude and longitude).
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{bounds}} (\sphinxstyleliteralemphasis{\sphinxupquote{tuple}}) \textendash{} user\sphinxhyphen{}defined bounds.
 
 \item {} 
-\sphinxAtStartPar
 \sphinxstyleliteralstrong{\sphinxupquote{verbose}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Show determined indices.
 
 \end{itemize}
 
 \item[{Returns slice(low, high)}] \leavevmode
-\sphinxAtStartPar
 return the determined low and high indices of the given array that includes the
 
 \end{description}\end{quote}
 
-\sphinxAtStartPar
 defined bounds.
 :rtype: slice
 
@@ -1333,15 +1221,12 @@ defined bounds.
 \chapter{Indices and tables}
 \label{\detokenize{index:indices-and-tables}}\begin{itemize}
 \item {} 
-\sphinxAtStartPar
 \DUrole{xref,std,std-ref}{genindex}
 
 \item {} 
-\sphinxAtStartPar
 \DUrole{xref,std,std-ref}{modindex}
 
 \item {} 
-\sphinxAtStartPar
 \DUrole{xref,std,std-ref}{search}
 
 \end{itemize}
@@ -1351,7 +1236,6 @@ defined bounds.
 \label{\detokenize{index:acknowledmgements}}
 \noindent{\hspace*{\fill}\sphinxincludegraphics[width=100\sphinxpxdimen]{{Alarm_LOGO}.png}\hspace*{\fill}}
 
-\sphinxAtStartPar
 \sphinxstyleemphasis{This library has been developed within FMP\sphinxhyphen{}Met Project. ALARM has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union}.
 \begin{quote}
 
@@ -1361,10 +1245,8 @@ defined bounds.
 \begin{tabulary}{\linewidth}[t]{|T|T|}
 \hline
 
-\sphinxAtStartPar
 \sphinxincludegraphics[width=50\sphinxpxdimen]{{european-union_flag_yellow_high}.jpg}
 &
-\sphinxAtStartPar
 \sphinxincludegraphics[width=50\sphinxpxdimen]{{sesar}.png}
 \\
 \hline

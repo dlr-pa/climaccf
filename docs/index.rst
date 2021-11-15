@@ -11,13 +11,23 @@ What is EnVLiB?
 ENVLIB is a libray that calculates algorithmic climate change functions (aCCFs).
 It is distributed under the GNU Lesser General Public License v3.0.
 
-**Citation info**: A. Simorgh, M. Soler, D. Daniel González-Arribas, Environmental library (EnVLiB), an open source toolbox developed to calculate algorithmic climate change functions (aCCF), quantifying climate impacts of aviation.
+**Citation info**: A. Simorgh, M. Soler, D. Daniel González-Arribas, Environmental library (EnVLiB), an open source toolbox developed to calculate algorithmic climate change functions (aCCF), which quantifies climate impacts of aviation.
 
 How to run the library
 ----------------------
+0. it is highly recomended to create a virtual environment with Python version 3.8:
 
+::
+
+    conda create -n name_env python=3.8
+    conda activate name_env
 1. Clone or download the repository.
-2. Install all the dependencies.
+
+2. Locate yourself in the envlib (library folder) path, and run the following line, using terminal (MacOS) or cmd (Windows), which will install all dependencies:
+
+::
+
+    python setup.py install
 
 
 How to use it
@@ -42,19 +52,20 @@ How to use it
 
 
 4. Set the preferred configurations in a dictionary:
-    efficay: True, False
-    emission_scenario: 'sustained', 'future_scenario', pulse
-    climate_indicator: ATR, GWP
-    TimeHorizon: 20, 50, 100
-    PMO: True, False
-    merged: True, False
-    NOx: True, False
-    Chotspots: True, False
-    hotspots_thr: constant, varying
-    binary: True, False
-    variables: True, False
-    mean: True, False
-    std: True, False
+    Set the preferred configurations in a dictionary. Settings are -->
+    efficay: True, False //
+    emission_scenario: sustained, future_scenario, pulse //
+    climate_indicator: ATR, GWP //
+    TimeHorizon: 20, 50, 100 //
+    PMO: True, False //
+    merged: True, False //
+    NOx: True, False //
+    Chotspots: True, False //
+    hotspots_thr: constant, varying //
+    binary: True, False //
+    variables: True, False //
+    mean: True, False //
+    std: True, False //
     
 ::
 
@@ -75,7 +86,28 @@ How to use it
 
     CI.calculate_accfs(**confg)
 
+An example
+----------
 
+0. Here is an example how one can use sample data in test directory of envlib to generate output for a set of user-difned configurations:
+
+::
+
+     import envlib
+     from envlib import main_processing
+
+     path_here = 'envlib/'
+     test_path = path_here + '/test/sample_data/'
+     path_ = {'path_pl': test_path + 'sample_pl.nc', 'path_sur': test_path + 'sample_sur.nc'}
+     path_save = test_path + 'env_processed.nc'
+     confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20,
+                  'PMO': False,
+                  'merged': True, 'NOx': True, 'Chotspots': True, 'binary': True,
+                  'hotspots_thr': 1e-13, 'variables': False, 'mean': False, 'std': False}
+
+     CI = main_processing.ClimateImpact(path_, horizontal_resolution=0.75, lat_bound=(35, 60.0), lon_bound=(-15, 35),
+                                               save_path=path_save)
+     CI.calculate_accfs(**confg)
 
 How to compile documentation pdf?
 ---------------------------------

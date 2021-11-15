@@ -4,15 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>envlib package &#8212; envlib V0.0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="setup module" href="setup.html" />
@@ -33,21 +33,21 @@
 
           <div class="body" role="main">
             
-  <section id="envlib-package">
+  <div class="section" id="envlib-package">
 <h1>envlib package<a class="headerlink" href="#envlib-package" title="Permalink to this headline">¶</a></h1>
-<section id="submodules">
+<div class="section" id="submodules">
 <h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-envlib.accf">
+</div>
+<div class="section" id="module-envlib.accf">
 <span id="envlib-accf-module"></span><h2>envlib.accf module<a class="headerlink" href="#module-envlib.accf" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">envlib.accf.</span></span><span class="sig-name descname"><span class="pre">CalAccf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">wd_inf</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf">
+<em class="property">class </em><code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">CalAccf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wd_inf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Calculation of algorithmic climate change functions (aCCFs).</p>
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf.accf_ch4">
-<span class="sig-name descname"><span class="pre">accf_ch4</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_ch4"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_ch4" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf.accf_ch4">
+<code class="sig-name descname">accf_ch4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_ch4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_ch4" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of Methane for pulse emission scenario, average temperature response as climate
 indicator and 20 years (P-ATR20-methane [K/kg(NO2)]). To calculate the aCCF of Methane, meteorological
 variables geopotential and incoming solar radiation are required.</p>
@@ -62,8 +62,8 @@ variables geopotential and incoming solar radiation are required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf.accf_dcontrail">
-<span class="sig-name descname"><span class="pre">accf_dcontrail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_dcontrail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_dcontrail" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf.accf_dcontrail">
+<code class="sig-name descname">accf_dcontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_dcontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_dcontrail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of day-time contrails for pulse emission scenario, average temperature response as
 climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
 meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
@@ -80,8 +80,8 @@ contrial formation areas.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf.accf_h2o">
-<span class="sig-name descname"><span class="pre">accf_h2o</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_h2o"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_h2o" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf.accf_h2o">
+<code class="sig-name descname">accf_h2o</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_h2o"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_h2o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of water vapour for pulse emission scenario, average temperature response as
 climate indicator and 20 years (P-ATR20-water-vapour [K/kg(fuel)]). To calculate the aCCF of water vapour,
 meteorological variable potential vorticity is required.</p>
@@ -96,8 +96,8 @@ meteorological variable potential vorticity is required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf.accf_ncontrail">
-<span class="sig-name descname"><span class="pre">accf_ncontrail</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_ncontrail"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_ncontrail" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf.accf_ncontrail">
+<code class="sig-name descname">accf_ncontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_ncontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_ncontrail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of night-time contrails for pulse emission scenario, average temperature response as
 climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,
 meteorological variables temperature and relative humidities over ice and water are required. Notice that,
@@ -113,8 +113,8 @@ relative humidies are required for the detemiation of presistent contrial format
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf.accf_o3">
-<span class="sig-name descname"><span class="pre">accf_o3</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_o3"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_o3" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf.accf_o3">
+<code class="sig-name descname">accf_o3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_o3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_o3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of Ozone for pulse emission scenario, average temperature response as climate
 indicator and 20 years (P-ATR20-ozone [K/kg(NO2)]). To calculate the aCCF of Ozone, meteorological variables
 temperature and geopotential are required.</p>
@@ -129,14 +129,14 @@ temperature and geopotential are required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf.get_accfs">
-<span class="sig-name descname"><span class="pre">get_accfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">problem_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_accfs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_accfs" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf.get_accfs">
+<code class="sig-name descname">get_accfs</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">problem_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_accfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_accfs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Gets the formulations of aCCFs, and calculated user-defined conversions or functions.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf.get_std">
-<span class="sig-name descname"><span class="pre">get_std</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">normalize</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_std"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_std" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf.get_std">
+<code class="sig-name descname">get_std</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_std" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates standard deviation of a variable over ensemble members.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -156,8 +156,8 @@ temperature and geopotential are required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.accf.CalAccf.get_xarray">
-<span class="sig-name descname"><span class="pre">get_xarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_xarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_xarray" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.CalAccf.get_xarray">
+<code class="sig-name descname">get_xarray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_xarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_xarray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build xarray dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns ds</dt>
@@ -174,31 +174,31 @@ temperature and geopotential are required.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.accf.convert_accf">
-<span class="sig-prename descclassname"><span class="pre">envlib.accf.</span></span><span class="sig-name descname"><span class="pre">convert_accf</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">value</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">confg</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#convert_accf"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.convert_accf" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.convert_accf">
+<code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">convert_accf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">confg</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#convert_accf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.convert_accf" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.accf.get_Fin">
-<span class="sig-prename descclassname"><span class="pre">envlib.accf.</span></span><span class="sig-name descname"><span class="pre">get_Fin</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">lat</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#get_Fin"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.get_Fin" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.get_Fin">
+<code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">get_Fin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">lat</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#get_Fin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.get_Fin" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.accf.get_encoding_dict">
-<span class="sig-prename descclassname"><span class="pre">envlib.accf.</span></span><span class="sig-name descname"><span class="pre">get_encoding_dict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">list_name</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">encoding</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#get_encoding_dict"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.get_encoding_dict" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.get_encoding_dict">
+<code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">get_encoding_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">list_name</span></em>, <em class="sig-param"><span class="n">encoding</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#get_encoding_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.get_encoding_dict" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.accf.get_latlon">
-<span class="sig-prename descclassname"><span class="pre">envlib.accf.</span></span><span class="sig-name descname"><span class="pre">get_latlon</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member_bool</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#get_latlon"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.accf.get_latlon" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.get_latlon">
+<code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">get_latlon</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member_bool</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#get_latlon"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.get_latlon" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</section>
-<section id="module-envlib.calc_altrv_vars">
+</div>
+<div class="section" id="module-envlib.calc_altrv_vars">
 <span id="envlib-calc-altrv-vars-module"></span><h2>envlib.calc_altrv_vars module<a class="headerlink" href="#module-envlib.calc_altrv_vars" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.calc_altrv_vars.get_pvu">
-<span class="sig-prename descclassname"><span class="pre">envlib.calc_altrv_vars.</span></span><span class="sig-name descname"><span class="pre">get_pvu</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_pvu"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_pvu" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.calc_altrv_vars.get_pvu">
+<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_pvu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_pvu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_pvu" title="Permalink to this definition">¶</a></dt>
 <dd><p>Caclulates potential vorticity from meteorological variables temperature and components of winds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -214,13 +214,13 @@ temperature and geopotential are required.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.calc_altrv_vars.get_r">
-<span class="sig-prename descclassname"><span class="pre">envlib.calc_altrv_vars.</span></span><span class="sig-name descname"><span class="pre">get_r</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_r"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_r" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.calc_altrv_vars.get_r">
+<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_r</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_r"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_r" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.calc_altrv_vars.get_rh_ice">
-<span class="sig-prename descclassname"><span class="pre">envlib.calc_altrv_vars.</span></span><span class="sig-name descname"><span class="pre">get_rh_ice</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_ice"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_ice" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.calc_altrv_vars.get_rh_ice">
+<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_ice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_ice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_ice" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the relative humidity over ice from realtive humidity over water</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -236,8 +236,8 @@ temperature and geopotential are required.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.calc_altrv_vars.get_rh_sd">
-<span class="sig-prename descclassname"><span class="pre">envlib.calc_altrv_vars.</span></span><span class="sig-name descname"><span class="pre">get_rh_sd</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_sd"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_sd" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.calc_altrv_vars.get_rh_sd">
+<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_sd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_sd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_sd" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the relative humidity from specific humidity</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -253,8 +253,8 @@ temperature and geopotential are required.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.calc_altrv_vars.get_rh_wa">
-<span class="sig-prename descclassname"><span class="pre">envlib.calc_altrv_vars.</span></span><span class="sig-name descname"><span class="pre">get_rh_wa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_wa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_wa" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.calc_altrv_vars.get_rh_wa">
+<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_wa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_wa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_wa" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the relative humidity over water from specific humidity</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -269,12 +269,12 @@ temperature and geopotential are required.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-envlib.contrail">
+</div>
+<div class="section" id="module-envlib.contrail">
 <span id="envlib-contrail-module"></span><h2>envlib.contrail module<a class="headerlink" href="#module-envlib.contrail" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.contrail.get_cont_form_thr">
-<span class="sig-prename descclassname"><span class="pre">envlib.contrail.</span></span><span class="sig-name descname"><span class="pre">get_cont_form_thr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_cont_form_thr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.contrail.get_cont_form_thr" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.contrail.get_cont_form_thr">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_cont_form_thr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_cont_form_thr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_cont_form_thr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the thresholds of temperature and relative humidity over water needed for determining the
 formation criteria of contrails.</p>
 <blockquote>
@@ -308,8 +308,8 @@ formation criteria of contrails.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.contrail.get_pcfa">
-<span class="sig-prename descclassname"><span class="pre">envlib.contrail.</span></span><span class="sig-name descname"><span class="pre">get_pcfa</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">problem_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_pcfa"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.contrail.get_pcfa" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.contrail.get_pcfa">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_pcfa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">problem_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_pcfa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_pcfa" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -328,8 +328,8 @@ formation criteria of contrails.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.contrail.get_relative_hum">
-<span class="sig-prename descclassname"><span class="pre">envlib.contrail.</span></span><span class="sig-name descname"><span class="pre">get_relative_hum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">intrp</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_relative_hum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.contrail.get_relative_hum" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.contrail.get_relative_hum">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_relative_hum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em>, <em class="sig-param"><span class="n">intrp</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_relative_hum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_relative_hum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
 dataset. In ECMWF data: Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
 respect to saturation over ice below -23C and with respect to saturation over water above 0C. In the regime in
@@ -365,8 +365,8 @@ between a quadratic interpolation is applied.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.contrail.get_rw_from_specific_hum">
-<span class="sig-prename descclassname"><span class="pre">envlib.contrail.</span></span><span class="sig-name descname"><span class="pre">get_rw_from_specific_hum</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">member</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_rw_from_specific_hum"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.contrail.get_rw_from_specific_hum" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.contrail.get_rw_from_specific_hum">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_rw_from_specific_hum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_rw_from_specific_hum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_rw_from_specific_hum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates of relative humidity over water from specific humidity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -385,22 +385,22 @@ between a quadratic interpolation is applied.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.contrail.potential_con_cir_cov">
-<span class="sig-prename descclassname"><span class="pre">envlib.contrail.</span></span><span class="sig-name descname"><span class="pre">potential_con_cir_cov</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_crit</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">r_ice</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#potential_con_cir_cov"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.contrail.potential_con_cir_cov" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.contrail.potential_con_cir_cov">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">potential_con_cir_cov</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">r_crit</span></em>, <em class="sig-param"><span class="n">r_ice</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#potential_con_cir_cov"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.potential_con_cir_cov" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
-</section>
-<section id="module-envlib.database">
+</div>
+<div class="section" id="module-envlib.database">
 <span id="envlib-database-module"></span><h2>envlib.database module<a class="headerlink" href="#module-envlib.database" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-envlib.emission_indices">
+</div>
+<div class="section" id="module-envlib.emission_indices">
 <span id="envlib-emission-indices-module"></span><h2>envlib.emission_indices module<a class="headerlink" href="#module-envlib.emission_indices" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-envlib.extend_dim">
+</div>
+<div class="section" id="module-envlib.extend_dim">
 <span id="envlib-extend-dim-module"></span><h2>envlib.extend_dim module<a class="headerlink" href="#module-envlib.extend_dim" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.extend_dim.extend_dimensions">
-<span class="sig-prename descclassname"><span class="pre">envlib.extend_dim.</span></span><span class="sig-name descname"><span class="pre">extend_dimensions</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inf_coord</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds_sur</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ex_variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extend_dim.html#extend_dimensions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.extend_dim.extend_dimensions" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.extend_dim.extend_dimensions">
+<code class="sig-prename descclassname">envlib.extend_dim.</code><code class="sig-name descname">extend_dimensions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inf_coord</span></em>, <em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">ds_sur</span></em>, <em class="sig-param"><span class="n">ex_variables</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extend_dim.html#extend_dimensions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.extend_dim.extend_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unifies the dimension of all types of given data as either 4-dimensional or 5-dimensional arrays, depending on
 the exsitance of ensemple members. e.g., for a data only has two fields, latitude and longitude, this function
 addds time and level fields.</p>
@@ -428,12 +428,12 @@ addds time and level fields.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-envlib.extract_data">
+</div>
+<div class="section" id="module-envlib.extract_data">
 <span id="envlib-extract-data-module"></span><h2>envlib.extract_data module<a class="headerlink" href="#module-envlib.extract_data" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.extract_data.extract_coordinates">
-<span class="sig-prename descclassname"><span class="pre">envlib.extract_data.</span></span><span class="sig-name descname"><span class="pre">extract_coordinates</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ex_variables</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds_sur</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extract_data.html#extract_coordinates"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.extract_data.extract_coordinates" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.extract_data.extract_coordinates">
+<code class="sig-prename descclassname">envlib.extract_data.</code><code class="sig-name descname">extract_coordinates</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">ex_variables</span></em>, <em class="sig-param"><span class="n">ds_sur</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extract_data.html#extract_coordinates"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.extract_data.extract_coordinates" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract coordinates (axes) in the dataset defined with different possible names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -458,8 +458,8 @@ addds time and level fields.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.extract_data.extract_data_variables">
-<span class="sig-prename descclassname"><span class="pre">envlib.extract_data.</span></span><span class="sig-name descname"><span class="pre">extract_data_variables</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">ds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">ds_sr</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extract_data.html#extract_data_variables"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.extract_data.extract_data_variables" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.extract_data.extract_data_variables">
+<code class="sig-prename descclassname">envlib.extract_data.</code><code class="sig-name descname">extract_data_variables</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">ds_sr</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extract_data.html#extract_data_variables"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.extract_data.extract_data_variables" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extract available required variables in the dataset defined with different possible names.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -485,8 +485,8 @@ addds time and level fields.</p>
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.extract_data.logic_cal_accfs">
-<span class="sig-prename descclassname"><span class="pre">envlib.extract_data.</span></span><span class="sig-name descname"><span class="pre">logic_cal_accfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">variables</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extract_data.html#logic_cal_accfs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.extract_data.logic_cal_accfs" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.extract_data.logic_cal_accfs">
+<code class="sig-prename descclassname">envlib.extract_data.</code><code class="sig-name descname">logic_cal_accfs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variables</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extract_data.html#logic_cal_accfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.extract_data.logic_cal_accfs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build a dictionary containing logical valules correspond to the possibility to calculate of aCCF.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -501,39 +501,39 @@ addds time and level fields.</p>
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-envlib.io">
+</div>
+<div class="section" id="module-envlib.io">
 <span id="envlib-io-module"></span><h2>envlib.io module<a class="headerlink" href="#module-envlib.io" title="Permalink to this headline">¶</a></h2>
-</section>
-<section id="module-envlib.main_processing">
+</div>
+<div class="section" id="module-envlib.main_processing">
 <span id="envlib-main-processing-module"></span><h2>envlib.main_processing module<a class="headerlink" href="#module-envlib.main_processing" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="envlib.main_processing.ClimateImpact">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">envlib.main_processing.</span></span><span class="sig-name descname"><span class="pre">ClimateImpact</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">problem_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/main_processing.html#ClimateImpact"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.main_processing.ClimateImpact" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.main_processing.ClimateImpact">
+<em class="property">class </em><code class="sig-prename descclassname">envlib.main_processing.</code><code class="sig-name descname">ClimateImpact</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">problem_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/main_processing.html#ClimateImpact"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.main_processing.ClimateImpact" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.main_processing.ClimateImpact.auto_plotting">
-<span class="sig-name descname"><span class="pre">auto_plotting</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/main_processing.html#ClimateImpact.auto_plotting"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.main_processing.ClimateImpact.auto_plotting" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.main_processing.ClimateImpact.auto_plotting">
+<code class="sig-name descname">auto_plotting</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/main_processing.html#ClimateImpact.auto_plotting"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.main_processing.ClimateImpact.auto_plotting" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.main_processing.ClimateImpact.calculate_accfs">
-<span class="sig-name descname"><span class="pre">calculate_accfs</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">seetings</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/main_processing.html#ClimateImpact.calculate_accfs"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.main_processing.ClimateImpact.calculate_accfs" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.main_processing.ClimateImpact.calculate_accfs">
+<code class="sig-name descname">calculate_accfs</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">seetings</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/main_processing.html#ClimateImpact.calculate_accfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.main_processing.ClimateImpact.calculate_accfs" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.main_processing.ClimateImpact.generate_output">
-<span class="sig-name descname"><span class="pre">generate_output</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/main_processing.html#ClimateImpact.generate_output"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.main_processing.ClimateImpact.generate_output" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.main_processing.ClimateImpact.generate_output">
+<code class="sig-name descname">generate_output</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/main_processing.html#ClimateImpact.generate_output"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.main_processing.ClimateImpact.generate_output" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
-</section>
-<section id="module-envlib.processing_surf_vars">
+</div>
+<div class="section" id="module-envlib.processing_surf_vars">
 <span id="envlib-processing-surf-vars-module"></span><h2>envlib.processing_surf_vars module<a class="headerlink" href="#module-envlib.processing_surf_vars" title="Permalink to this headline">¶</a></h2>
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.processing_surf_vars.extend_olr_pl_4d">
-<span class="sig-prename descclassname"><span class="pre">envlib.processing_surf_vars.</span></span><span class="sig-name descname"><span class="pre">extend_olr_pl_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sur_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pl_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fore_step</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#extend_olr_pl_4d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.processing_surf_vars.extend_olr_pl_4d" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.processing_surf_vars.extend_olr_pl_4d">
+<code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">extend_olr_pl_4d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em>, <em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">fore_step</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#extend_olr_pl_4d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.extend_olr_pl_4d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
 [J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
 regarding inputted index, OLR is calculated in 3D (i.e, level, latitude, longitude).</p>
@@ -556,8 +556,8 @@ regarding inputted index, OLR is calculated in 3D (i.e, level, latitude, longitu
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.processing_surf_vars.extend_olr_pl_5d">
-<span class="sig-prename descclassname"><span class="pre">envlib.processing_surf_vars.</span></span><span class="sig-name descname"><span class="pre">extend_olr_pl_5d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sur_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pl_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">index</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fore_step</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#extend_olr_pl_5d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.processing_surf_vars.extend_olr_pl_5d" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.processing_surf_vars.extend_olr_pl_5d">
+<code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">extend_olr_pl_5d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em>, <em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">fore_step</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#extend_olr_pl_5d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.extend_olr_pl_5d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
 [J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
 regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude, longitude).</p>
@@ -580,8 +580,8 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.processing_surf_vars.get_olr">
-<span class="sig-prename descclassname"><span class="pre">envlib.processing_surf_vars.</span></span><span class="sig-name descname"><span class="pre">get_olr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sur_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pl_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">number</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">True</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fore_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#get_olr"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.processing_surf_vars.get_olr" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.processing_surf_vars.get_olr">
+<code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">get_olr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em>, <em class="sig-param"><span class="n">number</span><span class="o">=</span><span class="default_value">True</span></em>, <em class="sig-param"><span class="n">fore_step</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#get_olr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.get_olr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
 [J/m2]. OLR is calculated in 5D or 4D depending on the existance of ensemble members.</p>
 <dl class="field-list simple">
@@ -603,8 +603,8 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.processing_surf_vars.get_olr_4d">
-<span class="sig-prename descclassname"><span class="pre">envlib.processing_surf_vars.</span></span><span class="sig-name descname"><span class="pre">get_olr_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sur_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pl_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fore_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#get_olr_4d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.processing_surf_vars.get_olr_4d" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.processing_surf_vars.get_olr_4d">
+<code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">get_olr_4d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em>, <em class="sig-param"><span class="n">thr</span></em>, <em class="sig-param"><span class="n">fore_step</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#get_olr_4d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.get_olr_4d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
 [J/m2]. OLR is calculated in 4D (i.e, time, level, latitude, longitude).</p>
 <dl class="field-list simple">
@@ -626,8 +626,8 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.processing_surf_vars.get_olr_5d">
-<span class="sig-prename descclassname"><span class="pre">envlib.processing_surf_vars.</span></span><span class="sig-name descname"><span class="pre">get_olr_5d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">sur_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">pl_var</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">thr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">fore_step</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#get_olr_5d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.processing_surf_vars.get_olr_5d" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.processing_surf_vars.get_olr_5d">
+<code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">get_olr_5d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em>, <em class="sig-param"><span class="n">thr</span></em>, <em class="sig-param"><span class="n">fore_step</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#get_olr_5d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.get_olr_5d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
 [J/m2]. OLR is calculated in 5D (i.e, time, number, level, latitude, longitude).</p>
 <dl class="field-list simple">
@@ -648,79 +648,79 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 </dl>
 </dd></dl>
 
-</section>
-<section id="module-envlib.weather_store">
+</div>
+<div class="section" id="module-envlib.weather_store">
 <span id="envlib-weather-store-module"></span><h2>envlib.weather_store module<a class="headerlink" href="#module-envlib.weather_store" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">envlib.weather_store.</span></span><span class="sig-name descname"><span class="pre">GeoArrayHandler</span></span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler">
+<em class="property">class </em><code class="sig-prename descclassname">envlib.weather_store.</code><code class="sig-name descname">GeoArrayHandler</code><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.axes">
-<span class="sig-name descname"><span class="pre">axes</span></span><em class="property"><span class="pre">:</span> <span class="pre">dict</span></em><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.axes" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.axes">
+<code class="sig-name descname">axes</code><em class="property">: dict</em><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.axes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.bitriangular_filter">
-<span class="sig-name descname"><span class="pre">bitriangular_filter</span></span><em class="property"> <span class="pre">=</span> <span class="pre">array([[0.0625,</span> <span class="pre">0.125</span> <span class="pre">,</span> <span class="pre">0.0625],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[0.125</span> <span class="pre">,</span> <span class="pre">0.25</span>&#160; <span class="pre">,</span> <span class="pre">0.125</span> <span class="pre">],</span>&#160;&#160;&#160;&#160;&#160;&#160;&#160; <span class="pre">[0.0625,</span> <span class="pre">0.125</span> <span class="pre">,</span> <span class="pre">0.0625]])</span></em><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.bitriangular_filter" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.bitriangular_filter">
+<code class="sig-name descname">bitriangular_filter</code><em class="property"> = array([[0.0625, 0.125 , 0.0625],        [0.125 , 0.25  , 0.125 ],        [0.0625, 0.125 , 0.0625]])</em><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.bitriangular_filter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.decimate">
-<span class="sig-name descname"><span class="pre">decimate</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.decimate"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.decimate" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.decimate">
+<code class="sig-name descname">decimate</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.decimate"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.decimate" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.decimate_3d">
-<span class="sig-name descname"><span class="pre">decimate_3d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.decimate_3d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.decimate_3d" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.decimate_3d">
+<code class="sig-name descname">decimate_3d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.decimate_3d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.decimate_3d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.decimate_4d">
-<span class="sig-name descname"><span class="pre">decimate_4d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.decimate_4d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.decimate_4d" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.decimate_4d">
+<code class="sig-name descname">decimate_4d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.decimate_4d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.decimate_4d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.decimate_5d">
-<span class="sig-name descname"><span class="pre">decimate_5d</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.decimate_5d"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.decimate_5d" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.decimate_5d">
+<code class="sig-name descname">decimate_5d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.decimate_5d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.decimate_5d" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.down2">
-<span class="sig-name descname"><span class="pre">down2</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.down2"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.down2" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.down2">
+<code class="sig-name descname">down2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.down2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.down2" title="Permalink to this definition">¶</a></dt>
 <dd><p>Decimates a 2D array by a factor of two after applying a triangular filter</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.down2_coord">
-<em class="property"><span class="pre">classmethod</span> </em><span class="sig-name descname"><span class="pre">down2_coord</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.down2_coord"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.down2_coord" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.down2_coord">
+<em class="property">classmethod </em><code class="sig-name descname">down2_coord</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">array</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.down2_coord"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.down2_coord" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.get_coords">
-<span class="sig-name descname"><span class="pre">get_coords</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.get_coords"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.get_coords" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.get_coords">
+<code class="sig-name descname">get_coords</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#GeoArrayHandler.get_coords"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.get_coords" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py attribute">
-<dt class="sig sig-object py" id="envlib.weather_store.GeoArrayHandler.triangular_filter">
-<span class="sig-name descname"><span class="pre">triangular_filter</span></span><em class="property"> <span class="pre">=</span> <span class="pre">array([0.25,</span> <span class="pre">0.5</span> <span class="pre">,</span> <span class="pre">0.25])</span></em><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.triangular_filter" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.GeoArrayHandler.triangular_filter">
+<code class="sig-name descname">triangular_filter</code><em class="property"> = array([0.25, 0.5 , 0.25])</em><a class="headerlink" href="#envlib.weather_store.GeoArrayHandler.triangular_filter" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="envlib.weather_store.WeatherStore">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">envlib.weather_store.</span></span><span class="sig-name descname"><span class="pre">WeatherStore</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">weather_data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">weather_data_sur</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">flipud</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">'auto'</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">weather_config</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.WeatherStore">
+<em class="property">class </em><code class="sig-prename descclassname">envlib.weather_store.</code><code class="sig-name descname">WeatherStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weather_data</span></em>, <em class="sig-param"><span class="n">weather_data_sur</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flipud</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">weather_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#envlib.weather_store.WeatherStore_" title="envlib.weather_store.WeatherStore_"><code class="xref py py-class docutils literal notranslate"><span class="pre">envlib.weather_store.WeatherStore_</span></code></a></p>
 <p>Processing weather data</p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="envlib.weather_store.WeatherStore.axes">
-<span class="sig-name descname"><span class="pre">axes</span></span><em class="property"><span class="pre">:</span> <span class="pre">dict</span></em><a class="headerlink" href="#envlib.weather_store.WeatherStore.axes" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.WeatherStore.axes">
+<code class="sig-name descname">axes</code><a class="headerlink" href="#envlib.weather_store.WeatherStore.axes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.WeatherStore.get_xarray">
-<span class="sig-name descname"><span class="pre">get_xarray</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore.get_xarray"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore.get_xarray" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.WeatherStore.get_xarray">
+<code class="sig-name descname">get_xarray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore.get_xarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore.get_xarray" title="Permalink to this definition">¶</a></dt>
 <dd><p>Build xarray dataset.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns ds</dt>
@@ -733,8 +733,8 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="envlib.weather_store.WeatherStore.reduce_domain">
-<span class="sig-name descname"><span class="pre">reduce_domain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore.reduce_domain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore.reduce_domain" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.WeatherStore.reduce_domain">
+<code class="sig-name descname">reduce_domain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bounds</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore.reduce_domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore.reduce_domain" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reduces horizontal domain and time .</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns bounds</dt>
@@ -749,19 +749,19 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="envlib.weather_store.WeatherStore_">
-<em class="property"><span class="pre">class</span> </em><span class="sig-prename descclassname"><span class="pre">envlib.weather_store.</span></span><span class="sig-name descname"><span class="pre">WeatherStore_</span></span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore_"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore_" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.WeatherStore_">
+<em class="property">class </em><code class="sig-prename descclassname">envlib.weather_store.</code><code class="sig-name descname">WeatherStore_</code><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore_"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore_" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#envlib.weather_store.GeoArrayHandler" title="envlib.weather_store.GeoArrayHandler"><code class="xref py py-class docutils literal notranslate"><span class="pre">envlib.weather_store.GeoArrayHandler</span></code></a></p>
 <dl class="py attribute">
-<dt class="sig sig-object py" id="envlib.weather_store.WeatherStore_.axes">
-<span class="sig-name descname"><span class="pre">axes</span></span><em class="property"><span class="pre">:</span> <span class="pre">dict</span></em><a class="headerlink" href="#envlib.weather_store.WeatherStore_.axes" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.WeatherStore_.axes">
+<code class="sig-name descname">axes</code><a class="headerlink" href="#envlib.weather_store.WeatherStore_.axes" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
 
 </dd></dl>
 
 <dl class="py function">
-<dt class="sig sig-object py" id="envlib.weather_store.get_bound_indexes">
-<span class="sig-prename descclassname"><span class="pre">envlib.weather_store.</span></span><span class="sig-name descname"><span class="pre">get_bound_indexes</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arr</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">bounds</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">verbose</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#get_bound_indexes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#envlib.weather_store.get_bound_indexes" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.weather_store.get_bound_indexes">
+<code class="sig-prename descclassname">envlib.weather_store.</code><code class="sig-name descname">get_bound_indexes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em>, <em class="sig-param"><span class="n">bounds</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#get_bound_indexes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.get_bound_indexes" title="Permalink to this definition">¶</a></dt>
 <dd><p>Determine indices of a given array (e.g., latitude and longitude) needed for cutting geographical areas with respect to the user-difined bounds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
@@ -779,11 +779,11 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 :rtype: slice</p>
 </dd></dl>
 
-</section>
-<section id="module-envlib">
+</div>
+<div class="section" id="module-envlib">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-envlib" title="Permalink to this headline">¶</a></h2>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>
@@ -809,7 +809,7 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 
 
 <h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="reference internal" href="modules.html">envlib</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">envlib package</a></li>
@@ -834,7 +834,7 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -856,7 +856,7 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
       &copy;2021, Abolfazl Simorgh.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |

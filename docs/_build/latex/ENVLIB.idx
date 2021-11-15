@@ -1,83 +1,83 @@
-\indexentry{module@\spxentry{module}!envlib.accf@\spxentry{envlib.accf}|hyperpage}{9}
-\indexentry{envlib.accf@\spxentry{envlib.accf}!module@\spxentry{module}|hyperpage}{9}
-\indexentry{CalAccf (class in envlib.accf)@\spxentry{CalAccf}\spxextra{class in envlib.accf}|hyperpage}{9}
-\indexentry{accf\_ch4() (envlib.accf.CalAccf method)@\spxentry{accf\_ch4()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{9}
-\indexentry{accf\_dcontrail() (envlib.accf.CalAccf method)@\spxentry{accf\_dcontrail()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{9}
-\indexentry{accf\_h2o() (envlib.accf.CalAccf method)@\spxentry{accf\_h2o()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{9}
-\indexentry{accf\_ncontrail() (envlib.accf.CalAccf method)@\spxentry{accf\_ncontrail()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{10}
-\indexentry{accf\_o3() (envlib.accf.CalAccf method)@\spxentry{accf\_o3()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{10}
-\indexentry{get\_accfs() (envlib.accf.CalAccf method)@\spxentry{get\_accfs()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{10}
-\indexentry{get\_std() (envlib.accf.CalAccf method)@\spxentry{get\_std()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{10}
-\indexentry{get\_xarray() (envlib.accf.CalAccf method)@\spxentry{get\_xarray()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{10}
-\indexentry{convert\_accf() (in module envlib.accf)@\spxentry{convert\_accf()}\spxextra{in module envlib.accf}|hyperpage}{10}
-\indexentry{get\_Fin() (in module envlib.accf)@\spxentry{get\_Fin()}\spxextra{in module envlib.accf}|hyperpage}{10}
-\indexentry{get\_encoding\_dict() (in module envlib.accf)@\spxentry{get\_encoding\_dict()}\spxextra{in module envlib.accf}|hyperpage}{10}
-\indexentry{get\_latlon() (in module envlib.accf)@\spxentry{get\_latlon()}\spxextra{in module envlib.accf}|hyperpage}{10}
-\indexentry{module@\spxentry{module}!envlib.calc\_altrv\_vars@\spxentry{envlib.calc\_altrv\_vars}|hyperpage}{11}
-\indexentry{envlib.calc\_altrv\_vars@\spxentry{envlib.calc\_altrv\_vars}!module@\spxentry{module}|hyperpage}{11}
-\indexentry{get\_pvu() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_pvu()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{11}
-\indexentry{get\_r() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_r()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{11}
-\indexentry{get\_rh\_ice() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_ice()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{11}
-\indexentry{get\_rh\_sd() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_sd()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{11}
-\indexentry{get\_rh\_wa() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_wa()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{11}
-\indexentry{module@\spxentry{module}!envlib.contrail@\spxentry{envlib.contrail}|hyperpage}{11}
-\indexentry{envlib.contrail@\spxentry{envlib.contrail}!module@\spxentry{module}|hyperpage}{11}
-\indexentry{get\_cont\_form\_thr() (in module envlib.contrail)@\spxentry{get\_cont\_form\_thr()}\spxextra{in module envlib.contrail}|hyperpage}{11}
-\indexentry{get\_pcfa() (in module envlib.contrail)@\spxentry{get\_pcfa()}\spxextra{in module envlib.contrail}|hyperpage}{12}
-\indexentry{get\_relative\_hum() (in module envlib.contrail)@\spxentry{get\_relative\_hum()}\spxextra{in module envlib.contrail}|hyperpage}{12}
-\indexentry{get\_rw\_from\_specific\_hum() (in module envlib.contrail)@\spxentry{get\_rw\_from\_specific\_hum()}\spxextra{in module envlib.contrail}|hyperpage}{12}
-\indexentry{potential\_con\_cir\_cov() (in module envlib.contrail)@\spxentry{potential\_con\_cir\_cov()}\spxextra{in module envlib.contrail}|hyperpage}{12}
-\indexentry{module@\spxentry{module}!envlib.database@\spxentry{envlib.database}|hyperpage}{13}
-\indexentry{envlib.database@\spxentry{envlib.database}!module@\spxentry{module}|hyperpage}{13}
-\indexentry{module@\spxentry{module}!envlib.emission\_indices@\spxentry{envlib.emission\_indices}|hyperpage}{13}
-\indexentry{envlib.emission\_indices@\spxentry{envlib.emission\_indices}!module@\spxentry{module}|hyperpage}{13}
-\indexentry{module@\spxentry{module}!envlib.extend\_dim@\spxentry{envlib.extend\_dim}|hyperpage}{13}
-\indexentry{envlib.extend\_dim@\spxentry{envlib.extend\_dim}!module@\spxentry{module}|hyperpage}{13}
-\indexentry{extend\_dimensions() (in module envlib.extend\_dim)@\spxentry{extend\_dimensions()}\spxextra{in module envlib.extend\_dim}|hyperpage}{13}
-\indexentry{module@\spxentry{module}!envlib.extract\_data@\spxentry{envlib.extract\_data}|hyperpage}{13}
-\indexentry{envlib.extract\_data@\spxentry{envlib.extract\_data}!module@\spxentry{module}|hyperpage}{13}
-\indexentry{extract\_coordinates() (in module envlib.extract\_data)@\spxentry{extract\_coordinates()}\spxextra{in module envlib.extract\_data}|hyperpage}{13}
-\indexentry{extract\_data\_variables() (in module envlib.extract\_data)@\spxentry{extract\_data\_variables()}\spxextra{in module envlib.extract\_data}|hyperpage}{13}
-\indexentry{logic\_cal\_accfs() (in module envlib.extract\_data)@\spxentry{logic\_cal\_accfs()}\spxextra{in module envlib.extract\_data}|hyperpage}{14}
-\indexentry{module@\spxentry{module}!envlib.io@\spxentry{envlib.io}|hyperpage}{14}
-\indexentry{envlib.io@\spxentry{envlib.io}!module@\spxentry{module}|hyperpage}{14}
-\indexentry{module@\spxentry{module}!envlib.main\_processing@\spxentry{envlib.main\_processing}|hyperpage}{14}
-\indexentry{envlib.main\_processing@\spxentry{envlib.main\_processing}!module@\spxentry{module}|hyperpage}{14}
-\indexentry{ClimateImpact (class in envlib.main\_processing)@\spxentry{ClimateImpact}\spxextra{class in envlib.main\_processing}|hyperpage}{14}
-\indexentry{auto\_plotting() (envlib.main\_processing.ClimateImpact method)@\spxentry{auto\_plotting()}\spxextra{envlib.main\_processing.ClimateImpact method}|hyperpage}{14}
-\indexentry{calculate\_accfs() (envlib.main\_processing.ClimateImpact method)@\spxentry{calculate\_accfs()}\spxextra{envlib.main\_processing.ClimateImpact method}|hyperpage}{14}
-\indexentry{generate\_output() (envlib.main\_processing.ClimateImpact method)@\spxentry{generate\_output()}\spxextra{envlib.main\_processing.ClimateImpact method}|hyperpage}{14}
-\indexentry{module@\spxentry{module}!envlib.processing\_surf\_vars@\spxentry{envlib.processing\_surf\_vars}|hyperpage}{14}
-\indexentry{envlib.processing\_surf\_vars@\spxentry{envlib.processing\_surf\_vars}!module@\spxentry{module}|hyperpage}{14}
-\indexentry{extend\_olr\_pl\_4d() (in module envlib.processing\_surf\_vars)@\spxentry{extend\_olr\_pl\_4d()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{14}
-\indexentry{extend\_olr\_pl\_5d() (in module envlib.processing\_surf\_vars)@\spxentry{extend\_olr\_pl\_5d()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{14}
-\indexentry{get\_olr() (in module envlib.processing\_surf\_vars)@\spxentry{get\_olr()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{15}
-\indexentry{get\_olr\_4d() (in module envlib.processing\_surf\_vars)@\spxentry{get\_olr\_4d()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{15}
-\indexentry{get\_olr\_5d() (in module envlib.processing\_surf\_vars)@\spxentry{get\_olr\_5d()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{16}
-\indexentry{module@\spxentry{module}!envlib.weather\_store@\spxentry{envlib.weather\_store}|hyperpage}{16}
-\indexentry{envlib.weather\_store@\spxentry{envlib.weather\_store}!module@\spxentry{module}|hyperpage}{16}
-\indexentry{GeoArrayHandler (class in envlib.weather\_store)@\spxentry{GeoArrayHandler}\spxextra{class in envlib.weather\_store}|hyperpage}{16}
-\indexentry{axes (envlib.weather\_store.GeoArrayHandler attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.GeoArrayHandler attribute}|hyperpage}{16}
-\indexentry{bitriangular\_filter (envlib.weather\_store.GeoArrayHandler attribute)@\spxentry{bitriangular\_filter}\spxextra{envlib.weather\_store.GeoArrayHandler attribute}|hyperpage}{16}
-\indexentry{decimate() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{decimate()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{16}
-\indexentry{decimate\_3d() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{decimate\_3d()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{16}
-\indexentry{decimate\_4d() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{decimate\_4d()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{16}
-\indexentry{decimate\_5d() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{decimate\_5d()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{16}
-\indexentry{down2() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{down2()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{16}
-\indexentry{down2\_coord() (envlib.weather\_store.GeoArrayHandler class method)@\spxentry{down2\_coord()}\spxextra{envlib.weather\_store.GeoArrayHandler class method}|hyperpage}{16}
-\indexentry{get\_coords() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{get\_coords()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{16}
-\indexentry{triangular\_filter (envlib.weather\_store.GeoArrayHandler attribute)@\spxentry{triangular\_filter}\spxextra{envlib.weather\_store.GeoArrayHandler attribute}|hyperpage}{16}
-\indexentry{WeatherStore (class in envlib.weather\_store)@\spxentry{WeatherStore}\spxextra{class in envlib.weather\_store}|hyperpage}{16}
-\indexentry{axes (envlib.weather\_store.WeatherStore attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.WeatherStore attribute}|hyperpage}{16}
-\indexentry{get\_xarray() (envlib.weather\_store.WeatherStore method)@\spxentry{get\_xarray()}\spxextra{envlib.weather\_store.WeatherStore method}|hyperpage}{16}
-\indexentry{reduce\_domain() (envlib.weather\_store.WeatherStore method)@\spxentry{reduce\_domain()}\spxextra{envlib.weather\_store.WeatherStore method}|hyperpage}{17}
-\indexentry{WeatherStore\_ (class in envlib.weather\_store)@\spxentry{WeatherStore\_}\spxextra{class in envlib.weather\_store}|hyperpage}{17}
-\indexentry{axes (envlib.weather\_store.WeatherStore\_ attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.WeatherStore\_ attribute}|hyperpage}{17}
-\indexentry{get\_bound\_indexes() (in module envlib.weather\_store)@\spxentry{get\_bound\_indexes()}\spxextra{in module envlib.weather\_store}|hyperpage}{17}
-\indexentry{module@\spxentry{module}!envlib@\spxentry{envlib}|hyperpage}{17}
-\indexentry{envlib@\spxentry{envlib}!module@\spxentry{module}|hyperpage}{17}
-\indexentry{module@\spxentry{module}!test.test\_main@\spxentry{test.test\_main}|hyperpage}{17}
-\indexentry{test.test\_main@\spxentry{test.test\_main}!module@\spxentry{module}|hyperpage}{17}
-\indexentry{test\_main() (in module test.test\_main)@\spxentry{test\_main()}\spxextra{in module test.test\_main}|hyperpage}{17}
-\indexentry{module@\spxentry{module}!test@\spxentry{test}|hyperpage}{18}
-\indexentry{test@\spxentry{test}!module@\spxentry{module}|hyperpage}{18}
+\indexentry{module@\spxentry{module}!envlib.accf@\spxentry{envlib.accf}|hyperpage}{11}
+\indexentry{envlib.accf@\spxentry{envlib.accf}!module@\spxentry{module}|hyperpage}{11}
+\indexentry{CalAccf (class in envlib.accf)@\spxentry{CalAccf}\spxextra{class in envlib.accf}|hyperpage}{11}
+\indexentry{accf\_ch4() (envlib.accf.CalAccf method)@\spxentry{accf\_ch4()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{11}
+\indexentry{accf\_dcontrail() (envlib.accf.CalAccf method)@\spxentry{accf\_dcontrail()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{11}
+\indexentry{accf\_h2o() (envlib.accf.CalAccf method)@\spxentry{accf\_h2o()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{11}
+\indexentry{accf\_ncontrail() (envlib.accf.CalAccf method)@\spxentry{accf\_ncontrail()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{12}
+\indexentry{accf\_o3() (envlib.accf.CalAccf method)@\spxentry{accf\_o3()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{12}
+\indexentry{get\_accfs() (envlib.accf.CalAccf method)@\spxentry{get\_accfs()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{12}
+\indexentry{get\_std() (envlib.accf.CalAccf method)@\spxentry{get\_std()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{12}
+\indexentry{get\_xarray() (envlib.accf.CalAccf method)@\spxentry{get\_xarray()}\spxextra{envlib.accf.CalAccf method}|hyperpage}{12}
+\indexentry{convert\_accf() (in module envlib.accf)@\spxentry{convert\_accf()}\spxextra{in module envlib.accf}|hyperpage}{12}
+\indexentry{get\_Fin() (in module envlib.accf)@\spxentry{get\_Fin()}\spxextra{in module envlib.accf}|hyperpage}{12}
+\indexentry{get\_encoding\_dict() (in module envlib.accf)@\spxentry{get\_encoding\_dict()}\spxextra{in module envlib.accf}|hyperpage}{12}
+\indexentry{get\_latlon() (in module envlib.accf)@\spxentry{get\_latlon()}\spxextra{in module envlib.accf}|hyperpage}{12}
+\indexentry{module@\spxentry{module}!envlib.calc\_altrv\_vars@\spxentry{envlib.calc\_altrv\_vars}|hyperpage}{13}
+\indexentry{envlib.calc\_altrv\_vars@\spxentry{envlib.calc\_altrv\_vars}!module@\spxentry{module}|hyperpage}{13}
+\indexentry{get\_pvu() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_pvu()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{13}
+\indexentry{get\_r() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_r()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{13}
+\indexentry{get\_rh\_ice() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_ice()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{13}
+\indexentry{get\_rh\_sd() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_sd()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{13}
+\indexentry{get\_rh\_wa() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_wa()}\spxextra{in module envlib.calc\_altrv\_vars}|hyperpage}{13}
+\indexentry{module@\spxentry{module}!envlib.contrail@\spxentry{envlib.contrail}|hyperpage}{13}
+\indexentry{envlib.contrail@\spxentry{envlib.contrail}!module@\spxentry{module}|hyperpage}{13}
+\indexentry{get\_cont\_form\_thr() (in module envlib.contrail)@\spxentry{get\_cont\_form\_thr()}\spxextra{in module envlib.contrail}|hyperpage}{13}
+\indexentry{get\_pcfa() (in module envlib.contrail)@\spxentry{get\_pcfa()}\spxextra{in module envlib.contrail}|hyperpage}{14}
+\indexentry{get\_relative\_hum() (in module envlib.contrail)@\spxentry{get\_relative\_hum()}\spxextra{in module envlib.contrail}|hyperpage}{14}
+\indexentry{get\_rw\_from\_specific\_hum() (in module envlib.contrail)@\spxentry{get\_rw\_from\_specific\_hum()}\spxextra{in module envlib.contrail}|hyperpage}{14}
+\indexentry{potential\_con\_cir\_cov() (in module envlib.contrail)@\spxentry{potential\_con\_cir\_cov()}\spxextra{in module envlib.contrail}|hyperpage}{14}
+\indexentry{module@\spxentry{module}!envlib.database@\spxentry{envlib.database}|hyperpage}{15}
+\indexentry{envlib.database@\spxentry{envlib.database}!module@\spxentry{module}|hyperpage}{15}
+\indexentry{module@\spxentry{module}!envlib.emission\_indices@\spxentry{envlib.emission\_indices}|hyperpage}{15}
+\indexentry{envlib.emission\_indices@\spxentry{envlib.emission\_indices}!module@\spxentry{module}|hyperpage}{15}
+\indexentry{module@\spxentry{module}!envlib.extend\_dim@\spxentry{envlib.extend\_dim}|hyperpage}{15}
+\indexentry{envlib.extend\_dim@\spxentry{envlib.extend\_dim}!module@\spxentry{module}|hyperpage}{15}
+\indexentry{extend\_dimensions() (in module envlib.extend\_dim)@\spxentry{extend\_dimensions()}\spxextra{in module envlib.extend\_dim}|hyperpage}{15}
+\indexentry{module@\spxentry{module}!envlib.extract\_data@\spxentry{envlib.extract\_data}|hyperpage}{15}
+\indexentry{envlib.extract\_data@\spxentry{envlib.extract\_data}!module@\spxentry{module}|hyperpage}{15}
+\indexentry{extract\_coordinates() (in module envlib.extract\_data)@\spxentry{extract\_coordinates()}\spxextra{in module envlib.extract\_data}|hyperpage}{15}
+\indexentry{extract\_data\_variables() (in module envlib.extract\_data)@\spxentry{extract\_data\_variables()}\spxextra{in module envlib.extract\_data}|hyperpage}{15}
+\indexentry{logic\_cal\_accfs() (in module envlib.extract\_data)@\spxentry{logic\_cal\_accfs()}\spxextra{in module envlib.extract\_data}|hyperpage}{16}
+\indexentry{module@\spxentry{module}!envlib.io@\spxentry{envlib.io}|hyperpage}{16}
+\indexentry{envlib.io@\spxentry{envlib.io}!module@\spxentry{module}|hyperpage}{16}
+\indexentry{module@\spxentry{module}!envlib.main\_processing@\spxentry{envlib.main\_processing}|hyperpage}{16}
+\indexentry{envlib.main\_processing@\spxentry{envlib.main\_processing}!module@\spxentry{module}|hyperpage}{16}
+\indexentry{ClimateImpact (class in envlib.main\_processing)@\spxentry{ClimateImpact}\spxextra{class in envlib.main\_processing}|hyperpage}{16}
+\indexentry{auto\_plotting() (envlib.main\_processing.ClimateImpact method)@\spxentry{auto\_plotting()}\spxextra{envlib.main\_processing.ClimateImpact method}|hyperpage}{16}
+\indexentry{calculate\_accfs() (envlib.main\_processing.ClimateImpact method)@\spxentry{calculate\_accfs()}\spxextra{envlib.main\_processing.ClimateImpact method}|hyperpage}{16}
+\indexentry{generate\_output() (envlib.main\_processing.ClimateImpact method)@\spxentry{generate\_output()}\spxextra{envlib.main\_processing.ClimateImpact method}|hyperpage}{16}
+\indexentry{module@\spxentry{module}!envlib.processing\_surf\_vars@\spxentry{envlib.processing\_surf\_vars}|hyperpage}{16}
+\indexentry{envlib.processing\_surf\_vars@\spxentry{envlib.processing\_surf\_vars}!module@\spxentry{module}|hyperpage}{16}
+\indexentry{extend\_olr\_pl\_4d() (in module envlib.processing\_surf\_vars)@\spxentry{extend\_olr\_pl\_4d()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{16}
+\indexentry{extend\_olr\_pl\_5d() (in module envlib.processing\_surf\_vars)@\spxentry{extend\_olr\_pl\_5d()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{16}
+\indexentry{get\_olr() (in module envlib.processing\_surf\_vars)@\spxentry{get\_olr()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{17}
+\indexentry{get\_olr\_4d() (in module envlib.processing\_surf\_vars)@\spxentry{get\_olr\_4d()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{17}
+\indexentry{get\_olr\_5d() (in module envlib.processing\_surf\_vars)@\spxentry{get\_olr\_5d()}\spxextra{in module envlib.processing\_surf\_vars}|hyperpage}{18}
+\indexentry{module@\spxentry{module}!envlib.weather\_store@\spxentry{envlib.weather\_store}|hyperpage}{18}
+\indexentry{envlib.weather\_store@\spxentry{envlib.weather\_store}!module@\spxentry{module}|hyperpage}{18}
+\indexentry{GeoArrayHandler (class in envlib.weather\_store)@\spxentry{GeoArrayHandler}\spxextra{class in envlib.weather\_store}|hyperpage}{18}
+\indexentry{axes (envlib.weather\_store.GeoArrayHandler attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.GeoArrayHandler attribute}|hyperpage}{18}
+\indexentry{bitriangular\_filter (envlib.weather\_store.GeoArrayHandler attribute)@\spxentry{bitriangular\_filter}\spxextra{envlib.weather\_store.GeoArrayHandler attribute}|hyperpage}{18}
+\indexentry{decimate() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{decimate()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{18}
+\indexentry{decimate\_3d() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{decimate\_3d()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{18}
+\indexentry{decimate\_4d() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{decimate\_4d()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{18}
+\indexentry{decimate\_5d() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{decimate\_5d()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{18}
+\indexentry{down2() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{down2()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{18}
+\indexentry{down2\_coord() (envlib.weather\_store.GeoArrayHandler class method)@\spxentry{down2\_coord()}\spxextra{envlib.weather\_store.GeoArrayHandler class method}|hyperpage}{18}
+\indexentry{get\_coords() (envlib.weather\_store.GeoArrayHandler method)@\spxentry{get\_coords()}\spxextra{envlib.weather\_store.GeoArrayHandler method}|hyperpage}{18}
+\indexentry{triangular\_filter (envlib.weather\_store.GeoArrayHandler attribute)@\spxentry{triangular\_filter}\spxextra{envlib.weather\_store.GeoArrayHandler attribute}|hyperpage}{18}
+\indexentry{WeatherStore (class in envlib.weather\_store)@\spxentry{WeatherStore}\spxextra{class in envlib.weather\_store}|hyperpage}{18}
+\indexentry{axes (envlib.weather\_store.WeatherStore attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.WeatherStore attribute}|hyperpage}{18}
+\indexentry{get\_xarray() (envlib.weather\_store.WeatherStore method)@\spxentry{get\_xarray()}\spxextra{envlib.weather\_store.WeatherStore method}|hyperpage}{18}
+\indexentry{reduce\_domain() (envlib.weather\_store.WeatherStore method)@\spxentry{reduce\_domain()}\spxextra{envlib.weather\_store.WeatherStore method}|hyperpage}{19}
+\indexentry{WeatherStore\_ (class in envlib.weather\_store)@\spxentry{WeatherStore\_}\spxextra{class in envlib.weather\_store}|hyperpage}{19}
+\indexentry{axes (envlib.weather\_store.WeatherStore\_ attribute)@\spxentry{axes}\spxextra{envlib.weather\_store.WeatherStore\_ attribute}|hyperpage}{19}
+\indexentry{get\_bound\_indexes() (in module envlib.weather\_store)@\spxentry{get\_bound\_indexes()}\spxextra{in module envlib.weather\_store}|hyperpage}{19}
+\indexentry{module@\spxentry{module}!envlib@\spxentry{envlib}|hyperpage}{19}
+\indexentry{envlib@\spxentry{envlib}!module@\spxentry{module}|hyperpage}{19}
+\indexentry{module@\spxentry{module}!test.test\_main@\spxentry{test.test\_main}|hyperpage}{19}
+\indexentry{test.test\_main@\spxentry{test.test\_main}!module@\spxentry{module}|hyperpage}{19}
+\indexentry{test\_main() (in module test.test\_main)@\spxentry{test\_main()}\spxextra{in module test.test\_main}|hyperpage}{19}
+\indexentry{module@\spxentry{module}!test@\spxentry{test}|hyperpage}{19}
+\indexentry{test@\spxentry{test}!module@\spxentry{module}|hyperpage}{19}

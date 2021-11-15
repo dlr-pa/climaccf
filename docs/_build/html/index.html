@@ -4,15 +4,15 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
-
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>METeorological INterpolation Toolbox for Optimization and Simulation (METINTOS) &#8212; envlib V0.0.1 documentation</title>
-    <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
-    <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
     <script src="_static/jquery.js"></script>
     <script src="_static/underscore.js"></script>
     <script src="_static/doctools.js"></script>
+    <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="envlib" href="modules.html" />
@@ -32,22 +32,32 @@
 
           <div class="body" role="main">
             
-  <section id="meteorological-interpolation-toolbox-for-optimization-and-simulation-metintos">
+  <div class="section" id="meteorological-interpolation-toolbox-for-optimization-and-simulation-metintos">
 <h1>METeorological INterpolation Toolbox for Optimization and Simulation (METINTOS)<a class="headerlink" href="#meteorological-interpolation-toolbox-for-optimization-and-simulation-metintos" title="Permalink to this headline">¶</a></h1>
-<section id="what-is-envlib">
+<div class="section" id="what-is-envlib">
 <h2>What is EnVLiB?<a class="headerlink" href="#what-is-envlib" title="Permalink to this headline">¶</a></h2>
 <p>ENVLIB is a libray that calculates algorithmic climate change functions (aCCFs).
 It is distributed under the GNU Lesser General Public License v3.0.</p>
-<p><strong>Citation info</strong>: A. Simorgh, M. Soler, D. Daniel González-Arribas, Environmental library (EnVLiB), an open source toolbox developed to calculate algorithmic climate change functions (aCCF), quantifying climate impacts of aviation.</p>
-</section>
-<section id="how-to-run-the-library">
+<p><strong>Citation info</strong>: A. Simorgh, M. Soler, D. Daniel González-Arribas, Environmental library (EnVLiB), an open source toolbox developed to calculate algorithmic climate change functions (aCCF), which quantifies climate impacts of aviation.</p>
+</div>
+<div class="section" id="how-to-run-the-library">
 <h2>How to run the library<a class="headerlink" href="#how-to-run-the-library" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple" start="0">
+<li><p>it is highly recomended to create a virtual environment with Python version 3.8:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">name_env</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.8</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">name_env</span>
+</pre></div>
+</div>
 <ol class="arabic simple">
 <li><p>Clone or download the repository.</p></li>
-<li><p>Install all the dependencies.</p></li>
+<li><p>Locate yourself in the envlib (library folder) path, and run the following line, using terminal (MacOS) or cmd (Windows), which will install all dependencies:</p></li>
 </ol>
-</section>
-<section id="how-to-use-it">
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="n">setup</span><span class="o">.</span><span class="n">py</span> <span class="n">install</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-use-it">
 <h2>How to use it<a class="headerlink" href="#how-to-use-it" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
 <li><p>import library:</p></li>
@@ -72,19 +82,20 @@ from envlib import main_processing</p>
 </dl>
 <ol class="arabic simple" start="4">
 <li><dl class="simple">
-<dt>Set the preferred configurations in a dictionary:</dt><dd><p>efficay: True, False
-emission_scenario: ‘sustained’, ‘future_scenario’, pulse
-climate_indicator: ATR, GWP
-TimeHorizon: 20, 50, 100
-PMO: True, False
-merged: True, False
-NOx: True, False
-Chotspots: True, False
-hotspots_thr: constant, varying
-binary: True, False
-variables: True, False
-mean: True, False
-std: True, False</p>
+<dt>Set the preferred configurations in a dictionary:</dt><dd><p>Set the preferred configurations in a dictionary. Settings are –&gt;
+efficay: True, False //
+emission_scenario: sustained, future_scenario, pulse //
+climate_indicator: ATR, GWP //
+TimeHorizon: 20, 50, 100 //
+PMO: True, False //
+merged: True, False //
+NOx: True, False //
+Chotspots: True, False //
+hotspots_thr: constant, varying //
+binary: True, False //
+variables: True, False //
+mean: True, False //
+std: True, False //</p>
 </dd>
 </dl>
 </li>
@@ -107,8 +118,31 @@ std: True, False</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI</span><span class="o">.</span><span class="n">calculate_accfs</span><span class="p">(</span><span class="o">**</span><span class="n">confg</span><span class="p">)</span>
 </pre></div>
 </div>
-</section>
-<section id="how-to-compile-documentation-pdf">
+</div>
+<div class="section" id="an-example">
+<h2>An example<a class="headerlink" href="#an-example" title="Permalink to this headline">¶</a></h2>
+<ol class="arabic simple" start="0">
+<li><p>Here is an example how one can use sample data in test directory of envlib to generate output for a set of user-difned configurations:</p></li>
+</ol>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">envlib</span>
+<span class="kn">from</span> <span class="nn">envlib</span> <span class="kn">import</span> <span class="n">main_processing</span>
+
+<span class="n">path_here</span> <span class="o">=</span> <span class="s1">&#39;envlib/&#39;</span>
+<span class="n">test_path</span> <span class="o">=</span> <span class="n">path_here</span> <span class="o">+</span> <span class="s1">&#39;/test/sample_data/&#39;</span>
+<span class="n">path_</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;path_pl&#39;</span><span class="p">:</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;sample_pl.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;path_sur&#39;</span><span class="p">:</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;sample_sur.nc&#39;</span><span class="p">}</span>
+<span class="n">path_save</span> <span class="o">=</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;env_processed.nc&#39;</span>
+<span class="n">confg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;efficacy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;emission_scenario&#39;</span><span class="p">:</span> <span class="s1">&#39;pulse&#39;</span><span class="p">,</span> <span class="s1">&#39;climate_indicator&#39;</span><span class="p">:</span> <span class="s1">&#39;ATR&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeHorizon&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
+             <span class="s1">&#39;PMO&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+             <span class="s1">&#39;merged&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;NOx&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;Chotspots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+             <span class="s1">&#39;hotspots_thr&#39;</span><span class="p">:</span> <span class="mf">1e-13</span><span class="p">,</span> <span class="s1">&#39;variables&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+
+<span class="n">CI</span> <span class="o">=</span> <span class="n">main_processing</span><span class="o">.</span><span class="n">ClimateImpact</span><span class="p">(</span><span class="n">path_</span><span class="p">,</span> <span class="n">horizontal_resolution</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">lat_bound</span><span class="o">=</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">),</span> <span class="n">lon_bound</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
+                                          <span class="n">save_path</span><span class="o">=</span><span class="n">path_save</span><span class="p">)</span>
+<span class="n">CI</span><span class="o">.</span><span class="n">calculate_accfs</span><span class="p">(</span><span class="o">**</span><span class="n">confg</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="how-to-compile-documentation-pdf">
 <h2>How to compile documentation pdf?<a class="headerlink" href="#how-to-compile-documentation-pdf" title="Permalink to this headline">¶</a></h2>
 <p>You can use the Makefile created by Sphinx to create your documentation. Locate yourself in the doc path.</p>
 <p>First clean the _build directory to avoid error or legacy information. Just call:</p>
@@ -124,11 +158,11 @@ std: True, False</p>
 </pre></div>
 </div>
 <p>Note that you <strong>should not see</strong> any error or warning, this information appears as red text in the terminal.</p>
-</section>
-<section id="modules">
+</div>
+<div class="section" id="modules">
 <h2>Modules:<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">envlib</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="envlib.html">envlib package</a></li>
@@ -138,16 +172,16 @@ std: True, False</p>
 </li>
 </ul>
 </div>
-</section>
-</section>
-<section id="indices-and-tables">
+</div>
+</div>
+<div class="section" id="indices-and-tables">
 <h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
 <li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
 <li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
-<section id="acknowledmgements">
+<div class="section" id="acknowledmgements">
 <h2>Acknowledmgements<a class="headerlink" href="#acknowledmgements" title="Permalink to this headline">¶</a></h2>
 <a class="reference internal image-reference" href="_images/Alarm_LOGO.png"><img alt="FMP-Met project" class="align-center" src="_images/Alarm_LOGO.png" style="width: 100px;" /></a>
 <p><em>This library has been developed within FMP-Met Project. ALARM has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union</em>.</p>
@@ -164,8 +198,8 @@ std: True, False</p>
 </tbody>
 </table>
 </div></blockquote>
-</section>
-</section>
+</div>
+</div>
 
 
           </div>
@@ -191,7 +225,7 @@ std: True, False</p>
 
 
 <h3>Navigation</h3>
-<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">envlib</a></li>
 </ul>
@@ -208,7 +242,7 @@ std: True, False</p>
   <h3 id="searchlabel">Quick search</h3>
     <div class="searchformwrapper">
     <form class="search" action="search.html" method="get">
-      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="text" name="q" aria-labelledby="searchlabel" />
       <input type="submit" value="Go" />
     </form>
     </div>
@@ -230,7 +264,7 @@ std: True, False</p>
       &copy;2021, Abolfazl Simorgh.
       
       |
-      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 3.1.2</a>
       &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
       
       |
