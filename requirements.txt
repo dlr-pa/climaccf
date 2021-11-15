@@ -1,0 +1,9 @@
+xarray~=0.16.1
+numpy~=1.20.3
+metpy~=1.1.0
+h5netcdf~=0.8.1
+scipy~=1.5.2
+hyperopt~=0.2.5
+setuptools~=49.6.0
+pytest~=4.4.1
+pytest-runner==4.4

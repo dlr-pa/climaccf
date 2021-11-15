@@ -1,0 +1,173 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>envlib.main_processing &#8212; envlib V0.0.1 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for envlib.main_processing</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">envlib.weather_store</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">envlib.accf</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="ClimateImpact"><a class="viewcode-back" href="../../envlib.html#envlib.main_processing.ClimateImpact">[docs]</a><span class="k">class</span> <span class="nc">ClimateImpact</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">problem_config</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span> <span class="o">=</span> <span class="p">{</span>  <span class="c1"># Default setting</span>
+            <span class="s1">&#39;lat_bound&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;lon_bound&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;time_bound&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;horizontal_resolution&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;emission_indices&#39;</span><span class="p">:</span> <span class="s1">&#39;TTV&#39;</span><span class="p">,</span>  <span class="c1"># Typical transantlantic values</span>
+            <span class="s1">&#39;ac_type&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;output_format&#39;</span><span class="p">:</span> <span class="s1">&#39;netCDF&#39;</span><span class="p">,</span>  <span class="c1"># netCDF, grib, JSON</span>
+            <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s1">&#39;efficacy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+            <span class="s1">&#39;emission_scenario&#39;</span><span class="p">:</span> <span class="s1">&#39;pulse&#39;</span><span class="p">,</span>  <span class="c1"># pulse, sustained, future scenario</span>
+            <span class="s1">&#39;climate_indicator&#39;</span><span class="p">:</span> <span class="s1">&#39;ATR&#39;</span><span class="p">,</span>  <span class="c1"># GWP,</span>
+            <span class="s1">&#39;time_horizon&#39;</span><span class="p">:</span> <span class="s1">&#39;20&#39;</span><span class="p">,</span>  <span class="c1"># 50, 100</span>
+            <span class="s1">&#39;save_path&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">problem_config</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ds_pl</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="s1">&#39;path_pl&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="s1">&#39;path_sur&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ds_sur</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">open_dataset</span><span class="p">(</span><span class="n">path</span><span class="p">[</span><span class="s1">&#39;path_sur&#39;</span><span class="p">])</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">ds_sur</span> <span class="o">=</span> <span class="kc">None</span>
+        <span class="n">ws</span> <span class="o">=</span> <span class="n">WeatherStore</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">ds_pl</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">ds_sur</span><span class="p">,</span> <span class="n">ll_resolution</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;horizontal_resolution&#39;</span><span class="p">])</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;lat_bound&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;lon_bound&#39;</span><span class="p">]:</span>
+            <span class="n">ws</span><span class="o">.</span><span class="n">reduce_domain</span><span class="p">({</span><span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;lat_bound&#39;</span><span class="p">],</span> <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;lon_bound&#39;</span><span class="p">]})</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">ds</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">get_xarray</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">variable_names</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">variable_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pre_variable_names</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">pre_variable_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinate_names</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">coordinate_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">pre_coordinate_names</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">pre_coordinate_names</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">coordinates_bool</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">coordinates_bool</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_bool</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">aCCF_bool</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">axes</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">var_xr</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">var_xr</span>
+
+<div class="viewcode-block" id="ClimateImpact.calculate_accfs"><a class="viewcode-back" href="../../envlib.html#envlib.main_processing.ClimateImpact.calculate_accfs">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_accfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">seetings</span><span class="p">):</span>
+        <span class="n">confg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span>
+        <span class="n">confg</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">seetings</span><span class="p">)</span>
+        <span class="n">clim_imp</span> <span class="o">=</span> <span class="n">CalAccf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">clim_imp</span><span class="o">.</span><span class="n">get_accfs</span><span class="p">(</span><span class="o">**</span><span class="n">confg</span><span class="p">)</span>
+        <span class="n">aCCFs</span><span class="p">,</span> <span class="n">encoding_</span> <span class="o">=</span> <span class="n">clim_imp</span><span class="o">.</span><span class="n">get_xarray</span><span class="p">()</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;save_path&#39;</span><span class="p">]:</span>
+            <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;save_path&#39;</span><span class="p">]</span>
+            <span class="n">aCCFs</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>  <span class="n">encoding</span><span class="o">=</span><span class="n">encoding_</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span> <span class="o">+</span> <span class="s1">&#39;File has been succussfuly generated&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; (location: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** The format generated file is compatible with Panoply (&#39;</span>
+                  <span class="s1">&#39;https://www.giss.nasa.gov/tools/panoply/download/), a useful application for quickly visualizing &#39;</span>
+                  <span class="s1">&#39;data **&#39;</span><span class="p">)</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ClimateImpact.auto_plotting"><a class="viewcode-back" href="../../envlib.html#envlib.main_processing.ClimateImpact.auto_plotting">[docs]</a>    <span class="k">def</span> <span class="nf">auto_plotting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+<div class="viewcode-block" id="ClimateImpact.generate_output"><a class="viewcode-back" href="../../envlib.html#envlib.main_processing.ClimateImpact.generate_output">[docs]</a>    <span class="k">def</span> <span class="nf">generate_output</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">envlib</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">envlib</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>$('#searchbox').show(0);</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Abolfazl Simorgh.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 4.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

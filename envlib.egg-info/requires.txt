@@ -1,0 +1,9 @@
+xarray~=0.16.1
+numpy==1.20.3
+metpy~=1.1.0
+h5netcdf~=0.8.1
+scipy~=1.5.2
+hyperopt~=0.2.5
+pyparsing~=2.2.1
+tomli~=1.0.2
+setuptools~=49.6.0
