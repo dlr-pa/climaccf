@@ -81,9 +81,9 @@
     
 
 \title{Environmental Library Documentation}
-\date{Nov 15, 2021}
+\date{Nov 24, 2021}
 \release{V0.0.1}
-\author{UC3M}
+\author{UC3M, DLR}
 \newcommand{\sphinxlogo}{\vbox{}}
 \renewcommand{\releasename}{Release}
 \makeindex
@@ -180,20 +180,24 @@ path\_save = location\_results
 \setcounter{enumi}{3}
 \item {} \begin{description}
 \item[{Set the preferred configurations in a dictionary:}] \leavevmode
-Set the preferred configurations in a dictionary. Settings are \textendash{}\textgreater{}
-efficay: True, False //
-emission\_scenario: sustained, future\_scenario, pulse //
-climate\_indicator: ATR, GWP //
-TimeHorizon: 20, 50, 100 //
-PMO: True, False //
-merged: True, False //
-NOx: True, False //
-Chotspots: True, False //
-hotspots\_thr: constant, varying //
-binary: True, False //
-variables: True, False //
-mean: True, False //
-std: True, False //
+Set the preferred configurations in a dictionary. Settings are:
+\begin{itemize}
+	\item  \textbf{efficacy}: True, False
+	\item \textbf{emission\_scenario}: sustained, future\_scenario, pulse 
+	\item \textbf{limate\_indicator}: ATR, GWP 
+	\item \textbf{TimeHorizon}: 20, 50, 100 
+	\item \textbf{PMO}: True, False 
+	\item \textbf{merged}: True, False 
+	\item \textbf{NOx}: True, False 
+	\item \textbf{Chotspots}: True, False 
+	\item \textbf{hotspots\_thr}: constant, varying 
+	\item \textbf{binary}: True, False 
+	\item \textbf{variables}: True, False 
+	\item \textbf{mean}: True, False 
+	\item \textbf{std}: True, False 
+\end{itemize}
+
+
 
 \end{description}
 
@@ -617,7 +621,7 @@ Calculates the presistent contrail formation areas (pcfa) which is used to calcu
 
 \end{itemize}
 
-\item[{Returns pcfa{\color{red}\bfseries{}pcfa\_}}] \leavevmode
+\item[{Returns pcfa{\color{red}\bfseries{}}}] \leavevmode
 Presistent contrail formation areas.
 
 \item[{Return type}] \leavevmode
@@ -1234,9 +1238,15 @@ defined bounds.
 
 \section{Acknowledmgements}
 \label{\detokenize{index:acknowledmgements}}
-\noindent{\hspace*{\fill}\sphinxincludegraphics[width=100\sphinxpxdimen]{{Alarm_LOGO}.png}\hspace*{\fill}}
+\noindent{\hspace*{\fill}\sphinxincludegraphics[width=100\sphinxpxdimen]{{Alarm_LOGO}.eps}\hspace*{\fill}}
 
-\sphinxstyleemphasis{This library has been developed within FMP\sphinxhyphen{}Met Project. ALARM has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union}.
+\sphinxstyleemphasis{This library has been developed within \textbf{ALARM} and \textbf{FLyATM4E} Projects. }
+\begin{itemize}
+\item 
+\textbf{ALARM} has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
+\item
+\textbf{FLyATM4E} has received funding from the SESAR Joint Undertaking under the European Union’s Horizon 2020 research and innovation programme under grant agreement No 891317. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
+\end{itemize}
 \begin{quote}
 
 

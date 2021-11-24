@@ -7,7 +7,7 @@ from metpy.units import units
 from envlib.database import *
 
 
-def pcfa(ds, member, **problem_config):
+def get_pcfa(ds, member, **problem_config):
     """ Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.
 
         :param ds: Dataset openned with xarray.

@@ -140,9 +140,14 @@ class CalAccf(object):
         """
         confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False,
                  'merged': True, 'NOx': True, 'emission_indices': 'TTV', 'Chotspots': True, 'binary': True,
-                 'hotspots_thr': 1e-13, 'variables': True, 'mean': True, 'std': True}
+                 'hotspots_thr': 1e-13, 'variables': True, 'mean': True, 'std': True, 'pcfa': True}
         confg.update(problem_config)
         self.variables = confg['variables']
+
+        # PCFA
+        if confg['pcfa']:
+            self.var_aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa)
+            self.aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa) 
 
         # CH4:
         if self.aCCF_bool['CH4']:
