@@ -154,7 +154,7 @@ latex_elements = {
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
     (master_doc, 'ENVLIB.tex', u'Environmental Library Documentation',
-     u'UC3M', 'manual'),
+     u'DLR, TUHH, TUD, UC3M', 'manual'),
 ]
 
 
