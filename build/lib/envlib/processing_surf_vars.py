@@ -31,6 +31,42 @@ def extend_olr_pl_4d(sur_var, pl_var, index, fore_step):
     return arr
 
 
+
+def extend_ssrd_pl_5d(sur_var, pl_var):
+    """ 
+    """
+    arr = np.zeros(pl_var.t.values.shape)
+    n_l = len(pl_var.level.values)
+    for i_l in range(n_l):
+        arr[:, :, i_l, :, :] = sur_var['ssrd'].values[:, :, :, :]
+    return arr
+
+def extend_ssrd_pl_4d(sur_var, pl_var):
+    """ 
+    """
+    arr = np.zeros(pl_var.t.values.shape)
+    n_l = len(pl_var.level.values)
+    for i_l in range(n_l):
+        arr[:, i_l, :, :] = sur_var['ssrd'].values[:, :, :]
+    return arr
+
+
+def get_ssrd(sur_var, pl_var, number=True):
+    """ 
+    """
+    if number:
+        ssrd_ = extend_ssrd_pl_5d(sur_var, pl_var)
+        ssrd = ssrd_
+        ssrd[ssrd_ <= 0.1] = 0 # night
+        ssrd[ssrd_ > 0.1] = 1 # day
+    else:
+        ssrd_ = extend_ssrd_pl_4d(sur_var, pl_var)
+        ssrd = ssrd_
+        ssrd[ssrd_ <= 0.1] = 0 # night
+        ssrd[ssrd_ > 0.1] = 1 # day
+    return ssrd
+
+
 def extend_olr_pl_5d(sur_var, pl_var, index, fore_step):
     """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
     [J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
@@ -180,7 +216,7 @@ def get_olr(sur_var, pl_var, number=True, fore_step=None):
         :rtype: numpy.ndarray
         """
     # threshold for determining forecast steps
-    thr = {'3hr': -24e5, '6hr': -48e5, '9hr': -72e5, '12hr': -96e5, 'range': 7e5}
+    thr = {'3hr': -24e5, '6hr': -48e5, '9hr': -72e5, '12hr': -96e5, 'range': 8e5}
     if number:
         olr = get_olr_5d(sur_var, pl_var, thr, fore_step)
     else:

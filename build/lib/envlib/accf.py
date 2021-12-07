@@ -9,12 +9,15 @@ from envlib.database import *
 class CalAccf(object):
     """ Calculation of algorithmic climate change functions (aCCFs)."""
 
-    def __init__(self, wd_inf):
+    def __init__(self, wd_inf, rhi_thr):
         """
         Extracts data required for calculating aCCFs.
 
         :param wd_inf: Contains processed weather data.
         :type wd_inf: Class
+
+        :param rhi_thr: Threshold for relative humidity over ice (ice-supersaturation).
+        :type rhi_thr: float
         """
         self.ds = ds = wd_inf.ds
         self.member_bool = wd_inf.coordinates_bool['member']
@@ -49,11 +52,18 @@ class CalAccf(object):
         self.Fin = get_Fin(ds, self.lat)
         self.r = ds['r'].values
         self.pvu = ds['pv'].values * 1e6
+
+        if self.aCCF_bool['contrail_adaptive']:
+            self.ssrd = ds['ssrd'].values
+            self.night = self.ssrd.copy()
+            self.night [self.ssrd == 0] = 1
+            self.night [self.ssrd != 0 ] = 0
+            self.day = self.ssrd
         if self.aCCF_bool['dCont']:
             self.olr = ds['olr'].values
 
         # Conditions
-        self.pcfa = get_pcfa(ds, self.member_bool, rw_threshold=False)
+        self.pcfa = get_pcfa(ds, self.member_bool, rh_threshold = rhi_thr, rw_threshold=False)
 
     def accf_o3(self):
         """
@@ -186,6 +196,12 @@ class CalAccf(object):
             self.var_aCCF_xr['aCCF_dCont'] = (tuple(self.coordinate_names), self.aCCF_dCont)
             self.aCCF_xr['aCCF_dCont'] = (tuple(self.coordinate_names), self.aCCF_dCont)
 
+        # adaptive day and night-time contrails (depending on the time of emission)
+        if self.aCCF_bool['dCont'] and self.aCCF_bool['nCont'] and self.aCCF_bool['contrail_adaptive']:
+            self.aCCF_Cont = self.day * self.aCCF_dCont + self.night * self.aCCF_nCont
+            self.var_aCCF_xr['aCCF_Cont'] = (tuple(self.coordinate_names), self.aCCF_Cont)
+            self.aCCF_xr['aCCF_Cont'] = (tuple(self.coordinate_names), self.aCCF_Cont)
+
         # CO2:
         self.aCCF_CO2 = 6.35 * 1e-15 * np.ones(self.t.shape)  # P-ATR20-CO2 [K/kg(fuel)]
         self.aCCF_CO2 = convert_accf('CO2', self.aCCF_CO2, confg)
@@ -196,9 +212,8 @@ class CalAccf(object):
             if self.aCCF_bool['H2O'] and self.aCCF_bool['O3'] and self.aCCF_bool['CH4'] and (
                     self.aCCF_bool['dCont'] or self.aCCF_bool['nCont']):
                 if confg['emission_indices'] == 'TTV':
-                    if self.aCCF_bool['dCont'] and self.aCCF_bool['nCont']:
-                        # self.aCCF_Cont = self.day * self.aCCF_dCont + self.night * self.aCCF_nCont
-                        self.aCCF_Cont = self.aCCF_nCont
+                    if self.aCCF_bool['dCont'] and self.aCCF_bool['nCont'] and self.aCCF_bool['contrail_adaptive']:
+                        self.aCCF_Cont = self.day * self.aCCF_dCont + self.night * self.aCCF_nCont
                     elif self.aCCF_bool['dCont']:
                         self.aCCF_Cont = self.aCCF_dCont
                     else:

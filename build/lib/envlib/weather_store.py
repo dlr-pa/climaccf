@@ -236,6 +236,23 @@ class WeatherStore(WeatherStore_):
                     else:
                         A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, :,
                             :].astype(self.cfg['format'])
+
+            elif tag_ == 'ssrd':
+                if flipud:
+                    if inf_coordinates['logic_coordinate']['member']:
+                        A = get_ssrd(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, :, ::-1,
+                            :].astype(self.cfg['format'])
+                    else:
+                        A = get_ssrd(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, ::-1,
+                            :].astype(self.cfg['format'])
+                else:
+                    if inf_coordinates['logic_coordinate']['member']:
+                        A = get_ssrd(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, :, :,
+                            :].astype(self.cfg['format'])
+                    else:
+                        A = get_ssrd(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, :,
+                            :].astype(self.cfg['format'])
+                
             else:
                 if flipud:
                     if inf_coordinates['logic_coordinate']['member']:

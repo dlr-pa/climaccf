@@ -28,6 +28,7 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
         't': True,
         'z': True,
         'ttr': True,
+        'ssrd': True,
         'q': True,
         'r': True,
         'u': True,
@@ -41,7 +42,8 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
         'specific_humidity': ['q', 'Q'],
         'U_component_wind': ['u', 'U'],
         'V_component_wind': ['v', 'V'],
-        'top_net_termal_radiation': ['ttr']
+        'top_net_termal_radiation': ['ttr'],
+        'surface_solar_downward_radiation': ['ssrd']
     }
 
     # names of variables exist in dataset
@@ -61,6 +63,14 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
                     pre_name_ = 'ttr'
                 except:
                     pass
+        elif var_ == 'surface_solar_downward_radiation':
+            if ds_sr:
+                try:
+                    ds_sr['ssrd']
+                    name_ = 'ssrd'
+                    pre_name_ = 'ssrd'
+                except:
+                    pass        
         else:
             for name in potential_var_names[var_]:
                 try:
@@ -70,7 +80,7 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
                 except:
                     pass
         if name_:
-            if var_ != 'top_net_termal_radiation':
+            if var_ != 'top_net_termal_radiation' and var_ != 'surface_solar_downward_radiation':
                 pl_var_name.append(name_)
             ex_var_name.append(name_)
             pre_var_name.append(pre_name_)
@@ -108,6 +118,12 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
                 print('** variable ' + '\033[93m' + var_ + "\033[0m" ' is not available **')
                 print('\033[91m' + 'aCCF of day-time contrails cannot be calculated' "\033[0m" "\n")
             variables['ttr'] = False
+
+        elif var_ == 'surface_solar_downward_radiation':
+            if verbose:
+                print('** variable ' + '\033[93m' + var_ + "\033[0m" ' is not available **')
+                #print('\033[91m' + 'aCCF of day-time and contrails cannot be calculated' "\033[0m" "\n")
+            variables['ssrd'] = False
 
         elif var_ == 'specific_humidity':
             if verbose:
@@ -167,6 +183,10 @@ def logic_cal_accfs(variables):
             aCCF_cal['dCont'] = True
         else:
             aCCF_cal['dCont'] = False
+        if variables['ssrd']:
+            aCCF_cal['contrail_adaptive'] = True    
+        else:    
+            aCCF_cal['contrail_adaptive'] = False   
     else:
         aCCF_cal['pcfa'] = False
         aCCF_cal['nCont'] = False

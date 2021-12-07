@@ -11,6 +11,7 @@ class ClimateImpact(object):
             'lat_bound': None,
             'lon_bound': None,
             'time_bound': None,
+            'rhi_threshold': 1.0,
             'horizontal_resolution': None,
             'emission_indices': 'TTV',  # Typical transantlantic values
             'ac_type': None,
@@ -46,7 +47,7 @@ class ClimateImpact(object):
     def calculate_accfs(self, **seetings):
         confg = self.p_settings
         confg.update(seetings)
-        clim_imp = CalAccf(self)
+        clim_imp = CalAccf(self, confg['rhi_threshold'])
         clim_imp.get_accfs(**confg)
         aCCFs, encoding_ = clim_imp.get_xarray()
         if self.p_settings['save_path']:
