@@ -337,5 +337,9 @@ envlib.egg-info/top_level.txt
 test/__init__.py
 test/test_main.py
 test/sample_data/env_processed.nc
+test/sample_data/pressure_lev_june2018_res0.5.nc
+test/sample_data/pressure_lev_june2018_res2.0.nc
 test/sample_data/sample_pl.nc
 test/sample_data/sample_sur.nc
+test/sample_data/surface_june2018_res0.5.nc
+test/sample_data/surface_june2018_res2.0.nc

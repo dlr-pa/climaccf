@@ -10,8 +10,8 @@ def test_main():
     path_save = test_path + 'env_processed.nc'
     confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20,
              'PMO': False,
-             'merged': True, 'NOx': True, 'Chotspots': True, 'binary': True,
-             'hotspots_thr': 1e-13, 'variables': False, 'mean': False, 'std': False}
+             'merged': True, 'NOx': False, 'Chotspots': True, 'binary': True,
+             'hotspots_thr': 1.7e-13, 'variables': False, 'mean': False, 'std': False, 'rhi_threshold': 1.0, 'geojson':True}
 
     CI = ClimateImpact(path_, horizontal_resolution=2, lat_bound=(35, 60.0), lon_bound=(-15, 35),
                                           save_path=path_save)

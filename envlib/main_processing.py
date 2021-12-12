@@ -3,6 +3,7 @@
 
 from envlib.weather_store import *
 from envlib.accf import *
+from envlib.io import *
 
 
 class ClimateImpact(object):
@@ -58,6 +59,8 @@ class ClimateImpact(object):
                   'https://www.giss.nasa.gov/tools/panoply/download/), an application for quickly visualizing '
                   'data **')
         pass
+        if confg['Chotspots'] and confg['geojson']: 
+            chotspots = gen_geojson_hotspots (aCCFs, self.p_settings['save_path'], time_pl=None)
 
     def auto_plotting(self):
         pass
