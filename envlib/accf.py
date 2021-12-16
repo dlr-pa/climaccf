@@ -361,11 +361,11 @@ def get_encoding_dict(list_name, encoding):
 
 def get_latlon(ds, member_bool):
     if member_bool:
-        dim = ds['v'].values[0, 0, 0, :, :]
+        dim = ds['t'].values[0, 0, 0, :, :]
     else:
-        dim = ds['v'].values[0, 0, :, :]
+        dim = ds['t'].values[0, 0, :, :]
     shape_gridlat = dim.shape
     shape_gridlon = (dim).T.shape
-    lat = (np.ones(shape_gridlon) * ds['v'].latitude.values).T
-    lon = np.ones(shape_gridlat) * ds['v'].longitude.values
+    lat = (np.ones(shape_gridlon) * ds['t'].latitude.values).T
+    lon = np.ones(shape_gridlat) * ds['t'].longitude.values
     return lat, lon

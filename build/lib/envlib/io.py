@@ -27,7 +27,7 @@ def save_json_dict(jpath, rdict):
     """
     with open(jpath, 'w') as fp:
         json.dump(rdict, fp)
-    fp.close()    
+    fp.close()
 
 def gen_geojson_hotspots (ds, path, time_pl=None):
 
@@ -55,7 +55,7 @@ def gen_geojson_hotspots (ds, path, time_pl=None):
     n_t = len(time)
     n_pl = len(pl)
 
-    for i in range (0,n_t-1):   
+    for i in range (0,n_t-1):
         for j in range (0,n_pl-1):
             index_time = np.where (time[i] == ds.time.values)[0][0]
             index_pl = np.where (pl[j] == ds.level.values)[0][0]

@@ -34,16 +34,17 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
         'u': True,
         'v': True
     }
+
     potential_var_names = {
-        'potential_vorticity': ['pv', 'PVU', 'pvu', 'PV'],
-        'Temperature': ['t', 'T'],
-        'Geopotential': ['z', 'Z', 'GH'],
-        'relative_humidity': ['r', 'R'],
+        'potential_vorticity': ['pv', 'PVU', 'pvu', 'PV','var060'],
+        'Temperature': ['t', 'T','var130'],
+        'Geopotential': ['z', 'Z', 'GH','var130’,’geopot'],
+        'relative_humidity': ['r', 'R','var157','rhum'],
         'specific_humidity': ['q', 'Q'],
-        'U_component_wind': ['u', 'U'],
-        'V_component_wind': ['v', 'V'],
-        'top_net_termal_radiation': ['ttr'],
-        'surface_solar_downward_radiation': ['ssrd']
+        'U_component_wind': ['u', 'U','var131'],
+        'V_component_wind': ['v', 'V','var132'],
+        'top_net_termal_radiation': ['ttr','var176'],
+        'surface_solar_downward_radiation': ['ssrd','var169']
     }
 
     # names of variables exist in dataset
@@ -132,7 +133,7 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
 
         elif var_ == 'U_component_wind':
             if verbose:
-                print('** variable ' + '\033[93m' + var_ + "\033[0m" ' is not available ** "\n"')
+                print('** variable ' + '\033[93m' + var_ + "\033[0m" ' is not available **' "\n")
             variables['u'] = False
 
         elif var_ == 'V_component_wind':
@@ -229,7 +230,7 @@ def extract_coordinates(ds, ex_variables, ds_sur=None):
         {
             'time': ['time', 'Time', 'Times', 'times'],
             'member': ['number', 'member', 'members', 'numbers'],
-            'level': ['level', 'levels', 'Levels', 'Level', 'isobaricInhPa'],
+            'level': ['level', 'levels', 'Levels', 'Level', 'isobaricInhPa', 'plev'],
             'latitude': ['latitude', 'latitudes', 'Latitude', 'Latitudes', 'Lat', 'lat', 'Lats', 'lats'],
             'Longitude': ['longitude', 'longitudes', 'Longitude', 'Longitudes', 'Lon', 'lon', 'Lons', 'lons', 'Longs',
                           'longs'],
