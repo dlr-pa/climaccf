@@ -1,0 +1,1 @@
+{"features": [{"geometry": {"coordinates": [[-3.0, 38.25], [-1.5, 38.25], [-0.75, 37.5], [-1.5, 36.75], [-3.0, 36.75], [-3.75, 37.5], [-3.0, 38.25]], "type": "LineString"}, "properties": {"stroke": "#fb694a", "stroke-width": 2.5, "title": "0.50 m"}, "type": "Feature"}], "type": "FeatureCollection"}

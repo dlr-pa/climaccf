@@ -75,9 +75,9 @@ def gen_geojson_hotspots (ds, path, time_pl=None):
                 for key in hotspots_gj['features']:
                     u.append(key['properties']['level-index'])
 
-                for i in range(len(u)):
-                    if u[i] == 0:
-                        index_del.append(i)
+                for i_ in range(len(u)):
+                    if u[i_] == 0:
+                        index_del.append(i_)
                     
                 del hotspots_gj['features'][index_del[0]:index_del[-1]+1]
 

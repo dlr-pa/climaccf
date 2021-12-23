@@ -126,18 +126,31 @@ def get_olr_4d(sur_var, pl_var, thr, fore_step=None):
                     olr[i_t, :, :, :] = array
                 else:
                     mean_values = np.mean(sur_var['ttr'].values[index, :, :])
-                    if thr['3hr'] - thr['range'] <= mean_values <= thr['3hr'] + thr['range']:
+                    if thr['1hr'] - thr['range'] <= mean_values <= thr['1hr'] + thr['range']:
+                        array = extend_olr_pl_4d(sur_var, pl_var, index, 1)
+                        olr[i_t, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 1 hour')
+                    elif thr['3hr'] - thr['range'] <= mean_values <= thr['3hr'] + thr['range']:
                         array = extend_olr_pl_4d(sur_var, pl_var, index, 3)
                         olr[i_t, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 3 hours')
                     elif thr['6hr'] - thr['range'] <= mean_values <= thr['6hr'] + thr['range']:
                         array = extend_olr_pl_4d(sur_var, pl_var, index, 6)
                         olr[i_t, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 6 hours')
                     elif thr['9hr'] - thr['range'] <= mean_values <= thr['9hr'] + thr['range']:
                         array = extend_olr_pl_4d(sur_var, pl_var, index, 9)
                         olr[i_t, :, :, :] = array
+                        if it == 0:
+                            print('Forecast step: 9 hours')
                     elif thr['12hr'] - thr['range'] <= mean_values <= thr['12hr'] + thr['range']:
                         array = extend_olr_pl_4d(sur_var, pl_var, index, 12)
                         olr[i_t, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 12 hours')
                     else:
                         raise ValueError(
                             "forecast step is not included within the default defined values and it must be "
@@ -177,18 +190,31 @@ def get_olr_5d(sur_var, pl_var, thr, fore_step=None):
                     olr[i_t, :, :, :, :] = array
                 else:
                     mean_values = np.mean(sur_var['ttr'].values[index, :, :])
-                    if thr['3hr'] - thr['range'] <= mean_values <= thr['3hr'] + thr['range']:
+                    if thr['1hr'] - thr['range'] <= mean_values <= thr['1hr'] + thr['range']:
+                        array = extend_olr_pl_5d(sur_var, pl_var, index, 1)
+                        olr[i_t, :, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 1 hour')
+                    elif thr['3hr'] - thr['range'] <= mean_values <= thr['3hr'] + thr['range']:
                         array = extend_olr_pl_5d(sur_var, pl_var, index, 3)
                         olr[i_t, :, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 3 hours')
                     elif thr['6hr'] - thr['range'] <= mean_values <= thr['6hr'] + thr['range']:
                         array = extend_olr_pl_5d(sur_var, pl_var, index, 6)
                         olr[i_t, :, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 6 hours')
                     elif thr['9hr'] - thr['range'] <= mean_values <= thr['9hr'] + thr['range']:
                         array = extend_olr_pl_5d(sur_var, pl_var, index, 9)
                         olr[i_t, :, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 9 hours')
                     elif thr['12hr'] - thr['range'] <= mean_values <= thr['12hr'] + thr['range']:
                         array = extend_olr_pl_5d(sur_var, pl_var, index, 12)
                         olr[i_t, :, :, :, :] = array
+                        if i_t == 0:
+                            print('Forecast step: 12 hours')
                     else:
                         raise ValueError(
                             "forecast step are not included within the default defined values and it must be "
@@ -216,7 +242,7 @@ def get_olr(sur_var, pl_var, number=True, fore_step=None):
         :rtype: numpy.ndarray
         """
     # threshold for determining forecast steps
-    thr = {'3hr': -24e5, '6hr': -48e5, '9hr': -72e5, '12hr': -96e5, 'range': 8e5}
+    thr = {'1hr': -8e5,'3hr': -24e5, '6hr': -48e5, '9hr': -72e5, '12hr': -96e5, 'range': 8e5}
     if number:
         olr = get_olr_5d(sur_var, pl_var, thr, fore_step)
     else:
