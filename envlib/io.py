@@ -29,7 +29,7 @@ def save_json_dict(jpath, rdict):
         json.dump(rdict, fp)
     fp.close()
 
-def gen_geojson_hotspots (ds, path, time_pl=None):
+def gen_geojson_hotspots (ds, path, Color, time_pl=None):
 
     save_path = os.path.split(path) [0]
     
@@ -55,36 +55,21 @@ def gen_geojson_hotspots (ds, path, time_pl=None):
     n_t = len(time)
     n_pl = len(pl)
 
-    for i in range (0,n_t-1):
-        for j in range (0,n_pl-1):
+    for i in range (0,n_t):
+        for j in range (0,n_pl):
             index_time = np.where (time[i] == ds.time.values)[0][0]
             index_pl = np.where (pl[j] == ds.level.values)[0][0]
 
             hotspots = np.flipud(ds['climate_hotspots'].values[index_time,index_pl,:,:])[::1, ::1]
 
-            contour = plt.contour(lon, lat, hotspots, np.arange (0,1.5,0.5),cmap='Reds')
+            contour = plt.contourf(lon, lat, hotspots, np.arange (0,1.5,0.5),cmap=Color, alpha = 0.1)
             plt.close()
             path_save_json = save_path + '/Chspot' + str(time[i])[0:13] + '_' + str(pl[j]) +'.geojson'
-            geojson = geojsoncontour.contour_to_geojson(contour=contour, geojson_filepath=path_save_json, ndigits=3, unit='m', stroke_width=2.5)
+            geojson = geojsoncontour.contourf_to_geojson(contourf=contour, geojson_filepath=path_save_json, ndigits=3, unit='m', stroke_width=2.5)
 
             hotspots_gj = get_json_dict(path_save_json)
-            if len(hotspots_gj['features']) != 0:
-                u  = []
-                index_del = []
-
-                for key in hotspots_gj['features']:
-                    u.append(key['properties']['level-index'])
-
-                for i_ in range(len(u)):
-                    if u[i_] == 0:
-                        index_del.append(i_)
-                    
-                del hotspots_gj['features'][index_del[0]:index_del[-1]+1]
-
-                for key in range (len(hotspots_gj['features'])):
-                    hotspots_gj['features'][key]['properties'].pop('level-index')
-                    hotspots_gj['features'][key]['properties'].pop('level-value')
-
+            if len(hotspots_gj['features'][1]) != 0:
+                del hotspots_gj['features'][0]
                 save_json_dict(path_save_json,hotspots_gj)
                 
             else:

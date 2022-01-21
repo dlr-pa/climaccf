@@ -150,7 +150,7 @@ class CalAccf(object):
         """
         confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False,
                  'merged': True, 'NOx': True, 'emission_indices': 'TTV', 'Chotspots': True, 'binary': True,
-                 'hotspots_thr': 1e-13, 'variables': True, 'mean': True, 'std': True, 'pcfa': True}
+                 'hotspots_thr': 1.7e-13, 'variables': True, 'mean': True, 'std': True, 'pcfa': True}
         confg.update(problem_config)
         self.variables = confg['variables']
 
@@ -325,17 +325,19 @@ def convert_accf(name, value, confg):
     if confg['efficacy']:
         value = efficacy[name] * value
     if confg['emission_scenario'] != 'pulse':
-        if confg['emission_scenario'] == 'future_scenario':
-            value = P2F[name] * value
+        if confg['emission_scenario'] == 'future_scenario' and confg['TimeHorizon'] == 20:
+            value = P20_F20[name] * value
+        elif confg['emission_scenario'] == 'future_scenario' and confg['TimeHorizon'] == 50:
+            value = P20_F50[name] * value
+        elif confg['emission_scenario'] == 'future_scenario' and confg['TimeHorizon'] == 100:
+            value = P20_F100[name] * value
         elif confg['emission_scenario'] == 'sustained':
             pass  # value = P2S[name] * value
         else:
-            raise ValueError(f" The right options for emission_scenario are pulse, future scenario and "
+            raise ValueError(f" The right options for emission_scenario are pulse (with time horizon: 20 years), future scenario (with time horizons 20, 50 and 100) and "
                              f"sustanied, not {confg['emission_scenario']}")
     if confg['climate_indicator'] != 'ATR':
         raise ValueError(" The current version just uses average temperature response as the climate indicator")
-    if confg['TimeHorizon'] != 20:
-        raise ValueError(" The current version just uses the time-horizon of 20 years")
     return value
 
 

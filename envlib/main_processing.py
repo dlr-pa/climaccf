@@ -23,6 +23,8 @@ class ClimateImpact(object):
             'emission_scenario': 'pulse',  # pulse, sustained, future scenario
             'climate_indicator': 'ATR',  # GWP,
             'time_horizon': '20',  # 50, 100
+            'color': 'Reds',  # Colors of cmap
+            'geojson': True,
             'save_path': None}
         self.p_settings.update(problem_config)
 
@@ -54,13 +56,15 @@ class ClimateImpact(object):
         if self.p_settings['save_path']:
             path = self.p_settings['save_path']
             aCCFs.to_netcdf(path,  encoding=encoding_)
-            print('\033[92m' + 'File has been succussfuly generated' + "\033[0m" + f' (location: {path})')
+            print('\033[92m' + 'netCDF file has been succussfuly generated' + "\033[0m" + f' (location: {path})')
             print('** The format of the generated file is compatible with Panoply ('
                   'https://www.giss.nasa.gov/tools/panoply/download/), an application for quickly visualizing '
                   'data **')
         pass
         if confg['Chotspots'] and confg['geojson']: 
-            chotspots = gen_geojson_hotspots (aCCFs, self.p_settings['save_path'], time_pl=None)
+            chotspots = gen_geojson_hotspots (aCCFs, self.p_settings['save_path'], self.p_settings['color'], time_pl=None)
+            path_json = os.path.split(path) [0]
+            print('\033[92m' + 'GeoJSON files have been succussfuly generated' + "\033[0m" + f' (location: {path_json}'+'/json_files/)')
 
     def auto_plotting(self):
         pass

@@ -182,21 +182,37 @@ path\_save = location\_results
 \item[{Set the preferred configurations in a dictionary:}] \leavevmode
 Set the preferred configurations in a dictionary. Settings are:
 \begin{itemize}
-	\item  \textbf{efficacy}: True, False
-	\item \textbf{emission\_scenario}: sustained, future\_scenario, pulse 
-	\item \textbf{limate\_indicator}: ATR, GWP 
+	\item  \textbf{Climate Metrics:}
+	\begin{itemize}
+	\item \textbf{efficacy}: True, False
+	\item \textbf{emission\_scenario}: future\_scenario, pulse 
+	\item \textbf{limate\_indicator}: ATR
 	\item \textbf{TimeHorizon}: 20, 50, 100 
+	\end{itemize}
+	\item \textbf{Climate Variables}:
+	\begin{itemize}
 	\item \textbf{PMO}: True, False 
 	\item \textbf{merged}: True, False 
 	\item \textbf{NOx}: True, False 
+	\end{itemize}
+	\item \textbf{Climate Hotspots:}
+	\begin{itemize}
 	\item \textbf{Chotspots}: True, False 
 	\item \textbf{hotspots\_thr}: constant, varying 
 	\item \textbf{binary}: True, False 
-	\item \textbf{variables}: True, False 
+	\end{itemize}	
+	\item \textbf{Statistical analysis of EPS forecast}
+	\begin{itemize}
 	\item \textbf{mean}: True, False 
-	\item \textbf{std}: True, False 
-\end{itemize}
-
+	\item \textbf{std}: True, False 	
+	\end{itemize}
+	\item \textbf{Output:}
+	\begin{itemize}
+	\item \textbf{variables}: True, False 
+	\item \textbf{geojson}: True, False 
+	\item \textbf{color}: colors of cmap, e.g., copper, jet, Reds 
+    \end{itemize}
+    \end{itemize}
 
 
 \end{description}
