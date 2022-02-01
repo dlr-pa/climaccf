@@ -242,7 +242,7 @@ def get_olr(sur_var, pl_var, number=True, fore_step=None):
         :rtype: numpy.ndarray
         """
     # threshold for determining forecast steps
-    thr = {'1hr': -8e5,'3hr': -24e5, '6hr': -48e5, '9hr': -72e5, '12hr': -96e5, 'range': 8e5}
+    thr = {'1hr': -8e5,'3hr': -24e5, '6hr': -48e5, '9hr': -76e5, '12hr': -99e5, 'range': 8e5}
     if number:
         olr = get_olr_5d(sur_var, pl_var, thr, fore_step)
     else:
