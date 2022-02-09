@@ -1,0 +1,10 @@
+geojsoncontour/__init__.py,sha256=cSKb8ZRVwzpIb92piJhC9on4bgkd-64GXfIM6AwltrY,130
+geojsoncontour/contour.py,sha256=xp2exnlfUn-fbBs0yauffkL8dlVS9w7zi_L1quYgitw,5085
+geojsoncontour/utilities/__init__.py,sha256=47DEQpj8HBSa-_TImW-5JCeuQeRkm5NMpJWZG3hSuFU,0
+geojsoncontour/utilities/multipoly.py,sha256=rgZrzTo9PRjpvS7SxTTsg1DHSQQ5txGcB-eSo3HZ1bQ,2609
+geojsoncontour/utilities/netcdfhelper.py,sha256=BcXpC9XhMbfrNuubp8QFFYsWW0xi5imntLsYK3Pdolc,2276
+geojsoncontour-0.4.0.dist-info/LICENSE.md,sha256=t-zVHwccoOeYLVyW-gLXJTXALGQoWfcqNQ-daO0jep0,1087
+geojsoncontour-0.4.0.dist-info/METADATA,sha256=Q9WWQ0IqZCwYtCmWQZEXFU1a9mZs2ewr3Fx8McdX7y4,3791
+geojsoncontour-0.4.0.dist-info/WHEEL,sha256=g4nMs7d-Xl9-xC9XovUrsDHGXt-FT0E17Yqo92DEfvY,92
+geojsoncontour-0.4.0.dist-info/top_level.txt,sha256=H2_3U6-wlW5SeakfXvOZ-5XHONVoiH2lWNLG3qmum2U,15
+geojsoncontour-0.4.0.dist-info/RECORD,,

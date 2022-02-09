@@ -5,7 +5,11 @@ h5netcdf~=0.8.1
 scipy~=1.5.2
 hyperopt~=0.2.5
 pyparsing~=2.2.1
+pandas~=1.1.2
+casadi~=3.5.5
 tomli~=1.0.2
 setuptools~=49.6.0
 matplotlib~=3.5.0rc1
 geojsoncontour~=0.4.0
+openpyxl~=3.0.9
+xlrd==1.2.0

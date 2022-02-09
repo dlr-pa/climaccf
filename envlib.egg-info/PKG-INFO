@@ -6,6 +6,7 @@ Home-page: UNKNOWN
 Author: Abolfazl Simorgh
 Author-email: abolfazl.simorgh@uc3m.es
 License: lgpl-3.0
+Description: UNKNOWN
 Keywords: Climate Impacts of Aviation,Algorithmic Climate Change Functions,Climate Hotspots,Non-CO2 ,Emissions
 Platform: UNKNOWN
 Classifier: Development Status :: 4 - Beta
@@ -20,6 +21,3 @@ Classifier: Operating System :: Unix
 Classifier: Programming Language :: Python
 Classifier: Programming Language :: Python :: 3.8
 Description-Content-Type: text/markdown
-
-UNKNOWN
-
