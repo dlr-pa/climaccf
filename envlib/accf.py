@@ -4,7 +4,7 @@
 import xarray as xr
 from envlib.contrail import *
 from envlib.database import *
-from envlib.emission_indices import get_EIs
+from envlib.emission_indices import *
 
 class CalAccf(object):
     """ Calculation of algorithmic climate change functions (aCCFs)."""
@@ -77,6 +77,7 @@ class CalAccf(object):
         """
         # P-ATR20-ozone [K/kg(NO2)]
         accf = -5.20e-11 + 2.30e-13 * self.t + 4.85e-16 * self.gp - 2.04e-18 * self.t * self.gp
+        accf = accf / self.eg['O3']
         accf[accf < 0] = 0
         return accf
 
@@ -91,6 +92,7 @@ class CalAccf(object):
         """
         # P-ATR20-methane [K/kg(NO2)]
         accf = -9.83e-13 + 1.99e-18 * self.gp - 6.32e-16 * self.Fin + 6.12e-21 * self.gp * self.Fin
+        accf = accf / self.eg['CH4']
         accf[accf > 0] = 0
         return accf
 
@@ -110,6 +112,7 @@ class CalAccf(object):
         RF = 1e-10 * (0.0073 * (10 ** (0.0107 * self.t)) - 1.03)
         accf = factor * RF  # [Unit: K/km (contrail)]
         accf = accf * self.pcfa  # [Unit: K/km]
+        accf = accf / self.eg['Cont.']
         accf[accf < 0] = 0
         return accf
 
@@ -130,6 +133,7 @@ class CalAccf(object):
         RF = 1e-10 * (-1.7 - 0.0088 * self.olr)
         accf = factor * RF  # [Unit: K/km (contrail)]
         accf = accf * self.pcfa  # [Unit: K/km]
+        accf = accf / self.eg['Cont.']
         return accf
 
     def accf_h2o(self):
@@ -143,6 +147,7 @@ class CalAccf(object):
         """
         # P-ATR20-water_vapour [K/kg(fuel)]
         accf = 4.05e-16 + 1.48e-16 * np.absolute(self.pvu)
+        accf = accf / self.eg['H2O']
         return accf
 
     def get_accfs(self, **problem_config):
@@ -151,9 +156,16 @@ class CalAccf(object):
         """
         confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False,
                  'merged': True, 'NOx': True, 'emission_indices': 'TTV', 'Chotspots': True, 'binary': True,
-                 'hotspots_thr': 1.7e-13, 'variables': True, 'mean': True, 'std': True, 'pcfa': True}
+                 'hotspots_thr': 1.7e-13, 'variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
+                 'Coef.BFFM2': False, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False}
         confg.update(problem_config)
         self.variables = confg['variables']
+
+        if confg['educated_guess_v1.0']:
+            self.eg = confg['educated_guess_v1.0']
+        else:
+            self.eg = educated_guess_v1
+
 
         # PCFA
         if confg['pcfa']:
@@ -212,7 +224,7 @@ class CalAccf(object):
 
         # CO2:
         attrs_CO2 = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of CO2', 'short_name': 'aCCF of CO2'}
-        self.aCCF_CO2 = 6.35 * 1e-15 * np.ones(self.t.shape)  # P-ATR20-CO2 [K/kg(fuel)]
+        self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)/self.eg['CO2']  # P-ATR20-CO2 [K/kg(fuel)]
         self.aCCF_CO2 = convert_accf('CO2', self.aCCF_CO2, confg)
         self.var_aCCF_xr['aCCF_CO2'] = (tuple(self.coordinate_names), self.aCCF_CO2, attrs_CO2)
         self.aCCF_xr['aCCF_CO2'] = (tuple(self.coordinate_names), self.aCCF_CO2, attrs_CO2)
@@ -232,16 +244,64 @@ class CalAccf(object):
                     self.merged_aCCF = np.zeros(self.aCCF_H2O.shape)
                     if self.member_bool:
                        for k in range (self.nl):
-                           self.merged_aCCF [:, :, k, :, :] = self.aCCF_CO2 [:, :, k, :, :] + self.aCCF_H2O [:, :, k, :, :] + 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * (self.aCCF_O3 [:, :, k, :, :] + self.aCCF_CH4 [:, :, k, :, :]) + np.array(self.inverse_EI(self.ds.level.values[k]))  * self.aCCF_Cont [:, :, k, :, :]
+                           # unify the units of aCCFs based on K/kg(fuel)
+                           if confg['unit_K/kg(fuel)']:
+                                self.aCCF_O3 [:, :, k, :, :]  = 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * self.aCCF_O3 [:, :, k, :, :]
+                                self.aCCF_CH4 [:, :, k, :, :] = 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * self.aCCF_CH4 [:, :, k, :, :]
+                                self.aCCF_Cont [:, :, k, :, :] = np.array(self.inverse_EI(self.ds.level.values[k]))  * self.aCCF_Cont [:, :, k, :, :]
+                                self.aCCF_dCont [:, :, k, :, :] = np.array(self.inverse_EI(self.ds.level.values[k]))  * self.aCCF_dCont [:, :, k, :, :]
+                                self.aCCF_nCont [:, :, k, :, :] = np.array(self.inverse_EI(self.ds.level.values[k]))  * self.aCCF_nCont [:, :, k, :, :]
+                                self.merged_aCCF [:, :, k, :, :] = self.aCCF_CO2 [:, :, k, :, :] + self.aCCF_H2O [:, :, k, :, :] + self.aCCF_O3 [:, :, k, :, :] + self.aCCF_CH4 [:, :, k, :, :] +  self.aCCF_Cont [:, :, k, :, :]
+                           else:
+                                self.merged_aCCF [:, :, k, :, :] = self.aCCF_CO2 [:, :, k, :, :] + self.aCCF_H2O [:, :, k, :, :] + 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * (self.aCCF_O3 [:, :, k, :, :] + self.aCCF_CH4 [:, :, k, :, :]) + np.array(self.inverse_EI(self.ds.level.values[k]))  * self.aCCF_Cont [:, :, k, :, :]
                     else:
                         for k in range(self.nl):
-                            self.merged_aCCF[:, k, :, :] = self.aCCF_CO2[:, k, :, :] + self.aCCF_H2O[:, k, :, :] + 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * (self.aCCF_O3[:, k, :, :]+ self.aCCF_CH4[:, k, :, :]) + np.array(self.inverse_EI(self.ds.level.values[k])) * self.aCCF_Cont[:, k, :, :]
+                            # unify the units of aCCFs based on K/kg(fuel)
+                            if confg['unit_K/kg(fuel)']:
+                                self.aCCF_O3 [:, k, :, :]  = 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * self.aCCF_O3 [:, k, :, :]
+                                self.aCCF_CH4 [:, k, :, :] = 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * self.aCCF_CH4 [:, k, :, :]
+                                self.aCCF_Cont [:, k, :, :]  = np.array(self.inverse_EI(self.ds.level.values[k]))  * self.aCCF_Cont [:, k, :, :]
+                                self.aCCF_dCont [:, k, :, :] = np.array(self.inverse_EI(self.ds.level.values[k]))  * self.aCCF_dCont [:, k, :, :]
+                                self.aCCF_nCont [:, k, :, :] = np.array(self.inverse_EI(self.ds.level.values[k]))  * self.aCCF_nCont [:, k, :, :]
+                                self.merged_aCCF [:, k, :, :] = self.aCCF_CO2 [:, k, :, :] + self.aCCF_H2O [:, k, :, :] + self.aCCF_O3 [:, k, :, :] + self.aCCF_CH4 [:, k, :, :] +  self.aCCF_Cont [:, k, :, :]
+                            else:                                
+                                self.merged_aCCF[:, k, :, :] = self.aCCF_CO2[:, k, :, :] + self.aCCF_H2O[:, k, :, :] + 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * (self.aCCF_O3[:, k, :, :]+ self.aCCF_CH4[:, k, :, :]) + np.array(self.inverse_EI(self.ds.level.values[k])) * self.aCCF_Cont[:, k, :, :]
                 elif confg['emission_indices'] == 'TTV':
                     self.merged_bool = True   
+                    if confg['unit_K/kg(fuel)']: 
+                       self.aCCF_O3  = emission_index['NOx'] * self.aCCF_O3
+                       self.aCCF_CH4 = emission_index['NOx'] * self.aCCF_CH4
+                       self.aCCF_Cont = emission_index['Cont.'] * self.aCCF_Cont
+                       self.aCCF_dCont = emission_index['Cont.'] * self.aCCF_dCont
+                       self.aCCF_nCont = emission_index['Cont.'] * self.aCCF_nCont
+                       self.merged_aCCF = self.aCCF_CO2 + self.aCCF_H2O + self.aCCF_O3 + self.aCCF_CH4 + self.aCCF_Cont
                     self.merged_aCCF = self.aCCF_CO2 + self.aCCF_H2O + emission_index['NOx'] * (
                             self.aCCF_O3 + self.aCCF_CH4) + emission_index['Cont.'] * self.aCCF_Cont     
                 else:
                     raise ValueError("No any other options available right now for calculating NOx and inverse emission indices.")
+
+                # Modify the units of NOx (ozone and methane) and Contrails (day- and night-time) aCCFs in the attributes and replace the pervious data with the converted ones    
+                if confg['unit_K/kg(fuel)']: 
+                    attrs_ch4 = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of methane', 'short_name': 'aCCF of methane'}
+                    self.var_aCCF_xr['aCCF_CH4'] = (tuple(self.coordinate_names), self.aCCF_CH4, attrs_ch4)
+                    self.aCCF_xr['aCCF_CH4'] = (tuple(self.coordinate_names), self.aCCF_CH4, attrs_ch4)
+
+                    attrs_o3 = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of ozone', 'short_name': 'aCCF of ozone'}
+                    self.var_aCCF_xr['aCCF_O3'] = (tuple(self.coordinate_names), self.aCCF_O3, attrs_o3)
+                    self.aCCF_xr['aCCF_O3'] = (tuple(self.coordinate_names), self.aCCF_O3, attrs_o3)
+
+                    attrs_nCont = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of night-time contrails', 'short_name': 'aCCF of night-time contrails'}
+                    self.var_aCCF_xr['aCCF_nCont'] = (tuple(self.coordinate_names), self.aCCF_nCont, attrs_nCont)
+                    self.aCCF_xr['aCCF_nCont'] = (tuple(self.coordinate_names), self.aCCF_nCont, attrs_nCont)
+
+                    attrs_dCont = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of day-time contrails', 'short_name': 'aCCF of day-time contrails'}
+                    self.var_aCCF_xr['aCCF_dCont'] =(tuple(self.coordinate_names), self.aCCF_dCont, attrs_dCont)
+                    self.aCCF_xr['aCCF_dCont'] = (tuple(self.coordinate_names), self.aCCF_dCont, attrs_dCont)
+
+                    attrs_Cont = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of contrails', 'short_name': 'aCCF of contrails'}
+                    self.var_aCCF_xr['aCCF_Cont'] =(tuple(self.coordinate_names), self.aCCF_Cont, attrs_Cont)
+                    self.aCCF_xr['aCCF_Cont'] = (tuple(self.coordinate_names), self.aCCF_Cont, attrs_Cont)
+
             else:
                 raise ValueError("Merged aCCF cannot be calculated due to the absence of at least one species.")
             if self.merged_bool == True:
@@ -295,6 +355,12 @@ class CalAccf(object):
                     for name_ in name_accfs:
                         arr = self.get_std(self.aCCF_xr[name_][1])
                         self.aCCF_xr[name_ + '_std'] = (tuple(coor_without_mem), arr)
+        if confg['Coef.BFFM2']:
+            C1, C2 = get_BFFM2_c1c2(self)
+            self.var_aCCF_xr['C1'] = (tuple(self.coordinate_names), C1)
+            self.aCCF_xr['C1'] = (tuple(self.coordinate_names), C1)                
+            self.var_aCCF_xr['C2'] = (tuple(self.coordinate_names), C2)
+            self.aCCF_xr['C2'] = (tuple(self.coordinate_names), C2)
 
     def get_xarray(self):
         """
