@@ -5,6 +5,8 @@ import xarray as xr
 from envlib.contrail import *
 from envlib.database import *
 from envlib.emission_indices import *
+from scipy.stats import norm
+from scipy import integrate
 
 class CalAccf(object):
     """ Calculation of algorithmic climate change functions (aCCFs)."""
@@ -155,9 +157,9 @@ class CalAccf(object):
         Gets the formulations of aCCFs, and calculated user-defined conversions or functions.
         """
         confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False,
-                 'merged': True, 'NOx': True, 'emission_indices': 'TTV', 'Chotspots': True, 'binary': True,
-                 'hotspots_thr': 1.7e-13, 'variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
-                 'Coef.BFFM2': False, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False}
+                 'merged': True, 'NOx': True, 'emission_indices': 'TTV', 'Chotspots': True, 'hotspots_binary': True,
+                 'hotspots_thr': False, 'variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
+                 'Coef.BFFM2': False, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99}
         confg.update(problem_config)
         self.variables = confg['variables']
 
@@ -319,15 +321,48 @@ class CalAccf(object):
 
         if confg['Chotspots']:
             if self.merged_bool:
-                if confg['hotspots_thr'] != threshold:
-                    thr = confg['hotspots_thr']
-                else:
-                    thr = threshold
                 self.Hotspots = self.merged_aCCF.copy()
-                # TODO: how about the existance of cooling impacts?
-                self.Hotspots[self.Hotspots <= thr] = 0
-                if confg['binary']:
-                    self.Hotspots[self.Hotspots > thr] = 1
+                if confg['hotspots_thr']:
+                    thr = confg['hotspots_thr']
+                    self.Hotspots[self.Hotspots <= thr] = 0
+                    if confg['hotspots_binary']:
+                        self.Hotspots[self.Hotspots > thr] = 1
+                else:
+                    if self.member_bool:
+                        threshold_CH = np.zeros ((self.nt, self.nm, self.nl))
+                        for it in range (self.nt):
+                            for im in range (self.nm):
+                                for il in range (self.nl):
+                                    array = self.Hotspots [it,im,il,:,:]
+                                    array = np.sort(array.flatten(order='C'))
+                                    pdf = scipy.stats.norm(np.mean(array), np.std(array)).pdf(array)
+                                    cdf = integrate.cumtrapz(pdf, array, initial=array[0])
+                                    cut_cdf = cdf[-1] * confg['hotspots_percentile']/100
+                                    index = np.where (cut_cdf <= cdf)[0][0]
+                                    thr = threshold_CH [it, im, il] = array [index]
+                                    self.Hotspots[it,im,il,:,:][self.Hotspots[it,im,il,:,:] <= thr] = 0
+                                    if confg['hotspots_binary']:
+                                        self.Hotspots[it,im,il,:,:][self.Hotspots[it,im,il,:,:] > thr] = 1
+                        attrs_hotspots_thr = {'unit': '-', 'long_name': 'threshold for climate hotspots', 'short_name': 'thr for climate hotspots'}                
+                        self.var_aCCF_xr['climate_hotspots_thr'] = (tuple(self.coordinate_names[0:3]), threshold_CH, attrs_hotspots_thr)
+                        self.aCCF_xr['climate_hotspots_thr'] = (tuple(self.coordinate_names[0:3]), threshold_CH, attrs_hotspots_thr)                  
+                    else:
+                        threshold_CH = np.zeros ((self.nt, self.nl)) 
+                        for it in range (self.nt):
+                            for il in range (self.nl):
+                                array = self.Hotspots [it,il,:,:]
+                                array = np.sort(array.flatten(order='C'))
+                                pdf = norm(np.mean(array), np.std(array)).pdf(array)
+                                cdf = integrate.cumtrapz(pdf, array, initial=array[0])
+                                cut_cdf = cdf[-1] * confg['hotspots_percentile']/100
+                                index = np.where (cut_cdf <= cdf)[0][0]
+                                thr = threshold_CH [it, il] = array [index]
+                                self.Hotspots[it,il,:,:][self.Hotspots[it,il,:,:] <= thr] = 0
+                                if confg['hotspots_binary']:
+                                    self.Hotspots[it,il,:,:][self.Hotspots[it,il,:,:] > thr] = 1
+                        attrs_hotspots_thr = {'unit': '-', 'long_name': 'threshold for climate hotspots', 'short_name': 'thr for climate hotspots'}            
+                        self.var_aCCF_xr['climate_hotspots_thr'] = (tuple(self.coordinate_names[0:2]), threshold_CH, attrs_hotspots_thr)
+                        self.aCCF_xr['climate_hotspots_thr'] = (tuple(self.coordinate_names[0:2]), threshold_CH, attrs_hotspots_thr)                                    
                 attrs_hotspots = {'unit': '-', 'long_name': 'climate hotspots', 'short_name': 'climate hotspots'}
                 self.var_aCCF_xr['climate_hotspots'] = (tuple(self.coordinate_names), self.Hotspots, attrs_hotspots)
                 self.aCCF_xr['climate_hotspots'] = (tuple(self.coordinate_names), self.Hotspots, attrs_hotspots)

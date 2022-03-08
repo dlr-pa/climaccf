@@ -40,7 +40,7 @@ def test_main():
     """Climate Variables"""
 
     # If true, it convertes units of all individual aCCFs to K/kg(fuel)'
-    confg['unit_K/kg(fuel)'] = True            # Options: True, False
+    confg['unit_K/kg(fuel)'] = False            # Options: True, False
 
     # If true, it includes PMO in aCCF of CH4'
     confg['PMO'] = True                       # Options: True, False
@@ -63,14 +63,17 @@ def test_main():
     """Climate Hotspots"""
 
     # If true, climate hotspots are calculated'
-    confg['Chotspots'] = False                  # Options: True, False
+    confg['Chotspots'] = True                  # Options: True, False
 
-    # If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified 
+    # If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified
     # threshold, and 1 for areas with higher climate impacts than threshold)
-    confg['binary'] = False                     # Options: True, False
+    confg['hotspots_binary'] = True             # Options: True, False
 
-    # Specifies the threshould for detemining climate hotspots'
-    confg['hotspots_thr'] = 1.7e-13
+    # Specifies the constant threshold for detemining climate hotspots'
+    confg['hotspots_thr'] = False
+
+    # Detemines dynamically the threshold for detemining climate hotspots using cummulative distribution of the merged aCCF'
+    confg['hotspots_percentile'] = 99          # Options: percentage < 100
 
     """ Statistical analysis of EPS forecast """
 

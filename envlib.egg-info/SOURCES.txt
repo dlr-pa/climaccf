@@ -2800,8 +2800,6 @@ test/__init__.py
 test/test_main.py
 test/sample_data/pressure_lev_june2018_res0.5.nc
 test/sample_data/pressure_lev_june2018_res2.0.nc
-test/sample_data/sample_pl.nc
-test/sample_data/sample_sur.nc
 test/sample_data/surface_june2018_res0.5.nc
 test/sample_data/surface_june2018_res2.0.nc
 test/sample_data/json_files/Chspot2018-06-01T06_200.geojson
