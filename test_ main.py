@@ -6,7 +6,7 @@ from envlib import main_processing
 test_path = '/Users/abolfazlsimorgh/Documents/SEsarProject/ALARM/main_version/envlib/test/sample_data/'
 lib_path = '/Users/abolfazlsimorgh/Documents/SEsarProject/ALARM/main_version/envlib/'
 path_= {'path_pl': test_path + 'pressure_lev_june2018_res0.5.nc', 'path_sur': test_path + 'surface_june2018_res0.5.nc', 'path_lib': lib_path}
-path_save = test_path + 'env_processed_2.nc'
+path_save = test_path + 'env_processed.nc'
 
 
 """ %%%%%%%%%% CONFIGURATIONS %%%%%%%%%% """
@@ -36,7 +36,7 @@ confg['rhi_threshold'] = 0.90               # Options: Depends on the resolution
 """Climate Variables"""
 
 # If true, it convertes units of all individual aCCFs to K/kg(fuel)'
-confg['unit_K/kg(fuel)'] = False            # Options: True, False
+confg['unit_K/kg(fuel)'] = True            # Options: True, False
 
 # If true, it includes PMO in aCCF of CH4'
 confg['PMO'] = True                       # Options: True, False

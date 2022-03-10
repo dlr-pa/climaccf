@@ -277,7 +277,8 @@ class CalAccf(object):
                        self.aCCF_dCont = emission_index['Cont.'] * self.aCCF_dCont
                        self.aCCF_nCont = emission_index['Cont.'] * self.aCCF_nCont
                        self.merged_aCCF = self.aCCF_CO2 + self.aCCF_H2O + self.aCCF_O3 + self.aCCF_CH4 + self.aCCF_Cont
-                    self.merged_aCCF = self.aCCF_CO2 + self.aCCF_H2O + emission_index['NOx'] * (
+                    else:   
+                        self.merged_aCCF = self.aCCF_CO2 + self.aCCF_H2O + emission_index['NOx'] * (
                             self.aCCF_O3 + self.aCCF_CH4) + emission_index['Cont.'] * self.aCCF_Cont     
                 else:
                     raise ValueError("No any other options available right now for calculating NOx and inverse emission indices.")
