@@ -313,8 +313,12 @@ class CalAccf(object):
                 self.aCCF_xr['aCCF_merged'] = (tuple(self.coordinate_names), self.merged_aCCF, attrs_merged)
         if confg['NOx']:
             if self.aCCF_bool['O3'] and self.aCCF_bool['CH4']:
-                attrs_nox = {'unit': 'K kg(NO2)**-1', 'long_name': 'algorithmic climate change function of NOx emission', 'short_name': 'aCCF of  NOx emission'}
-                self.aCCF_NOx = self.aCCF_O3 + self.aCCF_CH4
+                if confg['unit_K/kg(fuel)']:
+                    attrs_nox = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of NOx emission', 'short_name': 'aCCF of  NOx emission'}
+                    self.aCCF_NOx = self.aCCF_O3 + self.aCCF_CH4
+                else:
+                    attrs_nox = {'unit': 'K kg(NO2)**-1', 'long_name': 'algorithmic climate change function of NOx emission', 'short_name': 'aCCF of  NOx emission'}
+                    self.aCCF_NOx = self.aCCF_O3 + self.aCCF_CH4
                 self.var_aCCF_xr['aCCF_NOx'] = (tuple(self.coordinate_names), self.aCCF_NOx, attrs_nox)
                 self.aCCF_xr['aCCF_NOx'] = (tuple(self.coordinate_names), self.aCCF_NOx, attrs_nox)
             else:

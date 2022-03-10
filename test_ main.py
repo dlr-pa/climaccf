@@ -36,7 +36,7 @@ confg['rhi_threshold'] = 0.90               # Options: Depends on the resolution
 """Climate Variables"""
 
 # If true, it convertes units of all individual aCCFs to K/kg(fuel)'
-confg['unit_K/kg(fuel)'] = True            # Options: True, False
+confg['unit_K/kg(fuel)'] = False            # Options: True, False
 
 # If true, it includes PMO in aCCF of CH4'
 confg['PMO'] = True                       # Options: True, False
@@ -51,7 +51,7 @@ confg['ac_type'] = 'wide-body'             # Options: 'regional', 'single-aisle'
 confg['emission_indices'] = 'variable'     # Options: 'TTV', 'variable'
 
 # If true, NOx aCCF is calculated (i.e. aCCF-NOx = aCCF-CH4 + aCCF-O3)
-confg['NOx'] = False                       # Options: True, False
+confg['NOx'] = True                       # Options: True, False
 
 # weather-dependent coefficients for calculating NOx emission index using Boeing Fuel Flow Method 2 (BFFM2)
 confg['Coef.BFFM2'] = True                 # Options: True, False
