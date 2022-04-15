@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-
+import warnings
 import numpy as np
 from metpy import calc
 from metpy.units import units
@@ -10,17 +10,19 @@ from envlib.database import *
 def get_pcfa(ds, member, **problem_config):
     """ Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.
 
-        :param ds: Dataset openned with xarray.
-        :type ds: Dataset
+    :param ds: Dataset openned with xarray.
+    :type ds: Dataset
 
-        :param member: Detemines the presense of ensemble forecasts in the given dataset.
-        :type member: bool
+    :param member: Detemines the presense of ensemble forecasts in the given dataset.
+    :type member: bool
 
-        :returns pcfa_: Presistent contrail formation areas.
-        :rtype: numpy.ndarray
-        """
+    :returns pcfa: Presistent contrail formation areas.
+    :rtype: numpy.ndarray
+    """
     confg = {'rh_threshold': 1, 'rw_threshold': None, 'temp_threshold': cont_temp_thr, 'sep_ri_rw': None}
     confg.update(problem_config)
+    print('\n\033[93m UserWarning: For this configuration formation of persistent contrails is possible, if temperatures are low enough (below 235K) and relative humidity (with respect to ice) is above or at {}%. However keep in mind that the threshold value for the relative humidity varies with the used forecast model and its resolution. In order to choose the appropriate threshold value, you should read the details given in Section 5.1 of the connected publication of Dietmüller et al. 2022 \033[93m\n'.format(confg['rh_threshold'] * 100))
+
     formation = np.zeros(ds.t.values.shape)
     presistancy = np.zeros(ds.t.values.shape)
 
@@ -43,26 +45,26 @@ def get_pcfa(ds, member, **problem_config):
         [ri, rw] = get_relative_hum(ds, member)
     # persistency conditions
     presistancy[ri >= confg['rh_threshold']] = 1
-    pcfa_ = formation * presistancy
-    return pcfa_
+    pcfa = formation * presistancy
+    return pcfa
 
 
 def get_cont_form_thr(ds, member):
     """ Calculates the thresholds of temperature and relative humidity over water needed for determining the
     formation criteria of contrails.
 
-        :param ds: Dataset openned with xarray.
-        :type ds: Dataset
+    :param ds: Dataset openned with xarray.
+    :type ds: Dataset
 
-        :param member: Detemines the presense of ensemble forecasts in the given dataset.
-        :type member: bool
+    :param member: Detemines the presense of ensemble forecasts in the given dataset.
+    :type member: bool
 
-        :returns rcontr: Thresholds of relative humidity over water.
-        :rtype: numpy.ndarray
+    :returns rcontr: Thresholds of relative humidity over water.
+    :rtype: numpy.ndarray
 
-        :returns TLM_e: Thresholds of temperature.
-        :rtype: numpy.ndarray
-        """
+    :returns TLM_e: Thresholds of temperature.
+    :rtype: numpy.ndarray
+    """
     rcontr = np.zeros(ds.t.values.shape)
     n_l = len(ds.level.values)
     if member:
@@ -95,22 +97,22 @@ def get_cont_form_thr(ds, member):
 
 def get_relative_hum(ds, member, intrp=True):
     """ Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
-    dataset. In ECMWF data: Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
+    dataset. In ECMWF data, Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
     respect to saturation over ice below -23C and with respect to saturation over water above 0C. In the regime in
     between a quadratic interpolation is applied.
 
-        :param ds: Dataset openned with xarray.
-        :type ds: Dataset
+    :param ds: Dataset openned with xarray.
+    :type ds: Dataset
 
-        :param member: Detemines the presense of ensemble forecasts in the given dataset.
-        :type member: bool
+    :param member: Detemines the presense of ensemble forecasts in the given dataset.
+    :type member: bool
 
-        :returns rcontr: Thresholds of relative humidity over water.
-        :rtype: numpy.ndarray
+    :returns rcontr: Thresholds of relative humidity over water.
+    :rtype: numpy.ndarray
 
-        :returns TLM_e: Thresholds of temperature.
-        :rtype: numpy.ndarray
-        """
+    :returns TLM_e: Thresholds of temperature.
+    :rtype: numpy.ndarray
+    """
 
     t = ds.t.values
     r = ds.r.values
@@ -210,17 +212,18 @@ def potential_con_cir_cov(ds, r_crit, r_ice):
 
 
 def get_rw_from_specific_hum(ds, member):
-    """ Calculates of relative humidity over water from specific humidity.
+    """ 
+    Calculates relative humidity over water from specific humidity.
 
-            :param ds: Dataset openned with xarray.
-            :type ds: Dataset
+    :param ds: Dataset openned with xarray.
+    :type ds: Dataset
 
-            :param member: Detemines the presense of ensemble forecasts in the given dataset.
-            :type member: bool
+    :param member: Detemines the presense of ensemble forecasts in the given dataset.
+    :type member: bool
 
-            :returns r_w: Relative humidity over water.
-            :rtype: numpy.ndarray
-            """
+    :returns r_w: Relative humidity over water.
+    :rtype: numpy.ndarray
+    """
     t = ds['t'].values
     q = ds['q'].values
     level = ds['level'].values

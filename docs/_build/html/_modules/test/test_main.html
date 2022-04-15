@@ -34,20 +34,98 @@
   <h1>Source code for test.test_main</h1><div class="highlight"><pre>
 <span></span><span class="kn">import</span> <span class="nn">envlib</span>
 <span class="kn">from</span> <span class="nn">envlib.main_processing</span> <span class="kn">import</span> <span class="n">ClimateImpact</span>
+<span class="kn">import</span> <span class="nn">os</span>
 <span class="kn">from</span> <span class="nn">os</span> <span class="kn">import</span> <span class="n">path</span>
 
-
 <div class="viewcode-block" id="test_main"><a class="viewcode-back" href="../../test.html#test.test_main.test_main">[docs]</a><span class="k">def</span> <span class="nf">test_main</span><span class="p">():</span>
+
+    <span class="sd">&quot;&quot;&quot; %%%%%%%%%%%% DIRECTORIES %%%%%%%%%%%% &quot;&quot;&quot;</span>
+
     <span class="n">path_here</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
     <span class="n">test_path</span> <span class="o">=</span> <span class="n">path_here</span> <span class="o">+</span> <span class="s1">&#39;/sample_data/&#39;</span>
-    <span class="n">path_</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;path_pl&#39;</span><span class="p">:</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;sample_pl.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;path_sur&#39;</span><span class="p">:</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;sample_sur.nc&#39;</span><span class="p">}</span>
+    <span class="n">lib_path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">sep</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)</span> <span class="o">+</span> <span class="s1">&#39;/envlib/&#39;</span>
+    <span class="n">path_</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;path_pl&#39;</span><span class="p">:</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;pressure_lev_june2018_res0.5.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;path_sur&#39;</span><span class="p">:</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;surface_june2018_res0.5.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;path_lib&#39;</span><span class="p">:</span> <span class="n">lib_path</span><span class="p">}</span>
     <span class="n">path_save</span> <span class="o">=</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;env_processed.nc&#39;</span>
-    <span class="n">confg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;efficacy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;emission_scenario&#39;</span><span class="p">:</span> <span class="s1">&#39;pulse&#39;</span><span class="p">,</span> <span class="s1">&#39;climate_indicator&#39;</span><span class="p">:</span> <span class="s1">&#39;ATR&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeHorizon&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-             <span class="s1">&#39;PMO&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-             <span class="s1">&#39;merged&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;NOx&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;Chotspots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-             <span class="s1">&#39;hotspots_thr&#39;</span><span class="p">:</span> <span class="mf">1e-13</span><span class="p">,</span> <span class="s1">&#39;variables&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+    
+    <span class="sd">&quot;&quot;&quot; %%%%%%%%%% CONFIGURATIONS %%%%%%%%%% &quot;&quot;&quot;</span>
 
-    <span class="n">CI</span> <span class="o">=</span> <span class="n">ClimateImpact</span><span class="p">(</span><span class="n">path_</span><span class="p">,</span> <span class="n">horizontal_resolution</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">lat_bound</span><span class="o">=</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">),</span> <span class="n">lon_bound</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
+    <span class="n">confg</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># If true, it includes efficacies according to Lee et al. (2021)</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;efficacy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>                  <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># Specifies the emission scenario. Currently, pulse and future emission scenarios have been implemented</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;emission_scenario&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;future_scenario&#39;</span>       <span class="c1"># Options: pulse, future_scenario</span>
+
+    <span class="c1"># Specifies the climate indicator. Currently, Average Temperature Response has been implemented</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;climate_indicator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ATR&#39;</span>         <span class="c1"># Options: ATR</span>
+
+    <span class="c1"># Specifies the time horizon over which the metric is calculated</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;TimeHorizon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>                  <span class="c1"># Options: 20, 50, 100</span>
+
+    <span class="c1"># Specifies the threshold of ice-supersaturated regions</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;rhi_threshold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.90</span>               <span class="c1"># Options: Depends on the resolution of data (0.90, 95, 0.99, 1.0)</span>
+                                                <span class="c1"># e.g., in case of ERA5_HRES it is 0.9</span>
+
+    <span class="sd">&quot;&quot;&quot;Output Options&quot;&quot;&quot;</span>
+
+    <span class="c1"># If true, all individual aCCFs converted to K/kg(fuel)</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;unit_K/kg(fuel)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>            <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># If true,  PMO effect included to CH4 aCCF and total NOx aCCF</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;PMO&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>                         <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># If true, merged aCCF is calculated</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;merged&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>                     <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># NOx and inverse EIs</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx&amp;inverse_EIs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TTV&#39;</span>   <span class="c1"># Options: &#39;TTV (typical transantlantic fleet mean values)&#39;, &#39;ac_dependent&#39;</span>
+
+    <span class="c1"># If Confg[&#39;NOx&amp;inverse_EIs&#39;] = &#39;ac_dependent&#39;, aircraft type needs to be selected</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;ac_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;wide-body&#39;</span>              <span class="c1"># Options: &#39;regional&#39;, &#39;single-aisle&#39;, &#39;wide-body&#39;</span>
+
+    <span class="c1"># If true, NOx aCCF is calculated (i.e. aCCF-NOx = aCCF-CH4 + aCCF-O3)</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx_aCCF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                        <span class="c1"># Options: True, False</span>
+
+    <span class="sd">&quot;&quot;&quot;Climate Hotspots&quot;&quot;&quot;</span>
+
+    <span class="c1"># If true, climate hotspots are calculated&#39;</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Chotspots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                  <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified </span>
+    <span class="c1"># threshold, and 1 for areas with higher climate impacts than the threshold)</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_binary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>             <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># Specifies the constant threshold for determining climate hotspots</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_thr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Determines dynamically the threshold for identifying climate hotspots using the cumulative distribution of the merged aCCF</span>
+    <span class="c1"># The percentiles are also outputted in netCDF output file</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_percentile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>          <span class="c1"># Options: percentage &lt; 100     </span>
+
+    <span class="sd">&quot;&quot;&quot; Statistical analysis of EPS forecast&quot;&quot;&quot;</span>
+
+    <span class="c1"># If true, mean values of aCCFs and variables are saved in the netCDF output file</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                      <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># If true, standard deviation of aCCFs and variables are saved in the netCDF output file</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                       <span class="c1"># Options: True, False</span>
+
+    <span class="sd">&quot;&quot;&quot; Output &quot;&quot;&quot;</span>
+
+    <span class="c1"># If true, weather variables are saved in the netCDF output file</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;MET_variables&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>             <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># If true, polygons containing climate hotspots will be saved in the GeoJson file</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;geojson&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                   <span class="c1"># Options: True, False</span>
+
+    <span class="c1"># Specifies the color of polygons</span>
+    <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;copper&#39;</span>                  <span class="c1"># Options: colors of cmap, e.g., copper, jet, Reds</span>
+
+
+    <span class="sd">&quot;&quot;&quot; %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% &quot;&quot;&quot;</span>
+
+    <span class="n">CI</span> <span class="o">=</span> <span class="n">ClimateImpact</span><span class="p">(</span><span class="n">path_</span><span class="p">,</span> <span class="n">horizontal_resolution</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">lat_bound</span><span class="o">=</span><span class="p">(</span><span class="mf">33.5</span><span class="p">,</span> <span class="mf">70.0</span><span class="p">),</span> <span class="n">lon_bound</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mf">26.5</span><span class="p">,</span> <span class="mf">45.5</span><span class="p">),</span>
                                           <span class="n">save_path</span><span class="o">=</span><span class="n">path_save</span><span class="p">)</span>
     <span class="n">CI</span><span class="o">.</span><span class="n">calculate_accfs</span><span class="p">(</span><span class="o">**</span><span class="n">confg</span><span class="p">)</span></div>
 </pre></div>
@@ -66,7 +144,7 @@
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -77,7 +155,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">envlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">

@@ -88,8 +88,8 @@ html_theme = 'alabaster'
 #
 html_theme_options = {
     #'logo': 'fmp-met_logo.png', # you should locate the png image in the _static folder
-    'github_user': 'javiergarciaheras',
-    'github_repo': 'metintos'
+    'github_user': 'abolfazlsimorgh',
+    'github_repo': 'envlib'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -119,7 +119,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'METINTOSdoc'
+htmlhelp_basename = 'EnVLiBdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -153,7 +153,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'ENVLIB.tex', u'Environmental Library Documentation',
+    (master_doc, 'EnVLiB.tex', u'Environmental Library Documentation',
      u'DLR, TUHH, TUD, UC3M', 'manual'),
 ]
 
@@ -163,7 +163,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    (master_doc, 'ENVLIB', u'EnVLiB Documentation',
+    (master_doc, 'EnVLiB', u'EnVLiB Documentation',
      [author], 1)
 ]
 
@@ -174,7 +174,7 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-    (master_doc, 'ENVLIB', u'EnVLiB Documentation',
+    (master_doc, 'EnVLiB', u'EnVLiB Documentation',
      author, 'Abolfazl Simorgh', 'Environmental Library.',
      'Miscellaneous'),
 ]

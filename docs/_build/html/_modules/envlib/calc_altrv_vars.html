@@ -41,9 +41,9 @@
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 
-<div class="viewcode-block" id="get_pvu"><a class="viewcode-back" href="../../envlib.html#envlib.calc_altrv_vars.get_pvu">[docs]</a><span class="k">def</span> <span class="nf">get_pvu</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+<div class="viewcode-block" id="get_pvu"><a class="viewcode-back" href="../../modules.html#envlib.calc_altrv_vars.get_pvu">[docs]</a><span class="k">def</span> <span class="nf">get_pvu</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Caclulates potential vorticity from meteorological variables temperature and components of winds.</span>
+<span class="sd">    Caclulates potential vorticity from meteorological variables temperature and components of wind.</span>
 
 <span class="sd">    :param ds: Dataset openned with xarray.</span>
 <span class="sd">    :type ds: Dataset</span>
@@ -53,7 +53,7 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">Levels</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="n">Ava_levels</span> <span class="o">=</span> <span class="n">Levels</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">PVUU</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">Ava_levels</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
+    <span class="n">pvu</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span> <span class="nb">len</span><span class="p">(</span><span class="n">Ava_levels</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">),</span>
                      <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">)))</span>
 
     <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">Ava_levels</span><span class="p">)):</span>
@@ -102,14 +102,14 @@
                               <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">below</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">(</span><span class="n">shape_gridlat</span><span class="p">)])</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">mbar</span>
 
                 <span class="n">PV</span> <span class="o">=</span> <span class="n">calc</span><span class="o">.</span><span class="n">potential_vorticity_baroclinic</span><span class="p">(</span><span class="n">PT</span><span class="p">,</span> <span class="n">p</span><span class="p">,</span> <span class="n">U</span><span class="p">,</span> <span class="n">V</span><span class="p">,</span> <span class="n">dx</span><span class="p">,</span> <span class="n">dy</span><span class="p">,</span> <span class="n">lat</span> <span class="o">*</span> <span class="n">units</span><span class="o">.</span><span class="n">degree</span><span class="p">)</span>
-                <span class="n">PVUU</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">PV</span><span class="o">.</span><span class="n">magnitude</span>
+                <span class="n">pvu</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">PV</span><span class="o">.</span><span class="n">magnitude</span>
 
-    <span class="k">return</span> <span class="n">PVUU</span></div>
+    <span class="k">return</span> <span class="n">pvu</span></div>
 
 
-<div class="viewcode-block" id="get_rh_ice"><a class="viewcode-back" href="../../envlib.html#envlib.calc_altrv_vars.get_rh_ice">[docs]</a><span class="k">def</span> <span class="nf">get_rh_ice</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+<div class="viewcode-block" id="get_rh_ice"><a class="viewcode-back" href="../../modules.html#envlib.calc_altrv_vars.get_rh_ice">[docs]</a><span class="k">def</span> <span class="nf">get_rh_ice</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates the relative humidity over ice from realtive humidity over water</span>
+<span class="sd">    Calculates relative humidity over ice from realtive humidity over water</span>
 
 <span class="sd">    :param ds: Dataset openned with xarray.</span>
 <span class="sd">    :type ds: Dataset</span>
@@ -126,7 +126,7 @@
     <span class="k">return</span> <span class="n">rh_ice</span></div>
 
 
-<div class="viewcode-block" id="get_rh_sd"><a class="viewcode-back" href="../../envlib.html#envlib.calc_altrv_vars.get_rh_sd">[docs]</a><span class="k">def</span> <span class="nf">get_rh_sd</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
+<div class="viewcode-block" id="get_rh_sd"><a class="viewcode-back" href="../../modules.html#envlib.calc_altrv_vars.get_rh_sd">[docs]</a><span class="k">def</span> <span class="nf">get_rh_sd</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Calculates the relative humidity from specific humidity</span>
 
@@ -159,7 +159,7 @@
 
 <div class="viewcode-block" id="get_rh_wa"><a class="viewcode-back" href="../../envlib.html#envlib.calc_altrv_vars.get_rh_wa">[docs]</a><span class="k">def</span> <span class="nf">get_rh_wa</span><span class="p">(</span><span class="n">ds</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Calculates the relative humidity over water from specific humidity</span>
+<span class="sd">    Calculates relative humidity over water from specific humidity</span>
 
 <span class="sd">    :param ds: Dataset openned with xarray.</span>
 <span class="sd">    :type ds: Dataset</span>
@@ -193,7 +193,7 @@
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -204,7 +204,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">envlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">

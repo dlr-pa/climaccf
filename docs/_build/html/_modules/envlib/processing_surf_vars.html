@@ -38,10 +38,11 @@
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="extend_olr_pl_4d"><a class="viewcode-back" href="../../envlib.html#envlib.processing_surf_vars.extend_olr_pl_4d">[docs]</a><span class="k">def</span> <span class="nf">extend_olr_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">fore_step</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)</span>
-<span class="sd">    [J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time</span>
-<span class="sd">    regarding inputted index, OLR is calculated in 3D (i.e, level, latitude, longitude).</span>
+<div class="viewcode-block" id="extend_olr_pl_4d"><a class="viewcode-back" href="../../modules.html#envlib.processing_surf_vars.extend_olr_pl_4d">[docs]</a><span class="k">def</span> <span class="nf">extend_olr_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">fore_step</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)</span>
+<span class="sd">    [J/m2], and extend (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, </span>
+<span class="sd">    regarding the inputted index, OLR is calculated in 3D (i.e., level, latitude, longitude).</span>
 
 <span class="sd">    :param sur_var: Dataset containing surface parameters openned with xarray.</span>
 <span class="sd">    :type sur_var: Dataset</span>
@@ -49,7 +50,7 @@
 <span class="sd">    :param pl_var: Dataset containing pressure level parameters openned with xarray.</span>
 <span class="sd">    :type pl_var: Dataset</span>
 
-<span class="sd">    :param index: Index of the time that exist in the dataset of pressure level parameters at this step.</span>
+<span class="sd">    :param index: Index of the time.</span>
 <span class="sd">    :type index: int</span>
 
 <span class="sd">    :param fore_step: Forecast step in hours.</span>
@@ -65,10 +66,47 @@
     <span class="k">return</span> <span class="n">arr</span></div>
 
 
-<div class="viewcode-block" id="extend_olr_pl_5d"><a class="viewcode-back" href="../../envlib.html#envlib.processing_surf_vars.extend_olr_pl_5d">[docs]</a><span class="k">def</span> <span class="nf">extend_olr_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">fore_step</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)</span>
-<span class="sd">    [J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time</span>
-<span class="sd">    regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude, longitude).</span>
+
+<div class="viewcode-block" id="extend_ssrd_pl_5d"><a class="viewcode-back" href="../../envlib.html#envlib.processing_surf_vars.extend_ssrd_pl_5d">[docs]</a><span class="k">def</span> <span class="nf">extend_ssrd_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pl_var</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">n_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pl_var</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i_l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_l</span><span class="p">):</span>
+        <span class="n">arr</span><span class="p">[:,</span> <span class="p">:,</span> <span class="n">i_l</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">sur_var</span><span class="p">[</span><span class="s1">&#39;ssrd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="k">return</span> <span class="n">arr</span></div>
+
+<div class="viewcode-block" id="extend_ssrd_pl_4d"><a class="viewcode-back" href="../../envlib.html#envlib.processing_surf_vars.extend_ssrd_pl_4d">[docs]</a><span class="k">def</span> <span class="nf">extend_ssrd_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">arr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">pl_var</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+    <span class="n">n_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">pl_var</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i_l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_l</span><span class="p">):</span>
+        <span class="n">arr</span><span class="p">[:,</span> <span class="n">i_l</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">sur_var</span><span class="p">[</span><span class="s1">&#39;ssrd&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span>
+    <span class="k">return</span> <span class="n">arr</span></div>
+
+
+<div class="viewcode-block" id="get_ssrd"><a class="viewcode-back" href="../../envlib.html#envlib.processing_surf_vars.get_ssrd">[docs]</a><span class="k">def</span> <span class="nf">get_ssrd</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">number</span><span class="p">:</span>
+        <span class="n">ssrd_</span> <span class="o">=</span> <span class="n">extend_ssrd_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">)</span>
+        <span class="n">ssrd</span> <span class="o">=</span> <span class="n">ssrd_</span>
+        <span class="n">ssrd</span><span class="p">[</span><span class="n">ssrd_</span> <span class="o">&lt;=</span> <span class="mf">0.1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># night</span>
+        <span class="n">ssrd</span><span class="p">[</span><span class="n">ssrd_</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># day</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ssrd_</span> <span class="o">=</span> <span class="n">extend_ssrd_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">)</span>
+        <span class="n">ssrd</span> <span class="o">=</span> <span class="n">ssrd_</span>
+        <span class="n">ssrd</span><span class="p">[</span><span class="n">ssrd_</span> <span class="o">&lt;=</span> <span class="mf">0.1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span> <span class="c1"># night</span>
+        <span class="n">ssrd</span><span class="p">[</span><span class="n">ssrd_</span> <span class="o">&gt;</span> <span class="mf">0.1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># day</span>
+    <span class="k">return</span> <span class="n">ssrd</span></div>
+
+
+<div class="viewcode-block" id="extend_olr_pl_5d"><a class="viewcode-back" href="../../modules.html#envlib.processing_surf_vars.extend_olr_pl_5d">[docs]</a><span class="k">def</span> <span class="nf">extend_olr_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="n">fore_step</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)</span>
+<span class="sd">    [J/m2], and extend (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, </span>
+<span class="sd">    regarding the inputted index, OLR is calculated in 4D (i.e., number, level, latitude, longitude).</span>
 
 <span class="sd">    :param sur_var: Dataset containing surface parameters openned with xarray.</span>
 <span class="sd">    :type sur_var: Dataset</span>
@@ -92,7 +130,7 @@
     <span class="k">return</span> <span class="n">arr</span></div>
 
 
-<div class="viewcode-block" id="get_olr_4d"><a class="viewcode-back" href="../../envlib.html#envlib.processing_surf_vars.get_olr_4d">[docs]</a><span class="k">def</span> <span class="nf">get_olr_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">thr</span><span class="p">,</span> <span class="n">fore_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_olr_4d"><a class="viewcode-back" href="../../modules.html#envlib.processing_surf_vars.get_olr_4d">[docs]</a><span class="k">def</span> <span class="nf">get_olr_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">thr</span><span class="p">,</span> <span class="n">fore_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)</span>
 <span class="sd">    [J/m2]. OLR is calculated in 4D (i.e, time, level, latitude, longitude).</span>
 
@@ -124,18 +162,31 @@
                     <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">mean_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sur_var</span><span class="p">[</span><span class="s1">&#39;ttr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>
-                    <span class="k">if</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;3hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;3hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;1hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;1hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
+                        <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 1 hour&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;3hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;3hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
                         <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
                         <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 3 hours&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;6hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;6hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
                         <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
                         <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 6 hours&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;9hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;9hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
                         <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
                         <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 9 hours&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;12hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;12hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
                         <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_4d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
                         <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 12 hours&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                             <span class="s2">&quot;forecast step is not included within the default defined values and it must be &quot;</span>
@@ -143,7 +194,7 @@
     <span class="k">return</span> <span class="n">olr</span></div>
 
 
-<div class="viewcode-block" id="get_olr_5d"><a class="viewcode-back" href="../../envlib.html#envlib.processing_surf_vars.get_olr_5d">[docs]</a><span class="k">def</span> <span class="nf">get_olr_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">thr</span><span class="p">,</span> <span class="n">fore_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_olr_5d"><a class="viewcode-back" href="../../modules.html#envlib.processing_surf_vars.get_olr_5d">[docs]</a><span class="k">def</span> <span class="nf">get_olr_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">thr</span><span class="p">,</span> <span class="n">fore_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)</span>
 <span class="sd">    [J/m2]. OLR is calculated in 5D (i.e, time, number, level, latitude, longitude).</span>
 
@@ -175,18 +226,31 @@
                     <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
                 <span class="k">else</span><span class="p">:</span>
                     <span class="n">mean_values</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">sur_var</span><span class="p">[</span><span class="s1">&#39;ttr&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">index</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:])</span>
-                    <span class="k">if</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;3hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;3hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
+                    <span class="k">if</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;1hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;1hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
+                        <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+                        <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 1 hour&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;3hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;3hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
                         <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
                         <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 3 hours&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;6hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;6hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
                         <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
                         <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 6 hours&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;9hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;9hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
                         <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">9</span><span class="p">)</span>
                         <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 9 hours&#39;</span><span class="p">)</span>
                     <span class="k">elif</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;12hr&#39;</span><span class="p">]</span> <span class="o">-</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">mean_values</span> <span class="o">&lt;=</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;12hr&#39;</span><span class="p">]</span> <span class="o">+</span> <span class="n">thr</span><span class="p">[</span><span class="s1">&#39;range&#39;</span><span class="p">]:</span>
                         <span class="n">array</span> <span class="o">=</span> <span class="n">extend_olr_pl_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">index</span><span class="p">,</span> <span class="mi">12</span><span class="p">)</span>
                         <span class="n">olr</span><span class="p">[</span><span class="n">i_t</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">array</span>
+                        <span class="k">if</span> <span class="n">i_t</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Forecast step: 12 hours&#39;</span><span class="p">)</span>
                     <span class="k">else</span><span class="p">:</span>
                         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
                             <span class="s2">&quot;forecast step are not included within the default defined values and it must be &quot;</span>
@@ -194,7 +258,7 @@
     <span class="k">return</span> <span class="n">olr</span></div>
 
 
-<div class="viewcode-block" id="get_olr"><a class="viewcode-back" href="../../envlib.html#envlib.processing_surf_vars.get_olr">[docs]</a><span class="k">def</span> <span class="nf">get_olr</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fore_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+<div class="viewcode-block" id="get_olr"><a class="viewcode-back" href="../../modules.html#envlib.processing_surf_vars.get_olr">[docs]</a><span class="k">def</span> <span class="nf">get_olr</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">number</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">fore_step</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)</span>
 <span class="sd">        [J/m2]. OLR is calculated in 5D or 4D depending on the existance of ensemble members.</span>
 
@@ -214,7 +278,7 @@
 <span class="sd">        :rtype: numpy.ndarray</span>
 <span class="sd">        &quot;&quot;&quot;</span>
     <span class="c1"># threshold for determining forecast steps</span>
-    <span class="n">thr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;3hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">24e5</span><span class="p">,</span> <span class="s1">&#39;6hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">48e5</span><span class="p">,</span> <span class="s1">&#39;9hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">72e5</span><span class="p">,</span> <span class="s1">&#39;12hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">96e5</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="mf">7e5</span><span class="p">}</span>
+    <span class="n">thr</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;1hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">8e5</span><span class="p">,</span><span class="s1">&#39;3hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">24e5</span><span class="p">,</span> <span class="s1">&#39;6hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">48e5</span><span class="p">,</span> <span class="s1">&#39;9hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">76e5</span><span class="p">,</span> <span class="s1">&#39;12hr&#39;</span><span class="p">:</span> <span class="o">-</span><span class="mf">106e5</span><span class="p">,</span> <span class="s1">&#39;range&#39;</span><span class="p">:</span> <span class="mf">8e5</span><span class="p">}</span>
     <span class="k">if</span> <span class="n">number</span><span class="p">:</span>
         <span class="n">olr</span> <span class="o">=</span> <span class="n">get_olr_5d</span><span class="p">(</span><span class="n">sur_var</span><span class="p">,</span> <span class="n">pl_var</span><span class="p">,</span> <span class="n">thr</span><span class="p">,</span> <span class="n">fore_step</span><span class="p">)</span>
     <span class="k">else</span><span class="p">:</span>
@@ -236,7 +300,7 @@
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -247,7 +311,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">envlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">

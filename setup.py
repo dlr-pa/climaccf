@@ -23,7 +23,7 @@ setup(
   #url='',
   #download_url='',
   keywords=['Climate Impacts of Aviation', 'Algorithmic Climate Change Functions', 'Climate Hotspots', 'Non-CO2 ', 'Emissions'],
-  install_requires=['xarray~=0.16.1', 'numpy==1.20.3', 'metpy~=1.1.0', 'h5netcdf~=0.8.1', 'scipy~=1.5.2', 'hyperopt~=0.2.5', 'pyparsing~=2.2.1', 'pandas~=1.1.2', 'casadi~=3.5.5',  'tomli~=1.0.2','setuptools~=49.6.0','matplotlib~=3.5.0rc1', 'geojsoncontour~=0.4.0', 'openpyxl~=3.0.9', 'xlrd==1.2.0'],
+  install_requires=['setuptools~=49.6.0', 'setuptools_scm~=6.4.2', 'pint==0.19.1', 'xarray~=0.16.1', 'numpy==1.20.3', 'metpy~=1.1.0', 'h5netcdf~=0.8.1', 'scipy~=1.5.2', 'hyperopt~=0.2.5', 'pyparsing==2.2.2', 'pandas==1.3.3', 'casadi~=3.5.5',  'tomli~=1.0.2','matplotlib~=3.5.0rc1', 'geojsoncontour~=0.4.0', 'openpyxl~=3.0.9', 'xlrd==1.2.0'],
   
   include_package_data=True,
   setup_requires=['pytest-runner==4.4'],

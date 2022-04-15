@@ -8,17 +8,17 @@ from envlib.emission_indices import *
 from scipy.stats import norm
 from scipy import integrate
 
-class CalAccf(object):
+class GeTaCCFs(object):
     """ Calculation of algorithmic climate change functions (aCCFs)."""
 
     def __init__(self, wd_inf, rhi_thr):
         """
-        Extracts data required for calculating aCCFs.
+        Prepares the data required to calculate aCCFs and store them in self.
 
-        :param wd_inf: Contains processed weather data.
+        :param wd_inf: Contains processed weather data with all information.
         :type wd_inf: Class
 
-        :param rhi_thr: Threshold for relative humidity over ice (ice-supersaturation).
+        :param rhi_thr: Threshold of relative humidity over ice for determining ice-supersaturation.
         :type rhi_thr: float
         """
         self.ds = ds = wd_inf.ds
@@ -71,7 +71,7 @@ class CalAccf(object):
     def accf_o3(self):
         """
         Calculates the aCCF of Ozone for pulse emission scenario, average temperature response as climate
-        indicator and 20 years (P-ATR20-ozone [K/kg(NO2)]). To calculate the aCCF of Ozone, meteorological variables
+        indicator over next 20 years (P-ATR20-ozone [K/kg(NO2)]). To calculate the aCCF of Ozone, meteorological variables
         temperature and geopotential are required.
 
         :returns accf: Algorithmic climate change function of Ozone.
@@ -86,7 +86,7 @@ class CalAccf(object):
     def accf_ch4(self):
         """
         Calculates the aCCF of Methane for pulse emission scenario, average temperature response as climate
-        indicator and 20 years (P-ATR20-methane [K/kg(NO2)]). To calculate the aCCF of Methane, meteorological
+        indicator over next 20 years (P-ATR20-methane [K/kg(NO2)]). To calculate the aCCF of Methane, meteorological
         variables geopotential and incoming solar radiation are required.
 
         :returns accf: Algorithmic climate change function of methane.
@@ -101,9 +101,9 @@ class CalAccf(object):
     def accf_ncontrail(self):
         """
         Calculates the aCCF of night-time contrails for pulse emission scenario, average temperature response as
-        climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,
+        climate indicator over next 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,
         meteorological variables temperature and relative humidities over ice and water are required. Notice that,
-        relative humidies are required for the detemiation of presistent contrial formation areas.
+        relative humidies are required for the detemiation of presistent contrail formation areas.
 
         :returns accf: Algorithmic climate change function of nighttime contrails.
         :rtype: numpy.ndarray
@@ -124,7 +124,7 @@ class CalAccf(object):
         climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
         meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
         are required. Notice that, temperature and relative humidies are required for the detemiation of presistent
-        contrial formation areas.
+        contrail formation areas.
 
         :returns accf: Algorithmic climate change function of day-time contrails.
         :rtype: numpy.ndarray
@@ -154,27 +154,27 @@ class CalAccf(object):
 
     def get_accfs(self, **problem_config):
         """
-        Gets the formulations of aCCFs, and calculated user-defined conversions or functions.
+        Calculates individual aCCFs, the merged aCCF and climate hotspots based on the defined conversions, parameters and etc. 
         """
         confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False,
-                 'merged': True, 'NOx': True, 'emission_indices': 'TTV', 'Chotspots': True, 'hotspots_binary': True,
-                 'hotspots_thr': False, 'variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
-                 'Coef.BFFM2': False, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99}
+                 'merged': True, 'NOx_aCCF': True, 'NOx&inverse_EIs': 'TTV', 'Chotspots': True, 'hotspots_binary': True,
+                 'hotspots_thr': False, 'MET_variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
+                 'Coef.BFFM2': False, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99, 'method_BFFM2_SH': 'RH'}
         confg.update(problem_config)
-        self.variables = confg['variables']
+        self.variables = confg['MET_variables']
 
         if confg['educated_guess_v1.0']:
             self.eg = confg['educated_guess_v1.0']
         else:
             self.eg = educated_guess_v1
 
-
         # PCFA
         if confg['pcfa']:
             attrs_pcfa = {'unit': 'contrails', 'long_name': 'persistent contrail formation areas', 'short_name': 'pcfa'}
             self.var_aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa, attrs_pcfa)
             self.aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa, attrs_pcfa) 
-
+        
+        
         # CH4:
         if self.aCCF_bool['CH4']:
             attrs_ch4 = {'unit': 'K kg(NO2)**-1', 'long_name': 'algorithmic climate change function of methane', 'short_name': 'aCCF of methane'}
@@ -240,7 +240,7 @@ class CalAccf(object):
                     self.aCCF_Cont = self.aCCF_dCont
                 else:
                     self.aCCF_Cont = self.aCCF_nCont
-                if confg['emission_indices'] == 'variable':
+                if confg['NOx&inverse_EIs'] == 'ac_dependent':
                     self.merged_bool = True        
                     self.NOx_EI, self.inverse_EI = get_EIs(confg['ac_type'], self.path_lib)
                     self.merged_aCCF = np.zeros(self.aCCF_H2O.shape)
@@ -268,7 +268,7 @@ class CalAccf(object):
                                 self.merged_aCCF [:, k, :, :] = self.aCCF_CO2 [:, k, :, :] + self.aCCF_H2O [:, k, :, :] + self.aCCF_O3 [:, k, :, :] + self.aCCF_CH4 [:, k, :, :] +  self.aCCF_Cont [:, k, :, :]
                             else:                                
                                 self.merged_aCCF[:, k, :, :] = self.aCCF_CO2[:, k, :, :] + self.aCCF_H2O[:, k, :, :] + 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * (self.aCCF_O3[:, k, :, :]+ self.aCCF_CH4[:, k, :, :]) + np.array(self.inverse_EI(self.ds.level.values[k])) * self.aCCF_Cont[:, k, :, :]
-                elif confg['emission_indices'] == 'TTV':
+                elif confg['NOx&inverse_EIs'] == 'TTV':
                     self.merged_bool = True   
                     if confg['unit_K/kg(fuel)']: 
                        self.aCCF_O3  = emission_index['NOx'] * self.aCCF_O3
@@ -281,7 +281,7 @@ class CalAccf(object):
                         self.merged_aCCF = self.aCCF_CO2 + self.aCCF_H2O + emission_index['NOx'] * (
                             self.aCCF_O3 + self.aCCF_CH4) + emission_index['Cont.'] * self.aCCF_Cont     
                 else:
-                    raise ValueError("No any other options available right now for calculating NOx and inverse emission indices.")
+                    raise ValueError("There are no other options available for calculating NOx and inverse emission indices.")
 
                 # Modify the units of NOx (ozone and methane) and Contrails (day- and night-time) aCCFs in the attributes and replace the pervious data with the converted ones    
                 if confg['unit_K/kg(fuel)']: 
@@ -311,7 +311,7 @@ class CalAccf(object):
                 attrs_merged = {'unit': 'K kg(fuel)**-1', 'long_name': 'merged algorithmic climate change function', 'short_name': 'merged aCCF'}      
                 self.var_aCCF_xr['aCCF_merged'] = (tuple(self.coordinate_names), self.merged_aCCF, attrs_merged)
                 self.aCCF_xr['aCCF_merged'] = (tuple(self.coordinate_names), self.merged_aCCF, attrs_merged)
-        if confg['NOx']:
+        if confg['NOx_aCCF']:
             if self.aCCF_bool['O3'] and self.aCCF_bool['CH4']:
                 if confg['unit_K/kg(fuel)']:
                     attrs_nox = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of NOx emission', 'short_name': 'aCCF of  NOx emission'}
@@ -322,7 +322,7 @@ class CalAccf(object):
                 self.var_aCCF_xr['aCCF_NOx'] = (tuple(self.coordinate_names), self.aCCF_NOx, attrs_nox)
                 self.aCCF_xr['aCCF_NOx'] = (tuple(self.coordinate_names), self.aCCF_NOx, attrs_nox)
             else:
-                raise ValueError("aCCF of CH4 or/and aCCF of O3 is/are not avialable.")
+                raise ValueError("aCCF of CH4 or/and aCCF of O3 is/are not available.")
 
         if confg['Chotspots']:
             if self.merged_bool:
@@ -396,7 +396,7 @@ class CalAccf(object):
                         arr = self.get_std(self.aCCF_xr[name_][1])
                         self.aCCF_xr[name_ + '_std'] = (tuple(coor_without_mem), arr)
         if confg['Coef.BFFM2']:
-            C1, C2 = get_BFFM2_c1c2(self)
+            C1, C2 = get_BFFM2_c1c2(self, confg['method_BFFM2_SH'])
             self.var_aCCF_xr['C1'] = (tuple(self.coordinate_names), C1)
             self.aCCF_xr['C1'] = (tuple(self.coordinate_names), C1)                
             self.var_aCCF_xr['C2'] = (tuple(self.coordinate_names), C2)
@@ -404,9 +404,9 @@ class CalAccf(object):
 
     def get_xarray(self):
         """
-        Build xarray dataset.
+        Creates an xarray dataset containing user-selected variables.
 
-        :returns ds: xarray dataset containing user-difned variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).
+        :returns ds: xarray dataset containing user-selected variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).
         :rtype: dataset
 
         :returns encoding
@@ -424,16 +424,15 @@ class CalAccf(object):
 
     def get_std(self, var, normalize=False):
         """
-        Calculates standard deviation of a variable over ensemble members.
+        Calculates the standard deviation of the inputted variables over the ensemble members.
 
         :param var: variable.
         :rtype: numpy.ndarray
 
-        :param normalize: If True, it calculated standard deviation over the normalized variable, if False,
-        from the original variable.
+        :param normalize: If True, it calculates standard deviation over the normalized variable. If False, standard deviation is taken from the original variable.
         :rtype: bool
 
-        :returns standard deviation of the variable.
+        :returns x_std: standard deviation of the variable.
         :rtype: numpy.ndarray
         """
         x_std = np.zeros(self.t[:, 1, :, :, :].shape)
@@ -450,26 +449,58 @@ class CalAccf(object):
 
 
 def convert_accf(name, value, confg):
+    """
+    Converts aCCFs based on the selected configurations (i.e., efficacy, climate indicator, emission scenarios and time horizons).
+
+    :param name: Name of the species (e.g., 'CH4').
+    :rtype: string
+
+    :param value: Value of the species to be converted (P-ATR20 without efficacy factor).  
+    :rtype: numpy.ndarray
+
+    :param confg: User-defined configurations for conversions. 
+    :rtype: dict
+
+    :returns value: Converted aCCF. 
+    :rtype: numpy.ndarray
+    """
     if confg['efficacy']:
         value = efficacy[name] * value
-    if confg['emission_scenario'] != 'pulse':
-        if confg['emission_scenario'] == 'future_scenario' and confg['TimeHorizon'] == 20:
-            value = P20_F20[name] * value
-        elif confg['emission_scenario'] == 'future_scenario' and confg['TimeHorizon'] == 50:
-            value = P20_F50[name] * value
-        elif confg['emission_scenario'] == 'future_scenario' and confg['TimeHorizon'] == 100:
-            value = P20_F100[name] * value
-        elif confg['emission_scenario'] == 'sustained':
-            pass  # value = P2S[name] * value
-        else:
-            raise ValueError(f" The right options for emission_scenario are pulse (with time horizon: 20 years), future scenario (with time horizons 20, 50 and 100) and "
-                             f"sustanied, not {confg['emission_scenario']}")
-    if confg['climate_indicator'] != 'ATR':
-        raise ValueError(" The current version just uses average temperature response as the climate indicator")
+    if confg['climate_indicator'] == 'ATR':    
+        if confg['emission_scenario'] == 'future_scenario':
+            if confg['TimeHorizon'] == 20:
+                value = P20_F20[name] * value
+            elif confg['TimeHorizon'] == 50:
+                value = P20_F50[name] * value
+            elif confg['TimeHorizon'] == 100:
+                value = P20_F100[name] * value
+            else: 
+                raise ValueError("The right options of time-horizons for ATR with future emission scenario are: 20, 50 and 100.")    
+        elif confg['emission_scenario'] == 'pulse':
+            if confg['TimeHorizon'] == 20:
+                pass
+            else:
+                raise ValueError ("The right option of time-horizon for ATR with pulse emission is: 20")
+        else:        
+            raise ValueError("The right options for emission scenarios are pulse (with time horizon: 20 years), future scenario scenario (with time horizons 20, 50 and 100).")
+    else:
+        raise ValueError(" The current version only employs average temperature response (ATR) as the climate indicator.")
     return value
 
 
 def get_Fin(ds, lat):
+    """
+    Calculates incoming solar radiation.
+
+    :param ds: dataset to extract the number of day.
+    :rtype: Dataset
+
+    :param lat: latitude.  
+    :rtype: numpy.ndarray
+
+    :returns Fin: Incoming solar radiation. 
+    :rtype: numpy.ndarray
+    """
     date = str(ds['time'].values[0])
     month = date[5:7]
     day = date[8:10]
@@ -477,7 +508,7 @@ def get_Fin(ds, lat):
     delta = -23.44 * np.cos(np.deg2rad(360 / 365 * (N + 10)))
     S = 1360  # W/m2, Solar constant
     theta = np.sin(np.deg2rad(lat)) * np.sin(np.deg2rad(delta)) + np.cos(np.deg2rad(lat)) * np.cos(np.deg2rad(delta))
-    Fin = S * np.cos(np.deg2rad(theta))
+    Fin = S * theta
     return Fin
 
 

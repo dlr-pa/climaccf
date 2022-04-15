@@ -15,8 +15,6 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="setup module" href="setup.html" />
-    <link rel="prev" title="envlib" href="modules.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -41,15 +39,15 @@
 <div class="section" id="module-envlib.accf">
 <span id="envlib-accf-module"></span><h2>envlib.accf module<a class="headerlink" href="#module-envlib.accf" title="Permalink to this headline">¶</a></h2>
 <dl class="py class">
-<dt id="envlib.accf.CalAccf">
-<em class="property">class </em><code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">CalAccf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wd_inf</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.GeTaCCFs">
+<em class="property">class </em><code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">GeTaCCFs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">wd_inf</span></em>, <em class="sig-param"><span class="n">rhi_thr</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>Calculation of algorithmic climate change functions (aCCFs).</p>
 <dl class="py method">
-<dt id="envlib.accf.CalAccf.accf_ch4">
-<code class="sig-name descname">accf_ch4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_ch4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_ch4" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.GeTaCCFs.accf_ch4">
+<code class="sig-name descname">accf_ch4</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_ch4"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_ch4" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of Methane for pulse emission scenario, average temperature response as climate
-indicator and 20 years (P-ATR20-methane [K/kg(NO2)]). To calculate the aCCF of Methane, meteorological
+indicator over next 20 years (P-ATR20-methane [K/kg(NO2)]). To calculate the aCCF of Methane, meteorological
 variables geopotential and incoming solar radiation are required.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns accf</dt>
@@ -62,13 +60,13 @@ variables geopotential and incoming solar radiation are required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="envlib.accf.CalAccf.accf_dcontrail">
-<code class="sig-name descname">accf_dcontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_dcontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_dcontrail" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.GeTaCCFs.accf_dcontrail">
+<code class="sig-name descname">accf_dcontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_dcontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_dcontrail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of day-time contrails for pulse emission scenario, average temperature response as
 climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
 meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
 are required. Notice that, temperature and relative humidies are required for the detemiation of presistent
-contrial formation areas.</p>
+contrail formation areas.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns accf</dt>
 <dd class="field-odd"><p>Algorithmic climate change function of day-time contrails.</p>
@@ -80,8 +78,8 @@ contrial formation areas.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="envlib.accf.CalAccf.accf_h2o">
-<code class="sig-name descname">accf_h2o</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_h2o"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_h2o" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.GeTaCCFs.accf_h2o">
+<code class="sig-name descname">accf_h2o</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_h2o"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_h2o" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of water vapour for pulse emission scenario, average temperature response as
 climate indicator and 20 years (P-ATR20-water-vapour [K/kg(fuel)]). To calculate the aCCF of water vapour,
 meteorological variable potential vorticity is required.</p>
@@ -96,12 +94,12 @@ meteorological variable potential vorticity is required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="envlib.accf.CalAccf.accf_ncontrail">
-<code class="sig-name descname">accf_ncontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_ncontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_ncontrail" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.GeTaCCFs.accf_ncontrail">
+<code class="sig-name descname">accf_ncontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_ncontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_ncontrail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of night-time contrails for pulse emission scenario, average temperature response as
-climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,
+climate indicator over next 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,
 meteorological variables temperature and relative humidities over ice and water are required. Notice that,
-relative humidies are required for the detemiation of presistent contrial formation areas.</p>
+relative humidies are required for the detemiation of presistent contrail formation areas.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns accf</dt>
 <dd class="field-odd"><p>Algorithmic climate change function of nighttime contrails.</p>
@@ -113,10 +111,10 @@ relative humidies are required for the detemiation of presistent contrial format
 </dd></dl>
 
 <dl class="py method">
-<dt id="envlib.accf.CalAccf.accf_o3">
-<code class="sig-name descname">accf_o3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.accf_o3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.accf_o3" title="Permalink to this definition">¶</a></dt>
+<dt id="envlib.accf.GeTaCCFs.accf_o3">
+<code class="sig-name descname">accf_o3</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_o3"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_o3" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of Ozone for pulse emission scenario, average temperature response as climate
-indicator and 20 years (P-ATR20-ozone [K/kg(NO2)]). To calculate the aCCF of Ozone, meteorological variables
+indicator over next 20 years (P-ATR20-ozone [K/kg(NO2)]). To calculate the aCCF of Ozone, meteorological variables
 temperature and geopotential are required.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns accf</dt>
@@ -129,39 +127,44 @@ temperature and geopotential are required.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="envlib.accf.CalAccf.get_accfs">
-<code class="sig-name descname">get_accfs</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">problem_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_accfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_accfs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Gets the formulations of aCCFs, and calculated user-defined conversions or functions.</p>
+<dt id="envlib.accf.GeTaCCFs.get_accfs">
+<code class="sig-name descname">get_accfs</code><span class="sig-paren">(</span><em class="sig-param"><span class="o">**</span><span class="n">problem_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.get_accfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.get_accfs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates individual aCCFs, the merged aCCF and climate hotspots based on the defined conversions, parameters and etc.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="envlib.accf.CalAccf.get_std">
-<code class="sig-name descname">get_std</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_std" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates standard deviation of a variable over ensemble members.</p>
+<dt id="envlib.accf.GeTaCCFs.get_std">
+<code class="sig-name descname">get_std</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">var</span></em>, <em class="sig-param"><span class="n">normalize</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.get_std"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.get_std" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the standard deviation of the inputted variables over the ensemble members.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>var</strong> – variable.</p></li>
-<li><p><strong>normalize</strong> – If True, it calculated standard deviation over the normalized variable, if False,</p></li>
+<li><p><strong>normalize</strong> – If True, it calculates standard deviation over the normalized variable. If False, standard deviation is taken from the original variable.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>numpy.ndarray</p>
 </dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>bool</p>
+</dd>
+<dt class="field-even">Returns x_std</dt>
+<dd class="field-even"><p>standard deviation of the variable.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
 </dl>
-<p>from the original variable.
-:rtype: bool</p>
-<p>:returns standard deviation of the variable.
-:rtype: numpy.ndarray</p>
 </dd></dl>
 
 <dl class="py method">
-<dt id="envlib.accf.CalAccf.get_xarray">
-<code class="sig-name descname">get_xarray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#CalAccf.get_xarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.CalAccf.get_xarray" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build xarray dataset.</p>
+<dt id="envlib.accf.GeTaCCFs.get_xarray">
+<code class="sig-name descname">get_xarray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.get_xarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.get_xarray" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates an xarray dataset containing user-selected variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns ds</dt>
-<dd class="field-odd"><p>xarray dataset containing user-difned variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).</p>
+<dd class="field-odd"><p>xarray dataset containing user-selected variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>dataset</p>
@@ -176,12 +179,58 @@ temperature and geopotential are required.</p>
 <dl class="py function">
 <dt id="envlib.accf.convert_accf">
 <code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">convert_accf</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">name</span></em>, <em class="sig-param"><span class="n">value</span></em>, <em class="sig-param"><span class="n">confg</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#convert_accf"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.convert_accf" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Converts aCCFs based on the selected configurations (i.e., efficacy, climate indicator, emission scenarios and time horizons).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>name</strong> – Name of the species (e.g., ‘CH4’).</p></li>
+<li><p><strong>value</strong> – Value of the species to be converted (P-ATR20 without efficacy factor).</p></li>
+<li><p><strong>confg</strong> – User-defined configurations for conversions.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>string</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>dict</p>
+</dd>
+<dt class="field-odd">Returns value</dt>
+<dd class="field-odd"><p>Converted aCCF.</p>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt id="envlib.accf.get_Fin">
 <code class="sig-prename descclassname">envlib.accf.</code><code class="sig-name descname">get_Fin</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">lat</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#get_Fin"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.get_Fin" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dd><p>Calculates incoming solar radiation.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> – dataset to extract the number of day.</p></li>
+<li><p><strong>lat</strong> – latitude.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Return type</dt>
+<dd class="field-even"><p>Dataset</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Returns Fin</dt>
+<dd class="field-even"><p>Incoming solar radiation.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py function">
 <dt id="envlib.accf.get_encoding_dict">
@@ -199,7 +248,7 @@ temperature and geopotential are required.</p>
 <dl class="py function">
 <dt id="envlib.calc_altrv_vars.get_pvu">
 <code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_pvu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_pvu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_pvu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Caclulates potential vorticity from meteorological variables temperature and components of winds.</p>
+<dd><p>Caclulates potential vorticity from meteorological variables temperature and components of wind.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
@@ -221,7 +270,7 @@ temperature and geopotential are required.</p>
 <dl class="py function">
 <dt id="envlib.calc_altrv_vars.get_rh_ice">
 <code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_ice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_ice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_ice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the relative humidity over ice from realtive humidity over water</p>
+<dd><p>Calculates relative humidity over ice from realtive humidity over water</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
@@ -255,7 +304,7 @@ temperature and geopotential are required.</p>
 <dl class="py function">
 <dt id="envlib.calc_altrv_vars.get_rh_wa">
 <code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_wa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_wa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_wa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the relative humidity over water from specific humidity</p>
+<dd><p>Calculates relative humidity over water from specific humidity</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
@@ -277,34 +326,26 @@ temperature and geopotential are required.</p>
 <code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_cont_form_thr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_cont_form_thr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_cont_form_thr" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the thresholds of temperature and relative humidity over water needed for determining the
 formation criteria of contrails.</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param ds</dt>
-<dd class="field-odd"><p>Dataset openned with xarray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
+<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
+</ul>
 </dd>
-<dt class="field-even">type ds</dt>
-<dd class="field-even"><p>Dataset</p>
+<dt class="field-even">Returns rcontr</dt>
+<dd class="field-even"><p>Thresholds of relative humidity over water.</p>
 </dd>
-<dt class="field-odd">param member</dt>
-<dd class="field-odd"><p>Detemines the presense of ensemble forecasts in the given dataset.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
-<dt class="field-even">type member</dt>
-<dd class="field-even"><p>bool</p>
+<dt class="field-even">Returns TLM_e</dt>
+<dd class="field-even"><p>Thresholds of temperature.</p>
 </dd>
-<dt class="field-odd">returns rcontr</dt>
-<dd class="field-odd"><p>Thresholds of relative humidity over water.</p>
-</dd>
-<dt class="field-even">rtype</dt>
-<dd class="field-even"><p>numpy.ndarray</p>
-</dd>
-<dt class="field-odd">returns TLM_e</dt>
-<dd class="field-odd"><p>Thresholds of temperature.</p>
-</dd>
-<dt class="field-even">rtype</dt>
-<dd class="field-even"><p>numpy.ndarray</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
-</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
@@ -318,7 +359,7 @@ formation criteria of contrails.</p>
 <li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
 </ul>
 </dd>
-<dt class="field-even">Returns pcfa<a href="#id1"><span class="problematic" id="id2">pcfa_</span></a></dt>
+<dt class="field-even">Returns pcfa</dt>
 <dd class="field-even"><p>Presistent contrail formation areas.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
@@ -331,43 +372,35 @@ formation criteria of contrails.</p>
 <dt id="envlib.contrail.get_relative_hum">
 <code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_relative_hum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em>, <em class="sig-param"><span class="n">intrp</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_relative_hum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_relative_hum" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
-dataset. In ECMWF data: Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
+dataset. In ECMWF data, Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
 respect to saturation over ice below -23C and with respect to saturation over water above 0C. In the regime in
 between a quadratic interpolation is applied.</p>
-<blockquote>
-<div><dl class="field-list simple">
-<dt class="field-odd">param ds</dt>
-<dd class="field-odd"><p>Dataset openned with xarray.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
+<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
+</ul>
 </dd>
-<dt class="field-even">type ds</dt>
-<dd class="field-even"><p>Dataset</p>
+<dt class="field-even">Returns rcontr</dt>
+<dd class="field-even"><p>Thresholds of relative humidity over water.</p>
 </dd>
-<dt class="field-odd">param member</dt>
-<dd class="field-odd"><p>Detemines the presense of ensemble forecasts in the given dataset.</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
-<dt class="field-even">type member</dt>
-<dd class="field-even"><p>bool</p>
+<dt class="field-even">Returns TLM_e</dt>
+<dd class="field-even"><p>Thresholds of temperature.</p>
 </dd>
-<dt class="field-odd">returns rcontr</dt>
-<dd class="field-odd"><p>Thresholds of relative humidity over water.</p>
-</dd>
-<dt class="field-even">rtype</dt>
-<dd class="field-even"><p>numpy.ndarray</p>
-</dd>
-<dt class="field-odd">returns TLM_e</dt>
-<dd class="field-odd"><p>Thresholds of temperature.</p>
-</dd>
-<dt class="field-even">rtype</dt>
-<dd class="field-even"><p>numpy.ndarray</p>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
 </dd>
 </dl>
-</div></blockquote>
 </dd></dl>
 
 <dl class="py function">
 <dt id="envlib.contrail.get_rw_from_specific_hum">
 <code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_rw_from_specific_hum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_rw_from_specific_hum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_rw_from_specific_hum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates of relative humidity over water from specific humidity.</p>
+<dd><p>Calculates relative humidity over water from specific humidity.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -395,6 +428,16 @@ between a quadratic interpolation is applied.</p>
 </div>
 <div class="section" id="module-envlib.emission_indices">
 <span id="envlib-emission-indices-module"></span><h2>envlib.emission_indices module<a class="headerlink" href="#module-envlib.emission_indices" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="envlib.emission_indices.get_BFFM2_c1c2">
+<code class="sig-prename descclassname">envlib.emission_indices.</code><code class="sig-name descname">get_BFFM2_c1c2</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">data</span></em>, <em class="sig-param"><span class="n">method</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/emission_indices.html#get_BFFM2_c1c2"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.emission_indices.get_BFFM2_c1c2" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="envlib.emission_indices.get_EIs">
+<code class="sig-prename descclassname">envlib.emission_indices.</code><code class="sig-name descname">get_EIs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ac_type</span></em>, <em class="sig-param"><span class="n">path</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/emission_indices.html#get_EIs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.emission_indices.get_EIs" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-envlib.extend_dim">
 <span id="envlib-extend-dim-module"></span><h2>envlib.extend_dim module<a class="headerlink" href="#module-envlib.extend_dim" title="Permalink to this headline">¶</a></h2>
@@ -402,13 +445,13 @@ between a quadratic interpolation is applied.</p>
 <dt id="envlib.extend_dim.extend_dimensions">
 <code class="sig-prename descclassname">envlib.extend_dim.</code><code class="sig-name descname">extend_dimensions</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">inf_coord</span></em>, <em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">ds_sur</span></em>, <em class="sig-param"><span class="n">ex_variables</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extend_dim.html#extend_dimensions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.extend_dim.extend_dimensions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Unifies the dimension of all types of given data as either 4-dimensional or 5-dimensional arrays, depending on
-the exsitance of ensemple members. e.g., for a data only has two fields, latitude and longitude, this function
-addds time and level fields.</p>
+the existence of ensemble members. e.g., if the data has only two fields: latitude and longitude, this function
+adds time and level fields.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>Dataset</em>) – information on original coordinates.</p></li>
-<li><p><strong>ds</strong> – Dataset openned with xarray containg variables on pressure levels.</p></li>
+<li><p><strong>ds</strong> (<em>Dataset</em>) – Information on original coordinates.</p></li>
+<li><p><strong>ds</strong> – Dataset openned with xarray containing variables on pressure levels.</p></li>
 <li><p><strong>ds_sur</strong> (<em>Dataset</em>) – Dataset containing surface parameters openned with xarray.</p></li>
 <li><p><strong>inf_coord</strong> – new coordinates</p></li>
 </ul>
@@ -449,7 +492,7 @@ addds time and level fields.</p>
 <dd class="field-odd"><p>list</p>
 </dd>
 <dt class="field-even">Returns variables</dt>
-<dd class="field-even"><p>Assigns bool to the axes (e.g., if ensmeble members are not available, it assgins False).</p>
+<dd class="field-even"><p>Assigns bool to the axes (e.g., if ensemble members are not available, it sets False).</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>dict</p>
@@ -487,13 +530,13 @@ addds time and level fields.</p>
 <dl class="py function">
 <dt id="envlib.extract_data.logic_cal_accfs">
 <code class="sig-prename descclassname">envlib.extract_data.</code><code class="sig-name descname">logic_cal_accfs</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">variables</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/extract_data.html#logic_cal_accfs"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.extract_data.logic_cal_accfs" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build a dictionary containing logical valules correspond to the possibility to calculate of aCCF.</p>
+<dd><p>Creates a dictionary containing logical values showing the possibility to calculate each aCCF.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>variables</strong> (<em>dict</em>) – variables available in the given dataset.</p>
+<dd class="field-odd"><p><strong>variables</strong> (<em>dict</em>) – Variables available in the given dataset.</p>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>Dictionary containing logical valules correspond to the possibility to calculate of aCCFs.</p>
+<dd class="field-even"><p>dictionary containing logical values showing the possibility to calculate each aCCF.</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>dict</p>
@@ -504,6 +547,32 @@ addds time and level fields.</p>
 </div>
 <div class="section" id="module-envlib.io">
 <span id="envlib-io-module"></span><h2>envlib.io module<a class="headerlink" href="#module-envlib.io" title="Permalink to this headline">¶</a></h2>
+<dl class="py function">
+<dt id="envlib.io.gen_geojson_hotspots">
+<code class="sig-prename descclassname">envlib.io.</code><code class="sig-name descname">gen_geojson_hotspots</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">path</span></em>, <em class="sig-param"><span class="n">Color</span></em>, <em class="sig-param"><span class="n">time_pl</span><span class="o">=</span><span class="default_value">None</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/io.html#gen_geojson_hotspots"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.io.gen_geojson_hotspots" title="Permalink to this definition">¶</a></dt>
+<dd><p>Generates Polygons of climate hotspots and saves them in GeoJson file format.
+:param ds: Dataset opened with xarray. 
+:param path: Directory to save the GeoJson files.
+:return: Polygons of climate hotspots.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="envlib.io.get_json_dict">
+<code class="sig-prename descclassname">envlib.io.</code><code class="sig-name descname">get_json_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">jpath</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/io.html#get_json_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.io.get_json_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets dict from json file.
+:param jpath: json file path
+:return: dictionary from json</p>
+</dd></dl>
+
+<dl class="py function">
+<dt id="envlib.io.save_json_dict">
+<code class="sig-prename descclassname">envlib.io.</code><code class="sig-name descname">save_json_dict</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">jpath</span></em>, <em class="sig-param"><span class="n">rdict</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/io.html#save_json_dict"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.io.save_json_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves dict in json file.
+:param jpath: json file path.
+:param rdict: result dictionary.
+:return: save as json.</p>
+</dd></dl>
+
 </div>
 <div class="section" id="module-envlib.main_processing">
 <span id="envlib-main-processing-module"></span><h2>envlib.main_processing module<a class="headerlink" href="#module-envlib.main_processing" title="Permalink to this headline">¶</a></h2>
@@ -535,14 +604,14 @@ addds time and level fields.</p>
 <dt id="envlib.processing_surf_vars.extend_olr_pl_4d">
 <code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">extend_olr_pl_4d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em>, <em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">fore_step</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#extend_olr_pl_4d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.extend_olr_pl_4d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
-[J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
-regarding inputted index, OLR is calculated in 3D (i.e, level, latitude, longitude).</p>
+[J/m2], and extend (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, 
+regarding the inputted index, OLR is calculated in 3D (i.e., level, latitude, longitude).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>sur_var</strong> (<em>Dataset</em>) – Dataset containing surface parameters openned with xarray.</p></li>
 <li><p><strong>pl_var</strong> (<em>Dataset</em>) – Dataset containing pressure level parameters openned with xarray.</p></li>
-<li><p><strong>index</strong> (<em>int</em>) – Index of the time that exist in the dataset of pressure level parameters at this step.</p></li>
+<li><p><strong>index</strong> (<em>int</em>) – Index of the time.</p></li>
 <li><p><strong>fore_step</strong> (<em>int</em>) – Forecast step in hours.</p></li>
 </ul>
 </dd>
@@ -559,8 +628,8 @@ regarding inputted index, OLR is calculated in 3D (i.e, level, latitude, longitu
 <dt id="envlib.processing_surf_vars.extend_olr_pl_5d">
 <code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">extend_olr_pl_5d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em>, <em class="sig-param"><span class="n">index</span></em>, <em class="sig-param"><span class="n">fore_step</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#extend_olr_pl_5d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.extend_olr_pl_5d" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
-[J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
-regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude, longitude).</p>
+[J/m2], and extend (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, 
+regarding the inputted index, OLR is calculated in 4D (i.e., number, level, latitude, longitude).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -578,6 +647,16 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 </dd>
 </dl>
 </dd></dl>
+
+<dl class="py function">
+<dt id="envlib.processing_surf_vars.extend_ssrd_pl_4d">
+<code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">extend_ssrd_pl_4d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#extend_ssrd_pl_4d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.extend_ssrd_pl_4d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="py function">
+<dt id="envlib.processing_surf_vars.extend_ssrd_pl_5d">
+<code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">extend_ssrd_pl_5d</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#extend_ssrd_pl_5d"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.extend_ssrd_pl_5d" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
 
 <dl class="py function">
 <dt id="envlib.processing_surf_vars.get_olr">
@@ -648,6 +727,11 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 </dl>
 </dd></dl>
 
+<dl class="py function">
+<dt id="envlib.processing_surf_vars.get_ssrd">
+<code class="sig-prename descclassname">envlib.processing_surf_vars.</code><code class="sig-name descname">get_ssrd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">sur_var</span></em>, <em class="sig-param"><span class="n">pl_var</span></em>, <em class="sig-param"><span class="n">number</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/processing_surf_vars.html#get_ssrd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.processing_surf_vars.get_ssrd" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
 </div>
 <div class="section" id="module-envlib.weather_store">
 <span id="envlib-weather-store-module"></span><h2>envlib.weather_store module<a class="headerlink" href="#module-envlib.weather_store" title="Permalink to this headline">¶</a></h2>
@@ -712,7 +796,7 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 <dt id="envlib.weather_store.WeatherStore">
 <em class="property">class </em><code class="sig-prename descclassname">envlib.weather_store.</code><code class="sig-name descname">WeatherStore</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">weather_data</span></em>, <em class="sig-param"><span class="n">weather_data_sur</span><span class="o">=</span><span class="default_value">None</span></em>, <em class="sig-param"><span class="n">flipud</span><span class="o">=</span><span class="default_value">'auto'</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">weather_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <a class="reference internal" href="#envlib.weather_store.WeatherStore_" title="envlib.weather_store.WeatherStore_"><code class="xref py py-class docutils literal notranslate"><span class="pre">envlib.weather_store.WeatherStore_</span></code></a></p>
-<p>Processing weather data</p>
+<p>Prepare the data required to calculate aCCFs and store them in a xarray dataset.</p>
 <dl class="py attribute">
 <dt id="envlib.weather_store.WeatherStore.axes">
 <code class="sig-name descname">axes</code><a class="headerlink" href="#envlib.weather_store.WeatherStore.axes" title="Permalink to this definition">¶</a></dt>
@@ -721,10 +805,10 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 <dl class="py method">
 <dt id="envlib.weather_store.WeatherStore.get_xarray">
 <code class="sig-name descname">get_xarray</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore.get_xarray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore.get_xarray" title="Permalink to this definition">¶</a></dt>
-<dd><p>Build xarray dataset.</p>
+<dd><p>Creates a new xarray dataset containing processed weather variables.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns ds</dt>
-<dd class="field-odd"><p>xarray dataset containing user-difned variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).</p>
+<dd class="field-odd"><p>xarray dataset containing user-defined variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>dataset</p>
@@ -735,10 +819,10 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 <dl class="py method">
 <dt id="envlib.weather_store.WeatherStore.reduce_domain">
 <code class="sig-name descname">reduce_domain</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">bounds</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#WeatherStore.reduce_domain"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.WeatherStore.reduce_domain" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reduces horizontal domain and time .</p>
+<dd><p>Reduces horizontal domain and time.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns bounds</dt>
-<dd class="field-odd"><p>ranges defined as tuple (e.g., lat_bound=(35, 60.0)).</p>
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>bounds</strong> – ranges defined as tuple (e.g., lat_bound=(35, 60.0)).</p>
 </dd>
 <dt class="field-even">Return type</dt>
 <dd class="field-even"><p>dict</p>
@@ -762,7 +846,7 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 <dl class="py function">
 <dt id="envlib.weather_store.get_bound_indexes">
 <code class="sig-prename descclassname">envlib.weather_store.</code><code class="sig-name descname">get_bound_indexes</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">arr</span></em>, <em class="sig-param"><span class="n">bounds</span></em>, <em class="sig-param"><span class="n">verbose</span><span class="o">=</span><span class="default_value">False</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/weather_store.html#get_bound_indexes"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.weather_store.get_bound_indexes" title="Permalink to this definition">¶</a></dt>
-<dd><p>Determine indices of a given array (e.g., latitude and longitude) needed for cutting geographical areas with respect to the user-difined bounds.</p>
+<dd><p>Determine indices of a given array (e.g., latitude and longitude) needed for cutting geographical areas with respect to the user-defined bounds.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
@@ -800,7 +884,7 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -810,23 +894,18 @@ regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude,
 
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul class="current">
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">envlib</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">envlib package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test.html">test package</a></li>
-</ul>
-</li>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-  <li><a href="modules.html">envlib</a><ul>
-      <li>Previous: <a href="modules.html" title="previous chapter">envlib</a></li>
-      <li>Next: <a href="setup.html" title="next chapter">setup module</a></li>
-  </ul></li>
   </ul></li>
 </ul>
 </div>

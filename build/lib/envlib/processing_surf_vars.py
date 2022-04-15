@@ -5,9 +5,10 @@ import numpy as np
 
 
 def extend_olr_pl_4d(sur_var, pl_var, index, fore_step):
-    """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
-    [J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
-    regarding inputted index, OLR is calculated in 3D (i.e, level, latitude, longitude).
+    """ 
+    Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
+    [J/m2], and extend (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, 
+    regarding the inputted index, OLR is calculated in 3D (i.e., level, latitude, longitude).
 
     :param sur_var: Dataset containing surface parameters openned with xarray.
     :type sur_var: Dataset
@@ -15,7 +16,7 @@ def extend_olr_pl_4d(sur_var, pl_var, index, fore_step):
     :param pl_var: Dataset containing pressure level parameters openned with xarray.
     :type pl_var: Dataset
 
-    :param index: Index of the time that exist in the dataset of pressure level parameters at this step.
+    :param index: Index of the time.
     :type index: int
 
     :param fore_step: Forecast step in hours.
@@ -68,9 +69,10 @@ def get_ssrd(sur_var, pl_var, number=True):
 
 
 def extend_olr_pl_5d(sur_var, pl_var, index, fore_step):
-    """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
-    [J/m2], and repeat it for to pressure levels for the sake of consistency of dimensions. For a specific time
-    regarding inputted index, OLR is calculated in 4D (i.e, number, level, latitude, longitude).
+    """ 
+    Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
+    [J/m2], and extend (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, 
+    regarding the inputted index, OLR is calculated in 4D (i.e., number, level, latitude, longitude).
 
     :param sur_var: Dataset containing surface parameters openned with xarray.
     :type sur_var: Dataset
@@ -144,7 +146,7 @@ def get_olr_4d(sur_var, pl_var, thr, fore_step=None):
                     elif thr['9hr'] - thr['range'] <= mean_values <= thr['9hr'] + thr['range']:
                         array = extend_olr_pl_4d(sur_var, pl_var, index, 9)
                         olr[i_t, :, :, :] = array
-                        if it == 0:
+                        if i_t == 0:
                             print('Forecast step: 9 hours')
                     elif thr['12hr'] - thr['range'] <= mean_values <= thr['12hr'] + thr['range']:
                         array = extend_olr_pl_4d(sur_var, pl_var, index, 12)

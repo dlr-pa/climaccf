@@ -39,16 +39,16 @@
 <span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
 
 
-<div class="viewcode-block" id="extend_dimensions"><a class="viewcode-back" href="../../envlib.html#envlib.extend_dim.extend_dimensions">[docs]</a><span class="k">def</span> <span class="nf">extend_dimensions</span><span class="p">(</span><span class="n">inf_coord</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">ds_sur</span><span class="p">,</span> <span class="n">ex_variables</span><span class="p">):</span>
+<div class="viewcode-block" id="extend_dimensions"><a class="viewcode-back" href="../../modules.html#envlib.extend_dim.extend_dimensions">[docs]</a><span class="k">def</span> <span class="nf">extend_dimensions</span><span class="p">(</span><span class="n">inf_coord</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">ds_sur</span><span class="p">,</span> <span class="n">ex_variables</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Unifies the dimension of all types of given data as either 4-dimensional or 5-dimensional arrays, depending on</span>
-<span class="sd">    the exsitance of ensemple members. e.g., for a data only has two fields, latitude and longitude, this function</span>
-<span class="sd">    addds time and level fields.</span>
+<span class="sd">    the existence of ensemble members. e.g., if the data has only two fields: latitude and longitude, this function</span>
+<span class="sd">    adds time and level fields.</span>
 
-<span class="sd">    :param ds: information on original coordinates.</span>
+<span class="sd">    :param ds: Information on original coordinates.</span>
 <span class="sd">    :type ds: dict</span>
 
-<span class="sd">    :param ds: Dataset openned with xarray containg variables on pressure levels.</span>
+<span class="sd">    :param ds: Dataset openned with xarray containing variables on pressure levels.</span>
 <span class="sd">    :type ds: Dataset</span>
 
 <span class="sd">    :param ds_sur: Dataset containing surface parameters openned with xarray.</span>
@@ -206,7 +206,7 @@
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -217,7 +217,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">envlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">

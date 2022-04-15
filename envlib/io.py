@@ -9,7 +9,7 @@ import matplotlib.pyplot as plt
 
 def get_json_dict(jpath):
     """
-    Get dict from json file.
+    Gets dict from json file.
     :param jpath: json file path
     :return: dictionary from json
     """
@@ -20,7 +20,7 @@ def get_json_dict(jpath):
 
 def save_json_dict(jpath, rdict):
     """
-    Save dict in json file.
+    Saves dict in json file.
     :param jpath: json file path.
     :param rdict: result dictionary.
     :return: save as json.
@@ -30,6 +30,12 @@ def save_json_dict(jpath, rdict):
     fp.close()
 
 def gen_geojson_hotspots (ds, path, Color, time_pl=None):
+    """
+    Generates Polygons of climate hotspots and saves them in GeoJson file format.
+    :param ds: Dataset opened with xarray. 
+    :param path: Directory to save the GeoJson files.
+    :return: Polygons of climate hotspots.
+    """
 
     save_path = os.path.split(path) [0]
     

@@ -10,7 +10,7 @@ from envlib.processing_surf_vars import *
 
 def get_bound_indexes(arr, bounds, verbose=False):
     """
-    Determine indices of a given array (e.g., latitude and longitude) needed for cutting geographical areas with respect to the user-difined bounds.
+    Determine indices of a given array (e.g., latitude and longitude) needed for cutting geographical areas with respect to the user-defined bounds.
 
     :param arr: a given array (e.g., latitude and longitude).
     :type arr: numpy.ndarray
@@ -117,16 +117,15 @@ class WeatherStore_(GeoArrayHandler):
 
 
 class WeatherStore(WeatherStore_):
-    """ Processing weather data"""
+    """ Prepare the data required to calculate aCCFs and store them in a xarray dataset."""
     def __init__(self, weather_data, weather_data_sur=None, flipud='auto', **weather_config):
         """
-        Processing the weather data.
+        Processes the weather data.
 
         :param weather_data: Dataset openned with xarray containing variables on different pressure levels.
         :type ds: Dataset
 
-        :param weather_data_sur: Dataset openned with xarray containing variables on single different pressure levels
-        (i.e., outgoing longwave radiation in this case).
+        :param weather_data_sur: Dataset openned with xarray containing variables on single pressure level (i.e., outgoing longwave radiation in this case).
         :type ds: Dataset
 
         """
@@ -285,18 +284,18 @@ class WeatherStore(WeatherStore_):
 
     def get_xarray(self):
         """
-        Build xarray dataset.
+        Creates a new xarray dataset containing processed weather variables.
 
-        :returns ds: xarray dataset containing user-difned variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).
+        :returns ds: xarray dataset containing user-defined variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).
         :rtype: dataset
         """
         return xr.Dataset(self.var_xr, self.axes)
 
     def reduce_domain(self, bounds, verbose=False):
         """
-        Reduces horizontal domain and time .
+        Reduces horizontal domain and time.
 
-        :returns bounds: ranges defined as tuple (e.g., lat_bound=(35, 60.0)).
+        :param bounds: ranges defined as tuple (e.g., lat_bound=(35, 60.0)).
         :rtype: dict
         """
         slice_idx = {}

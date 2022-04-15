@@ -44,7 +44,7 @@
 
 <div class="viewcode-block" id="get_bound_indexes"><a class="viewcode-back" href="../../envlib.html#envlib.weather_store.get_bound_indexes">[docs]</a><span class="k">def</span> <span class="nf">get_bound_indexes</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Determine indices of a given array (e.g., latitude and longitude) needed for cutting geographical areas with respect to the user-difined bounds.</span>
+<span class="sd">    Determine indices of a given array (e.g., latitude and longitude) needed for cutting geographical areas with respect to the user-defined bounds.</span>
 
 <span class="sd">    :param arr: a given array (e.g., latitude and longitude).</span>
 <span class="sd">    :type arr: numpy.ndarray</span>
@@ -150,17 +150,16 @@
         <span class="k">pass</span></div>
 
 
-<div class="viewcode-block" id="WeatherStore"><a class="viewcode-back" href="../../envlib.html#envlib.weather_store.WeatherStore">[docs]</a><span class="k">class</span> <span class="nc">WeatherStore</span><span class="p">(</span><span class="n">WeatherStore_</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Processing weather data&quot;&quot;&quot;</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">weather_data_sur</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flipud</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">weather_config</span><span class="p">):</span>
+<div class="viewcode-block" id="WeatherStore"><a class="viewcode-back" href="../../modules.html#envlib.weather_store.WeatherStore">[docs]</a><span class="k">class</span> <span class="nc">WeatherStore</span><span class="p">(</span><span class="n">WeatherStore_</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Prepare the data required to calculate aCCFs and store them in a xarray dataset.&quot;&quot;&quot;</span>
+<div class="viewcode-block" id="WeatherStore.__init__"><a class="viewcode-back" href="../../modules.html#envlib.weather_store.WeatherStore.__init__">[docs]</a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">weather_data_sur</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">flipud</span><span class="o">=</span><span class="s1">&#39;auto&#39;</span><span class="p">,</span> <span class="o">**</span><span class="n">weather_config</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Processing the weather data.</span>
+<span class="sd">        Processes the weather data.</span>
 
 <span class="sd">        :param weather_data: Dataset openned with xarray containing variables on different pressure levels.</span>
 <span class="sd">        :type ds: Dataset</span>
 
-<span class="sd">        :param weather_data_sur: Dataset openned with xarray containing variables on single different pressure levels</span>
-<span class="sd">        (i.e., outgoing longwave radiation in this case).</span>
+<span class="sd">        :param weather_data_sur: Dataset openned with xarray containing variables on single pressure level (i.e., outgoing longwave radiation in this case).</span>
 <span class="sd">        :type ds: Dataset</span>
 
 <span class="sd">        &quot;&quot;&quot;</span>
@@ -178,8 +177,8 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">weather_config</span><span class="p">)</span>
 
         <span class="c1"># get information from wether data</span>
-        <span class="n">inf_variables</span> <span class="o">=</span> <span class="n">extract_data_variables</span><span class="p">(</span><span class="n">weather_data</span><span class="p">,</span> <span class="n">weather_data_sur</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-        <span class="n">inf_coordinates</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">weather_data_sur</span> <span class="o">=</span> <span class="n">extract_coordinates</span><span class="p">(</span><span class="n">weather_data</span><span class="p">,</span> <span class="n">inf_variables</span><span class="p">,</span>
+        <span class="n">inf_variables</span><span class="p">,</span> <span class="n">dict_var_attrs</span> <span class="o">=</span> <span class="n">extract_data_variables</span><span class="p">(</span><span class="n">weather_data</span><span class="p">,</span> <span class="n">weather_data_sur</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+        <span class="n">inf_coordinates</span><span class="p">,</span> <span class="n">weather_data</span><span class="p">,</span> <span class="n">weather_data_sur</span><span class="p">,</span> <span class="n">dict_coor_attrs</span> <span class="o">=</span> <span class="n">extract_coordinates</span><span class="p">(</span><span class="n">weather_data</span><span class="p">,</span> <span class="n">inf_variables</span><span class="p">,</span>
                                                                               <span class="n">weather_data_sur</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variable_names</span> <span class="o">=</span> <span class="n">inf_variables</span><span class="p">[</span><span class="s1">&#39;ex_name&#39;</span><span class="p">]</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">pre_variable_names</span> <span class="o">=</span> <span class="n">inf_variables</span><span class="p">[</span><span class="s1">&#39;pre_name&#39;</span><span class="p">]</span>
@@ -255,6 +254,7 @@
             <span class="c1"># TODO: if needed, process shortwave flux here</span>
             <span class="n">tag_</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_variable_names</span><span class="p">[</span><span class="n">i_</span><span class="p">]</span>
             <span class="k">if</span> <span class="n">tag_</span> <span class="o">==</span> <span class="s1">&#39;ttr&#39;</span> <span class="ow">or</span> <span class="n">tag_</span> <span class="o">==</span> <span class="s1">&#39;olr&#39;</span><span class="p">:</span>
+                <span class="n">dict_var_attrs</span><span class="p">[</span><span class="s1">&#39;olr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;W m**-2&#39;</span><span class="p">,</span> <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;Outgoing longwave radiation&#39;</span><span class="p">,</span> <span class="s1">&#39;standard_name&#39;</span><span class="p">:</span> <span class="s1">&#39;toa_outgoing_longwave_flux&#39;</span><span class="p">}</span>
                 <span class="n">tag_</span> <span class="o">=</span> <span class="s1">&#39;olr&#39;</span>
                 <span class="k">if</span> <span class="n">flipud</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">]:</span>
@@ -270,6 +270,23 @@
                     <span class="k">else</span><span class="p">:</span>
                         <span class="n">A</span> <span class="o">=</span> <span class="n">get_olr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wd_sur</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wd</span><span class="p">,</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">])[:,</span> <span class="p">:,</span> <span class="p">:,</span>
                             <span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;format&#39;</span><span class="p">])</span>
+
+            <span class="k">elif</span> <span class="n">tag_</span> <span class="o">==</span> <span class="s1">&#39;ssrd&#39;</span><span class="p">:</span>
+                <span class="k">if</span> <span class="n">flipud</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">]:</span>
+                        <span class="n">A</span> <span class="o">=</span> <span class="n">get_ssrd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wd_sur</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wd</span><span class="p">,</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">])[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;format&#39;</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">A</span> <span class="o">=</span> <span class="n">get_ssrd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wd_sur</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wd</span><span class="p">,</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">])[:,</span> <span class="p">:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span>
+                            <span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;format&#39;</span><span class="p">])</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">]:</span>
+                        <span class="n">A</span> <span class="o">=</span> <span class="n">get_ssrd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wd_sur</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wd</span><span class="p">,</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">])[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span>
+                            <span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;format&#39;</span><span class="p">])</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">A</span> <span class="o">=</span> <span class="n">get_ssrd</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">wd_sur</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">wd</span><span class="p">,</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">])[:,</span> <span class="p">:,</span> <span class="p">:,</span>
+                            <span class="p">:]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;format&#39;</span><span class="p">])</span>
+                
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">if</span> <span class="n">flipud</span><span class="p">:</span>
                     <span class="k">if</span> <span class="n">inf_coordinates</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">]:</span>
@@ -291,28 +308,28 @@
                     <span class="n">A</span> <span class="o">=</span> <span class="n">A</span> <span class="o">/</span> <span class="mi">100</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">[</span><span class="n">tag_</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span>
             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;save_as_xr&#39;</span><span class="p">]:</span>
-                <span class="bp">self</span><span class="o">.</span><span class="n">var_xr</span><span class="p">[</span><span class="n">tag_</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">var_xr</span><span class="p">[</span><span class="n">tag_</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">,</span> <span class="n">dict_var_attrs</span><span class="p">[</span><span class="n">tag_</span><span class="p">])</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;predecimate&#39;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">][::</span><span class="mi">2</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample_steps</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">][::</span><span class="mi">2</span> <span class="o">**</span> <span class="bp">self</span><span class="o">.</span><span class="n">downsample_steps</span><span class="p">]</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">cfg</span><span class="p">[</span><span class="s1">&#39;save_as_xr&#39;</span><span class="p">]:</span>
-            <span class="n">ds_xr</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_xr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span>
+            <span class="n">ds_xr</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_xr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span></div>
             <span class="c1">#ds_xr.to_netcdf(&#39;/Users/abolfazlsimorgh/Desktop/data.nc&#39;)</span>
 
-<div class="viewcode-block" id="WeatherStore.get_xarray"><a class="viewcode-back" href="../../envlib.html#envlib.weather_store.WeatherStore.get_xarray">[docs]</a>    <span class="k">def</span> <span class="nf">get_xarray</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="WeatherStore.get_xarray"><a class="viewcode-back" href="../../modules.html#envlib.weather_store.WeatherStore.get_xarray">[docs]</a>    <span class="k">def</span> <span class="nf">get_xarray</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Build xarray dataset.</span>
+<span class="sd">        Creates a new xarray dataset containing processed weather variables.</span>
 
-<span class="sd">        :returns ds: xarray dataset containing user-difned variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).</span>
+<span class="sd">        :returns ds: xarray dataset containing user-defined variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).</span>
 <span class="sd">        :rtype: dataset</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">var_xr</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">axes</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="WeatherStore.reduce_domain"><a class="viewcode-back" href="../../envlib.html#envlib.weather_store.WeatherStore.reduce_domain">[docs]</a>    <span class="k">def</span> <span class="nf">reduce_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="WeatherStore.reduce_domain"><a class="viewcode-back" href="../../modules.html#envlib.weather_store.WeatherStore.reduce_domain">[docs]</a>    <span class="k">def</span> <span class="nf">reduce_domain</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bounds</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Reduces horizontal domain and time .</span>
+<span class="sd">        Reduces horizontal domain and time.</span>
 
-<span class="sd">        :returns bounds: ranges defined as tuple (e.g., lat_bound=(35, 60.0)).</span>
+<span class="sd">        :param bounds: ranges defined as tuple (e.g., lat_bound=(35, 60.0)).</span>
 <span class="sd">        :rtype: dict</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="n">slice_idx</span> <span class="o">=</span> <span class="p">{}</span>
@@ -370,7 +387,7 @@
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -381,7 +398,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">envlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">

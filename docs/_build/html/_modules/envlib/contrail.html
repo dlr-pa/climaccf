@@ -34,27 +34,29 @@
   <h1>Source code for envlib.contrail</h1><div class="highlight"><pre>
 <span></span><span class="ch">#!/usr/bin/env python3</span>
 <span class="c1"># -*- coding: utf-8 -*-</span>
-
+<span class="kn">import</span> <span class="nn">warnings</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">from</span> <span class="nn">metpy</span> <span class="kn">import</span> <span class="n">calc</span>
 <span class="kn">from</span> <span class="nn">metpy.units</span> <span class="kn">import</span> <span class="n">units</span>
 <span class="kn">from</span> <span class="nn">envlib.database</span> <span class="kn">import</span> <span class="o">*</span>
 
 
-<div class="viewcode-block" id="get_pcfa"><a class="viewcode-back" href="../../envlib.html#envlib.contrail.get_pcfa">[docs]</a><span class="k">def</span> <span class="nf">get_pcfa</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="o">**</span><span class="n">problem_config</span><span class="p">):</span>
+<div class="viewcode-block" id="get_pcfa"><a class="viewcode-back" href="../../modules.html#envlib.contrail.get_pcfa">[docs]</a><span class="k">def</span> <span class="nf">get_pcfa</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="o">**</span><span class="n">problem_config</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.</span>
 
-<span class="sd">        :param ds: Dataset openned with xarray.</span>
-<span class="sd">        :type ds: Dataset</span>
+<span class="sd">    :param ds: Dataset openned with xarray.</span>
+<span class="sd">    :type ds: Dataset</span>
 
-<span class="sd">        :param member: Detemines the presense of ensemble forecasts in the given dataset.</span>
-<span class="sd">        :type member: bool</span>
+<span class="sd">    :param member: Detemines the presense of ensemble forecasts in the given dataset.</span>
+<span class="sd">    :type member: bool</span>
 
-<span class="sd">        :returns pcfa_: Presistent contrail formation areas.</span>
-<span class="sd">        :rtype: numpy.ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    :returns pcfa: Presistent contrail formation areas.</span>
+<span class="sd">    :rtype: numpy.ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">confg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;rh_threshold&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;rw_threshold&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;temp_threshold&#39;</span><span class="p">:</span> <span class="n">cont_temp_thr</span><span class="p">,</span> <span class="s1">&#39;sep_ri_rw&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
     <span class="n">confg</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">problem_config</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n\033</span><span class="s1">[93m UserWarning: For this configuration formation of persistent contrails is possible, if temperatures are low enough (below 235K) and relative humidity (with respect to ice) is above or at </span><span class="si">{}</span><span class="s1">%. However keep in mind that the threshold value for the relative humidity varies with the used forecast model and its resolution. In order to choose the appropriate threshold value, you should read the details given in Section 5.1 of the connected publication of Dietmüller et al. 2022 </span><span class="se">\033</span><span class="s1">[93m</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">confg</span><span class="p">[</span><span class="s1">&#39;rh_threshold&#39;</span><span class="p">]</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+
     <span class="n">formation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="n">presistancy</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
 
@@ -77,26 +79,26 @@
         <span class="p">[</span><span class="n">ri</span><span class="p">,</span> <span class="n">rw</span><span class="p">]</span> <span class="o">=</span> <span class="n">get_relative_hum</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">)</span>
     <span class="c1"># persistency conditions</span>
     <span class="n">presistancy</span><span class="p">[</span><span class="n">ri</span> <span class="o">&gt;=</span> <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;rh_threshold&#39;</span><span class="p">]]</span> <span class="o">=</span> <span class="mi">1</span>
-    <span class="n">pcfa_</span> <span class="o">=</span> <span class="n">formation</span> <span class="o">*</span> <span class="n">presistancy</span>
-    <span class="k">return</span> <span class="n">pcfa_</span></div>
+    <span class="n">pcfa</span> <span class="o">=</span> <span class="n">formation</span> <span class="o">*</span> <span class="n">presistancy</span>
+    <span class="k">return</span> <span class="n">pcfa</span></div>
 
 
-<div class="viewcode-block" id="get_cont_form_thr"><a class="viewcode-back" href="../../envlib.html#envlib.contrail.get_cont_form_thr">[docs]</a><span class="k">def</span> <span class="nf">get_cont_form_thr</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span>
+<div class="viewcode-block" id="get_cont_form_thr"><a class="viewcode-back" href="../../modules.html#envlib.contrail.get_cont_form_thr">[docs]</a><span class="k">def</span> <span class="nf">get_cont_form_thr</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Calculates the thresholds of temperature and relative humidity over water needed for determining the</span>
 <span class="sd">    formation criteria of contrails.</span>
 
-<span class="sd">        :param ds: Dataset openned with xarray.</span>
-<span class="sd">        :type ds: Dataset</span>
+<span class="sd">    :param ds: Dataset openned with xarray.</span>
+<span class="sd">    :type ds: Dataset</span>
 
-<span class="sd">        :param member: Detemines the presense of ensemble forecasts in the given dataset.</span>
-<span class="sd">        :type member: bool</span>
+<span class="sd">    :param member: Detemines the presense of ensemble forecasts in the given dataset.</span>
+<span class="sd">    :type member: bool</span>
 
-<span class="sd">        :returns rcontr: Thresholds of relative humidity over water.</span>
-<span class="sd">        :rtype: numpy.ndarray</span>
+<span class="sd">    :returns rcontr: Thresholds of relative humidity over water.</span>
+<span class="sd">    :rtype: numpy.ndarray</span>
 
-<span class="sd">        :returns TLM_e: Thresholds of temperature.</span>
-<span class="sd">        :rtype: numpy.ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    :returns TLM_e: Thresholds of temperature.</span>
+<span class="sd">    :rtype: numpy.ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">rcontr</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">values</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
     <span class="n">n_l</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="o">.</span><span class="n">level</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
     <span class="k">if</span> <span class="n">member</span><span class="p">:</span>
@@ -127,24 +129,24 @@
     <span class="k">return</span> <span class="n">rcontr</span><span class="p">,</span> <span class="n">TLM_e</span></div>
 
 
-<div class="viewcode-block" id="get_relative_hum"><a class="viewcode-back" href="../../envlib.html#envlib.contrail.get_relative_hum">[docs]</a><span class="k">def</span> <span class="nf">get_relative_hum</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">intrp</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
+<div class="viewcode-block" id="get_relative_hum"><a class="viewcode-back" href="../../modules.html#envlib.contrail.get_relative_hum">[docs]</a><span class="k">def</span> <span class="nf">get_relative_hum</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">,</span> <span class="n">intrp</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot; Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF</span>
-<span class="sd">    dataset. In ECMWF data: Relative humidity is defined with respect to saturation of the mixed phase: i.e. with</span>
+<span class="sd">    dataset. In ECMWF data, Relative humidity is defined with respect to saturation of the mixed phase: i.e. with</span>
 <span class="sd">    respect to saturation over ice below -23C and with respect to saturation over water above 0C. In the regime in</span>
 <span class="sd">    between a quadratic interpolation is applied.</span>
 
-<span class="sd">        :param ds: Dataset openned with xarray.</span>
-<span class="sd">        :type ds: Dataset</span>
+<span class="sd">    :param ds: Dataset openned with xarray.</span>
+<span class="sd">    :type ds: Dataset</span>
 
-<span class="sd">        :param member: Detemines the presense of ensemble forecasts in the given dataset.</span>
-<span class="sd">        :type member: bool</span>
+<span class="sd">    :param member: Detemines the presense of ensemble forecasts in the given dataset.</span>
+<span class="sd">    :type member: bool</span>
 
-<span class="sd">        :returns rcontr: Thresholds of relative humidity over water.</span>
-<span class="sd">        :rtype: numpy.ndarray</span>
+<span class="sd">    :returns rcontr: Thresholds of relative humidity over water.</span>
+<span class="sd">    :rtype: numpy.ndarray</span>
 
-<span class="sd">        :returns TLM_e: Thresholds of temperature.</span>
-<span class="sd">        :rtype: numpy.ndarray</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">    :returns TLM_e: Thresholds of temperature.</span>
+<span class="sd">    :rtype: numpy.ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">t</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">t</span><span class="o">.</span><span class="n">values</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">ds</span><span class="o">.</span><span class="n">r</span><span class="o">.</span><span class="n">values</span>
@@ -243,18 +245,19 @@
     <span class="k">return</span> <span class="n">Bcc</span><span class="p">,</span> <span class="n">Bcc_temp</span></div>
 
 
-<div class="viewcode-block" id="get_rw_from_specific_hum"><a class="viewcode-back" href="../../envlib.html#envlib.contrail.get_rw_from_specific_hum">[docs]</a><span class="k">def</span> <span class="nf">get_rw_from_specific_hum</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot; Calculates of relative humidity over water from specific humidity.</span>
+<div class="viewcode-block" id="get_rw_from_specific_hum"><a class="viewcode-back" href="../../modules.html#envlib.contrail.get_rw_from_specific_hum">[docs]</a><span class="k">def</span> <span class="nf">get_rw_from_specific_hum</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">member</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; </span>
+<span class="sd">    Calculates relative humidity over water from specific humidity.</span>
 
-<span class="sd">            :param ds: Dataset openned with xarray.</span>
-<span class="sd">            :type ds: Dataset</span>
+<span class="sd">    :param ds: Dataset openned with xarray.</span>
+<span class="sd">    :type ds: Dataset</span>
 
-<span class="sd">            :param member: Detemines the presense of ensemble forecasts in the given dataset.</span>
-<span class="sd">            :type member: bool</span>
+<span class="sd">    :param member: Detemines the presense of ensemble forecasts in the given dataset.</span>
+<span class="sd">    :type member: bool</span>
 
-<span class="sd">            :returns r_w: Relative humidity over water.</span>
-<span class="sd">            :rtype: numpy.ndarray</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">    :returns r_w: Relative humidity over water.</span>
+<span class="sd">    :rtype: numpy.ndarray</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">t</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="n">q</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
     <span class="n">level</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">values</span>
@@ -297,7 +300,7 @@
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -308,7 +311,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">envlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">

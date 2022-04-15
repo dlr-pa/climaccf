@@ -8,13 +8,13 @@ import xarray as xr
 def extend_dimensions(inf_coord, ds, ds_sur, ex_variables):
     """
     Unifies the dimension of all types of given data as either 4-dimensional or 5-dimensional arrays, depending on
-    the exsitance of ensemple members. e.g., for a data only has two fields, latitude and longitude, this function
-    addds time and level fields.
+    the existence of ensemble members. e.g., if the data has only two fields: latitude and longitude, this function
+    adds time and level fields.
 
-    :param ds: information on original coordinates.
+    :param ds: Information on original coordinates.
     :type ds: dict
 
-    :param ds: Dataset openned with xarray containg variables on pressure levels.
+    :param ds: Dataset openned with xarray containing variables on pressure levels.
     :type ds: Dataset
 
     :param ds_sur: Dataset containing surface parameters openned with xarray.

@@ -37,6 +37,7 @@
 
 <span class="kn">from</span> <span class="nn">envlib.weather_store</span> <span class="kn">import</span> <span class="o">*</span>
 <span class="kn">from</span> <span class="nn">envlib.accf</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">envlib.io</span> <span class="kn">import</span> <span class="o">*</span>
 
 
 <div class="viewcode-block" id="ClimateImpact"><a class="viewcode-back" href="../../envlib.html#envlib.main_processing.ClimateImpact">[docs]</a><span class="k">class</span> <span class="nc">ClimateImpact</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
@@ -45,8 +46,9 @@
             <span class="s1">&#39;lat_bound&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
             <span class="s1">&#39;lon_bound&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
             <span class="s1">&#39;time_bound&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
+            <span class="s1">&#39;rhi_threshold&#39;</span><span class="p">:</span> <span class="mf">1.0</span><span class="p">,</span>
             <span class="s1">&#39;horizontal_resolution&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
-            <span class="s1">&#39;emission_indices&#39;</span><span class="p">:</span> <span class="s1">&#39;TTV&#39;</span><span class="p">,</span>  <span class="c1"># Typical transantlantic values</span>
+            <span class="s1">&#39;NOx&amp;inverse_EIs&#39;</span><span class="p">:</span> <span class="s1">&#39;TTV&#39;</span><span class="p">,</span>  <span class="c1"># Typical transantlantic values</span>
             <span class="s1">&#39;ac_type&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">,</span>
             <span class="s1">&#39;output_format&#39;</span><span class="p">:</span> <span class="s1">&#39;netCDF&#39;</span><span class="p">,</span>  <span class="c1"># netCDF, grib, JSON</span>
             <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
@@ -54,7 +56,10 @@
             <span class="s1">&#39;efficacy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
             <span class="s1">&#39;emission_scenario&#39;</span><span class="p">:</span> <span class="s1">&#39;pulse&#39;</span><span class="p">,</span>  <span class="c1"># pulse, sustained, future scenario</span>
             <span class="s1">&#39;climate_indicator&#39;</span><span class="p">:</span> <span class="s1">&#39;ATR&#39;</span><span class="p">,</span>  <span class="c1"># GWP,</span>
-            <span class="s1">&#39;time_horizon&#39;</span><span class="p">:</span> <span class="s1">&#39;20&#39;</span><span class="p">,</span>  <span class="c1"># 50, 100</span>
+            <span class="s1">&#39;time_horizon&#39;</span><span class="p">:</span> <span class="s1">&#39;20&#39;</span><span class="p">,</span>
+            <span class="s1">&#39;ac_type&#39;</span><span class="p">:</span> <span class="s1">&#39;wide-body&#39;</span><span class="p">,</span>     <span class="c1"># 50, 100</span>
+            <span class="s1">&#39;color&#39;</span><span class="p">:</span> <span class="s1">&#39;Reds&#39;</span><span class="p">,</span>  <span class="c1"># Colors of cmap</span>
+            <span class="s1">&#39;geojson&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
             <span class="s1">&#39;save_path&#39;</span><span class="p">:</span> <span class="kc">None</span><span class="p">}</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">problem_config</span><span class="p">)</span>
 
@@ -76,21 +81,26 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_bool</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">aCCF_bool</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">axes</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">axes</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">var_xr</span> <span class="o">=</span> <span class="n">ws</span><span class="o">.</span><span class="n">var_xr</span>
-
+        <span class="k">if</span> <span class="n">path</span><span class="p">[</span><span class="s1">&#39;path_lib&#39;</span><span class="p">]:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">path_lib</span> <span class="o">=</span> <span class="n">path</span><span class="p">[</span><span class="s1">&#39;path_lib&#39;</span><span class="p">]</span>
 <div class="viewcode-block" id="ClimateImpact.calculate_accfs"><a class="viewcode-back" href="../../envlib.html#envlib.main_processing.ClimateImpact.calculate_accfs">[docs]</a>    <span class="k">def</span> <span class="nf">calculate_accfs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">seetings</span><span class="p">):</span>
         <span class="n">confg</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span>
         <span class="n">confg</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">seetings</span><span class="p">)</span>
-        <span class="n">clim_imp</span> <span class="o">=</span> <span class="n">CalAccf</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="n">clim_imp</span> <span class="o">=</span> <span class="n">GeTaCCFs</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;rhi_threshold&#39;</span><span class="p">])</span>
         <span class="n">clim_imp</span><span class="o">.</span><span class="n">get_accfs</span><span class="p">(</span><span class="o">**</span><span class="n">confg</span><span class="p">)</span>
         <span class="n">aCCFs</span><span class="p">,</span> <span class="n">encoding_</span> <span class="o">=</span> <span class="n">clim_imp</span><span class="o">.</span><span class="n">get_xarray</span><span class="p">()</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;save_path&#39;</span><span class="p">]:</span>
             <span class="n">path</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;save_path&#39;</span><span class="p">]</span>
             <span class="n">aCCFs</span><span class="o">.</span><span class="n">to_netcdf</span><span class="p">(</span><span class="n">path</span><span class="p">,</span>  <span class="n">encoding</span><span class="o">=</span><span class="n">encoding_</span><span class="p">)</span>
-            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span> <span class="o">+</span> <span class="s1">&#39;File has been succussfuly generated&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; (location: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span> <span class="o">+</span> <span class="s1">&#39;netCDF file has netCDF file has been successfully generated.&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; (location: </span><span class="si">{</span><span class="n">path</span><span class="si">}</span><span class="s1">)&#39;</span><span class="p">)</span>
             <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** The format of the generated file is compatible with Panoply (&#39;</span>
                   <span class="s1">&#39;https://www.giss.nasa.gov/tools/panoply/download/), an application for quickly visualizing &#39;</span>
                   <span class="s1">&#39;data **&#39;</span><span class="p">)</span>
-        <span class="k">pass</span></div>
+        <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Chotspots&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;geojson&#39;</span><span class="p">]:</span> 
+            <span class="n">chotspots</span> <span class="o">=</span> <span class="n">gen_geojson_hotspots</span> <span class="p">(</span><span class="n">aCCFs</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;save_path&#39;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">p_settings</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">],</span> <span class="n">time_pl</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
+            <span class="n">path_json</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">path</span><span class="p">)</span> <span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[92m&#39;</span> <span class="o">+</span> <span class="s1">&#39;GeoJSON files have netCDF file has been successfully generated.&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="o">+</span> <span class="sa">f</span><span class="s1">&#39; (location: </span><span class="si">{</span><span class="n">path_json</span><span class="si">}</span><span class="s1">&#39;</span><span class="o">+</span><span class="s1">&#39;/json_files/)&#39;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="ClimateImpact.auto_plotting"><a class="viewcode-back" href="../../envlib.html#envlib.main_processing.ClimateImpact.auto_plotting">[docs]</a>    <span class="k">def</span> <span class="nf">auto_plotting</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">pass</span></div>
@@ -113,7 +123,7 @@
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -124,7 +134,11 @@
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html">envlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">

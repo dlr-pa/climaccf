@@ -2751,7 +2751,6 @@ docs/_build/latex/ENVLIB.idx
 docs/_build/latex/ENVLIB.out
 docs/_build/latex/ENVLIB.pdf
 docs/_build/latex/ENVLIB.synctex.gz
-docs/_build/latex/ENVLIB.tex
 docs/_build/latex/ENVLIB.toc
 docs/_build/latex/LICRcyr2utf8.xdy
 docs/_build/latex/LICRlatin2utf8.xdy

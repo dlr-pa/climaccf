@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>METeorological INterpolation Toolbox for Optimization and Simulation (METINTOS) &#8212; envlib V0.0.1 documentation</title>
+    <title>EnVironmental LiBrary (EnVLiB) &#8212; envlib V0.0.1 documentation</title>
     <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
     <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <script id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
@@ -15,7 +15,7 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="envlib" href="modules.html" />
+    <link rel="next" title="Data Processing" href="modules.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -32,13 +32,13 @@
 
           <div class="body" role="main">
             
-  <div class="section" id="meteorological-interpolation-toolbox-for-optimization-and-simulation-metintos">
-<h1>METeorological INterpolation Toolbox for Optimization and Simulation (METINTOS)<a class="headerlink" href="#meteorological-interpolation-toolbox-for-optimization-and-simulation-metintos" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="environmental-library-envlib">
+<h1>EnVironmental LiBrary (EnVLiB)<a class="headerlink" href="#environmental-library-envlib" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="what-is-envlib">
 <h2>What is EnVLiB?<a class="headerlink" href="#what-is-envlib" title="Permalink to this headline">¶</a></h2>
-<p>ENVLIB is a libray that calculates algorithmic climate change functions (aCCFs).
-It is distributed under the GNU Lesser General Public License v3.0.</p>
-<p><strong>Citation info</strong>: A. Simorgh, M. Soler, D. Daniel González-Arribas, Environmental library (EnVLiB), an open source toolbox developed to calculate algorithmic climate change functions (aCCF), which quantifies climate impacts of aviation.</p>
+<p>The Python Library EnVLiB is a software package developed by UC3M and DLR. The main idea of EnVLiB is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). Both individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged non-CO2 aCCFs that combine the individual aCCFs can be calculated.</p>
+<p>EnVLib is released under XXX Licence. Citation of the ENVLiB connected software documentation paper is kindly requested upon use, with software DOI for EnVLiB (doi:XXX) and version number:</p>
+<p><strong>Citation info</strong>: Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A., Soler, M., Linke, F., Lührs, B., Meuser, M., Weder, C., Yin, F., Castino, F., Gerw, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions, GMD.</p>
 </div>
 <div class="section" id="how-to-run-the-library">
 <h2>How to run the library<a class="headerlink" href="#how-to-run-the-library" title="Permalink to this headline">¶</a></h2>
@@ -47,6 +47,8 @@ It is distributed under the GNU Lesser General Public License v3.0.</p>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">name_env</span> <span class="n">python</span><span class="o">=</span><span class="mf">3.8</span>
 <span class="n">conda</span> <span class="n">activate</span> <span class="n">name_env</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">setuptools</span><span class="o">~=</span><span class="mf">49.6</span><span class="o">.</span><span class="mi">0</span>
+<span class="n">pip3</span> <span class="n">install</span> <span class="n">pint</span><span class="o">~=</span><span class="mf">0.19</span><span class="o">.</span><span class="mi">1</span>
 </pre></div>
 </div>
 <ol class="arabic simple">
@@ -62,58 +64,107 @@ It is distributed under the GNU Lesser General Public License v3.0.</p>
 <ol class="arabic simple">
 <li><p>import library:</p></li>
 </ol>
-<dl class="simple">
-<dt>::</dt><dd><p>import envlib,
-from envlib import main_processing</p>
-</dd>
-</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">envlib</span>
+<span class="kn">from</span> <span class="nn">envlib.main_processing</span> <span class="kn">import</span> <span class="n">ClimateImpact</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="2">
 <li><p>Specify the directories for datasets containing variables on pressure levels and surface in a dictioary as:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;path_pl&#39;</span><span class="p">:</span> <span class="n">location_pressure_variables</span><span class="p">,</span> <span class="s1">&#39;path_sur&#39;</span><span class="p">:</span> <span class="n">location_surface_variables</span><span class="s1">&#39;}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">path</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">path</span><span class="p">[</span><span class="s1">&#39;path_pl&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">dir_pressure_variables</span>  <span class="c1"># dircetory of the dataset containing pressure level variables</span>
+<span class="n">path</span><span class="p">[</span><span class="s1">&#39;path_sur&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">dir_surface_variables</span>  <span class="c1"># dircetory of the dataset containing surface variables</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="3">
-<li><p>Specify the directory for the output file:</p></li>
+<li><p>Specify a directory for the output files:</p></li>
 </ol>
-<dl class="simple">
-<dt>::</dt><dd><p>path_save = location_results</p>
-</dd>
-</dl>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">path_save</span> <span class="o">=</span> <span class="n">dir_results</span>    <span class="c1"># dircetory to save the output data</span>
+</pre></div>
+</div>
 <ol class="arabic simple" start="4">
-<li><dl class="simple">
-<dt>Set the preferred configurations in a dictionary:</dt><dd><p>Set the preferred configurations in a dictionary. Settings are –&gt;
-efficay: True, False //
-emission_scenario: sustained, future_scenario, pulse //
-climate_indicator: ATR, GWP //
-TimeHorizon: 20, 50, 100 //
-PMO: True, False //
-merged: True, False //
-NOx: True, False //
-Chotspots: True, False //
-hotspots_thr: constant, varying //
-binary: True, False //
-variables: True, False //
-mean: True, False //
-std: True, False //</p>
-</dd>
-</dl>
-</li>
+<li><p>(Optional) Set the preferred configurations in a dictionary
+(Defult configurations have been defined in the library.)”</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">confg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;efficacy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;emission_scenario&#39;</span><span class="p">:</span> <span class="s1">&#39;pulse&#39;</span><span class="p">,</span> <span class="s1">&#39;climate_indicator&#39;</span><span class="p">:</span> <span class="s1">&#39;ATR&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeHorizon&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-         <span class="s1">&#39;PMO&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span><span class="s1">&#39;merged&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;NOx&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;Chotspots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-         <span class="s1">&#39;hotspots_thr&#39;</span><span class="p">:</span> <span class="mf">1e-13</span><span class="p">,</span> <span class="s1">&#39;variables&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">confg</span> <span class="o">=</span> <span class="p">{}</span>
+
+<span class="c1"># If true, it includes efficacies according to Lee et al. (2021)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;efficacy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>                  <span class="c1"># Options: True, False</span>
+
+<span class="c1"># Specifies the emission scenario. Currently, pulse and future emission scenarios have been implemented</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;emission_scenario&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;future_scenario&#39;</span>       <span class="c1"># Options: pulse, future_scenario</span>
+
+<span class="c1"># Specifies the climate indicator. Currently, Average Temperature Response has been implemented</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;climate_indicator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ATR&#39;</span>         <span class="c1"># Options: ATR</span>
+
+<span class="c1"># Specifies the time horizon over which the metric is calculated</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;TimeHorizon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>                  <span class="c1"># Options: 20, 50, 100</span>
+
+<span class="c1"># Specifies the threshold of ice-supersaturated regions</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;rhi_threshold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.90</span>               <span class="c1"># Options: Depends on the resolution of data (0.90, 95, 0.99, 1.0), e.g., in case of ERA5_HRES it is 0.9</span>
+
+<span class="sd">&quot;&quot;&quot;Output Options&quot;&quot;&quot;</span>
+
+<span class="c1"># If true, all individual aCCFs converted to K/kg(fuel)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;unit_K/kg(fuel)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>            <span class="c1"># Options: True, False</span>
+
+<span class="c1"># If true,  PMO effect included to CH4 aCCF and total NOx aCCF</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;PMO&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>                         <span class="c1"># Options: True, False</span>
+
+<span class="c1"># If true, merged aCCF is calculated</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;merged&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>                      <span class="c1"># Options: True, False</span>
+
+<span class="c1"># NOx and inverse EIs</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx&amp;inverse_EIs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TTV&#39;</span>   <span class="c1"># Options: &#39;TTV (typical transantlantic fleet mean values)&#39;, &#39;ac_dependent&#39;</span>
+
+<span class="c1"># If Confg[&#39;NOx&amp;inverse_EIs&#39;] = &#39;ac_dependent&#39;, aircraft type needs to be selected</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;ac_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;wide-body&#39;</span>              <span class="c1"># Options: &#39;regional&#39;, &#39;single-aisle&#39;, &#39;wide-body&#39;</span>
+
+<span class="c1"># If true, NOx aCCF is calculated (i.e. aCCF-NOx = aCCF-CH4 + aCCF-O3)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx_aCCF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                    <span class="c1"># Options: True, False</span>
+
+<span class="sd">&quot;&quot;&quot;Climate Hotspots&quot;&quot;&quot;</span>
+
+<span class="c1"># If true, climate hotspots are calculated&#39;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Chotspots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                  <span class="c1"># Options: True, False</span>
+
+<span class="c1"># If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified threshold, and 1 for areas with higher climate impacts than the threshold)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_binary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>             <span class="c1"># Options: True, False</span>
+
+<span class="c1"># Specifies the constant threshold for determining climate hotspots</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_thr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="c1"># Determines dynamically the threshold for identifying climate hotspots using the cumulative distribution of the merged aCCF. The percentiles are also outputted in netCDF output file</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_percentile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>          <span class="c1"># Options: percentage &lt; 100</span>
+
+<span class="sd">&quot;&quot;&quot; Statistical analysis of EPS forecast&quot;&quot;&quot;</span>
+
+<span class="c1"># If true, mean values of aCCFs and variables are saved in the netCDF output file</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                      <span class="c1"># Options: True, False</span>
+
+<span class="c1"># If true, standard deviation of aCCFs and variables are saved in the netCDF output file</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                       <span class="c1"># Options: True, False</span>
+
+<span class="sd">&quot;&quot;&quot; Output &quot;&quot;&quot;</span>
+
+<span class="c1"># If true, weather variables are saved in the netCDF output file</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;MET_variables&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>             <span class="c1"># Options: True, False</span>
+
+<span class="c1"># If true, polygons containing climate hotspots will be saved in the GeoJson file</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;geojson&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>                   <span class="c1"># Options: True, False</span>
+
+<span class="c1"># Specifies the color of polygons</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;copper&#39;</span>                  <span class="c1"># Options: colors of cmap, e.g., copper, jet, Reds</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="5">
 <li><p>Process inputted data:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI</span> <span class="o">=</span> <span class="n">processing_main</span><span class="o">.</span><span class="n">ClimateImpact</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">horizontal_resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">lat_bound</span><span class="o">=</span><span class="p">(</span><span class="n">lat_min</span><span class="p">,</span> <span class="n">lat_max</span><span class="p">),</span> <span class="n">lon_bound</span><span class="o">=</span><span class="p">(</span><span class="n">lon_min</span><span class="p">,</span> <span class="n">lon_max</span><span class="p">),</span>
-                                      <span class="n">save_path</span><span class="o">=</span><span class="n">path_save</span><span class="p">)</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI</span> <span class="o">=</span> <span class="n">ClimateImpact</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">horizontal_resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">lat_bound</span><span class="o">=</span><span class="p">(</span><span class="n">lat_min</span><span class="p">,</span> <span class="n">lat_max</span><span class="p">),</span> <span class="n">lon_bound</span><span class="o">=</span><span class="p">(</span><span class="n">lon_min</span><span class="p">,</span> <span class="n">lon_max</span><span class="p">),</span> <span class="n">save_path</span><span class="o">=</span><span class="n">path_save</span><span class="p">)</span>
 </pre></div>
 </div>
 <ol class="arabic simple" start="6">
-<li><p>Calculate aCCFs with respect to the defined settings in the dictionary, Confg, and store the results in a netCDF file:</p></li>
+<li><p>Calculate aCCFs with respect to the defined settings in the dictionary (i.e., Confg) and store the results in a netCDF file:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI</span><span class="o">.</span><span class="n">calculate_accfs</span><span class="p">(</span><span class="o">**</span><span class="n">confg</span><span class="p">)</span>
 </pre></div>
@@ -125,19 +176,41 @@ std: True, False //</p>
 <li><p>Here is an example how one can use sample data in test directory of envlib to generate output for a set of user-difned configurations:</p></li>
 </ol>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">envlib</span>
-<span class="kn">from</span> <span class="nn">envlib</span> <span class="kn">import</span> <span class="n">main_processing</span>
+<span class="kn">from</span> <span class="nn">envlib.main_processing</span> <span class="kn">import</span> <span class="n">ClimateImpact</span>
 
 <span class="n">path_here</span> <span class="o">=</span> <span class="s1">&#39;envlib/&#39;</span>
 <span class="n">test_path</span> <span class="o">=</span> <span class="n">path_here</span> <span class="o">+</span> <span class="s1">&#39;/test/sample_data/&#39;</span>
 <span class="n">path_</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;path_pl&#39;</span><span class="p">:</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;sample_pl.nc&#39;</span><span class="p">,</span> <span class="s1">&#39;path_sur&#39;</span><span class="p">:</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;sample_sur.nc&#39;</span><span class="p">}</span>
 <span class="n">path_save</span> <span class="o">=</span> <span class="n">test_path</span> <span class="o">+</span> <span class="s1">&#39;env_processed.nc&#39;</span>
-<span class="n">confg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;efficacy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;emission_scenario&#39;</span><span class="p">:</span> <span class="s1">&#39;pulse&#39;</span><span class="p">,</span> <span class="s1">&#39;climate_indicator&#39;</span><span class="p">:</span> <span class="s1">&#39;ATR&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeHorizon&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span>
-             <span class="s1">&#39;PMO&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-             <span class="s1">&#39;merged&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;NOx&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;Chotspots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;binary&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-             <span class="s1">&#39;hotspots_thr&#39;</span><span class="p">:</span> <span class="mf">1e-13</span><span class="p">,</span> <span class="s1">&#39;variables&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
 
-<span class="n">CI</span> <span class="o">=</span> <span class="n">main_processing</span><span class="o">.</span><span class="n">ClimateImpact</span><span class="p">(</span><span class="n">path_</span><span class="p">,</span> <span class="n">horizontal_resolution</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">lat_bound</span><span class="o">=</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">),</span> <span class="n">lon_bound</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span>
-                                          <span class="n">save_path</span><span class="o">=</span><span class="n">path_save</span><span class="p">)</span>
+<span class="n">confg</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;efficacy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;emission_scenario&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;future_scenario&#39;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;climate_indicator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ATR&#39;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;TimeHorizon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;rhi_threshold&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">0.90</span>
+
+<span class="sd">&quot;&quot;&quot;Output Options&quot;&quot;&quot;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;unit_K/kg(fuel)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;PMO&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;merged&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx&amp;inverse_EIs&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ac_dependent&#39;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;ac_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;wide-body&#39;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx_aCCF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+<span class="sd">&quot;&quot;&quot;Climate Hotspots&quot;&quot;&quot;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Chotspots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_binary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_thr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_percentile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>
+
+<span class="sd">&quot;&quot;&quot; Output &quot;&quot;&quot;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;MET_variables&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;geojson&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;copper&#39;</span>
+
+
+<span class="n">CI</span> <span class="o">=</span> <span class="n">ClimateImpact</span><span class="p">(</span><span class="n">path_</span><span class="p">,</span> <span class="n">horizontal_resolution</span><span class="o">=</span><span class="mf">0.75</span><span class="p">,</span> <span class="n">lat_bound</span><span class="o">=</span><span class="p">(</span><span class="mi">35</span><span class="p">,</span> <span class="mf">60.0</span><span class="p">),</span> <span class="n">lon_bound</span><span class="o">=</span><span class="p">(</span><span class="o">-</span><span class="mi">15</span><span class="p">,</span> <span class="mi">35</span><span class="p">),</span> <span class="n">save_path</span><span class="o">=</span><span class="n">path_save</span><span class="p">)</span>
 <span class="n">CI</span><span class="o">.</span><span class="n">calculate_accfs</span><span class="p">(</span><span class="o">**</span><span class="n">confg</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -159,17 +232,16 @@ std: True, False //</p>
 </div>
 <p>Note that you <strong>should not see</strong> any error or warning, this information appears as red text in the terminal.</p>
 </div>
-<div class="section" id="modules">
-<h2>Modules:<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="contents">
+<h2>Contents:<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">envlib</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="envlib.html">envlib package</a></li>
-<li class="toctree-l2"><a class="reference internal" href="setup.html">setup module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="test.html">test package</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 </div>
 </div>
@@ -184,8 +256,8 @@ std: True, False //</p>
 <div class="section" id="acknowledmgements">
 <h2>Acknowledmgements<a class="headerlink" href="#acknowledmgements" title="Permalink to this headline">¶</a></h2>
 <a class="reference internal image-reference" href="_images/Alarm_LOGO.eps"><img alt="FMP-Met project" class="align-center" src="_images/Alarm_LOGO.eps" style="width: 100px;" /></a>
-<p><em>This library has been developed within ALARM and FLyATM4E Projects. ALARM has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
-FLyATM4E has received funding from the SESAR Joint Undertaking under the European Union’s Horizon 2020 research and innovation programme under grant agreement No 891317. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.</em>.</p>
+<p><em>This library has been developed within ALARM and FLyATM4E Projects. FLyATM4E has received funding from the SESAR Joint Undertaking under the European Union’s Horizon 2020 research and innovation programme under grant agreement No 891317. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
+ALARM has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.</em>.</p>
 <blockquote>
 <div><table class="docutils align-default">
 <colgroup>
@@ -217,7 +289,7 @@ FLyATM4E has received funding from the SESAR Joint Undertaking under the Europea
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=javiergarciaheras&repo=metintos&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -228,14 +300,18 @@ FLyATM4E has received funding from the SESAR Joint Undertaking under the Europea
 <h3>Navigation</h3>
 <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="modules.html">envlib</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Data Processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="#">Documentation overview</a><ul>
-      <li>Next: <a href="modules.html" title="next chapter">envlib</a></li>
+      <li>Next: <a href="modules.html" title="next chapter">Data Processing</a></li>
   </ul></li>
 </ul>
 </div>

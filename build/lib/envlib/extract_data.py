@@ -4,7 +4,6 @@
 from envlib.extend_dim import *
 
 
-# TODO: Consider the case ttr or olr is given with other variables in single dataset
 def extract_data_variables(ds, ds_sr=None, verbose=False):
     """ Extract available required variables in the dataset defined with different possible names.
 
@@ -149,12 +148,12 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
 
 
 def logic_cal_accfs(variables):
-    """ Build a dictionary containing logical valules correspond to the possibility to calculate of aCCF.
+    """ Creates a dictionary containing logical values showing the possibility to calculate each aCCF.
 
-    :param variables: variables available in the given dataset.
+    :param variables: Variables available in the given dataset.
     :type variables: dict
 
-    :returns: Dictionary containing logical valules correspond to the possibility to calculate of aCCFs.
+    :returns: dictionary containing logical values showing the possibility to calculate each aCCF.
     :rtype: dict
     """
 
@@ -220,7 +219,7 @@ def extract_coordinates(ds, ex_variables, ds_sur=None):
     :returns ex_var_name: List of available coordinates.
     :rtype: list
 
-    :returns variables: Assigns bool to the axes (e.g., if ensmeble members are not available, it assgins False).
+    :returns variables: Assigns bool to the axes (e.g., if ensemble members are not available, it sets False).
     :rtype: dict
     """
     coords = \
