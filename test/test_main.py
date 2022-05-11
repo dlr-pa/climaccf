@@ -26,11 +26,11 @@ def test_main():
     # Specifies the climate indicator. Currently, Average Temperature Response has been implemented
     confg['climate_indicator'] = 'ATR'         # Options: ATR
 
-    # Specifies the time horizon over which the metric is calculated
+    # Specifies the time horizon (in years) over which the metric is calculated
     confg['TimeHorizon'] = 20                  # Options: 20, 50, 100
 
-    # Specifies the threshold of ice-supersaturated regions
-    confg['rhi_threshold'] = 0.90               # Options: Depends on the resolution of data (0.90, 95, 0.99, 1.0)
+    # Specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. Note that this threshold
+    confg['rhi_threshold'] = 0.90               # Options: depends on the resolution of the input data (see SEction XX Dietmüller et al. 2021)
                                                 # e.g., in case of ERA5_HRES it is 0.9
 
     """Output Options"""
@@ -46,12 +46,17 @@ def test_main():
 
     # NOx and inverse EIs
     confg['NOx&inverse_EIs'] = 'TTV'   # Options: 'TTV (typical transantlantic fleet mean values)', 'ac_dependent'
+                                    # Note that "If Confg['NOx&inverse_Eis'] = 'TTV', the following confg['ac_type'] is ignored."
 
     # If Confg['NOx&inverse_EIs'] = 'ac_dependent', aircraft type needs to be selected
     confg['ac_type'] = 'wide-body'              # Options: 'regional', 'single-aisle', 'wide-body'
 
     # If true, NOx aCCF is calculated (i.e. aCCF-NOx = aCCF-CH4 + aCCF-O3)
     confg['NOx_aCCF'] = False                        # Options: True, False
+
+    # weather-dependent coefficients for calculating NOx emission index using Boeing Fuel Flow Method 2 (BFFM2)
+    confg['Coef.BFFM2'] = True                  # Options: True, False
+    confg['method_BFFM2_SH'] = 'SH'
 
     """Climate Hotspots"""
 
@@ -60,16 +65,17 @@ def test_main():
 
     # If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified 
     # threshold, and 1 for areas with higher climate impacts than the threshold)
+    # If false, it assigns 0 for areas with climate impacts below the specified threshold and gives actual values for those
+    # areas with higher climate impacts than the threshold.
     confg['hotspots_binary'] = False             # Options: True, False
 
-    # Specifies the constant threshold for determining climate hotspots
-    confg['hotspots_thr'] = False
-
-    # Determines dynamically the threshold for identifying climate hotspots using the cumulative distribution of the merged aCCF
+    # Determines dynamically the threshold for identifying climate hotspots by calculating the e.g., 99th percentile term of the of
+    # the normal distribution of the respective merged aCCF
     # The percentiles are also outputted in netCDF output file
     confg['hotspots_percentile'] = 99          # Options: percentage < 100     
 
-    """ Statistical analysis of EPS forecast"""
+    """ Statistical analysis of EPS forecast """
+    # The following two options (confg['mean'], confg['std']) are ignored if the input data are deterministic
 
     # If true, mean values of aCCFs and variables are saved in the netCDF output file
     confg['mean'] = False                      # Options: True, False
@@ -79,7 +85,7 @@ def test_main():
 
     """ Output """
 
-    # If true, weather variables are saved in the netCDF output file
+    # If true, all meteorological input variables are saved in the netCDF output file in same resolution as aCCFs
     confg['MET_variables'] = False             # Options: True, False
 
     # If true, polygons containing climate hotspots will be saved in the GeoJson file

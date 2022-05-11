@@ -135,19 +135,19 @@
 <div class="viewcode-block" id="GeTaCCFs.accf_ncontrail"><a class="viewcode-back" href="../../modules.html#envlib.accf.GeTaCCFs.accf_ncontrail">[docs]</a>    <span class="k">def</span> <span class="nf">accf_ncontrail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the aCCF of night-time contrails for pulse emission scenario, average temperature response as</span>
-<span class="sd">        climate indicator over next 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,</span>
+<span class="sd">        climate indicator over next 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of nighttime contrails,</span>
 <span class="sd">        meteorological variables temperature and relative humidities over ice and water are required. Notice that,</span>
 <span class="sd">        relative humidies are required for the detemiation of presistent contrail formation areas.</span>
 
 <span class="sd">        :returns accf: Algorithmic climate change function of nighttime contrails.</span>
 <span class="sd">        :rtype: numpy.ndarray</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># P-ATR20-contrail [Unit: K/km]</span>
+        <span class="c1"># P-ATR20-contrail [Unit: K/km(distance flown)]</span>
         <span class="n">factor</span> <span class="o">=</span> <span class="mf">0.0151</span>
         <span class="c1"># factor = 0.114</span>
         <span class="n">RF</span> <span class="o">=</span> <span class="mf">1e-10</span> <span class="o">*</span> <span class="p">(</span><span class="mf">0.0073</span> <span class="o">*</span> <span class="p">(</span><span class="mi">10</span> <span class="o">**</span> <span class="p">(</span><span class="mf">0.0107</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">t</span><span class="p">))</span> <span class="o">-</span> <span class="mf">1.03</span><span class="p">)</span>
-        <span class="n">accf</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">RF</span>  <span class="c1"># [Unit: K/km (contrail)]</span>
-        <span class="n">accf</span> <span class="o">=</span> <span class="n">accf</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcfa</span>  <span class="c1"># [Unit: K/km]</span>
+        <span class="n">accf</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">RF</span>  <span class="c1"># [Unit: K/km(contrail)]</span>
+        <span class="n">accf</span> <span class="o">=</span> <span class="n">accf</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcfa</span>  <span class="c1"># [Unit: K/km(distance flown)]</span>
         <span class="n">accf</span> <span class="o">=</span> <span class="n">accf</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eg</span><span class="p">[</span><span class="s1">&#39;Cont.&#39;</span><span class="p">]</span>
         <span class="n">accf</span><span class="p">[</span><span class="n">accf</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
         <span class="k">return</span> <span class="n">accf</span></div>
@@ -155,7 +155,7 @@
 <div class="viewcode-block" id="GeTaCCFs.accf_dcontrail"><a class="viewcode-back" href="../../modules.html#envlib.accf.GeTaCCFs.accf_dcontrail">[docs]</a>    <span class="k">def</span> <span class="nf">accf_dcontrail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Calculates the aCCF of day-time contrails for pulse emission scenario, average temperature response as</span>
-<span class="sd">        climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,</span>
+<span class="sd">        climate indicator and 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of day-time contrails,</span>
 <span class="sd">        meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water</span>
 <span class="sd">        are required. Notice that, temperature and relative humidies are required for the detemiation of presistent</span>
 <span class="sd">        contrail formation areas.</span>
@@ -163,12 +163,12 @@
 <span class="sd">        :returns accf: Algorithmic climate change function of day-time contrails.</span>
 <span class="sd">        :rtype: numpy.ndarray</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="c1"># P-ATR20-contrail [Unit: K/km]</span>
+        <span class="c1"># P-ATR20-contrail [Unit: K/km(distance flown)]</span>
         <span class="n">factor</span> <span class="o">=</span> <span class="mf">0.0151</span>
         <span class="c1"># factor = 0.114</span>
         <span class="n">RF</span> <span class="o">=</span> <span class="mf">1e-10</span> <span class="o">*</span> <span class="p">(</span><span class="o">-</span><span class="mf">1.7</span> <span class="o">-</span> <span class="mf">0.0088</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">olr</span><span class="p">)</span>
-        <span class="n">accf</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">RF</span>  <span class="c1"># [Unit: K/km (contrail)]</span>
-        <span class="n">accf</span> <span class="o">=</span> <span class="n">accf</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcfa</span>  <span class="c1"># [Unit: K/km]</span>
+        <span class="n">accf</span> <span class="o">=</span> <span class="n">factor</span> <span class="o">*</span> <span class="n">RF</span>  <span class="c1"># [Unit: K/km(contrail)]</span>
+        <span class="n">accf</span> <span class="o">=</span> <span class="n">accf</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">pcfa</span>  <span class="c1"># [Unit: K/km(distance flown)]</span>
         <span class="n">accf</span> <span class="o">=</span> <span class="n">accf</span> <span class="o">/</span> <span class="bp">self</span><span class="o">.</span><span class="n">eg</span><span class="p">[</span><span class="s1">&#39;Cont.&#39;</span><span class="p">]</span>
         <span class="k">return</span> <span class="n">accf</span></div>
 
@@ -193,7 +193,7 @@
         <span class="n">confg</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;efficacy&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;emission_scenario&#39;</span><span class="p">:</span> <span class="s1">&#39;pulse&#39;</span><span class="p">,</span> <span class="s1">&#39;climate_indicator&#39;</span><span class="p">:</span> <span class="s1">&#39;ATR&#39;</span><span class="p">,</span> <span class="s1">&#39;TimeHorizon&#39;</span><span class="p">:</span> <span class="mi">20</span><span class="p">,</span> <span class="s1">&#39;PMO&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
                  <span class="s1">&#39;merged&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;NOx_aCCF&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;NOx&amp;inverse_EIs&#39;</span><span class="p">:</span> <span class="s1">&#39;TTV&#39;</span><span class="p">,</span> <span class="s1">&#39;Chotspots&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;hotspots_binary&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
                  <span class="s1">&#39;hotspots_thr&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;MET_variables&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;std&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;pcfa&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span> <span class="s1">&#39;educated_guess_v1.0&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                 <span class="s1">&#39;Coef.BFFM2&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;Coef.BFFM2&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;unit_K/kg(fuel)&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;hotspots_percentile&#39;</span><span class="p">:</span> <span class="mi">99</span><span class="p">,</span> <span class="s1">&#39;method_BFFM2_SH&#39;</span><span class="p">:</span> <span class="s1">&#39;RH&#39;</span><span class="p">}</span>
+                 <span class="s1">&#39;Coef.BFFM2&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;Coef.BFFM2&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;unit_K/kg(fuel)&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;hotspots_percentile&#39;</span><span class="p">:</span> <span class="mi">99</span><span class="p">,</span> <span class="s1">&#39;method_BFFM2_SH&#39;</span><span class="p">:</span> <span class="s1">&#39;RH&#39;</span><span class="p">,</span> <span class="s1">&#39;ac_type&#39;</span><span class="p">:</span> <span class="s1">&#39;wide-body&#39;</span><span class="p">}</span>
         <span class="n">confg</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">problem_config</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">variables</span> <span class="o">=</span> <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;MET_variables&#39;</span><span class="p">]</span>
 
@@ -237,7 +237,7 @@
 
         <span class="c1"># Night-time contrails:        </span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_bool</span><span class="p">[</span><span class="s1">&#39;nCont&#39;</span><span class="p">]:</span>
-            <span class="n">attrs_nCont</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;K km**-1&#39;</span><span class="p">,</span> <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;algorithmic climate change function of night-time contrails&#39;</span><span class="p">,</span> <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;aCCF of night-time contrails&#39;</span><span class="p">}</span>
+            <span class="n">attrs_nCont</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;K km(distance flown)**-1&#39;</span><span class="p">,</span> <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;algorithmic climate change function of night-time contrails&#39;</span><span class="p">,</span> <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;aCCF of night-time contrails&#39;</span><span class="p">}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_nCont</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accf_ncontrail</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_nCont</span> <span class="o">=</span> <span class="n">convert_accf</span><span class="p">(</span><span class="s1">&#39;Cont.&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_nCont</span><span class="p">,</span> <span class="n">confg</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">var_aCCF_xr</span><span class="p">[</span><span class="s1">&#39;aCCF_nCont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_nCont</span><span class="p">,</span> <span class="n">attrs_nCont</span><span class="p">)</span>
@@ -245,14 +245,14 @@
 
         <span class="c1"># Day-time contrails:</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_bool</span><span class="p">[</span><span class="s1">&#39;dCont&#39;</span><span class="p">]:</span>
-            <span class="n">attrs_dCont</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;K km**-1&#39;</span><span class="p">,</span> <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;algorithmic climate change function of day-time contrails&#39;</span><span class="p">,</span> <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;aCCF of day-time contrails&#39;</span><span class="p">}</span>
+            <span class="n">attrs_dCont</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;K km(distance flown)**-1&#39;</span><span class="p">,</span> <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;algorithmic climate change function of day-time contrails&#39;</span><span class="p">,</span> <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;aCCF of day-time contrails&#39;</span><span class="p">}</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_dCont</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">accf_dcontrail</span><span class="p">()</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_dCont</span> <span class="o">=</span> <span class="n">convert_accf</span><span class="p">(</span><span class="s1">&#39;Cont.&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_dCont</span><span class="p">,</span> <span class="n">confg</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">var_aCCF_xr</span><span class="p">[</span><span class="s1">&#39;aCCF_dCont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_dCont</span><span class="p">,</span> <span class="n">attrs_dCont</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_xr</span><span class="p">[</span><span class="s1">&#39;aCCF_dCont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_dCont</span><span class="p">,</span> <span class="n">attrs_dCont</span><span class="p">)</span>
 
         <span class="c1"># adaptive day and night-time contrails (depending on the time of emission)</span>
-        <span class="n">attrs_Cont</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;K km**-1&#39;</span><span class="p">,</span> <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;algorithmic climate change function of contrails&#39;</span><span class="p">,</span> <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;aCCF of contrails&#39;</span><span class="p">}</span>
+        <span class="n">attrs_Cont</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;unit&#39;</span><span class="p">:</span> <span class="s1">&#39;K km(distance flown)**-1&#39;</span><span class="p">,</span> <span class="s1">&#39;long_name&#39;</span><span class="p">:</span> <span class="s1">&#39;algorithmic climate change function of contrails&#39;</span><span class="p">,</span> <span class="s1">&#39;short_name&#39;</span><span class="p">:</span> <span class="s1">&#39;aCCF of contrails&#39;</span><span class="p">}</span>
         <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_bool</span><span class="p">[</span><span class="s1">&#39;dCont&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_bool</span><span class="p">[</span><span class="s1">&#39;nCont&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_bool</span><span class="p">[</span><span class="s1">&#39;contrail_adaptive&#39;</span><span class="p">]:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_Cont</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">day</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_dCont</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">night</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_nCont</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">var_aCCF_xr</span><span class="p">[</span><span class="s1">&#39;aCCF_Cont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="bp">self</span><span class="o">.</span><span class="n">aCCF_Cont</span><span class="p">,</span> <span class="n">attrs_Cont</span><span class="p">)</span>
@@ -589,13 +589,21 @@
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#input">Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#running">Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#output">Output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html">Data Processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
 </ul>
 
 <div class="relations">

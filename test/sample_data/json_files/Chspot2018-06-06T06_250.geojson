@@ -1,1 +1,0 @@
-{"features": [{"geometry": {"coordinates": [[[[-26.25, 43.0], [-26.25, 42.5], [-26.5, 42.25], [-26.5, 42.5], [-26.5, 43.0], [-26.5, 43.25], [-26.25, 43.0]]]], "type": "MultiPolygon"}, "properties": {"fill": "#ed9660", "fill-opacity": 0.9, "stroke": "#ed9660", "stroke-opacity": 1, "stroke-width": 2.5, "title": "0.50-1.00 m"}, "type": "Feature"}], "type": "FeatureCollection"}

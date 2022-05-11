@@ -66,7 +66,7 @@
 % Set up styles of URL: it should be placed after hyperref.
 \urlstyle{same}
 
-\addto\captionsenglish{\renewcommand{\contentsname}{Contents:}}
+\addto\captionsenglish{\renewcommand{\contentsname}{Getting started}}
 
 \usepackage{sphinxmessages}
 \setcounter{tocdepth}{1}
@@ -81,7 +81,7 @@
     
 
 \title{Environmental Library Documentation}
-\date{Apr 15, 2022}
+\date{May 11, 2022}
 \release{V0.0.1}
 \author{DLR, TUHH, TUD, UC3M}
 \newcommand{\sphinxlogo}{\vbox{}}
@@ -103,17 +103,28 @@
 
 
 
-\chapter{What is EnVLiB?}
-\label{\detokenize{index:what-is-envlib}}
-The Python Library EnVLiB is a software package developed by UC3M and DLR. The main idea of EnVLiB is to provide an open\sphinxhyphen{}source, easy\sphinxhyphen{}to\sphinxhyphen{}use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). Both individual aCCFs of water vapour, NOx\sphinxhyphen{}induced ozone and methane, and contrail\sphinxhyphen{}cirrus and also merged non\sphinxhyphen{}CO2 aCCFs that combine the individual aCCFs can be calculated.
+\chapter{Introduction}
+\label{\detokenize{index:introduction}}
+\sphinxstylestrong{About:} The Python Library EnVLiB is a software package developed by UC3M and DLR. The main idea of EnVLiB is to provide an open\sphinxhyphen{}source, easy\sphinxhyphen{}to\sphinxhyphen{}use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). Both individual aCCFs of water vapour, NOx\sphinxhyphen{}induced ozone and methane, and contrail\sphinxhyphen{}cirrus and also merged non\sphinxhyphen{}CO$_2$ aCCFs that combine the individual aCCFs can be calculated.
 
-EnVLib is released under XXX Licence. Citation of the ENVLiB connected software documentation paper is kindly requested upon use, with software DOI for EnVLiB (doi:XXX) and version number:
+\sphinxstylestrong{License:} EnVLib is released under XXX Licence. Citation of the EnVLiB connected software documentation paper is kindly requested upon use, with software DOI for EnVLiB (doi:XXX) and version number:
 
-\sphinxstylestrong{Citation info}: Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A., Soler, M., Linke, F., Lührs, B., Meuser, M., Weder, C., Yin, F., Castino, F., Gerw, V. (2022): A python library for computing individual and merged non\sphinxhyphen{}CO2 algorithmic climate change functions, GMD.
+\sphinxstylestrong{Citation info:} Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A., Soler, M., Linke, F., Lührs, B., Meuser, M., Weder, C., Yin, F., Castino, F., Gerw, V. (2022): A python library for computing individual and merged non\sphinxhyphen{}CO$_2$ algorithmic climate change functions, GMD.
+
+\sphinxstylestrong{Support:} XXX
 
 
-\chapter{How to run the library}
-\label{\detokenize{index:how-to-run-the-library}}\begin{enumerate}
+\chapter{Getting started:}
+\label{\detokenize{index:getting-started}}
+This section briefly presents the necessary information required to get started with EnVLiB.
+
+
+\section{Installation}
+\label{\detokenize{gStarted:installation}}\label{\detokenize{gStarted::doc}}
+The installation is the first step to working with EnVLiB. In the following, the steps required to install the library are provided (Some parts need to be modified,
+for instance, I need to check the current envlib is compatible with which versions of pythons, and also, for release, we may decide to publish it under
+PyPi, so downloading or cloning the library is not the only option).
+\begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \setcounter{enumi}{-1}
 \item {} 
@@ -124,8 +135,6 @@ it is highly recomended to create a virtual environment with Python version 3.8:
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{conda} \PYG{n}{create} \PYG{o}{\PYGZhy{}}\PYG{n}{n} \PYG{n}{name\PYGZus{}env} \PYG{n}{python}\PYG{o}{=}\PYG{l+m+mf}{3.8}
 \PYG{n}{conda} \PYG{n}{activate} \PYG{n}{name\PYGZus{}env}
-\PYG{n}{pip3} \PYG{n}{install} \PYG{n}{setuptools}\PYG{o}{\PYGZti{}}\PYG{o}{=}\PYG{l+m+mf}{49.6}\PYG{o}{.}\PYG{l+m+mi}{0}
-\PYG{n}{pip3} \PYG{n}{install} \PYG{n}{pint}\PYG{o}{\PYGZti{}}\PYG{o}{=}\PYG{l+m+mf}{0.19}\PYG{o}{.}\PYG{l+m+mi}{1}
 \end{sphinxVerbatim}
 \begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
@@ -133,232 +142,172 @@ it is highly recomended to create a virtual environment with Python version 3.8:
 Clone or download the repository.
 
 \item {} 
-Locate yourself in the envlib (library folder) path, and run the following line, using terminal (MacOS) or cmd (Windows), which will install all dependencies:
+Locate yourself in the envlib (library folder) path, and run the following line, using terminal (in MacOS and Linux) or cmd (Windows), which will install all dependencies:
 
 \end{enumerate}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{python} \PYG{n}{setup}\PYG{o}{.}\PYG{n}{py} \PYG{n}{install}
 \end{sphinxVerbatim}
-
-
-\chapter{How to use it}
-\label{\detokenize{index:how-to-use-it}}\begin{enumerate}
-\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
-\item {} 
-import library:
-
-\end{enumerate}
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{k+kn}{import} \PYG{n+nn}{envlib}
-\PYG{k+kn}{from} \PYG{n+nn}{envlib}\PYG{n+nn}{.}\PYG{n+nn}{main\PYGZus{}processing} \PYG{k+kn}{import} \PYG{n}{ClimateImpact}
-\end{sphinxVerbatim}
-\begin{enumerate}
-\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
-\setcounter{enumi}{1}
-\item {} 
-Specify the directories for datasets containing variables on pressure levels and surface in a dictioary as:
-
-\end{enumerate}
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{path} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}
-\PYG{n}{path}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}pl}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}  \PYG{o}{=} \PYG{n}{dir\PYGZus{}pressure\PYGZus{}variables}  \PYG{c+c1}{\PYGZsh{} dircetory of the dataset containing pressure level variables}
-\PYG{n}{path}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}sur}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=}  \PYG{n}{dir\PYGZus{}surface\PYGZus{}variables}  \PYG{c+c1}{\PYGZsh{} dircetory of the dataset containing surface variables}
-\end{sphinxVerbatim}
 \begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \setcounter{enumi}{2}
 \item {} 
-Specify a directory for the output files:
+There is sample data and a test script in the package. To run it, at the library folder, enter the following command:
 
 \end{enumerate}
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{path\PYGZus{}save} \PYG{o}{=} \PYG{n}{dir\PYGZus{}results}    \PYG{c+c1}{\PYGZsh{} dircetory to save the output data}
+\PYG{n}{python} \PYG{n}{setup}\PYG{o}{.}\PYG{n}{py} \PYG{n}{pytest}
 \end{sphinxVerbatim}
 \begin{enumerate}
 \sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
 \setcounter{enumi}{3}
 \item {} 
-(Optional) Set the preferred configurations in a dictionary
-(Defult configurations have been defined in the library.)”
+The library runs successfully if env\_processed.nc is generated at the library folder/test/sample\_data/. One can visualize the file using a visualization tool (e.g., ferret, NCO, Panoply, etc.).
 
 \end{enumerate}
+
+
+\section{Configuration}
+\label{\detokenize{gStarted:configuration}}
+The scope of EnVLiB is to provide individual and merged aCCFs as spatially and temporally resolved information considering meteorology from the actual synoptical situation, the engine/aircraft type, the selected physical climate metric, and the selected version of prototype algorithms in individual aCCFs. Consequently, some user\sphinxhyphen{}preferred settings need to
+be defined. Within EnVLib, theses settings are defined in a dictionary, called \sphinxstyleemphasis{confg} (i.e., confg {[}‘name’{]} = value). Notice that default
+configurations have been defined within the library; thus, defining dictionary \sphinxstyleemphasis{confg} is optional. Information on the settings, options, and default values is provided in the following.
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{confg} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}
 
 \PYG{c+c1}{\PYGZsh{} If true, it includes efficacies according to Lee et al. (2021)}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{efficacy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}                  \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{efficacy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}                  \PYG{c+c1}{\PYGZsh{} Options: True, False (default: False)}
 
 \PYG{c+c1}{\PYGZsh{} Specifies the emission scenario. Currently, pulse and future emission scenarios have been implemented}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{emission\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{future\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}       \PYG{c+c1}{\PYGZsh{} Options: pulse, future\PYGZus{}scenario}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{emission\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{future\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}       \PYG{c+c1}{\PYGZsh{} Options: pulse, future\PYGZus{}scenario (default: pulse)}
 
 \PYG{c+c1}{\PYGZsh{} Specifies the climate indicator. Currently, Average Temperature Response has been implemented}
 \PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{climate\PYGZus{}indicator}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ATR}\PYG{l+s+s1}{\PYGZsq{}}         \PYG{c+c1}{\PYGZsh{} Options: ATR}
 
-\PYG{c+c1}{\PYGZsh{} Specifies the time horizon over which the metric is calculated}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TimeHorizon}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{20}                  \PYG{c+c1}{\PYGZsh{} Options: 20, 50, 100}
+\PYG{c+c1}{\PYGZsh{} Specifies the time horizon (in years) over which the metric is calculated}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TimeHorizon}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{20}                  \PYG{c+c1}{\PYGZsh{} Options: 20, 50, 100 (default: 20)}
 
-\PYG{c+c1}{\PYGZsh{} Specifies the threshold of ice\PYGZhy{}supersaturated regions}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rhi\PYGZus{}threshold}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{0.90}               \PYG{c+c1}{\PYGZsh{} Options: Depends on the resolution of data (0.90, 95, 0.99, 1.0), e.g., in case of ERA5\PYGZus{}HRES it is 0.9}
+\PYG{c+c1}{\PYGZsh{} Specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. Note that this threshold}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rhi\PYGZus{}threshold}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{0.90}               \PYG{c+c1}{\PYGZsh{} Options: depends on the resolution of the input data (see SEction XX Dietmüller et al. 2021)}
+                                            \PYG{c+c1}{\PYGZsh{} e.g., in case of ERA5\PYGZus{}HRES it is 0.9}
 
 \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Output Options\PYGZdq{}\PYGZdq{}\PYGZdq{}}
 
 \PYG{c+c1}{\PYGZsh{} If true, all individual aCCFs converted to K/kg(fuel)}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{unit\PYGZus{}K/kg(fuel)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}            \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{unit\PYGZus{}K/kg(fuel)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}            \PYG{c+c1}{\PYGZsh{} Options: True, False (default: False)}
 
-\PYG{c+c1}{\PYGZsh{} If true,  PMO effect included to CH4 aCCF and total NOx aCCF}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{PMO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}                         \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{c+c1}{\PYGZsh{} If true,  PMO effect included to CH$_4$ aCCF and total NOx aCCF}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{PMO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}                         \PYG{c+c1}{\PYGZsh{} Options: True, False (default: False)}
 
 \PYG{c+c1}{\PYGZsh{} If true, merged aCCF is calculated}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{merged}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}                      \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{merged}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}                     \PYG{c+c1}{\PYGZsh{} Options: True, False  (default: True)}
 
 \PYG{c+c1}{\PYGZsh{} NOx and inverse EIs}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx\PYGZam{}inverse\PYGZus{}EIs}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TTV}\PYG{l+s+s1}{\PYGZsq{}}   \PYG{c+c1}{\PYGZsh{} Options: \PYGZsq{}TTV (typical transantlantic fleet mean values)\PYGZsq{}, \PYGZsq{}ac\PYGZus{}dependent\PYGZsq{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx\PYGZam{}inverse\PYGZus{}EIs}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TTV}\PYG{l+s+s1}{\PYGZsq{}}   \PYG{c+c1}{\PYGZsh{} Options: \PYGZsq{}TTV (typical transantlantic fleet mean values)\PYGZsq{}, \PYGZsq{}ac\PYGZus{}dependent\PYGZsq{} (default: TTV)}
+                                   \PYG{c+c1}{\PYGZsh{} Note that \PYGZdq{}If Confg[\PYGZsq{}NOx\PYGZam{}inverse\PYGZus{}Eis\PYGZsq{}] = \PYGZsq{}TTV\PYGZsq{}, the following confg[\PYGZsq{}ac\PYGZus{}type\PYGZsq{}] is ignored.\PYGZdq{}}
 
 \PYG{c+c1}{\PYGZsh{} If Confg[\PYGZsq{}NOx\PYGZam{}inverse\PYGZus{}EIs\PYGZsq{}] = \PYGZsq{}ac\PYGZus{}dependent\PYGZsq{}, aircraft type needs to be selected}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ac\PYGZus{}type}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{wide\PYGZhy{}body}\PYG{l+s+s1}{\PYGZsq{}}              \PYG{c+c1}{\PYGZsh{} Options: \PYGZsq{}regional\PYGZsq{}, \PYGZsq{}single\PYGZhy{}aisle\PYGZsq{}, \PYGZsq{}wide\PYGZhy{}body\PYGZsq{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ac\PYGZus{}type}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{wide\PYGZhy{}body}\PYG{l+s+s1}{\PYGZsq{}}              \PYG{c+c1}{\PYGZsh{} Options: \PYGZsq{}regional\PYGZsq{}, \PYGZsq{}single\PYGZhy{}aisle\PYGZsq{}, \PYGZsq{}wide\PYGZhy{}body\PYGZsq{} (default: \PYGZsq{}wide\PYGZhy{}body\PYGZsq{})}
 
 \PYG{c+c1}{\PYGZsh{} If true, NOx aCCF is calculated (i.e. aCCF\PYGZhy{}NOx = aCCF\PYGZhy{}CH4 + aCCF\PYGZhy{}O3)}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx\PYGZus{}aCCF}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                    \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx\PYGZus{}aCCF}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                   \PYG{c+c1}{\PYGZsh{} Options: True, False (default: True)}
 
 \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Climate Hotspots\PYGZdq{}\PYGZdq{}\PYGZdq{}}
 
 \PYG{c+c1}{\PYGZsh{} If true, climate hotspots are calculated\PYGZsq{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Chotspots}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                  \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Chotspots}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                  \PYG{c+c1}{\PYGZsh{} Options: True, False (default: True)}
 
 \PYG{c+c1}{\PYGZsh{} If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified threshold, and 1 for areas with higher climate impacts than the threshold)}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}binary}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}             \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{c+c1}{\PYGZsh{} If false, it assigns 0 for areas with climate impacts below the specified threshold and gives actual values for those areas with higher climate impacts than the threshold.}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}binary}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}             \PYG{c+c1}{\PYGZsh{} Options: True, False (default: True)}
 
-\PYG{c+c1}{\PYGZsh{} Specifies the constant threshold for determining climate hotspots}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}thr}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
+\PYG{c+c1}{\PYGZsh{} Determines dynamically the threshold for identifying climate hotspots by calculating the e.g., 99th percentile term of the of the normal distribution of the respective merged aCCF The percentiles are also outputted in netCDF output file}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}percentile}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{99}          \PYG{c+c1}{\PYGZsh{} Options: percentage \PYGZlt{} 100 (default: 99)}
 
-\PYG{c+c1}{\PYGZsh{} Determines dynamically the threshold for identifying climate hotspots using the cumulative distribution of the merged aCCF. The percentiles are also outputted in netCDF output file}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}percentile}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{99}          \PYG{c+c1}{\PYGZsh{} Options: percentage \PYGZlt{} 100}
-
-\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Statistical analysis of EPS forecast\PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Statistical analysis of EPS forecast \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{c+c1}{\PYGZsh{} The following two options (confg[\PYGZsq{}mean\PYGZsq{}], confg[\PYGZsq{}std\PYGZsq{}]) are ignored if the input data are deterministic}
 
 \PYG{c+c1}{\PYGZsh{} If true, mean values of aCCFs and variables are saved in the netCDF output file}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                      \PYG{c+c1}{\PYGZsh{} Options: True, False}
-
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                      \PYG{c+c1}{\PYGZsh{} Options: True, False (default: True)}
 \PYG{c+c1}{\PYGZsh{} If true, standard deviation of aCCFs and variables are saved in the netCDF output file}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{std}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                       \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{std}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                       \PYG{c+c1}{\PYGZsh{} Options: True, False (default: True)}
 
 \PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Output \PYGZdq{}\PYGZdq{}\PYGZdq{}}
 
-\PYG{c+c1}{\PYGZsh{} If true, weather variables are saved in the netCDF output file}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{MET\PYGZus{}variables}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}             \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{c+c1}{\PYGZsh{} If true, all meteorological input variables are saved in the netCDF output file in same resolution as aCCFs}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{MET\PYGZus{}variables}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}             \PYG{c+c1}{\PYGZsh{} Options: True, False (default: False)}
 
 \PYG{c+c1}{\PYGZsh{} If true, polygons containing climate hotspots will be saved in the GeoJson file}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{geojson}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                   \PYG{c+c1}{\PYGZsh{} Options: True, False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{geojson}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}                   \PYG{c+c1}{\PYGZsh{} Options: True, False (default: False)}
 
 \PYG{c+c1}{\PYGZsh{} Specifies the color of polygons}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{color}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{copper}\PYG{l+s+s1}{\PYGZsq{}}                  \PYG{c+c1}{\PYGZsh{} Options: colors of cmap, e.g., copper, jet, Reds}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{color}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{copper}\PYG{l+s+s1}{\PYGZsq{}}                  \PYG{c+c1}{\PYGZsh{} Options: colors of cmap, e.g., copper, jet, Reds (default: \PYGZsq{}copper\PYGZsq{})}
 \end{sphinxVerbatim}
-\begin{enumerate}
-\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
-\setcounter{enumi}{4}
-\item {} 
-Process inputted data:
 
-\end{enumerate}
+
+\section{Input}
+\label{\detokenize{gStarted:input}}
+To calculate aCCFs, some meteorological variables are required. EnVLib takes these variables as input (See Table 5 of the connected paper (i.e., Dietmüller et al. (2021))).
+These variables are: Temperature, Geopotential, Relative humidity, and Potential vorticity unit at different pressure levels,
+and outgoing longwave radiation (or top net thermal radiation) at the top of the atmosphere.
+The current implementation of the Library is compatible with the standard of the European Centre for Medium\sphinxhyphen{}Range Weather Forecasts (ECMWF) data.
+Since the pressure level and surface variables are typically provided within different datasets, users should provide different datasets.
+Within EnVLiB, the directories of these two datasets are to be defined in a dictionary as follows:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{CI} \PYG{o}{=} \PYG{n}{ClimateImpact}\PYG{p}{(}\PYG{n}{path}\PYG{p}{,} \PYG{n}{horizontal\PYGZus{}resolution}\PYG{o}{=}\PYG{n}{resolution}\PYG{p}{,} \PYG{n}{lat\PYGZus{}bound}\PYG{o}{=}\PYG{p}{(}\PYG{n}{lat\PYGZus{}min}\PYG{p}{,} \PYG{n}{lat\PYGZus{}max}\PYG{p}{)}\PYG{p}{,} \PYG{n}{lon\PYGZus{}bound}\PYG{o}{=}\PYG{p}{(}\PYG{n}{lon\PYGZus{}min}\PYG{p}{,} \PYG{n}{lon\PYGZus{}max}\PYG{p}{)}\PYG{p}{,} \PYG{n}{save\PYGZus{}path}\PYG{o}{=}\PYG{n}{path\PYGZus{}save}\PYG{p}{)}
+\PYG{n}{input\PYGZus{}dir} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}
+\PYG{n}{input\PYGZus{}dir}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}pl}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}  \PYG{o}{=} \PYG{n}{dir\PYGZus{}pressure\PYGZus{}variables}  \PYG{c+c1}{\PYGZsh{} Directory for input data provided in pressure levels such as temperature, geopotentialand relative humidity}
+\PYG{n}{input\PYGZus{}dir}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}sur}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=}  \PYG{n}{dir\PYGZus{}surface\PYGZus{}variables}  \PYG{c+c1}{\PYGZsh{} Directory for input data provided in single pressure level such as top net thermal radiation at the the TOA}
 \end{sphinxVerbatim}
-\begin{enumerate}
-\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
-\setcounter{enumi}{5}
-\item {} 
-Calculate aCCFs with respect to the defined settings in the dictionary (i.e., Confg) and store the results in a netCDF file:
 
-\end{enumerate}
+In addition to the directories for input data, directory of the EnvLib needs to be specified within input\_dir:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{CI}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}accfs}\PYG{p}{(}\PYG{o}{*}\PYG{o}{*}\PYG{n}{confg}\PYG{p}{)}
+\PYG{n}{input\PYGZus{}dir} \PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}lib}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{n}{EnVLiB\PYGZus{}dir}      \PYG{c+c1}{\PYGZsh{} Directory of EnVLiB}
+\end{sphinxVerbatim}
+
+Finally, destination directory where all output will be written is to be inputted by user:
+
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{output\PYGZus{}dir} \PYG{o}{=} \PYG{n}{dir\PYGZus{}results}    \PYG{c+c1}{\PYGZsh{} Destination directory where all output will be written}
 \end{sphinxVerbatim}
 
 
-\chapter{An example}
-\label{\detokenize{index:an-example}}\begin{enumerate}
-\sphinxsetlistlabels{\arabic}{enumi}{enumii}{}{.}%
-\setcounter{enumi}{-1}
-\item {} 
-Here is an example how one can use sample data in test directory of envlib to generate output for a set of user\sphinxhyphen{}difned configurations:
-
-\end{enumerate}
+\section{Running}
+\label{\detokenize{gStarted:running}}
+After defining configurations and inputting required directories, EnVLiB is ready to generate outputs. First of all, we import library:
 
 \begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{k+kn}{import} \PYG{n+nn}{envlib}
 \PYG{k+kn}{from} \PYG{n+nn}{envlib}\PYG{n+nn}{.}\PYG{n+nn}{main\PYGZus{}processing} \PYG{k+kn}{import} \PYG{n}{ClimateImpact}
+\end{sphinxVerbatim}
 
-\PYG{n}{path\PYGZus{}here} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{envlib/}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{n}{test\PYGZus{}path} \PYG{o}{=} \PYG{n}{path\PYGZus{}here} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/test/sample\PYGZus{}data/}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{n}{path\PYGZus{}} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}pl}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{sample\PYGZus{}pl.nc}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}sur}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{sample\PYGZus{}sur.nc}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{\PYGZcb{}}
-\PYG{n}{path\PYGZus{}save} \PYG{o}{=} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{env\PYGZus{}processed.nc}\PYG{l+s+s1}{\PYGZsq{}}
+Then, the inputted variables will be processed by using the following function. The processing in this step is mainly related to extracting variables within inputted data, calculating required variables from alternative ones in case of missing some variables (see Table 5 of the connected paper), unifying the naming and dimension of variables, and changing the resolution and geographical area.
+The preferred horizontal resolution and geographical area are inputted to the function. Notice that the horizontal resolution cannot be increased.
 
-\PYG{n}{confg} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{efficacy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{emission\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{future\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{climate\PYGZus{}indicator}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ATR}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TimeHorizon}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{20}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rhi\PYGZus{}threshold}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{0.90}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{n}{CI} \PYG{o}{=} \PYG{n}{ClimateImpact}\PYG{p}{(}\PYG{n}{input\PYGZus{}dir}\PYG{p}{,} \PYG{n}{horizontal\PYGZus{}resolution}\PYG{o}{=}\PYG{n}{resolution}\PYG{p}{,} \PYG{n}{lat\PYGZus{}bound}\PYG{o}{=}\PYG{p}{(}\PYG{n}{lat\PYGZus{}min}\PYG{p}{,} \PYG{n}{lat\PYGZus{}max}\PYG{p}{)}\PYG{p}{,} \PYG{n}{lon\PYGZus{}bound}\PYG{o}{=}\PYG{p}{(}\PYG{n}{lon\PYGZus{}min}\PYG{p}{,} \PYG{n}{lon\PYGZus{}max}\PYG{p}{)}\PYG{p}{,} \PYG{n}{save\PYGZus{}path}\PYG{o}{=}\PYG{n}{output\PYGZus{}dir}\PYG{p}{)}
+\end{sphinxVerbatim}
 
-\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Output Options\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{unit\PYGZus{}K/kg(fuel)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{PMO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{merged}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx\PYGZam{}inverse\PYGZus{}EIs}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ac\PYGZus{}dependent}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ac\PYGZus{}type}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{wide\PYGZhy{}body}\PYG{l+s+s1}{\PYGZsq{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx\PYGZus{}aCCF}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
+After processing the weather data, aCCFs are calculated using the following command with respect to the defined settings in the dictionary (i.e., confg) and saved within the netCDF file format in the specified directory.
 
-\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Climate Hotspots\PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Chotspots}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}binary}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}thr}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}percentile}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{99}
-
-\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Output \PYGZdq{}\PYGZdq{}\PYGZdq{}}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{MET\PYGZus{}variables}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{geojson}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
-\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{color}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{copper}\PYG{l+s+s1}{\PYGZsq{}}
-
-
-\PYG{n}{CI} \PYG{o}{=} \PYG{n}{ClimateImpact}\PYG{p}{(}\PYG{n}{path\PYGZus{}}\PYG{p}{,} \PYG{n}{horizontal\PYGZus{}resolution}\PYG{o}{=}\PYG{l+m+mf}{0.75}\PYG{p}{,} \PYG{n}{lat\PYGZus{}bound}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{35}\PYG{p}{,} \PYG{l+m+mf}{60.0}\PYG{p}{)}\PYG{p}{,} \PYG{n}{lon\PYGZus{}bound}\PYG{o}{=}\PYG{p}{(}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{15}\PYG{p}{,} \PYG{l+m+mi}{35}\PYG{p}{)}\PYG{p}{,} \PYG{n}{save\PYGZus{}path}\PYG{o}{=}\PYG{n}{path\PYGZus{}save}\PYG{p}{)}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
 \PYG{n}{CI}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}accfs}\PYG{p}{(}\PYG{o}{*}\PYG{o}{*}\PYG{n}{confg}\PYG{p}{)}
 \end{sphinxVerbatim}
 
 
-\chapter{How to compile documentation pdf?}
-\label{\detokenize{index:how-to-compile-documentation-pdf}}
-You can use the Makefile created by Sphinx to create your documentation. Locate yourself in the doc path.
-
-First clean the \_build directory to avoid error or legacy information. Just call:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{make} \PYG{n}{clean}
-\end{sphinxVerbatim}
-
-In case you want to build your documentation in latex call \sphinxstylestrong{twice}:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{make} \PYG{n}{latexpdf}
-\end{sphinxVerbatim}
-
-if you want to do build your in html call:
-
-\begin{sphinxVerbatim}[commandchars=\\\{\}]
-\PYG{n}{make} \PYG{n}{html}
-\end{sphinxVerbatim}
-
-Note that you \sphinxstylestrong{should not see} any error or warning, this information appears as red text in the terminal.
+\section{Output}
+\label{\detokenize{gStarted:output}}
+Following the previous steps, an output file (in netCDF format) will be generated. The output file contains different variables depending on the selected configurations (in \sphinxstyleemphasis{confg}).
+For instance, this file can contain both aCCFs and meteorological variables (if confg {[}‘MET\_variables’{]} = true). The generated netCDF file is compatible with well\sphinxhyphen{}known visualization tools such as ferret, NCO, and Panoply.
+In addition to the netCDF file, if one selects: confg{[}‘geojson’{]} = True, confg{[}Chotspots{]} = True, some GeoJson files (number of pressure levels * number of time) will be generated in the specified output file.
 
 
-\chapter{Contents:}
-\label{\detokenize{index:contents}}
+\chapter{Modules:}
+\label{\detokenize{index:modules}}
 
 \section{Data Processing}
 \label{\detokenize{modules:module-envlib.extract_data}}\label{\detokenize{modules:data-processing}}\label{\detokenize{modules::doc}}\index{module@\spxentry{module}!envlib.extract\_data@\spxentry{envlib.extract\_data}}\index{envlib.extract\_data@\spxentry{envlib.extract\_data}!module@\spxentry{module}}\index{extract\_coordinates() (in module envlib.extract\_data)@\spxentry{extract\_coordinates()}\spxextra{in module envlib.extract\_data}}
@@ -648,6 +597,66 @@ numpy.ndarray
 
 
 
+\section{Calculation of Alternative Variables}
+\label{\detokenize{modules:module-envlib.calc_altrv_vars}}\label{\detokenize{modules:calculation-of-alternative-variables}}\index{module@\spxentry{module}!envlib.calc\_altrv\_vars@\spxentry{envlib.calc\_altrv\_vars}}\index{envlib.calc\_altrv\_vars@\spxentry{envlib.calc\_altrv\_vars}!module@\spxentry{module}}\index{get\_pvu() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_pvu()}\spxextra{in module envlib.calc\_altrv\_vars}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:envlib.calc_altrv_vars.get_pvu}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_pvu}}}{\emph{\DUrole{n}{ds}}}{}
+Caclulates potential vorticity from meteorological variables temperature and components of wind.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+
+\item[{Returns PVUU}] \leavevmode
+potential vorticity unit
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_rh\_ice() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_ice()}\spxextra{in module envlib.calc\_altrv\_vars}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:envlib.calc_altrv_vars.get_rh_ice}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_rh\_ice}}}{\emph{\DUrole{n}{ds}}}{}
+Calculates relative humidity over ice from realtive humidity over water
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+
+\item[{Returns rh\_ice}] \leavevmode
+relative humidity over ice
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_rh\_sd() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_sd()}\spxextra{in module envlib.calc\_altrv\_vars}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:envlib.calc_altrv_vars.get_rh_sd}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_rh\_sd}}}{\emph{\DUrole{n}{ds}}}{}
+Calculates the relative humidity from specific humidity
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode
+\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+
+\item[{Returns rh\_sd}] \leavevmode
+relative humidity
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
 \section{Weather Store}
 \label{\detokenize{modules:weather-store}}\index{WeatherStore (class in envlib.weather\_store)@\spxentry{WeatherStore}\spxextra{class in envlib.weather\_store}}
 
@@ -710,6 +719,125 @@ dict
 
 \phantomsection\label{\detokenize{modules:module-envlib.weather_store}}\index{module@\spxentry{module}!envlib.weather\_store@\spxentry{envlib.weather\_store}}\index{envlib.weather\_store@\spxentry{envlib.weather\_store}!module@\spxentry{module}}
 
+\section{Persistent Contrails Formation}
+\label{\detokenize{modules:module-envlib.contrail}}\label{\detokenize{modules:persistent-contrails-formation}}\index{module@\spxentry{module}!envlib.contrail@\spxentry{envlib.contrail}}\index{envlib.contrail@\spxentry{envlib.contrail}!module@\spxentry{module}}\index{get\_cont\_form\_thr() (in module envlib.contrail)@\spxentry{get\_cont\_form\_thr()}\spxextra{in module envlib.contrail}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:envlib.contrail.get_cont_form_thr}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_cont\_form\_thr}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}}{}
+Calculates the thresholds of temperature and relative humidity over water needed for determining the
+formation criteria of contrails.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
+
+\end{itemize}
+
+\item[{Returns rcontr}] \leavevmode
+Thresholds of relative humidity over water.
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\item[{Returns TLM\_e}] \leavevmode
+Thresholds of temperature.
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_pcfa() (in module envlib.contrail)@\spxentry{get\_pcfa()}\spxextra{in module envlib.contrail}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:envlib.contrail.get_pcfa}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_pcfa}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}, \emph{\DUrole{o}{**}\DUrole{n}{problem\_config}}}{}
+Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
+
+\end{itemize}
+
+\item[{Returns pcfa}] \leavevmode
+Presistent contrail formation areas.
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_relative\_hum() (in module envlib.contrail)@\spxentry{get\_relative\_hum()}\spxextra{in module envlib.contrail}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:envlib.contrail.get_relative_hum}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_relative\_hum}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}, \emph{\DUrole{n}{intrp}\DUrole{o}{=}\DUrole{default_value}{True}}}{}
+Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
+dataset. In ECMWF data, Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
+respect to saturation over ice below \sphinxhyphen{}23C and with respect to saturation over water above 0C. In the regime in
+between a quadratic interpolation is applied.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
+
+\end{itemize}
+
+\item[{Returns rcontr}] \leavevmode
+Thresholds of relative humidity over water.
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\item[{Returns TLM\_e}] \leavevmode
+Thresholds of temperature.
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+\index{get\_rw\_from\_specific\_hum() (in module envlib.contrail)@\spxentry{get\_rw\_from\_specific\_hum()}\spxextra{in module envlib.contrail}}
+
+\begin{fulllineitems}
+\phantomsection\label{\detokenize{modules:envlib.contrail.get_rw_from_specific_hum}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_rw\_from\_specific\_hum}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}}{}
+Calculates relative humidity over water from specific humidity.
+\begin{quote}\begin{description}
+\item[{Parameters}] \leavevmode\begin{itemize}
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+
+\item {} 
+\sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
+
+\end{itemize}
+
+\item[{Returns r\_w}] \leavevmode
+Relative humidity over water.
+
+\item[{Return type}] \leavevmode
+numpy.ndarray
+
+\end{description}\end{quote}
+
+\end{fulllineitems}
+
+
+
 \section{Calculation of aCCFs}
 \label{\detokenize{modules:calculation-of-accfs}}\index{GeTaCCFs (class in envlib.accf)@\spxentry{GeTaCCFs}\spxextra{class in envlib.accf}}
 
@@ -758,7 +886,7 @@ numpy.ndarray
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{modules:envlib.accf.GeTaCCFs.accf_dcontrail}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{accf\_dcontrail}}}{}{}
 Calculates the aCCF of day\sphinxhyphen{}time contrails for pulse emission scenario, average temperature response as
-climate indicator and 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}contrails {[}K/km{]}). To calculate the aCCF of day\sphinxhyphen{}time contrails,
+climate indicator and 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}contrails {[}K/km(distance flown){]}). To calculate the aCCF of day\sphinxhyphen{}time contrails,
 meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
 are required. Notice that, temperature and relative humidies are required for the detemiation of presistent
 contrail formation areas.
@@ -796,7 +924,7 @@ numpy.ndarray
 \begin{fulllineitems}
 \phantomsection\label{\detokenize{modules:envlib.accf.GeTaCCFs.accf_ncontrail}}\pysiglinewithargsret{\sphinxbfcode{\sphinxupquote{accf\_ncontrail}}}{}{}
 Calculates the aCCF of night\sphinxhyphen{}time contrails for pulse emission scenario, average temperature response as
-climate indicator over next 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}contrails {[}K/km{]}). To calculate the aCCF of nighttime contrails,
+climate indicator over next 20 years (P\sphinxhyphen{}ATR20\sphinxhyphen{}contrails {[}K/km(distance flown){]}). To calculate the aCCF of nighttime contrails,
 meteorological variables temperature and relative humidities over ice and water are required. Notice that,
 relative humidies are required for the detemiation of presistent contrail formation areas.
 \begin{quote}\begin{description}
@@ -959,183 +1087,140 @@ numpy.ndarray
 
 
 
-\section{Persistent Contrails Formation}
-\label{\detokenize{modules:module-envlib.contrail}}\label{\detokenize{modules:persistent-contrails-formation}}\index{module@\spxentry{module}!envlib.contrail@\spxentry{envlib.contrail}}\index{envlib.contrail@\spxentry{envlib.contrail}!module@\spxentry{module}}\index{get\_cont\_form\_thr() (in module envlib.contrail)@\spxentry{get\_cont\_form\_thr()}\spxextra{in module envlib.contrail}}
+\chapter{An example}
+\label{\detokenize{index:an-example}}
+Here is an example how one can use sample data in test directory of envlib to generate output for a set of user\sphinxhyphen{}defined configurations:
 
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{modules:envlib.contrail.get_cont_form_thr}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_cont\_form\_thr}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}}{}
-Calculates the thresholds of temperature and relative humidity over water needed for determining the
-formation criteria of contrails.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{import} \PYG{n+nn}{envlib}
+\PYG{k+kn}{from} \PYG{n+nn}{envlib}\PYG{n+nn}{.}\PYG{n+nn}{main\PYGZus{}processing} \PYG{k+kn}{import} \PYG{n}{ClimateImpact}
 
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
+\PYG{n}{path\PYGZus{}here} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{envlib/}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{test\PYGZus{}path} \PYG{o}{=} \PYG{n}{path\PYGZus{}here} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{/test/sample\PYGZus{}data/}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{input\PYGZus{}dir} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}pl}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{sample\PYGZus{}pl.nc}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{path\PYGZus{}sur}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{sample\PYGZus{}sur.nc}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{\PYGZcb{}}
+\PYG{n}{output\PYGZus{}dir} \PYG{o}{=} \PYG{n}{test\PYGZus{}path} \PYG{o}{+} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{env\PYGZus{}processed.nc}\PYG{l+s+s1}{\PYGZsq{}}
 
-\end{itemize}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} \PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{} CONFIGURATIONS \PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{} \PYGZdq{}\PYGZdq{}\PYGZdq{}}
 
-\item[{Returns rcontr}] \leavevmode
-Thresholds of relative humidity over water.
+\PYG{n}{confg} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{p}{\PYGZcb{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{efficacy}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{emission\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{future\PYGZus{}scenario}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{climate\PYGZus{}indicator}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ATR}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TimeHorizon}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{20}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{rhi\PYGZus{}threshold}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mf}{0.90}
 
-\item[{Return type}] \leavevmode
-numpy.ndarray
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Output Options\PYGZdq{}\PYGZdq{}\PYGZdq{}}
 
-\item[{Returns TLM\_e}] \leavevmode
-Thresholds of temperature.
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{unit\PYGZus{}K/kg(fuel)}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
 
-\item[{Return type}] \leavevmode
-numpy.ndarray
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{PMO}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{merged}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{True}
 
-\end{description}\end{quote}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx\PYGZam{}inverse\PYGZus{}EIs}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{TTV}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{ac\PYGZus{}type}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{wide\PYGZhy{}body}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{NOx\PYGZus{}aCCF}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
 
-\end{fulllineitems}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{}Climate Hotspots\PYGZdq{}\PYGZdq{}\PYGZdq{}}
 
-\index{get\_pcfa() (in module envlib.contrail)@\spxentry{get\_pcfa()}\spxextra{in module envlib.contrail}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{Chotspots}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}binary}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{hotspots\PYGZus{}percentile}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+m+mi}{99}
 
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{modules:envlib.contrail.get_pcfa}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_pcfa}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}, \emph{\DUrole{o}{**}\DUrole{n}{problem\_config}}}{}
-Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Statistical analysis of EPS forecast \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{mean}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{std}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
 
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} Output \PYGZdq{}\PYGZdq{}\PYGZdq{}}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{MET\PYGZus{}variables}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{geojson}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{k+kc}{False}
+\PYG{n}{confg}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{color}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{copper}\PYG{l+s+s1}{\PYGZsq{}}
 
-\end{itemize}
+\PYG{l+s+sd}{\PYGZdq{}\PYGZdq{}\PYGZdq{} \PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{} MAIN \PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{}\PYGZpc{} \PYGZdq{}\PYGZdq{}\PYGZdq{}}
 
-\item[{Returns pcfa}] \leavevmode
-Presistent contrail formation areas.
+\PYG{n}{CI} \PYG{o}{=} \PYG{n}{ClimateImpact}\PYG{p}{(}\PYG{n}{input\PYGZus{}dir}\PYG{p}{,} \PYG{n}{horizontal\PYGZus{}resolution}\PYG{o}{=}\PYG{l+m+mf}{0.5}\PYG{p}{,} \PYG{n}{save\PYGZus{}path}\PYG{o}{=}\PYG{n}{output\PYGZus{}dir}\PYG{p}{)}
+\PYG{n}{CI}\PYG{o}{.}\PYG{n}{calculate\PYGZus{}accfs}\PYG{p}{(}\PYG{o}{*}\PYG{o}{*}\PYG{n}{confg}\PYG{p}{)}
+\end{sphinxVerbatim}
 
-\item[{Return type}] \leavevmode
-numpy.ndarray
+The output netCDF file is generated in: \sphinxstyleemphasis{envlib/test/sample\_data/env\_processed.nc}. In the following, a script is provided, enabling visualize the output.
 
-\end{description}\end{quote}
+\begin{sphinxVerbatim}[commandchars=\\\{\}]
+\PYG{k+kn}{from} \PYG{n+nn}{cartopy}\PYG{n+nn}{.}\PYG{n+nn}{mpl}\PYG{n+nn}{.}\PYG{n+nn}{geoaxes} \PYG{k+kn}{import} \PYG{n}{GeoAxes}
+\PYG{k+kn}{import} \PYG{n+nn}{cartopy}\PYG{n+nn}{.}\PYG{n+nn}{crs} \PYG{k}{as} \PYG{n+nn}{ccrs}
+\PYG{k+kn}{from} \PYG{n+nn}{cartopy}\PYG{n+nn}{.}\PYG{n+nn}{mpl}\PYG{n+nn}{.}\PYG{n+nn}{geoaxes} \PYG{k+kn}{import} \PYG{n}{GeoAxes}
+\PYG{k+kn}{from} \PYG{n+nn}{cartopy}\PYG{n+nn}{.}\PYG{n+nn}{mpl}\PYG{n+nn}{.}\PYG{n+nn}{ticker} \PYG{k+kn}{import} \PYG{n}{LongitudeFormatter}\PYG{p}{,} \PYG{n}{LatitudeFormatter}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib}\PYG{n+nn}{.}\PYG{n+nn}{pyplot} \PYG{k}{as} \PYG{n+nn}{plt}
+\PYG{k+kn}{import} \PYG{n+nn}{matplotlib} \PYG{k}{as} \PYG{n+nn}{mpl}
+\PYG{k+kn}{from} \PYG{n+nn}{mpl\PYGZus{}toolkits}\PYG{n+nn}{.}\PYG{n+nn}{axes\PYGZus{}grid1} \PYG{k+kn}{import} \PYG{n}{AxesGrid}
+\PYG{k+kn}{import} \PYG{n+nn}{numpy} \PYG{k}{as} \PYG{n+nn}{np}
+\PYG{k+kn}{import} \PYG{n+nn}{xarray} \PYG{k}{as} \PYG{n+nn}{xr}
 
-\end{fulllineitems}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{rc}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{font}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{o}{*}\PYG{o}{*}\PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{family}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{serif}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{serif}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{:}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{cmr10}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{p}{\PYGZcb{}}\PYG{p}{)}
+\PYG{n}{plt}\PYG{o}{.}\PYG{n}{rc}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{text}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,} \PYG{n}{usetex}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+\PYG{n}{font} \PYG{o}{=} \PYG{p}{\PYGZob{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{family}\PYG{l+s+s1}{\PYGZsq{}} \PYG{p}{:} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{normal}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}
+        \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{size}\PYG{l+s+s1}{\PYGZsq{}}   \PYG{p}{:} \PYG{l+m+mi}{13}\PYG{p}{\PYGZcb{}}
 
-\index{get\_relative\_hum() (in module envlib.contrail)@\spxentry{get\_relative\_hum()}\spxextra{in module envlib.contrail}}
+\PYG{n}{path} \PYG{o}{=} \PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{envlib/test/sample\PYGZus{}data/env\PYGZus{}processed.nc}\PYG{l+s+s1}{\PYGZsq{}}
+\PYG{n}{ds} \PYG{o}{=} \PYG{n}{xr}\PYG{o}{.}\PYG{n}{open\PYGZus{}dataset}\PYG{p}{(}\PYG{n}{path}\PYG{p}{,} \PYG{n}{engine}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{h5netcdf}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{lats} \PYG{o}{=} \PYG{n}{ds}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{latitude}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{lons} \PYG{o}{=} \PYG{n}{ds}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{longitude}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}
+\PYG{n}{lons1}\PYG{p}{,}\PYG{n}{lats1} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{meshgrid}\PYG{p}{(}\PYG{n}{lons}\PYG{p}{,}\PYG{n}{lats}\PYG{p}{)}
 
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{modules:envlib.contrail.get_relative_hum}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_relative\_hum}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}, \emph{\DUrole{n}{intrp}\DUrole{o}{=}\DUrole{default_value}{True}}}{}
-Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
-dataset. In ECMWF data, Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
-respect to saturation over ice below \sphinxhyphen{}23C and with respect to saturation over water above 0C. In the regime in
-between a quadratic interpolation is applied.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
-
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
-
-\end{itemize}
-
-\item[{Returns rcontr}] \leavevmode
-Thresholds of relative humidity over water.
-
-\item[{Return type}] \leavevmode
-numpy.ndarray
-
-\item[{Returns TLM\_e}] \leavevmode
-Thresholds of temperature.
-
-\item[{Return type}] \leavevmode
-numpy.ndarray
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
-
-\index{get\_rw\_from\_specific\_hum() (in module envlib.contrail)@\spxentry{get\_rw\_from\_specific\_hum()}\spxextra{in module envlib.contrail}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{modules:envlib.contrail.get_rw_from_specific_hum}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.contrail.}}\sphinxbfcode{\sphinxupquote{get\_rw\_from\_specific\_hum}}}{\emph{\DUrole{n}{ds}}, \emph{\DUrole{n}{member}}}{}
-Calculates relative humidity over water from specific humidity.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode\begin{itemize}
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
-
-\item {} 
-\sphinxstyleliteralstrong{\sphinxupquote{member}} (\sphinxstyleliteralemphasis{\sphinxupquote{bool}}) \textendash{} Detemines the presense of ensemble forecasts in the given dataset.
-
-\end{itemize}
-
-\item[{Returns r\_w}] \leavevmode
-Relative humidity over water.
-
-\item[{Return type}] \leavevmode
-numpy.ndarray
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
+\PYG{n}{cc\PYGZus{}lon} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{flipud}\PYG{p}{(}\PYG{n}{lons1}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{p}{:}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{p}{:}\PYG{p}{:}\PYG{l+m+mi}{1}\PYG{p}{]}
+\PYG{n}{cc\PYGZus{}lat} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{flipud}\PYG{p}{(}\PYG{n}{lats1}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{p}{:}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{p}{:}\PYG{p}{:}\PYG{l+m+mi}{1}\PYG{p}{]}
 
 
+\PYG{n}{time} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{datetime64}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{2018\PYGZhy{}06\PYGZhy{}01T06}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
+\PYG{n}{pressure\PYGZus{}level} \PYG{o}{=} \PYG{l+m+mi}{250}
+\PYG{n}{time\PYGZus{}idx} \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{where} \PYG{p}{(}\PYG{n}{ds}\PYG{o}{.}\PYG{n}{time}\PYG{o}{.}\PYG{n}{values} \PYG{o}{==} \PYG{n}{time}\PYG{p}{)}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{pl\PYGZus{}idx}   \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{where} \PYG{p}{(}\PYG{n}{ds}\PYG{o}{.}\PYG{n}{level}\PYG{o}{.}\PYG{n}{values} \PYG{o}{==} \PYG{n}{pressure\PYGZus{}level}\PYG{p}{)} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}\PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{]}
+\PYG{n}{aCCF\PYGZus{}merged}  \PYG{o}{=} \PYG{n}{np}\PYG{o}{.}\PYG{n}{flipud}\PYG{p}{(}\PYG{n}{ds}\PYG{p}{[}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{aCCF\PYGZus{}merged}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{]}\PYG{o}{.}\PYG{n}{values}\PYG{p}{[}\PYG{n}{time\PYGZus{}idx}\PYG{p}{,} \PYG{n}{pl\PYGZus{}idx}\PYG{p}{,} \PYG{p}{:}\PYG{p}{,} \PYG{p}{:}\PYG{p}{]}\PYG{p}{)}\PYG{p}{[}\PYG{p}{:}\PYG{p}{:}\PYG{l+m+mi}{1}\PYG{p}{,} \PYG{p}{:}\PYG{p}{:}\PYG{l+m+mi}{1}\PYG{p}{]}
 
-\section{Calculation of Alternative Variables}
-\label{\detokenize{modules:module-envlib.calc_altrv_vars}}\label{\detokenize{modules:calculation-of-alternative-variables}}\index{module@\spxentry{module}!envlib.calc\_altrv\_vars@\spxentry{envlib.calc\_altrv\_vars}}\index{envlib.calc\_altrv\_vars@\spxentry{envlib.calc\_altrv\_vars}!module@\spxentry{module}}\index{get\_pvu() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_pvu()}\spxextra{in module envlib.calc\_altrv\_vars}}
+\PYG{k}{def} \PYG{n+nf}{main}\PYG{p}{(}\PYG{p}{)}\PYG{p}{:}
+    \PYG{n}{projection} \PYG{o}{=} \PYG{n}{ccrs}\PYG{o}{.}\PYG{n}{PlateCarree}\PYG{p}{(}\PYG{p}{)}
+    \PYG{n}{axes\PYGZus{}class} \PYG{o}{=} \PYG{p}{(}\PYG{n}{GeoAxes}\PYG{p}{,}
+                \PYG{n+nb}{dict}\PYG{p}{(}\PYG{n}{map\PYGZus{}projection}\PYG{o}{=}\PYG{n}{projection}\PYG{p}{)}\PYG{p}{)}
 
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{modules:envlib.calc_altrv_vars.get_pvu}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_pvu}}}{\emph{\DUrole{n}{ds}}}{}
-Caclulates potential vorticity from meteorological variables temperature and components of wind.
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
 
-\item[{Returns PVUU}] \leavevmode
-potential vorticity unit
+    \PYG{n}{fig} \PYG{o}{=} \PYG{n}{plt}\PYG{o}{.}\PYG{n}{figure}\PYG{p}{(}\PYG{n}{figsize}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{5}\PYG{p}{,}\PYG{l+m+mi}{5}\PYG{p}{)}\PYG{p}{)}
+    \PYG{n}{axgr} \PYG{o}{=} \PYG{n}{AxesGrid}\PYG{p}{(}\PYG{n}{fig}\PYG{p}{,} \PYG{l+m+mi}{111}\PYG{p}{,} \PYG{n}{axes\PYGZus{}class}\PYG{o}{=}\PYG{n}{axes\PYGZus{}class}\PYG{p}{,}
+                    \PYG{n}{nrows\PYGZus{}ncols}\PYG{o}{=}\PYG{p}{(}\PYG{l+m+mi}{1}\PYG{p}{,}\PYG{l+m+mi}{1}\PYG{p}{)}\PYG{p}{,}
+                    \PYG{n}{axes\PYGZus{}pad}\PYG{o}{=}\PYG{l+m+mf}{1.0}\PYG{p}{,}
+                    \PYG{n}{share\PYGZus{}all} \PYG{o}{=} \PYG{k+kc}{True}\PYG{p}{,}
+                    \PYG{n}{cbar\PYGZus{}location}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{right}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}
+                    \PYG{n}{cbar\PYGZus{}mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{each}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}
+                    \PYG{n}{cbar\PYGZus{}pad}\PYG{o}{=}\PYG{l+m+mf}{0.2}\PYG{p}{,}
+                    \PYG{n}{cbar\PYGZus{}size}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{3}\PYG{l+s+s1}{\PYGZpc{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{,}
+                    \PYG{n}{label\PYGZus{}mode}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}  \PYG{c+c1}{\PYGZsh{} note the empty label\PYGZus{}mode}
 
-\item[{Return type}] \leavevmode
-numpy.ndarray
+    \PYG{k}{for} \PYG{n}{i}\PYG{p}{,} \PYG{n}{ax} \PYG{o+ow}{in} \PYG{n+nb}{enumerate}\PYG{p}{(}\PYG{n}{axgr}\PYG{p}{)}\PYG{p}{:}
 
-\end{description}\end{quote}
+        \PYG{n}{xticks} \PYG{o}{=} \PYG{p}{[}\PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{20}\PYG{p}{,} \PYG{o}{\PYGZhy{}}\PYG{l+m+mi}{5}\PYG{p}{,} \PYG{l+m+mi}{10}\PYG{p}{,} \PYG{l+m+mi}{25}\PYG{p}{,} \PYG{l+m+mi}{40}\PYG{p}{,} \PYG{l+m+mi}{55}\PYG{p}{]}
+        \PYG{n}{yticks} \PYG{o}{=} \PYG{p}{[}\PYG{l+m+mi}{0}\PYG{p}{,}\PYG{l+m+mi}{10}\PYG{p}{,}\PYG{l+m+mi}{20}\PYG{p}{,} \PYG{l+m+mi}{30}\PYG{p}{,} \PYG{l+m+mi}{40}\PYG{p}{,}  \PYG{l+m+mi}{50}\PYG{p}{,}  \PYG{l+m+mi}{60}\PYG{p}{,} \PYG{l+m+mi}{70}\PYG{p}{,} \PYG{l+m+mi}{80}\PYG{p}{]}
+        \PYG{n}{ax}\PYG{o}{.}\PYG{n}{coastlines}\PYG{p}{(}\PYG{p}{)}
+        \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}xticks}\PYG{p}{(}\PYG{n}{xticks}\PYG{p}{,} \PYG{n}{crs}\PYG{o}{=}\PYG{n}{projection}\PYG{p}{)}
+        \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}yticks}\PYG{p}{(}\PYG{n}{yticks}\PYG{p}{,} \PYG{n}{crs}\PYG{o}{=}\PYG{n}{projection}\PYG{p}{)}
+        \PYG{n}{lon\PYGZus{}formatter} \PYG{o}{=} \PYG{n}{LongitudeFormatter}\PYG{p}{(}\PYG{n}{zero\PYGZus{}direction\PYGZus{}label}\PYG{o}{=}\PYG{k+kc}{True}\PYG{p}{)}
+        \PYG{n}{lat\PYGZus{}formatter} \PYG{o}{=} \PYG{n}{LatitudeFormatter}\PYG{p}{(}\PYG{p}{)}
+        \PYG{n}{ax}\PYG{o}{.}\PYG{n}{xaxis}\PYG{o}{.}\PYG{n}{set\PYGZus{}major\PYGZus{}formatter}\PYG{p}{(}\PYG{n}{lon\PYGZus{}formatter}\PYG{p}{)}
+        \PYG{n}{ax}\PYG{o}{.}\PYG{n}{yaxis}\PYG{o}{.}\PYG{n}{set\PYGZus{}major\PYGZus{}formatter}\PYG{p}{(}\PYG{n}{lat\PYGZus{}formatter}\PYG{p}{)}
+        \PYG{n}{ax}\PYG{o}{.}\PYG{n}{set\PYGZus{}title}\PYG{p}{(}\PYG{n}{time}\PYG{p}{)}
+        \PYG{n}{p} \PYG{o}{=} \PYG{n}{ax}\PYG{o}{.}\PYG{n}{contourf}\PYG{p}{(}\PYG{n}{cc\PYGZus{}lon}\PYG{p}{,} \PYG{n}{cc\PYGZus{}lat}\PYG{p}{,} \PYG{n}{aCCF\PYGZus{}merged}\PYG{p}{,}
+                        \PYG{n}{transform}\PYG{o}{=}\PYG{n}{projection}\PYG{p}{,}
+                        \PYG{n}{cmap}\PYG{o}{=}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{YlOrRd}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 
-\end{fulllineitems}
+        \PYG{n}{axgr}\PYG{o}{.}\PYG{n}{cbar\PYGZus{}axes}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}\PYG{o}{.}\PYG{n}{colorbar}\PYG{p}{(}\PYG{n}{p}\PYG{p}{)}
+        \PYG{n}{cax} \PYG{o}{=} \PYG{n}{axgr}\PYG{o}{.}\PYG{n}{cbar\PYGZus{}axes}\PYG{p}{[}\PYG{n}{i}\PYG{p}{]}
+        \PYG{n}{axis} \PYG{o}{=} \PYG{n}{cax}\PYG{o}{.}\PYG{n}{axis}\PYG{p}{[}\PYG{n}{cax}\PYG{o}{.}\PYG{n}{orientation}\PYG{p}{]}
+        \PYG{n}{axis}\PYG{o}{.}\PYG{n}{label}\PYG{o}{.}\PYG{n}{set\PYGZus{}text}\PYG{p}{(}\PYG{l+s+s1}{\PYGZsq{}}\PYG{l+s+s1}{aCCF\PYGZhy{}merged [K/kg(fuel)]}\PYG{l+s+s1}{\PYGZsq{}}\PYG{p}{)}
 
-\index{get\_rh\_ice() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_ice()}\spxextra{in module envlib.calc\_altrv\_vars}}
+    \PYG{n}{plt}\PYG{o}{.}\PYG{n}{show}\PYG{p}{(}\PYG{p}{)}
 
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{modules:envlib.calc_altrv_vars.get_rh_ice}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_rh\_ice}}}{\emph{\DUrole{n}{ds}}}{}
-Calculates relative humidity over ice from realtive humidity over water
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
+\PYG{n}{main}\PYG{p}{(}\PYG{p}{)}
+\end{sphinxVerbatim}
 
-\item[{Returns rh\_ice}] \leavevmode
-relative humidity over ice
+For instance, using the script, one should get the following figure for the merged aCCF at 250hPa for 2018\sphinxhyphen{}06\sphinxhyphen{}01T06:
 
-\item[{Return type}] \leavevmode
-numpy.ndarray
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
-
-\index{get\_rh\_sd() (in module envlib.calc\_altrv\_vars)@\spxentry{get\_rh\_sd()}\spxextra{in module envlib.calc\_altrv\_vars}}
-
-\begin{fulllineitems}
-\phantomsection\label{\detokenize{modules:envlib.calc_altrv_vars.get_rh_sd}}\pysiglinewithargsret{\sphinxcode{\sphinxupquote{envlib.calc\_altrv\_vars.}}\sphinxbfcode{\sphinxupquote{get\_rh\_sd}}}{\emph{\DUrole{n}{ds}}}{}
-Calculates the relative humidity from specific humidity
-\begin{quote}\begin{description}
-\item[{Parameters}] \leavevmode
-\sphinxstyleliteralstrong{\sphinxupquote{ds}} (\sphinxstyleliteralemphasis{\sphinxupquote{Dataset}}) \textendash{} Dataset openned with xarray.
-
-\item[{Returns rh\_sd}] \leavevmode
-relative humidity
-
-\item[{Return type}] \leavevmode
-numpy.ndarray
-
-\end{description}\end{quote}
-
-\end{fulllineitems}
-
+\noindent{\hspace*{\fill}\sphinxincludegraphics[width=500\sphinxpxdimen]{{merged_250}.png}\hspace*{\fill}}
 
 
 \chapter{Indices and tables}
@@ -1156,11 +1241,8 @@ numpy.ndarray
 \label{\detokenize{index:acknowledmgements}}
 \noindent{\hspace*{\fill}\sphinxincludegraphics[width=100\sphinxpxdimen]{{Alarm_LOGO}.eps}\hspace*{\fill}}
 
-\sphinxstyleemphasis{This library has been developed within EU-Projects,  \textbf{FlyATM4E} and \textbf{ALARM}. 
-\begin{itemize}	
-\item \textbf{FlyATM4E} has received funding from the SESAR Joint Undertaking under the European Union’s Horizon 2020 research and innovation programme under grant agreement No 891317. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
-\item  \textbf{ALARM} has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
-\end{itemize}}
+\sphinxstyleemphasis{This library has been developed within ALARM and FLyATM4E Projects. FLyATM4E has received funding from the SESAR Joint Undertaking under the European Union’s Horizon 2020 research and innovation programme under grant agreement No 891317. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
+ALARM has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.}.
 \begin{quote}
 
 

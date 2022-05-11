@@ -6,150 +6,40 @@
 EnVironmental LiBrary (EnVLiB)
 ==============================
 
-What is EnVLiB?
------------------
-The Python Library EnVLiB is a software package developed by UC3M and DLR. The main idea of EnVLiB is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). Both individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged non-CO2 aCCFs that combine the individual aCCFs can be calculated.
+Introduction
+------------
+**About:** The Python Library EnVLiB is a software package developed by UC3M and DLR. The main idea of EnVLiB is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). Both individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged non-CO2 aCCFs that combine the individual aCCFs can be calculated.
+
+**License:** EnVLib is released under XXX Licence. Citation of the EnVLiB connected software documentation paper is kindly requested upon use, with software DOI for EnVLiB (doi:XXX) and version number:
+
+**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A., Soler, M., Linke, F., Lührs, B., Meuser, M., Weder, C., Yin, F., Castino, F., Gerw, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions, GMD.
+
+**Support:** XXX
+
+Getting started:
+----------------
+
+This section briefly presents the necessary information required to get started with EnVLiB. 
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Getting started
+   
+   gStarted
 
 
-EnVLib is released under XXX Licence. Citation of the ENVLiB connected software documentation paper is kindly requested upon use, with software DOI for EnVLiB (doi:XXX) and version number:
-
-**Citation info**: Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A., Soler, M., Linke, F., Lührs, B., Meuser, M., Weder, C., Yin, F., Castino, F., Gerw, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions, GMD.
-
-How to run the library
-----------------------
-0. it is highly recomended to create a virtual environment with Python version 3.8:
-
-::
-
-    conda create -n name_env python=3.8
-    conda activate name_env
-    pip3 install setuptools~=49.6.0
-    pip3 install pint~=0.19.1
-    
-1. Clone or download the repository.
-
-2. Locate yourself in the envlib (library folder) path, and run the following line, using terminal (MacOS) or cmd (Windows), which will install all dependencies:
-
-::
-
-    python setup.py install
-
-
-How to use it
--------------
-
-1. import library:
-
-::
-
-    import envlib
-    from envlib.main_processing import ClimateImpact
-
-2. Specify the directories for datasets containing variables on pressure levels and surface in a dictioary as:
-
-::
-
-    path = {}
-    path['path_pl']  = dir_pressure_variables  # dircetory of the dataset containing pressure level variables
-    path['path_sur'] =  dir_surface_variables  # dircetory of the dataset containing surface variables
-    
-3. Specify a directory for the output files:
-
-::
-
-    path_save = dir_results    # dircetory to save the output data   
-
-
-4. (Optional) Set the preferred configurations in a dictionary 
-   (Defult configurations have been defined in the library.)" 
-::
-
-    confg = {}
-
-    # If true, it includes efficacies according to Lee et al. (2021)
-    confg['efficacy'] = True                  # Options: True, False
-
-    # Specifies the emission scenario. Currently, pulse and future emission scenarios have been implemented
-    confg['emission_scenario'] = 'future_scenario'       # Options: pulse, future_scenario
-
-    # Specifies the climate indicator. Currently, Average Temperature Response has been implemented
-    confg['climate_indicator'] = 'ATR'         # Options: ATR
-
-    # Specifies the time horizon over which the metric is calculated
-    confg['TimeHorizon'] = 20                  # Options: 20, 50, 100
-
-    # Specifies the threshold of ice-supersaturated regions
-    confg['rhi_threshold'] = 0.90               # Options: Depends on the resolution of data (0.90, 95, 0.99, 1.0), e.g., in case of ERA5_HRES it is 0.9
-
-    """Output Options"""
-
-    # If true, all individual aCCFs converted to K/kg(fuel)
-    confg['unit_K/kg(fuel)'] = False            # Options: True, False
-
-    # If true,  PMO effect included to CH4 aCCF and total NOx aCCF
-    confg['PMO'] = True                         # Options: True, False
-
-    # If true, merged aCCF is calculated
-    confg['merged'] = True                      # Options: True, False
-
-    # NOx and inverse EIs
-    confg['NOx&inverse_EIs'] = 'TTV'   # Options: 'TTV (typical transantlantic fleet mean values)', 'ac_dependent'
-
-    # If Confg['NOx&inverse_EIs'] = 'ac_dependent', aircraft type needs to be selected
-    confg['ac_type'] = 'wide-body'              # Options: 'regional', 'single-aisle', 'wide-body'
-
-    # If true, NOx aCCF is calculated (i.e. aCCF-NOx = aCCF-CH4 + aCCF-O3)
-    confg['NOx_aCCF'] = False                    # Options: True, False
-
-    """Climate Hotspots"""
-
-    # If true, climate hotspots are calculated'
-    confg['Chotspots'] = False                  # Options: True, False
-
-    # If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified threshold, and 1 for areas with higher climate impacts than the threshold)
-    confg['hotspots_binary'] = False             # Options: True, False
-
-    # Specifies the constant threshold for determining climate hotspots
-    confg['hotspots_thr'] = False
-
-    # Determines dynamically the threshold for identifying climate hotspots using the cumulative distribution of the merged aCCF. The percentiles are also outputted in netCDF output file
-    confg['hotspots_percentile'] = 99          # Options: percentage < 100     
-
-    """ Statistical analysis of EPS forecast"""
-
-    # If true, mean values of aCCFs and variables are saved in the netCDF output file
-    confg['mean'] = False                      # Options: True, False
-
-    # If true, standard deviation of aCCFs and variables are saved in the netCDF output file
-    confg['std'] = False                       # Options: True, False
-
-    """ Output """
-
-    # If true, weather variables are saved in the netCDF output file
-    confg['MET_variables'] = False             # Options: True, False
-
-    # If true, polygons containing climate hotspots will be saved in the GeoJson file
-    confg['geojson'] = False                   # Options: True, False
-
-    # Specifies the color of polygons
-    confg['color'] = 'copper'                  # Options: colors of cmap, e.g., copper, jet, Reds
-
-5. Process inputted data:
-
-::
-
-    CI = ClimateImpact(path, horizontal_resolution=resolution, lat_bound=(lat_min, lat_max), lon_bound=(lon_min, lon_max), save_path=path_save)
-
-6. Calculate aCCFs with respect to the defined settings in the dictionary (i.e., Confg) and store the results in a netCDF file:
-
-::
-
-    CI.calculate_accfs(**confg)
+Modules:
+--------
+.. toctree::
+   :maxdepth: 2
+   :caption: Modules:
+   
+   modules
 
 An example
 ----------
 
-0. Here is an example how one can use sample data in test directory of envlib to generate output for a set of user-difned configurations:
+Here is an example how one can use sample data in test directory of envlib to generate output for a set of user-defined configurations:
 
 ::
 
@@ -158,73 +48,133 @@ An example
 
     path_here = 'envlib/'
     test_path = path_here + '/test/sample_data/'
-    path_ = {'path_pl': test_path + 'sample_pl.nc', 'path_sur': test_path + 'sample_sur.nc'}
-    path_save = test_path + 'env_processed.nc'
+    input_dir = {'path_pl': test_path + 'sample_pl.nc', 'path_sur': test_path + 'sample_sur.nc', 'path_lib': path_here}
+    output_dir = test_path + 'env_processed.nc'
+
+    """ %%%%%%%%%% CONFIGURATIONS %%%%%%%%%% """
 
     confg = {}
-    confg['efficacy'] = True
-    confg['emission_scenario'] = 'future_scenario'
-    confg['climate_indicator'] = 'ATR'
-    confg['TimeHorizon'] = 20         
+    confg['efficacy'] = True              
+    confg['emission_scenario'] = 'future_scenario'    
+    confg['climate_indicator'] = 'ATR'        
+    confg['TimeHorizon'] = 20                 
     confg['rhi_threshold'] = 0.90               
-
+                        
     """Output Options"""
-    confg['unit_K/kg(fuel)'] = False          
-    confg['PMO'] = True                       
-    confg['merged'] = True                   
-    confg['NOx&inverse_EIs'] = 'ac_dependent' 
-    confg['ac_type'] = 'wide-body'        
-    confg['NOx_aCCF'] = False                   
+
+    confg['unit_K/kg(fuel)'] = False            
+
+    confg['PMO'] = True                        
+    confg['merged'] = True                     
+
+    confg['NOx&inverse_EIs'] = 'TTV'   
+    confg['ac_type'] = 'wide-body'            
+    confg['NOx_aCCF'] = False                     
 
     """Climate Hotspots"""
-    confg['Chotspots'] = True                
-    confg['hotspots_binary'] = True   
-    confg['hotspots_thr'] = False
-    confg['hotspots_percentile'] = 99      
+
+    confg['Chotspots'] = False              
+    confg['hotspots_binary'] = False         
+    confg['hotspots_percentile'] = 99     
+
+    """ Statistical analysis of EPS forecast """
+    confg['mean'] = False
+    confg['std'] = False 
 
     """ Output """
-    confg['MET_variables'] = True        
-    confg['geojson'] = True                  
-    confg['color'] = 'copper'                
+    confg['MET_variables'] = False            
+    confg['geojson'] = False                   
+    confg['color'] = 'copper'                  
 
+    """ %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% """
 
-    CI = ClimateImpact(path_, horizontal_resolution=0.75, lat_bound=(35, 60.0), lon_bound=(-15, 35), save_path=path_save)
+    CI = ClimateImpact(input_dir, horizontal_resolution=0.5, save_path=output_dir)
     CI.calculate_accfs(**confg)
 
-How to compile documentation pdf?
----------------------------------
-
-You can use the Makefile created by Sphinx to create your documentation. Locate yourself in the doc path.
-
-First clean the _build directory to avoid error or legacy information. Just call:
+The output netCDF file is generated in: *envlib/test/sample_data/env_processed.nc*. In the following, a script is provided, enabling visualize the output. 
 
 ::
 
-    make clean
+    from cartopy.mpl.geoaxes import GeoAxes
+    import cartopy.crs as ccrs
+    from cartopy.mpl.geoaxes import GeoAxes
+    from cartopy.mpl.ticker import LongitudeFormatter, LatitudeFormatter
+    import matplotlib.pyplot as plt
+    import matplotlib as mpl
+    from mpl_toolkits.axes_grid1 import AxesGrid
+    import numpy as np
+    import xarray as xr
 
-In case you want to build your documentation in latex call **twice**:
+    plt.rc('font',**{'family':'serif','serif':['cmr10']})
+    plt.rc('text', usetex=True)
+    font = {'family' : 'normal',
+            'size'   : 13}
 
-::
+    path = 'envlib/test/sample_data/env_processed.nc'
+    ds = xr.open_dataset(path, engine='h5netcdf')
+    lats = ds['latitude'].values
+    lons = ds['longitude'].values
+    lons1,lats1 = np.meshgrid(lons,lats)
 
-    make latexpdf
-
-if you want to do build your in html call:
-
-::
-
-    make html
-
-Note that you **should not see** any error or warning, this information appears as red text in the terminal.
-
-Contents:
----------
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
-   
-   modules
+    cc_lon = np.flipud(lons1)[::1, ::1]
+    cc_lat = np.flipud(lats1)[::1, ::1]
 
 
+    time = np.datetime64('2018-06-01T06')
+    pressure_level = 250
+    time_idx = np.where (ds.time.values == time)[0][0]
+    pl_idx   = np.where (ds.level.values == pressure_level) [0][0]
+    aCCF_merged  = np.flipud(ds['aCCF_merged'].values[time_idx, pl_idx, :, :])[::1, ::1]
+
+    def main():
+        projection = ccrs.PlateCarree()
+        axes_class = (GeoAxes,
+                    dict(map_projection=projection))
+
+
+        fig = plt.figure(figsize=(5,5))
+        axgr = AxesGrid(fig, 111, axes_class=axes_class,
+                        nrows_ncols=(1,1),
+                        axes_pad=1.0,
+                        share_all = True,
+                        cbar_location='right',
+                        cbar_mode='each',
+                        cbar_pad=0.2,
+                        cbar_size='3%',
+                        label_mode='')  # note the empty label_mode
+
+        for i, ax in enumerate(axgr):
+
+            xticks = [-20, -5, 10, 25, 40, 55]
+            yticks = [0,10,20, 30, 40,  50,  60, 70, 80]
+            ax.coastlines()
+            ax.set_xticks(xticks, crs=projection)
+            ax.set_yticks(yticks, crs=projection)
+            lon_formatter = LongitudeFormatter(zero_direction_label=True)
+            lat_formatter = LatitudeFormatter()
+            ax.xaxis.set_major_formatter(lon_formatter)
+            ax.yaxis.set_major_formatter(lat_formatter)
+            ax.set_title(time)
+            p = ax.contourf(cc_lon, cc_lat, aCCF_merged,
+                            transform=projection,
+                            cmap='YlOrRd')
+
+            axgr.cbar_axes[i].colorbar(p)
+            cax = axgr.cbar_axes[i]
+            axis = cax.axis[cax.orientation]
+            axis.label.set_text('aCCF-merged [K/kg(fuel)]')
+            
+        plt.show()
+
+    main()
+
+For instance, using the script, one should get the following figure for the merged aCCF at 250hPa for 2018-06-01T06:
+    
+
+.. image:: images/merged_250.png
+  :width: 500
+  :align: center
+  :alt: aCCF-Merged
 
 Indices and tables
 ==================

@@ -63,7 +63,7 @@ variables geopotential and incoming solar radiation are required.</p>
 <dt id="envlib.accf.GeTaCCFs.accf_dcontrail">
 <code class="sig-name descname">accf_dcontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_dcontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_dcontrail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of day-time contrails for pulse emission scenario, average temperature response as
-climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
+climate indicator and 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of day-time contrails,
 meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
 are required. Notice that, temperature and relative humidies are required for the detemiation of presistent
 contrail formation areas.</p>
@@ -97,7 +97,7 @@ meteorological variable potential vorticity is required.</p>
 <dt id="envlib.accf.GeTaCCFs.accf_ncontrail">
 <code class="sig-name descname">accf_ncontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_ncontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_ncontrail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of night-time contrails for pulse emission scenario, average temperature response as
-climate indicator over next 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,
+climate indicator over next 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of nighttime contrails,
 meteorological variables temperature and relative humidities over ice and water are required. Notice that,
 relative humidies are required for the detemiation of presistent contrail formation areas.</p>
 <dl class="field-list simple">
@@ -893,13 +893,21 @@ regarding the inputted index, OLR is calculated in 4D (i.e., number, level, lati
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html#input">Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html#running">Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html#output">Output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Data Processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html#weather-store">Weather Store</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#calculation-of-accfs">Calculation of aCCFs</a></li>
 </ul>
 
 <div class="relations">

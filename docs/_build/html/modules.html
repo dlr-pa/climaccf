@@ -15,7 +15,7 @@
     <script src="_static/language_data.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="EnVironmental LiBrary (EnVLiB)" href="index.html" />
+    <link rel="prev" title="Installation" href="gStarted.html" />
    
   <link rel="stylesheet" href="_static/custom.css" type="text/css" />
   
@@ -252,6 +252,60 @@ regarding the inputted index, OLR is calculated in 4D (i.e., number, level, lati
 </dd></dl>
 
 </div>
+<div class="section" id="module-envlib.calc_altrv_vars">
+<span id="calculation-of-alternative-variables"></span><h1>Calculation of Alternative Variables<a class="headerlink" href="#module-envlib.calc_altrv_vars" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="envlib.calc_altrv_vars.get_pvu">
+<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_pvu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_pvu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_pvu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Caclulates potential vorticity from meteorological variables temperature and components of wind.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
+</dd>
+<dt class="field-even">Returns PVUU</dt>
+<dd class="field-even"><p>potential vorticity unit</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="envlib.calc_altrv_vars.get_rh_ice">
+<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_ice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_ice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_ice" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates relative humidity over ice from realtive humidity over water</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
+</dd>
+<dt class="field-even">Returns rh_ice</dt>
+<dd class="field-even"><p>relative humidity over ice</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="envlib.calc_altrv_vars.get_rh_sd">
+<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_sd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_sd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_sd" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the relative humidity from specific humidity</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
+</dd>
+<dt class="field-even">Returns rh_sd</dt>
+<dd class="field-even"><p>relative humidity</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="weather-store">
 <h1>Weather Store<a class="headerlink" href="#weather-store" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
@@ -303,6 +357,105 @@ regarding the inputted index, OLR is calculated in 4D (i.e., number, level, lati
 </dd></dl>
 
 <span class="target" id="module-envlib.weather_store"></span></div>
+<div class="section" id="module-envlib.contrail">
+<span id="persistent-contrails-formation"></span><h1>Persistent Contrails Formation<a class="headerlink" href="#module-envlib.contrail" title="Permalink to this headline">¶</a></h1>
+<dl class="py function">
+<dt id="envlib.contrail.get_cont_form_thr">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_cont_form_thr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_cont_form_thr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_cont_form_thr" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the thresholds of temperature and relative humidity over water needed for determining the
+formation criteria of contrails.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
+<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns rcontr</dt>
+<dd class="field-even"><p>Thresholds of relative humidity over water.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Returns TLM_e</dt>
+<dd class="field-even"><p>Thresholds of temperature.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="envlib.contrail.get_pcfa">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_pcfa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">problem_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_pcfa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_pcfa" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
+<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns pcfa</dt>
+<dd class="field-even"><p>Presistent contrail formation areas.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="envlib.contrail.get_relative_hum">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_relative_hum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em>, <em class="sig-param"><span class="n">intrp</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_relative_hum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_relative_hum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
+dataset. In ECMWF data, Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
+respect to saturation over ice below -23C and with respect to saturation over water above 0C. In the regime in
+between a quadratic interpolation is applied.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
+<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns rcontr</dt>
+<dd class="field-even"><p>Thresholds of relative humidity over water.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+<dt class="field-even">Returns TLM_e</dt>
+<dd class="field-even"><p>Thresholds of temperature.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py function">
+<dt id="envlib.contrail.get_rw_from_specific_hum">
+<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_rw_from_specific_hum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_rw_from_specific_hum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_rw_from_specific_hum" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates relative humidity over water from specific humidity.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
+<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns r_w</dt>
+<dd class="field-even"><p>Relative humidity over water.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>numpy.ndarray</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
 <div class="section" id="calculation-of-accfs">
 <h1>Calculation of aCCFs<a class="headerlink" href="#calculation-of-accfs" title="Permalink to this headline">¶</a></h1>
 <dl class="py class">
@@ -343,7 +496,7 @@ variables geopotential and incoming solar radiation are required.</p>
 <dt id="envlib.accf.GeTaCCFs.accf_dcontrail">
 <code class="sig-name descname">accf_dcontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_dcontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_dcontrail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of day-time contrails for pulse emission scenario, average temperature response as
-climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
+climate indicator and 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of day-time contrails,
 meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
 are required. Notice that, temperature and relative humidies are required for the detemiation of presistent
 contrail formation areas.</p>
@@ -377,7 +530,7 @@ meteorological variable potential vorticity is required.</p>
 <dt id="envlib.accf.GeTaCCFs.accf_ncontrail">
 <code class="sig-name descname">accf_ncontrail</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/accf.html#GeTaCCFs.accf_ncontrail"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.accf.GeTaCCFs.accf_ncontrail" title="Permalink to this definition">¶</a></dt>
 <dd><p>Calculates the aCCF of night-time contrails for pulse emission scenario, average temperature response as
-climate indicator over next 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,
+climate indicator over next 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of nighttime contrails,
 meteorological variables temperature and relative humidities over ice and water are required. Notice that,
 relative humidies are required for the detemiation of presistent contrail formation areas.</p>
 <dl class="field-list simple">
@@ -513,159 +666,6 @@ temperature and geopotential are required.</p>
 </dd></dl>
 
 </div>
-<div class="section" id="module-envlib.contrail">
-<span id="persistent-contrails-formation"></span><h1>Persistent Contrails Formation<a class="headerlink" href="#module-envlib.contrail" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="envlib.contrail.get_cont_form_thr">
-<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_cont_form_thr</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_cont_form_thr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_cont_form_thr" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the thresholds of temperature and relative humidity over water needed for determining the
-formation criteria of contrails.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
-<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns rcontr</dt>
-<dd class="field-even"><p>Thresholds of relative humidity over water.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-<dt class="field-even">Returns TLM_e</dt>
-<dd class="field-even"><p>Thresholds of temperature.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="envlib.contrail.get_pcfa">
-<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_pcfa</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em>, <em class="sig-param"><span class="o">**</span><span class="n">problem_config</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_pcfa"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_pcfa" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
-<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns pcfa</dt>
-<dd class="field-even"><p>Presistent contrail formation areas.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="envlib.contrail.get_relative_hum">
-<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_relative_hum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em>, <em class="sig-param"><span class="n">intrp</span><span class="o">=</span><span class="default_value">True</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_relative_hum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_relative_hum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
-dataset. In ECMWF data, Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
-respect to saturation over ice below -23C and with respect to saturation over water above 0C. In the regime in
-between a quadratic interpolation is applied.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
-<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns rcontr</dt>
-<dd class="field-even"><p>Thresholds of relative humidity over water.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-<dt class="field-even">Returns TLM_e</dt>
-<dd class="field-even"><p>Thresholds of temperature.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="envlib.contrail.get_rw_from_specific_hum">
-<code class="sig-prename descclassname">envlib.contrail.</code><code class="sig-name descname">get_rw_from_specific_hum</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em>, <em class="sig-param"><span class="n">member</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/contrail.html#get_rw_from_specific_hum"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.contrail.get_rw_from_specific_hum" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates relative humidity over water from specific humidity.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p></li>
-<li><p><strong>member</strong> (<em>bool</em>) – Detemines the presense of ensemble forecasts in the given dataset.</p></li>
-</ul>
-</dd>
-<dt class="field-even">Returns r_w</dt>
-<dd class="field-even"><p>Relative humidity over water.</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
-<div class="section" id="module-envlib.calc_altrv_vars">
-<span id="calculation-of-alternative-variables"></span><h1>Calculation of Alternative Variables<a class="headerlink" href="#module-envlib.calc_altrv_vars" title="Permalink to this headline">¶</a></h1>
-<dl class="py function">
-<dt id="envlib.calc_altrv_vars.get_pvu">
-<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_pvu</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_pvu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_pvu" title="Permalink to this definition">¶</a></dt>
-<dd><p>Caclulates potential vorticity from meteorological variables temperature and components of wind.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
-</dd>
-<dt class="field-even">Returns PVUU</dt>
-<dd class="field-even"><p>potential vorticity unit</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="envlib.calc_altrv_vars.get_rh_ice">
-<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_ice</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_ice"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_ice" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates relative humidity over ice from realtive humidity over water</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
-</dd>
-<dt class="field-even">Returns rh_ice</dt>
-<dd class="field-even"><p>relative humidity over ice</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py function">
-<dt id="envlib.calc_altrv_vars.get_rh_sd">
-<code class="sig-prename descclassname">envlib.calc_altrv_vars.</code><code class="sig-name descname">get_rh_sd</code><span class="sig-paren">(</span><em class="sig-param"><span class="n">ds</span></em><span class="sig-paren">)</span><a class="reference internal" href="_modules/envlib/calc_altrv_vars.html#get_rh_sd"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#envlib.calc_altrv_vars.get_rh_sd" title="Permalink to this definition">¶</a></dt>
-<dd><p>Calculates the relative humidity from specific humidity</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters</dt>
-<dd class="field-odd"><p><strong>ds</strong> (<em>Dataset</em>) – Dataset openned with xarray.</p>
-</dd>
-<dt class="field-even">Returns rh_sd</dt>
-<dd class="field-even"><p>relative humidity</p>
-</dd>
-<dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</dd></dl>
-
-</div>
 
 
           </div>
@@ -691,20 +691,28 @@ between a quadratic interpolation is applied.</p>
 
 
 <h3>Navigation</h3>
-<p class="caption"><span class="caption-text">Contents:</span></p>
+<p class="caption"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html#input">Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html#running">Running</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gStarted.html#output">Output</a></li>
+</ul>
+<p class="caption"><span class="caption-text">Modules:</span></p>
 <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Data Processing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#weather-store">Weather Store</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#calculation-of-accfs">Calculation of aCCFs</a></li>
-<li class="toctree-l1"><a class="reference internal" href="#module-envlib.contrail">Persistent Contrails Formation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="#module-envlib.calc_altrv_vars">Calculation of Alternative Variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#module-envlib.contrail">Persistent Contrails Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#calculation-of-accfs">Calculation of aCCFs</a></li>
 </ul>
 
 <div class="relations">
 <h3>Related Topics</h3>
 <ul>
   <li><a href="index.html">Documentation overview</a><ul>
-      <li>Previous: <a href="index.html" title="previous chapter">EnVironmental LiBrary (EnVLiB)</a></li>
+      <li>Previous: <a href="gStarted.html" title="previous chapter">Installation</a></li>
   </ul></li>
 </ul>
 </div>

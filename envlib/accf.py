@@ -101,19 +101,19 @@ class GeTaCCFs(object):
     def accf_ncontrail(self):
         """
         Calculates the aCCF of night-time contrails for pulse emission scenario, average temperature response as
-        climate indicator over next 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of nighttime contrails,
+        climate indicator over next 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of nighttime contrails,
         meteorological variables temperature and relative humidities over ice and water are required. Notice that,
         relative humidies are required for the detemiation of presistent contrail formation areas.
 
         :returns accf: Algorithmic climate change function of nighttime contrails.
         :rtype: numpy.ndarray
         """
-        # P-ATR20-contrail [Unit: K/km]
+        # P-ATR20-contrail [Unit: K/km(distance flown)]
         factor = 0.0151
         # factor = 0.114
         RF = 1e-10 * (0.0073 * (10 ** (0.0107 * self.t)) - 1.03)
-        accf = factor * RF  # [Unit: K/km (contrail)]
-        accf = accf * self.pcfa  # [Unit: K/km]
+        accf = factor * RF  # [Unit: K/km(contrail)]
+        accf = accf * self.pcfa  # [Unit: K/km(distance flown)]
         accf = accf / self.eg['Cont.']
         accf[accf < 0] = 0
         return accf
@@ -121,7 +121,7 @@ class GeTaCCFs(object):
     def accf_dcontrail(self):
         """
         Calculates the aCCF of day-time contrails for pulse emission scenario, average temperature response as
-        climate indicator and 20 years (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
+        climate indicator and 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of day-time contrails,
         meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
         are required. Notice that, temperature and relative humidies are required for the detemiation of presistent
         contrail formation areas.
@@ -129,12 +129,12 @@ class GeTaCCFs(object):
         :returns accf: Algorithmic climate change function of day-time contrails.
         :rtype: numpy.ndarray
         """
-        # P-ATR20-contrail [Unit: K/km]
+        # P-ATR20-contrail [Unit: K/km(distance flown)]
         factor = 0.0151
         # factor = 0.114
         RF = 1e-10 * (-1.7 - 0.0088 * self.olr)
-        accf = factor * RF  # [Unit: K/km (contrail)]
-        accf = accf * self.pcfa  # [Unit: K/km]
+        accf = factor * RF  # [Unit: K/km(contrail)]
+        accf = accf * self.pcfa  # [Unit: K/km(distance flown)]
         accf = accf / self.eg['Cont.']
         return accf
 
@@ -159,7 +159,7 @@ class GeTaCCFs(object):
         confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False,
                  'merged': True, 'NOx_aCCF': True, 'NOx&inverse_EIs': 'TTV', 'Chotspots': True, 'hotspots_binary': True,
                  'hotspots_thr': False, 'MET_variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
-                 'Coef.BFFM2': False, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99, 'method_BFFM2_SH': 'RH'}
+                 'Coef.BFFM2': False, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99, 'method_BFFM2_SH': 'RH', 'ac_type': 'wide-body'}
         confg.update(problem_config)
         self.variables = confg['MET_variables']
 
@@ -203,7 +203,7 @@ class GeTaCCFs(object):
 
         # Night-time contrails:        
         if self.aCCF_bool['nCont']:
-            attrs_nCont = {'unit': 'K km**-1', 'long_name': 'algorithmic climate change function of night-time contrails', 'short_name': 'aCCF of night-time contrails'}
+            attrs_nCont = {'unit': 'K km(distance flown)**-1', 'long_name': 'algorithmic climate change function of night-time contrails', 'short_name': 'aCCF of night-time contrails'}
             self.aCCF_nCont = self.accf_ncontrail()
             self.aCCF_nCont = convert_accf('Cont.', self.aCCF_nCont, confg)
             self.var_aCCF_xr['aCCF_nCont'] = (tuple(self.coordinate_names), self.aCCF_nCont, attrs_nCont)
@@ -211,14 +211,14 @@ class GeTaCCFs(object):
 
         # Day-time contrails:
         if self.aCCF_bool['dCont']:
-            attrs_dCont = {'unit': 'K km**-1', 'long_name': 'algorithmic climate change function of day-time contrails', 'short_name': 'aCCF of day-time contrails'}
+            attrs_dCont = {'unit': 'K km(distance flown)**-1', 'long_name': 'algorithmic climate change function of day-time contrails', 'short_name': 'aCCF of day-time contrails'}
             self.aCCF_dCont = self.accf_dcontrail()
             self.aCCF_dCont = convert_accf('Cont.', self.aCCF_dCont, confg)
             self.var_aCCF_xr['aCCF_dCont'] = (tuple(self.coordinate_names), self.aCCF_dCont, attrs_dCont)
             self.aCCF_xr['aCCF_dCont'] = (tuple(self.coordinate_names), self.aCCF_dCont, attrs_dCont)
 
         # adaptive day and night-time contrails (depending on the time of emission)
-        attrs_Cont = {'unit': 'K km**-1', 'long_name': 'algorithmic climate change function of contrails', 'short_name': 'aCCF of contrails'}
+        attrs_Cont = {'unit': 'K km(distance flown)**-1', 'long_name': 'algorithmic climate change function of contrails', 'short_name': 'aCCF of contrails'}
         if self.aCCF_bool['dCont'] and self.aCCF_bool['nCont'] and self.aCCF_bool['contrail_adaptive']:
             self.aCCF_Cont = self.day * self.aCCF_dCont + self.night * self.aCCF_nCont
             self.var_aCCF_xr['aCCF_Cont'] = (tuple(self.coordinate_names), self.aCCF_Cont, attrs_Cont)
