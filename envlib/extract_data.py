@@ -43,7 +43,7 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
         'U_component_wind': ['u', 'U','var131'],
         'V_component_wind': ['v', 'V','var132'],
         'top_net_termal_radiation': ['ttr','var176'],
-        'surface_solar_downward_radiation': ['ssrd','var169']
+        'surface_solar_downward_radiation': ['ssrd','var169', 'tisr'] # 'tisr': TOA incident solar radiation
     }
     dict_attrs = {}
     # names of variables exist in dataset
@@ -56,23 +56,41 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
         name_ = []
         pre_name_ = []
         if var_ == 'top_net_termal_radiation':
-            if ds_sr:
-                try:
-                    ds_sr['ttr']
-                    name_ = 'ttr'
-                    pre_name_ = 'ttr'
-                    dict_attrs[pre_name_] = ds_sr['ttr'].attrs
-                except:
-                    pass
+            for name in potential_var_names[var_]:
+                if ds_sr:
+                    try:
+                        ds_sr[name]
+                        name_ = 'ttr'
+                        pre_name_ = 'ttr'
+                        dict_attrs[pre_name_] = ds_sr[name].attrs
+                    except:
+                        pass
+                else: 
+                    try:
+                        ds[name]
+                        name_ = 'ttr'
+                        pre_name_ = 'ttr'
+                        dict_attrs[pre_name_] = ds[name].attrs
+                    except:
+                        pass      
         elif var_ == 'surface_solar_downward_radiation':
-            if ds_sr:
-                try:
-                    ds_sr['ssrd']
-                    name_ = 'ssrd'
-                    pre_name_ = 'ssrd'
-                    dict_attrs[pre_name_] = ds_sr['ssrd'].attrs
-                except:
-                    pass        
+            for name in potential_var_names[var_]:
+                if ds_sr:
+                    try:
+                        ds_sr[name]
+                        name_ = 'ssrd'
+                        pre_name_ = 'ssrd'
+                        dict_attrs[pre_name_] = ds_sr[name].attrs
+                    except:
+                        pass
+                else:    
+                    try:
+                        ds[name]
+                        name_ = 'ssrd'
+                        pre_name_ = 'ssrd'
+                        dict_attrs[pre_name_] = ds[name].attrs    
+                    except:
+                        pass            
         else:
             for name in potential_var_names[var_]:
                 try:

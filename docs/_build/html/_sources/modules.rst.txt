@@ -1,5 +1,5 @@
-Data Processing
-===============
+Processing of meteorological input data
+=======================================
 
 .. automodule:: envlib.extract_data
    :members: extract_data_variables, logic_cal_accfs, extract_coordinates
@@ -10,8 +10,8 @@ Data Processing
 .. automodule:: envlib.processing_surf_vars
    :members: get_olr, get_olr_4d, extend_olr_pl_4d, get_olr_5d, extend_olr_pl_5d
 
-Calculation of Alternative Variables
-====================================
+Calculation of meteorological input data from alternative variables
+===================================================================
 
 .. automodule:: envlib.calc_altrv_vars
    :members: get_pvu, get_rh_ice, get_rh_sd
@@ -27,14 +27,14 @@ Weather Store
 .. automodule:: envlib.weather_store
    :members: reduce_domain, get_xarray
 
-Persistent Contrails Formation
+Persistent Contrail Formation
 ==============================
 
 .. automodule:: envlib.contrail
    :members: get_pcfa, get_cont_form_thr, get_relative_hum, get_rw_from_specific_hum
 
-Calculation of aCCFs
-====================
+Calculation of prototype aCCFs
+==============================
 
 .. autoclass:: envlib.accf.GeTaCCFs
    :members:

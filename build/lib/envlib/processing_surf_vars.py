@@ -6,7 +6,7 @@ import numpy as np
 
 def extend_olr_pl_4d(sur_var, pl_var, index, fore_step):
     """ 
-    Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
+    Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
     [J/m2], and extend (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, 
     regarding the inputted index, OLR is calculated in 3D (i.e., level, latitude, longitude).
 
@@ -70,7 +70,7 @@ def get_ssrd(sur_var, pl_var, number=True):
 
 def extend_olr_pl_5d(sur_var, pl_var, index, fore_step):
     """ 
-    Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
+    Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
     [J/m2], and extend (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, 
     regarding the inputted index, OLR is calculated in 4D (i.e., number, level, latitude, longitude).
 
@@ -97,7 +97,7 @@ def extend_olr_pl_5d(sur_var, pl_var, index, fore_step):
 
 
 def get_olr_4d(sur_var, pl_var, thr, fore_step=None):
-    """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
+    """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
     [J/m2]. OLR is calculated in 4D (i.e, time, level, latitude, longitude).
 
     :param sur_var: Dataset containing surface parameters openned with xarray.
@@ -161,7 +161,7 @@ def get_olr_4d(sur_var, pl_var, thr, fore_step=None):
 
 
 def get_olr_5d(sur_var, pl_var, thr, fore_step=None):
-    """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
+    """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
     [J/m2]. OLR is calculated in 5D (i.e, time, number, level, latitude, longitude).
 
     :param sur_var: Dataset containing surface parameters openned with xarray.
@@ -225,7 +225,7 @@ def get_olr_5d(sur_var, pl_var, thr, fore_step=None):
 
 
 def get_olr(sur_var, pl_var, number=True, fore_step=None):
-    """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter, top net thermal radiation (ttr)
+    """ Calculate outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
         [J/m2]. OLR is calculated in 5D or 4D depending on the existance of ensemble members.
 
         :param sur_var: Dataset containing surface parameters openned with xarray.

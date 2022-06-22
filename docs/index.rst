@@ -8,13 +8,15 @@ EnVironmental LiBrary (EnVLiB)
 
 Introduction
 ------------
-**About:** The Python Library EnVLiB is a software package developed by UC3M and DLR. The main idea of EnVLiB is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). Both individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged non-CO2 aCCFs that combine the individual aCCFs can be calculated.
+**About:** The Python Library EnVLiB is a software package developed by UC3M and DLR. The main idea of EnVLiB is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). The individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged non-CO2 aCCFs that combine the individual aCCFs can be calculated.
 
-**License:** EnVLib is released under XXX Licence. Citation of the EnVLiB connected software documentation paper is kindly requested upon use, with software DOI for EnVLiB (doi:XXX) and version number:
+**License:** EnVLiB is released under GNU General Public License Licence (Version 3). Citation of the EnVLiB connected software documentation paper is kindly requested upon use, with software DOI for EnVLiB (doi:XXX) and version number:
 
-**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A., Soler, M., Linke, F., Lührs, B., Meuser, M., Weder, C., Yin, F., Castino, F., Gerw, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions, GMD.
+**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Mendiguchia Meuser, M. , Weder, C., Yin, F., Castino, F., Gerwe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions, GMD.
 
-**Support:** XXX
+**Support:** Support of all general technical questions on EnVLiB, i.e. installation, application and development will be provided by Abolfazl Simorgh (abolfazl.simorgh@uc3m.es), Simone Dietmüller (Simone.Dietmueller@dlr.de), and Hiroshi Yamashita (Hiroshi.Yamashita@dlr.de).
+
+**Core developer team:** Abolfazl Simorgh (UM3M), Simone Dietmüller (DLR), Hiroshi Yamashita (DLR), Manuel Soler (UC3M), Sigrun Matthes (DLR)
 
 Getting started:
 ----------------
@@ -39,52 +41,59 @@ Modules:
 An example
 ----------
 
-Here is an example how one can use sample data in test directory of envlib to generate output for a set of user-defined configurations:
+Here is an example how one can use sample data in test directory of EnVLiB to generate output for a set of user-defined configurations:
 
 ::
 
-    import envlib
-    from envlib.main_processing import ClimateImpact
+   import envlib
+   from envlib.main_processing import ClimateImpact
 
-    path_here = 'envlib/'
-    test_path = path_here + '/test/sample_data/'
-    input_dir = {'path_pl': test_path + 'sample_pl.nc', 'path_sur': test_path + 'sample_sur.nc', 'path_lib': path_here}
-    output_dir = test_path + 'env_processed.nc'
+   path_here = 'envlib/'
+   test_path = path_here + '/test/sample_data/'
+   input_dir = {'path_pl': test_path + 'sample_pl.nc', 'path_sur': test_path + 'sample_sur.nc', 'path_lib': path_here}
+   output_dir = test_path + 'env_processed.nc'
 
-    """ %%%%%%%%%% CONFIGURATIONS %%%%%%%%%% """
+   """ %%%%%%%%%% CONFIGURATIONS %%%%%%%%%% """
 
-    confg = {}
-    confg['efficacy'] = True              
-    confg['emission_scenario'] = 'future_scenario'    
-    confg['climate_indicator'] = 'ATR'        
-    confg['TimeHorizon'] = 20                 
-    confg['rhi_threshold'] = 0.90               
-                        
-    """Output Options"""
+   confg = {}
 
-    confg['unit_K/kg(fuel)'] = False            
+   """ Climate Metric Selection"""
 
-    confg['PMO'] = True                        
-    confg['merged'] = True                     
+   confg['efficacy'] = True                        
+   confg['efficacy-option'] = 'lee et al. (2021)'                                                     
+   confg['aCCF-V'] = 'Matthes et al. (2022)'      
+   confg['aCCF-scalingF'] = {'CH4': 1, 'O3': 1, 'H2O': 1, 'Cont.': 1, 'CO2': 1}
+   confg['emission_scenario'] = 'future_scenario' 
+   confg['climate_indicator'] = 'ATR'   
+   confg['TimeHorizon'] = 20        
+   confg['rhi_threshold'] = 0.90      
 
-    confg['NOx&inverse_EIs'] = 'TTV'   
-    confg['ac_type'] = 'wide-body'            
-    confg['NOx_aCCF'] = False                     
+   """ Technical Specifiactions of Aircraft dependent Emission Parameters"""
 
-    """Climate Hotspots"""
+   confg['NOx_EI&F_km'] = 'TTV' 
+   confg['ac_type'] = 'wide-body'    
+   confg['Coef.BFFM2'] = True           
+   confg['method_BFFM2_SH'] = 'SH'
 
-    confg['Chotspots'] = False              
-    confg['hotspots_binary'] = False         
-    confg['hotspots_percentile'] = 99     
 
-    """ Statistical analysis of EPS forecast """
-    confg['mean'] = False
-    confg['std'] = False 
+   """Output Options"""
 
-    """ Output """
-    confg['MET_variables'] = False            
-    confg['geojson'] = False                   
-    confg['color'] = 'copper'                  
+   confg['PMO'] = True                 
+   confg['NOx_aCCF'] = False                    
+   confg['unit_K/kg(fuel)'] = False          
+   confg['merged'] = True               
+   confg['Chotspots'] = False                  
+   confg['hotspots_binary'] = False        
+   confg['hotspots_percentile'] = 99         
+   confg['MET_variables'] = False            
+   confg['geojson'] = False                  
+   confg['color'] = 'copper'                 
+
+   """ Output Options for Statistical analysis of Ensemble prediction system (EPS) data products """
+
+   confg['mean'] = False                      # Options: True, False
+   confg['std'] = False                       # Options: True, False
+     
 
     """ %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% """
 

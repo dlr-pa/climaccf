@@ -79,8 +79,13 @@ class GeTaCCFs(object):
         """
         # P-ATR20-ozone [K/kg(NO2)]
         accf = -5.20e-11 + 2.30e-13 * self.t + 4.85e-16 * self.gp - 2.04e-18 * self.t * self.gp
-        accf = accf / self.eg['O3']
         accf[accf < 0] = 0
+        if self.aCCF_Version == 'V1.0':  
+            accf = accf * self.sf ['O3']
+        elif self.aCCF_Version == 'V1.1':
+            accf = accf * self.sf ['O3']/ self.eg['O3']     
+        else:
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def accf_ch4(self):
@@ -94,8 +99,13 @@ class GeTaCCFs(object):
         """
         # P-ATR20-methane [K/kg(NO2)]
         accf = -9.83e-13 + 1.99e-18 * self.gp - 6.32e-16 * self.Fin + 6.12e-21 * self.gp * self.Fin
-        accf = accf / self.eg['CH4']
         accf[accf > 0] = 0
+        if self.aCCF_Version == 'V1.0':  
+            accf = accf * self.sf ['CH4']
+        elif self.aCCF_Version == 'V1.1':
+            accf = accf * self.sf ['CH4']/ self.eg['CH4']     
+        else:
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def accf_ncontrail(self):
@@ -114,8 +124,13 @@ class GeTaCCFs(object):
         RF = 1e-10 * (0.0073 * (10 ** (0.0107 * self.t)) - 1.03)
         accf = factor * RF  # [Unit: K/km(contrail)]
         accf = accf * self.pcfa  # [Unit: K/km(distance flown)]
-        accf = accf / self.eg['Cont.']
         accf[accf < 0] = 0
+        if self.aCCF_Version == 'V1.0':  
+            accf = accf * self.sf ['Cont.']
+        elif self.aCCF_Version == 'V1.1':
+            accf = accf * self.sf ['Cont.']/ self.eg['Cont.']     
+        else:
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def accf_dcontrail(self):
@@ -135,7 +150,12 @@ class GeTaCCFs(object):
         RF = 1e-10 * (-1.7 - 0.0088 * self.olr)
         accf = factor * RF  # [Unit: K/km(contrail)]
         accf = accf * self.pcfa  # [Unit: K/km(distance flown)]
-        accf = accf / self.eg['Cont.']
+        if self.aCCF_Version == 'V1.0':  
+            accf = accf * self.sf ['Cont.']
+        elif self.aCCF_Version == 'V1.1':
+            accf = accf * self.sf ['Cont.']/ self.eg['Cont.']     
+        else:
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def accf_h2o(self):
@@ -146,27 +166,35 @@ class GeTaCCFs(object):
 
         :returns accf: Algorithmic climate change function of water vapour.
         :rtype: numpy.ndarray
-        """
+        """                    
         # P-ATR20-water_vapour [K/kg(fuel)]
         accf = 4.05e-16 + 1.48e-16 * np.absolute(self.pvu)
-        accf = accf / self.eg['H2O']
+        if self.aCCF_Version == 'V1.0':  
+            accf = accf * self.sf ['H2O']
+        elif self.aCCF_Version == 'V1.1':
+            accf = accf * self.sf ['H2O']/ self.eg['H2O']     
+        else:
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def get_accfs(self, **problem_config):
         """
         Calculates individual aCCFs, the merged aCCF and climate hotspots based on the defined conversions, parameters and etc. 
         """
-        confg = {'efficacy': False, 'emission_scenario': 'pulse', 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False,
-                 'merged': True, 'NOx_aCCF': True, 'NOx&inverse_EIs': 'TTV', 'Chotspots': True, 'hotspots_binary': True,
-                 'hotspots_thr': False, 'MET_variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
-                 'Coef.BFFM2': False, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99, 'method_BFFM2_SH': 'RH', 'ac_type': 'wide-body'}
+        confg = {'efficacy': False, 'efficacy-option': 'lee et al. (2021)', 'aCCF-V': 'V1.0', 'emission_scenario': 'pulse', 
+                 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False, 'merged': True, 'NOx_aCCF': True, 'NOx_EI&F_km': 'TTV', 
+                 'Chotspots': True, 'hotspots_binary': True, 'hotspots_thr': False, 'MET_variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
+                 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99, 'method_BFFM2_SH': 'RH', 'ac_type': 'wide-body', 'aCCF-scalingF': {'CH4': 1, 'O3': 1, 'H2O': 1, 'Cont.': 1, 'CO2': 1}}
         confg.update(problem_config)
         self.variables = confg['MET_variables']
-
+        self.aCCF_Version = confg['aCCF-V']    
+        self.sf = confg['aCCF-scalingF'] 
+        
         if confg['educated_guess_v1.0']:
             self.eg = confg['educated_guess_v1.0']
         else:
             self.eg = educated_guess_v1
+
 
         # PCFA
         if confg['pcfa']:
@@ -226,7 +254,12 @@ class GeTaCCFs(object):
 
         # CO2:
         attrs_CO2 = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of CO2', 'short_name': 'aCCF of CO2'}
-        self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)/self.eg['CO2']  # P-ATR20-CO2 [K/kg(fuel)]
+        if self.aCCF_Version == 'V1.0':
+            self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)*self.sf['CO2']  # P-ATR20-CO2 [K/kg(fuel)]
+        elif self.aCCF_Version  == 'V1.1':
+            self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)*self.sf['CO2']/self.eg['CO2'] 
+        else:
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         self.aCCF_CO2 = convert_accf('CO2', self.aCCF_CO2, confg)
         self.var_aCCF_xr['aCCF_CO2'] = (tuple(self.coordinate_names), self.aCCF_CO2, attrs_CO2)
         self.aCCF_xr['aCCF_CO2'] = (tuple(self.coordinate_names), self.aCCF_CO2, attrs_CO2)
@@ -240,7 +273,7 @@ class GeTaCCFs(object):
                     self.aCCF_Cont = self.aCCF_dCont
                 else:
                     self.aCCF_Cont = self.aCCF_nCont
-                if confg['NOx&inverse_EIs'] == 'ac_dependent':
+                if confg['NOx_EI&F_km'] == 'ac_dependent':
                     self.merged_bool = True        
                     self.NOx_EI, self.inverse_EI = get_EIs(confg['ac_type'], self.path_lib)
                     self.merged_aCCF = np.zeros(self.aCCF_H2O.shape)
@@ -268,7 +301,7 @@ class GeTaCCFs(object):
                                 self.merged_aCCF [:, k, :, :] = self.aCCF_CO2 [:, k, :, :] + self.aCCF_H2O [:, k, :, :] + self.aCCF_O3 [:, k, :, :] + self.aCCF_CH4 [:, k, :, :] +  self.aCCF_Cont [:, k, :, :]
                             else:                                
                                 self.merged_aCCF[:, k, :, :] = self.aCCF_CO2[:, k, :, :] + self.aCCF_H2O[:, k, :, :] + 1e-3 * np.array(self.NOx_EI(self.ds.level.values[k])) * (self.aCCF_O3[:, k, :, :]+ self.aCCF_CH4[:, k, :, :]) + np.array(self.inverse_EI(self.ds.level.values[k])) * self.aCCF_Cont[:, k, :, :]
-                elif confg['NOx&inverse_EIs'] == 'TTV':
+                elif confg['NOx_EI&F_km'] == 'TTV':
                     self.merged_bool = True   
                     if confg['unit_K/kg(fuel)']: 
                        self.aCCF_O3  = emission_index['NOx'] * self.aCCF_O3
@@ -465,7 +498,14 @@ def convert_accf(name, value, confg):
     :rtype: numpy.ndarray
     """
     if confg['efficacy']:
-        value = efficacy[name] * value
+        if confg['efficacy-option'] == 'lee et al. (2021)':
+            value = efficacy[name] * value
+        else:
+            try:
+                value = confg['efficacy-option'][name] * value
+            except:
+                raise ValueError("The right options for efficacy-option is lee et al. (2021) or a dictionary defined as {'CH4': xx, 'O3': xx, 'H2O': xx, 'Cont.': xx, 'CO2': xx}, where xx is user-defined efficacies.")    
+
     if confg['climate_indicator'] == 'ATR':    
         if confg['emission_scenario'] == 'future_scenario':
             if confg['TimeHorizon'] == 20:

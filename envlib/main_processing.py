@@ -8,27 +8,26 @@ from envlib.io import *
 
 class ClimateImpact(object):
     def __init__(self, path, **problem_config):
-        self.p_settings = {  # Default setting
+        self.p_settings = { # Default settings
             'lat_bound': None,
             'lon_bound': None,
             'time_bound': None,
             'rhi_threshold': 1.0,
             'horizontal_resolution': None,
-            'NOx&inverse_EIs': 'TTV',  # Typical transantlantic values
+            'NOx&inverse_EIs': 'TTV',
             'ac_type': None,
-            'output_format': 'netCDF',  # netCDF, grib, JSON
+            'output_format': 'netCDF', 
             'mean': False,
             'std': False,
             'efficacy': False,
-            'emission_scenario': 'pulse',  # pulse, sustained, future scenario
-            'climate_indicator': 'ATR',  # GWP,
+            'emission_scenario': 'pulse', 
+            'climate_indicator': 'ATR', 
             'time_horizon': '20',
-            'ac_type': 'wide-body',     # 50, 100
-            'color': 'Reds',  # Colors of cmap
+            'ac_type': 'wide-body',    
+            'color': 'Reds', 
             'geojson': True,
             'save_path': None}
         self.p_settings.update(problem_config)
-
         self.ds_pl = xr.open_dataset(path['path_pl'])
         if path['path_sur']:
             self.ds_sur = xr.open_dataset(path['path_sur'])
@@ -37,7 +36,6 @@ class ClimateImpact(object):
         ws = WeatherStore(self.ds_pl, self.ds_sur, ll_resolution=self.p_settings['horizontal_resolution'])
         if self.p_settings['lat_bound'] and self.p_settings['lon_bound']:
             ws.reduce_domain({'latitude': self.p_settings['lat_bound'], 'longitude': self.p_settings['lon_bound']})
-
         self.ds = ws.get_xarray()
         self.variable_names = ws.variable_names
         self.pre_variable_names = ws.pre_variable_names
@@ -49,6 +47,7 @@ class ClimateImpact(object):
         self.var_xr = ws.var_xr
         if path['path_lib']:
             self.path_lib = path['path_lib']
+
     def calculate_accfs(self, **seetings):
         confg = self.p_settings
         confg.update(seetings)
