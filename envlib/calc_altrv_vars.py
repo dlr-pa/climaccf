@@ -9,12 +9,12 @@ import xarray as xr
 
 def get_pvu(ds):
     """
-    Caclulates potential vorticity from meteorological variables temperature and components of wind.
+    Caclulates potential vorticity [in PVU] from meteorological variables pressure, temperature and x and y component of the wind.
 
     :param ds: Dataset openned with xarray.
     :type ds: Dataset
 
-    :returns PVUU: potential vorticity unit
+    :returns PVU: potential vorticity [in PVU]
     :rtype: numpy.ndarray
     """
     Levels = ds['level'].values
@@ -80,7 +80,7 @@ def get_rh_ice(ds):
     :param ds: Dataset openned with xarray.
     :type ds: Dataset
 
-    :returns rh_ice: relative humidity over ice
+    :returns rh_ice: relative humidity over ice [in %]
     :rtype: numpy.ndarray
     """
     rh_wa = get_rh_wa(ds)
@@ -94,12 +94,12 @@ def get_rh_ice(ds):
 
 def get_rh_sd(ds):
     """
-    Calculates the relative humidity from specific humidity
+    Calculates the relative humidity over ice/water from specific humidity
 
     :param ds: Dataset openned with xarray.
     :type ds: Dataset
 
-    :returns rh_sd: relative humidity
+    :returns rh_sd: relative humidity over water/ice [%]
     :rtype: numpy.ndarray
     """
     rh_wa = get_rh_wa(ds)
@@ -130,7 +130,7 @@ def get_rh_wa(ds):
     :param ds: Dataset openned with xarray.
     :type ds: Dataset
 
-    :returns rh_wa: relative humidity over water
+    :returns rh_wa: relative humidity over water [in %]
     :rtype: numpy.ndarray
     """
     T = ds['t'].values
