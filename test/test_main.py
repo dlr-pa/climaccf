@@ -17,33 +17,33 @@ def test_main():
 
     confg = {}
 
-    """ Climate Metric Selection"""
+    """Configuration of algorithmic climate change functions aCCFs """
     
-    # If true, it includes efficacies
+    # If true, efficacies are included
     confg['efficacy'] = True                         # Options: True, False
-    confg['efficacy-option'] = 'lee et al. (2021)'   # Options: 'A': includes efficacies according to Lee et al. (2021), 
+    confg['efficacy-option'] = 'lee et al. (2021)'   # Options: 'A': efficacies according to Lee et al. (2021), 
                                                      #          'B': user-defined efficacies ({'CH4': xx, 'O3': xx, 'H2O': xx, 'Cont.': xx, 'CO2': xx})
 
-    # Specifies the version of aCCF
-    confg['aCCF-V'] = 'V1.1'                        # Options: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
+    # Specifies the version of the prototype aCCF
+    confg['aCCF-V'] = 'V1.1'                        # currently 2 options: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
 
-    # User-defined scaling factors for aCCFs
+    # User-defined scaling factors of the above secelted aCCF version. Not recommented to be changed, unless modification of the aCCFs is wanted (e.g. sensitivity studies)
     confg['aCCF-scalingF'] = {'CH4': 1, 'O3': 1, 'H2O': 1, 'Cont.': 1, 'CO2': 1}
 
-    # Specifies the emission scenario of the climate metric. Currently, pulse and business-as-usual (BAU) future emission scenarios have been implemented
-    confg['emission_scenario'] = 'future_scenario'       # Options: pulse, future_scenario
+    # Specifies the emission scenario of the climate metric. Currently, pulse emission and increasing future emission scenario (business as usual) included
+    confg['emission_scenario'] = 'future_scenario'       # Options: 'pulse' and 'future_scenario'
 
     # Specifies the climate indicator. Currently, Average Temperature Response (ATR) has been implemented
-    confg['climate_indicator'] = 'ATR'         # Options: ATR
+    confg['climate_indicator'] = 'ATR'         # Options: 'ATR'
 
     # Specifies the time horizon (in years) over which the selected climate indicator is calculated
     confg['TimeHorizon'] = 20                  # Options: 20, 50, 100 
 
     # Specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. Note that this threshold depends on the resolution of the input data (for more details see Dietmueller et al. 2022)
-    confg['rhi_threshold'] = 0.90               # Options: user defined threshold value < 1. Threshold depends on the used data set, e.g., in case of the reanalysis data product ERA5 with high resolution realisation it is 0.9
+    confg['rhi_threshold'] = 0.90               # Options: user defined threshold value < 1. Threshold depends on the used data set, e.g., in case of the reanalysis data product ERA5 with high resolution (HRES) it is 0.9
 
 
-    """ Technical Specifiactions of Aircraft dependent Emission Parameters"""
+    """ Technical Specifiactions of Aircraft/Engine dependent Parameters"""
     
     # Specifies NOx Emission Index (NOx_EI) and flown distance per kg burnt fuel (F_km) 
     confg['NOx_EI&F_km'] = 'TTV' # Options: 'TTV' for typical transantlantic fleet mean values from literature and  'ac_dependent' for altitude and aircraft/engine dependent values
@@ -72,7 +72,7 @@ def test_main():
     # If true, merged non-CO2 aCCF is calculated
     confg['merged'] = True                     # Options: True, False
 
-    # If true, climate hotspots, that define regions which are very senitive to aviation emissisions, are calculated (for more details see Dietmueller et al. 2022)
+    # If true, climate hotspots (regions that are very senitive to aviation emissisions) are calculated (for more details see Dietmueller et al. 2022)
     confg['Chotspots'] = False                  # Options: True, False
     # If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified 
     # threshold, and 1 for areas with higher climate impacts than the threshold)
