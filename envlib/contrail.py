@@ -8,7 +8,7 @@ from envlib.database import *
 
 
 def get_pcfa(ds, member, **problem_config):
-    """ Calculates the presistent contrail formation areas (pcfa) which is used to calculate aCCF of (day/night) contrails.
+    """ Calculates the presistent contrail formation areas (pcfa) by using the Schmidt-Appleman Criterion (Appleman, 1953). Areas of presistent contrail formation are needed to calculate aCCF of (day/night) contrails.
 
     :param ds: Dataset openned with xarray.
     :type ds: Dataset
@@ -21,7 +21,7 @@ def get_pcfa(ds, member, **problem_config):
     """
     confg = {'rh_threshold': 1, 'rw_threshold': None, 'temp_threshold': cont_temp_thr, 'sep_ri_rw': None}
     confg.update(problem_config)
-    print('\n\033[93m UserWarning: For this configuration formation of persistent contrails is possible, if temperatures are low enough (below 235K) and relative humidity (with respect to ice) is above or at {}%. However keep in mind that the threshold value for the relative humidity varies with the used forecast model and its resolution. In order to choose the appropriate threshold value, you should read the details given in Section 5.1 of the connected publication of DietmÃ¼ller et al. 2022 \033[93m\n'.format(confg['rh_threshold'] * 100))
+    print('\n\033[93m UserWarning: For this configuration formation of persistent contrails is possible, if temperatures are low enough (below 235K) and relative humidity (with respect to ice) is above or at {}%. However keep in mind that the threshold value for the relative humidity varies with the used forecast model and its resolution. In order to choose the appropriate threshold value, you should read the details given in Section 5.1 of the connected publication of Dietmüller et al. 2022 \033[93m\n'.format(confg['rh_threshold'] * 100))
 
     formation = np.zeros(ds.t.values.shape)
     presistancy = np.zeros(ds.t.values.shape)
@@ -50,8 +50,8 @@ def get_pcfa(ds, member, **problem_config):
 
 
 def get_cont_form_thr(ds, member):
-    """ Calculates the thresholds of temperature and relative humidity over water needed for determining the
-    formation criteria of contrails.
+    """ Calculates the threshold temperature and threshold of relative humidity over water required for contrail formation (Schmidt-Applemann-Citerion, Applemann 1953). 
+        A good approximation of the Schmidt-Appleman Criterion is given in Schumann 1996. 
 
     :param ds: Dataset openned with xarray.
     :type ds: Dataset
@@ -59,10 +59,10 @@ def get_cont_form_thr(ds, member):
     :param member: Detemines the presense of ensemble forecasts in the given dataset.
     :type member: bool
 
-    :returns rcontr: Thresholds of relative humidity over water.
+    :returns rcontr: Thresholds of relative humidity for liquid saturation.
     :rtype: numpy.ndarray
 
-    :returns TLM_e: Thresholds of temperature.
+    :returns TLM_e: Threshold temperature for Schmidt-Appleman
     :rtype: numpy.ndarray
     """
     rcontr = np.zeros(ds.t.values.shape)
@@ -72,10 +72,15 @@ def get_cont_form_thr(ds, member):
     else:
         shape = np.ones(ds.t.values[:, 0, :, :].shape)
     TLM_e = np.zeros(ds.t.values.shape)
+    #M_H2O/M_air:
     eps = 0.6222
+    #combustion heat
     Q = 43 * 1e6
+    # propullsion efficiency
     eta = 0.3
+    # water vapour emission index
     EI_H2O = 1.25
+    #specific heat capacity of dry air
     cp = 1004
     eL_T = lambda T: np.exp(-6096.9385 / T + 16.635794 * shape - 2.711193 * 1e-2 * T +
                             1.673952 * 1e-5 * (T ** 2) + 2.433502 * np.log(T)) * 100
@@ -96,10 +101,9 @@ def get_cont_form_thr(ds, member):
 
 
 def get_relative_hum(ds, member, intrp=True):
-    """ Calculates the relative humidities over ice and water from the provided relative humidity within ECMWF
-    dataset. In ECMWF data, Relative humidity is defined with respect to saturation of the mixed phase: i.e. with
-    respect to saturation over ice below -23C and with respect to saturation over water above 0C. In the regime in
-    between a quadratic interpolation is applied.
+    """ Relative humiditiy over ice and water provided by ECMWF dataset. In ECMWF relative humidity is defined with respect 
+    to saturation of the mixed phase: i.e. with respect to saturation over ice below -23°C and with respect to saturation over water above 0°C. 
+    In the regime in between a quadratic interpolation is applied.
 
     :param ds: Dataset openned with xarray.
     :type ds: Dataset
@@ -140,7 +144,7 @@ def get_relative_hum(ds, member, intrp=True):
     """ Dividing relative humidity over water and ice from the given relative and specific humidity (ECMWF data)"""
 
     if t_c[t_c < -23].shape[0] != 0:
-        """ if there is temperature lower than -23, the relative humidity is
+        """ if there is temperature lower than -23°C, the relative humidity is
          over ice, so in this case, the relative humidity over water is calculated by equating partial
          pressure of water vapour, by means of p_h2o = RH(i)*p_sat(i) = RH(w)*p_sat(w)!!"""
 
@@ -151,7 +155,7 @@ def get_relative_hum(ds, member, intrp=True):
         rw[rw > 1] = 1
 
     if t_c[t_c > 0].shape[0] != 0:
-        """ if there is temperature higher than 0, the relative humidity is
+        """ if there is temperature higher than 0°C, the relative humidity is
             over water, so in this case, the relative humidity over ice is calculated by equating partial
             pressure of water vapour, by means of p_h2o = RH(i)*p_sat(i) = RH(w)*p_sat(w)!!"""
 
@@ -160,7 +164,7 @@ def get_relative_hum(ds, member, intrp=True):
 
     if intrp:
         if t_c[r_intp == 1].shape[0] != 0:
-            """ if there is temperature between -23 and 0, a quadratic interpolation between relative temperature has been
+            """ if there is temperature between -23°C and 0°C, a quadratic interpolation between relative temperature has been
                 given. In this case, the relative humidity over water obtained from specific humidity is used for RH over
                 water, an then, it is used for conversion to RH over ice"""
 
