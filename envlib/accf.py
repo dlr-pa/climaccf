@@ -70,9 +70,9 @@ class GeTaCCFs(object):
 
     def accf_o3(self):
         """
-        Calculates the aCCF of Ozone for pulse emission scenario, average temperature response as climate
-        indicator over next 20 years (P-ATR20-ozone [K/kg(NO2)]). To calculate the aCCF of Ozone, meteorological variables
-        temperature and geopotential are required.
+        Calculates the aCCF of ozone according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in 
+        average temperature response as over next 20 years, assuming pulse emission (P-ATR20-ozone [K/kg(NO2)]). To calculate the aCCF of ozone, 
+        meteorological variables temperature and geopotential are required.
 
         :returns accf: Algorithmic climate change function of Ozone.
         :rtype: numpy.ndarray
@@ -85,13 +85,13 @@ class GeTaCCFs(object):
         elif self.aCCF_Version == 'V1.1':
             accf = accf * self.sf ['O3']/ self.eg['O3']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def accf_ch4(self):
         """
-        Calculates the aCCF of Methane for pulse emission scenario, average temperature response as climate
-        indicator over next 20 years (P-ATR20-methane [K/kg(NO2)]). To calculate the aCCF of Methane, meteorological
+        Calculates the aCCF of methane according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
+        temperature response as over next 20 years, assuming pulse emission (P-ATR20-methane [K/kg(NO2)]). To calculate the aCCF of methane, meteorological
         variables geopotential and incoming solar radiation are required.
 
         :returns accf: Algorithmic climate change function of methane.
@@ -105,63 +105,63 @@ class GeTaCCFs(object):
         elif self.aCCF_Version == 'V1.1':
             accf = accf * self.sf ['CH4']/ self.eg['CH4']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def accf_ncontrail(self):
         """
-        Calculates the aCCF of night-time contrails for pulse emission scenario, average temperature response as
-        climate indicator over next 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of nighttime contrails,
-        meteorological variables temperature and relative humidities over ice and water are required. Notice that,
-        relative humidies are required for the detemiation of presistent contrail formation areas.
+        Calculates the aCCF of night-time contrails according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
+        temperature response as over next 20 years, assuming pulse emissions (P-ATR20-contrails [K/km]). To calculate the aCCF of night-time contrails,
+        meteorological variables temperature and relative humidity over ice are required. Notice that,
+        relative humidity over ice is required for the detemiation of presistent contrail formation areas.
 
         :returns accf: Algorithmic climate change function of nighttime contrails.
         :rtype: numpy.ndarray
         """
-        # P-ATR20-contrail [Unit: K/km(distance flown)]
+        # P-ATR20-contrail [Unit: K/km]
         factor = 0.0151
         # factor = 0.114
         RF = 1e-10 * (0.0073 * (10 ** (0.0107 * self.t)) - 1.03)
-        accf = factor * RF  # [Unit: K/km(contrail)]
-        accf = accf * self.pcfa  # [Unit: K/km(distance flown)]
+        accf = factor * RF  # [Unit: K/km]
+        accf = accf * self.pcfa  # [Unit: K/km]
         accf[accf < 0] = 0
         if self.aCCF_Version == 'V1.0':  
             accf = accf * self.sf ['Cont.']
         elif self.aCCF_Version == 'V1.1':
             accf = accf * self.sf ['Cont.']/ self.eg['Cont.']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def accf_dcontrail(self):
         """
-        Calculates the aCCF of day-time contrails for pulse emission scenario, average temperature response as
-        climate indicator and 20 years (P-ATR20-contrails [K/km(distance flown)]). To calculate the aCCF of day-time contrails,
-        meteorological variables ourgoing longwave radiation, temperature and relative humidities over ice and water
-        are required. Notice that, temperature and relative humidies are required for the detemiation of presistent
-        contrail formation areas.
+        Calculates the aCCF of day-time contrails according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
+        temperature response as over next 20 years, assuming pulse emissions (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
+        meteorological variables temperature and relative humidity over ice are required. Notice that,
+        relative humidity over ice is required for the detemiation of presistent contrail formation areas.
+        
 
         :returns accf: Algorithmic climate change function of day-time contrails.
         :rtype: numpy.ndarray
         """
-        # P-ATR20-contrail [Unit: K/km(distance flown)]
+        # P-ATR20-contrail [Unit: K/km]
         factor = 0.0151
         # factor = 0.114
         RF = 1e-10 * (-1.7 - 0.0088 * self.olr)
-        accf = factor * RF  # [Unit: K/km(contrail)]
-        accf = accf * self.pcfa  # [Unit: K/km(distance flown)]
+        accf = factor * RF  # [Unit: K/km]
+        accf = accf * self.pcfa  # [Unit: K/km]
         if self.aCCF_Version == 'V1.0':  
             accf = accf * self.sf ['Cont.']
         elif self.aCCF_Version == 'V1.1':
             accf = accf * self.sf ['Cont.']/ self.eg['Cont.']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def accf_h2o(self):
         """
-        Calculates the aCCF of water vapour for pulse emission scenario, average temperature response as
-        climate indicator and 20 years (P-ATR20-water-vapour [K/kg(fuel)]). To calculate the aCCF of water vapour,
+        Calculates the aCCF of water vapour according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
+        temperature response as over next 20 years, assuming pulse emission (P-ATR20-water-vapour [K/kg(fuel)]). To calculate the aCCF of water vapour,
         meteorological variable potential vorticity is required.
 
         :returns accf: Algorithmic climate change function of water vapour.
@@ -174,12 +174,12 @@ class GeTaCCFs(object):
         elif self.aCCF_Version == 'V1.1':
             accf = accf * self.sf ['H2O']/ self.eg['H2O']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
 
     def get_accfs(self, **problem_config):
         """
-        Calculates individual aCCFs, the merged aCCF and climate hotspots based on the defined conversions, parameters and etc. 
+        Calculates individual aCCFs, the merged aCCF and climate hotspots based on the defined configurations, parameters and etc. 
         """
         confg = {'efficacy': False, 'efficacy-option': 'lee et al. (2021)', 'aCCF-V': 'V1.0', 'emission_scenario': 'pulse', 
                  'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False, 'merged': True, 'NOx_aCCF': True, 'NOx_EI&F_km': 'TTV', 
@@ -198,7 +198,7 @@ class GeTaCCFs(object):
 
         # PCFA
         if confg['pcfa']:
-            attrs_pcfa = {'unit': 'contrails', 'long_name': 'persistent contrail formation areas', 'short_name': 'pcfa'}
+            attrs_pcfa = {'unit': '-', 'long_name': 'persistent contrail formation areas [0,1]', 'short_name': 'pcfa'}
             self.var_aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa, attrs_pcfa)
             self.aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa, attrs_pcfa) 
         
@@ -231,7 +231,7 @@ class GeTaCCFs(object):
 
         # Night-time contrails:        
         if self.aCCF_bool['nCont']:
-            attrs_nCont = {'unit': 'K km(distance flown)**-1', 'long_name': 'algorithmic climate change function of night-time contrails', 'short_name': 'aCCF of night-time contrails'}
+            attrs_nCont = {'unit': 'K km**-1', 'long_name': 'algorithmic climate change function of night-time contrails', 'short_name': 'aCCF of night-time contrails'}
             self.aCCF_nCont = self.accf_ncontrail()
             self.aCCF_nCont = convert_accf('Cont.', self.aCCF_nCont, confg)
             self.var_aCCF_xr['aCCF_nCont'] = (tuple(self.coordinate_names), self.aCCF_nCont, attrs_nCont)
@@ -239,14 +239,14 @@ class GeTaCCFs(object):
 
         # Day-time contrails:
         if self.aCCF_bool['dCont']:
-            attrs_dCont = {'unit': 'K km(distance flown)**-1', 'long_name': 'algorithmic climate change function of day-time contrails', 'short_name': 'aCCF of day-time contrails'}
+            attrs_dCont = {'unit': 'K km**-1', 'long_name': 'algorithmic climate change function of day-time contrails', 'short_name': 'aCCF of day-time contrails'}
             self.aCCF_dCont = self.accf_dcontrail()
             self.aCCF_dCont = convert_accf('Cont.', self.aCCF_dCont, confg)
             self.var_aCCF_xr['aCCF_dCont'] = (tuple(self.coordinate_names), self.aCCF_dCont, attrs_dCont)
             self.aCCF_xr['aCCF_dCont'] = (tuple(self.coordinate_names), self.aCCF_dCont, attrs_dCont)
 
         # adaptive day and night-time contrails (depending on the time of emission)
-        attrs_Cont = {'unit': 'K km(distance flown)**-1', 'long_name': 'algorithmic climate change function of contrails', 'short_name': 'aCCF of contrails'}
+        attrs_Cont = {'unit': 'K km**-1', 'long_name': 'algorithmic climate change function of contrails', 'short_name': 'aCCF of contrails'}
         if self.aCCF_bool['dCont'] and self.aCCF_bool['nCont'] and self.aCCF_bool['contrail_adaptive']:
             self.aCCF_Cont = self.day * self.aCCF_dCont + self.night * self.aCCF_nCont
             self.var_aCCF_xr['aCCF_Cont'] = (tuple(self.coordinate_names), self.aCCF_Cont, attrs_Cont)
@@ -259,7 +259,7 @@ class GeTaCCFs(object):
         elif self.aCCF_Version  == 'V1.1':
             self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)*self.sf['CO2']/self.eg['CO2'] 
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1': aCCF reported in Yin + educated guess)' have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1) have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         self.aCCF_CO2 = convert_accf('CO2', self.aCCF_CO2, confg)
         self.var_aCCF_xr['aCCF_CO2'] = (tuple(self.coordinate_names), self.aCCF_CO2, attrs_CO2)
         self.aCCF_xr['aCCF_CO2'] = (tuple(self.coordinate_names), self.aCCF_CO2, attrs_CO2)
