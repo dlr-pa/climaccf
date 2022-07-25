@@ -1,0 +1,149 @@
+#************************ User's configuration file for the CLIMaCCF *******************#
+
+
+#########################################################################################
+# Configuration of algorithmic climate change functions aCCFs
+#########################################################################################  
+
+## If true, efficacies are included
+efficacy: true              
+        # Options: true, false
+efficacy-option: lee_2021
+        # Options one:  'lee_2021' (efficacies according to Lee et al. (2021))
+        # Options two:   user-defined efficacies:
+        #    CH4: xx
+        #    CO2: xx
+        #    Cont.: xx
+        #    H2O: xx
+        #    O3: xx
+
+# Specifies the version of the prototype aCCF
+aCCF-V: V1.1
+        # currently 2 options: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
+
+# User-defined scaling factors of the above secelted aCCF version. Not recommented to 
+# be changed,unless modification of the aCCFs is wanted (e.g. sensitivity studies)
+aCCF-scalingF:
+  CH4: 1
+  CO2: 1
+  Cont.: 1
+  H2O: 1
+  O3: 1
+
+# Specifies the climate indicator. Currently, Average Temperature Response (ATR) has been implemented
+climate_indicator: ATR
+        # Options: 'ATR'
+
+# Specifies the emission scenario of the climate metric. Currently, pulse emission and increasing 
+# future emission scenario (business as usual) included
+emission_scenario: future_scenario
+        # Options: 'pulse' and 'future_scenario'
+
+# Specifies the time horizon (in years) over which the selected climate indicator is calculated
+TimeHorizon: 20
+        # Options: 20, 50, 100
+
+# Determination of areas favorable for the formation of persistent contrails (needed to calculate aCCF of (day/night) contrails).
+PCFA: ISSR
+       # Options: 'ISSR' (Ice-supersaturated reigons), 'ISSR+SAC' (Ice-supersaturation reigons with Schmidt-Appleman Criterion (Appleman, 1953)) 
+
+# Parameters for calculating Ice-supersaturated reigons (ISSR)
+ISSR:
+  # Specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. 
+  # Note that this threshold depends on the resolution of the input data (for more details see Dietmueller et al. 2022)
+  rhi_threshold: 0.9
+       # Options: user defined threshold value < 1. Threshold depends on the used data set, e.g., 
+       # in case of the reanalysis data product ERA5 with high resolution (HRES) it is 0.9
+  temp_threshold: 235
+
+# Parameters for calculating Schmidt-Appleman Criterion (SAC). These parameters can vary for different aircraft types.
+SAC:
+  # water vapour emission's index in [kg(H2O)/kg(fuel)]
+  EI_H2O: 1.25
+  # Fuel specific energy in [J/kg]
+  Q: 43000000.0
+  # Engine’s overall efficiency
+  eta: 0.3
+
+
+###########################################################################################
+# Technical Specifiactions of Aircraft/Engine dependent Parameters
+###########################################################################################  
+
+# Specifies NOx Emission Index (NOx_EI) and flown distance per kg burnt fuel (F_km) 
+NOx_EI&F_km: TTV
+       # Options: 'TTV' for typical transantlantic fleet mean values from literature and  'ac_dependent' for altitude and aircraft/engine dependent values
+       # Note that "If Confg['NOx_EI&F_km'] = 'TTV', the following confg['ac_type'] is ignored."
+
+# If Confg['NOx_EI&F_km'] = 'ac_dependent', aggregated aircraft type needs to be selected. 
+# Note that these values take into account the altitude dependence of NOx_EI and F_km (for more details see Dietmueller et al. 2022)
+ac_type: wide-body
+       # Options: 'regional', 'single-aisle', 'wide-body'
+
+# weather-dependent coefficients for calculating NOx emission index using Boeing Fuel Flow Method 2 (BFFM2)
+Coef.BFFM2: true
+       # Options: true, false
+method_BFFM2_SH: SH
+       
+############################################################################################
+# Output Options
+############################################################################################  
+
+# If true, the primary mode ozone (PMO) effect is included to the CH4 aCCF and the total NOx aCCF
+PMO: true
+      # Options: true, false
+
+# If true, the total NOx aCCF is calculated (i.e. aCCF-NOx = aCCF-CH4 + aCCF-O3)
+NOx_aCCF: false
+      # Options: true, false
+
+# If true, all individual aCCFs are converted to K/kg(fuel) and outputted in this unit.
+unit_K/kg(fuel): false
+      # Options: true, false
+
+# If true, merged non-CO2 aCCF is calculated
+merged: true
+      # Options: true, false
+
+# If true, climate hotspots (regions that are very senitive to aviation emissisions) are calculated (for more details see Dietmueller et al. 2022)
+Chotspots: false
+      # Options: true, false
+
+# If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified 
+# threshold, and 1 for areas with higher climate impacts than the threshold)
+# If false, it assigns 0 for areas with climate impacts below the specified threshold and gives actual values for those
+# areas with higher climate impacts than the threshold.
+hotspots_binary: false
+      # Options: true, false
+
+# Determines dynamically the threshold for identifying climate hotspots by calculating the e.g., 99th percentile term of the of
+# the normal distribution of the respective merged aCCF
+# The percentiles are also outputted in netCDF output file
+hotspots_percentile: 99
+      # Options: percentage < 100  
+
+# If true, all meteorological input variables are saved in the netCDF output file in same resolution as aCCFs
+MET_variables: false
+      # Options: true, false
+
+# If true, polygons containing climate hotspots will be saved in the GeoJson file
+geojson: false
+      # Options: true, false
+
+# Specifies the color of polygons
+color: copper
+      # Options: colors of cmap, e.g., copper, jet, Reds
+
+###########################################################################################
+# Output Options for Statistical analysis of Ensemble prediction system (EPS) data products
+###########################################################################################  
+
+# The following two options (confg['mean'], confg['std']) are ignored if the input data are deterministic
+
+# If true, mean values of aCCFs and variables are saved in the netCDF output file
+mean: false
+      # Options: true, false
+
+# If true, standard deviation of aCCFs and variables are saved in the netCDF output file
+std: false
+      # Options: true, false

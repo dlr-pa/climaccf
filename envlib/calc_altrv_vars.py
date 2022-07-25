@@ -9,7 +9,7 @@ import xarray as xr
 
 def get_pvu(ds):
     """
-    Caclulates potential vorticity [in PVU] from meteorological variables pressure, temperature and x and y component of the wind.
+    Caclulates potential vorticity [in PVU] from meteorological variables pressure, temperature and x and y component of the wind using MetPy (https://www.unidata.ucar.edu/software/metpy/).
 
     :param ds: Dataset openned with xarray.
     :type ds: Dataset

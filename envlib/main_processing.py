@@ -12,7 +12,6 @@ class ClimateImpact(object):
             'lat_bound': None,
             'lon_bound': None,
             'time_bound': None,
-            'rhi_threshold': 1.0,
             'horizontal_resolution': None,
             'NOx&inverse_EIs': 'TTV',
             'ac_type': None,
@@ -51,7 +50,7 @@ class ClimateImpact(object):
     def calculate_accfs(self, **seetings):
         confg = self.p_settings
         confg.update(seetings)
-        clim_imp = GeTaCCFs(self, confg['rhi_threshold'])
+        clim_imp = GeTaCCFs(self)
         clim_imp.get_accfs(**confg)
         aCCFs, encoding_ = clim_imp.get_xarray()
         if self.p_settings['save_path']:

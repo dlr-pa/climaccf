@@ -11,15 +11,12 @@ from scipy import integrate
 class GeTaCCFs(object):
     """ Calculation of algorithmic climate change functions (aCCFs)."""
 
-    def __init__(self, wd_inf, rhi_thr):
+    def __init__(self, wd_inf):
         """
         Prepares the data required to calculate aCCFs and store them in self.
 
         :param wd_inf: Contains processed weather data with all information.
         :type wd_inf: Class
-
-        :param rhi_thr: Threshold of relative humidity over ice for determining ice-supersaturation.
-        :type rhi_thr: float
         """
         self.ds = ds = wd_inf.ds
         self.member_bool = wd_inf.coordinates_bool['member']
@@ -65,9 +62,6 @@ class GeTaCCFs(object):
         if self.aCCF_bool['dCont']:
             self.olr = ds['olr'].values
 
-        # Conditions
-        self.pcfa = get_pcfa(ds, self.member_bool, rh_threshold = rhi_thr, rw_threshold=False)
-
     def accf_o3(self):
         """
         Calculates the aCCF of ozone according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in 
@@ -81,9 +75,9 @@ class GeTaCCFs(object):
         accf = -5.20e-11 + 2.30e-13 * self.t + 4.85e-16 * self.gp - 2.04e-18 * self.t * self.gp
         accf[accf < 0] = 0
         if self.aCCF_Version == 'V1.0':  
-            accf = accf * self.sf ['O3']
+            accf = accf * self.sf ['O3']/self.base['O3']  
         elif self.aCCF_Version == 'V1.1':
-            accf = accf * self.sf ['O3']/ self.eg['O3']     
+            accf = accf * self.sf ['O3']/self.eg['O3']     
         else:
             raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
@@ -101,9 +95,9 @@ class GeTaCCFs(object):
         accf = -9.83e-13 + 1.99e-18 * self.gp - 6.32e-16 * self.Fin + 6.12e-21 * self.gp * self.Fin
         accf[accf > 0] = 0
         if self.aCCF_Version == 'V1.0':  
-            accf = accf * self.sf ['CH4']
+            accf = accf * self.sf ['CH4']/self.base['CH4'] 
         elif self.aCCF_Version == 'V1.1':
-            accf = accf * self.sf ['CH4']/ self.eg['CH4']     
+            accf = accf * self.sf ['CH4']/self.eg['CH4']     
         else:
             raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
@@ -126,7 +120,7 @@ class GeTaCCFs(object):
         accf = accf * self.pcfa  # [Unit: K/km]
         accf[accf < 0] = 0
         if self.aCCF_Version == 'V1.0':  
-            accf = accf * self.sf ['Cont.']
+            accf = accf * self.sf ['Cont.']/self.base['Cont.']  
         elif self.aCCF_Version == 'V1.1':
             accf = accf * self.sf ['Cont.']/ self.eg['Cont.']     
         else:
@@ -151,9 +145,9 @@ class GeTaCCFs(object):
         accf = factor * RF  # [Unit: K/km]
         accf = accf * self.pcfa  # [Unit: K/km]
         if self.aCCF_Version == 'V1.0':  
-            accf = accf * self.sf ['Cont.']
+            accf = accf * self.sf ['Cont.']/self.base['Cont.']
         elif self.aCCF_Version == 'V1.1':
-            accf = accf * self.sf ['Cont.']/ self.eg['Cont.']     
+            accf = accf * self.sf ['Cont.']/self.eg['Cont.']     
         else:
             raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
@@ -170,9 +164,9 @@ class GeTaCCFs(object):
         # P-ATR20-water_vapour [K/kg(fuel)]
         accf = 4.05e-16 + 1.48e-16 * np.absolute(self.pvu)
         if self.aCCF_Version == 'V1.0':  
-            accf = accf * self.sf ['H2O']
+            accf = accf * self.sf ['H2O']/self.base['H2O'] 
         elif self.aCCF_Version == 'V1.1':
-            accf = accf * self.sf ['H2O']/ self.eg['H2O']     
+            accf = accf * self.sf ['H2O']/self.eg['H2O']     
         else:
             raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
         return accf
@@ -181,8 +175,8 @@ class GeTaCCFs(object):
         """
         Calculates individual aCCFs, the merged aCCF and climate hotspots based on the defined configurations, parameters and etc. 
         """
-        confg = {'efficacy': False, 'efficacy-option': 'lee et al. (2021)', 'aCCF-V': 'V1.0', 'emission_scenario': 'pulse', 
-                 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False, 'merged': True, 'NOx_aCCF': True, 'NOx_EI&F_km': 'TTV', 
+        confg = {'efficacy': False, 'efficacy-option': 'lee_2021', 'aCCF-V': 'V1.0', 'emission_scenario': 'pulse', 'PCFA': 'ISSR', 'ISSR': {'rhi_threshold': 0.95, 'temp_threshold': 235}, 'sep_ri_rw' : False, 
+                 'SAC': {'Q': 43 * 1e6, 'eta': 0.3, 'EI_H2O': 1.25}, 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False, 'merged': True, 'NOx_aCCF': True, 'NOx_EI&F_km': 'TTV', 
                  'Chotspots': True, 'hotspots_binary': True, 'hotspots_thr': False, 'MET_variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
                  'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99, 'method_BFFM2_SH': 'RH', 'ac_type': 'wide-body', 'aCCF-scalingF': {'CH4': 1, 'O3': 1, 'H2O': 1, 'Cont.': 1, 'CO2': 1}}
         confg.update(problem_config)
@@ -193,10 +187,12 @@ class GeTaCCFs(object):
         if confg['educated_guess_v1.0']:
             self.eg = confg['educated_guess_v1.0']
         else:
-            self.eg = educated_guess_v1
+            self.eg = aCCF_V1_1
 
+        self.base = aCCF_V1_0
 
-        # PCFA
+        # PCFA:
+        self.pcfa = get_pcfa(self.ds, self.member_bool, confg)
         if confg['pcfa']:
             attrs_pcfa = {'unit': '-', 'long_name': 'persistent contrail formation areas [0,1]', 'short_name': 'pcfa'}
             self.var_aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa, attrs_pcfa)
@@ -255,7 +251,7 @@ class GeTaCCFs(object):
         # CO2:
         attrs_CO2 = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of CO2', 'short_name': 'aCCF of CO2'}
         if self.aCCF_Version == 'V1.0':
-            self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)*self.sf['CO2']  # P-ATR20-CO2 [K/kg(fuel)]
+            self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)*self.sf['CO2']/self.base['CO2']   # P-ATR20-CO2 [K/kg(fuel)]
         elif self.aCCF_Version  == 'V1.1':
             self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)*self.sf['CO2']/self.eg['CO2'] 
         else:
@@ -498,13 +494,13 @@ def convert_accf(name, value, confg):
     :rtype: numpy.ndarray
     """
     if confg['efficacy']:
-        if confg['efficacy-option'] == 'lee et al. (2021)':
+        if confg['efficacy-option'] == 'lee_2021':
             value = efficacy[name] * value
         else:
             try:
                 value = confg['efficacy-option'][name] * value
             except:
-                raise ValueError("The right options for efficacy-option is lee et al. (2021) or a dictionary defined as {'CH4': xx, 'O3': xx, 'H2O': xx, 'Cont.': xx, 'CO2': xx}, where xx is user-defined efficacies.")    
+                raise ValueError("The right options for efficacy-option is lee_2021 or a dictionary defined as {'CH4': xx, 'O3': xx, 'H2O': xx, 'Cont.': xx, 'CO2': xx}, where xx is user-defined efficacies.")    
 
     if confg['climate_indicator'] == 'ATR':    
         if confg['emission_scenario'] == 'future_scenario':

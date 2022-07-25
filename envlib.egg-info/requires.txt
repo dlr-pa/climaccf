@@ -15,3 +15,4 @@ matplotlib~=3.5.0rc1
 geojsoncontour~=0.4.0
 openpyxl~=3.0.9
 xlrd==1.2.0
+PyYAML==5.4.1
