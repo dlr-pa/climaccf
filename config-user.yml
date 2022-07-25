@@ -45,7 +45,7 @@ TimeHorizon: 20
 
 # Determination of areas favorable for the formation of persistent contrails (needed to calculate aCCF of (day/night) contrails).
 PCFA: ISSR
-       # Options: 'ISSR' (Ice-supersaturated reigons), 'ISSR+SAC' (Ice-supersaturation reigons with Schmidt-Appleman Criterion (Appleman, 1953)) 
+       # Options: 'ISSR' (Ice-supersaturated reigons), 'SAC' (Ice-supersaturation reigons with Schmidt-Appleman Criterion (Appleman, 1953)) 
 
 # Parameters for calculating Ice-supersaturated reigons (ISSR)
 ISSR:

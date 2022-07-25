@@ -1,0 +1,278 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>envlib.extend_dim &#8212; envlib V1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for envlib.extend_dim</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">xarray</span> <span class="k">as</span> <span class="nn">xr</span>
+
+
+<div class="viewcode-block" id="extend_dimensions"><a class="viewcode-back" href="../../modules.html#envlib.extend_dim.extend_dimensions">[docs]</a><span class="k">def</span> <span class="nf">extend_dimensions</span><span class="p">(</span><span class="n">inf_coord</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">ds_sur</span><span class="p">,</span> <span class="n">ex_variables</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Unifies the dimension of all types of given data as either 4-dimensional or 5-dimensional arrays, depending on</span>
+<span class="sd">    the existence of ensemble members. If the data has only two fields: latitude and longitude, this function</span>
+<span class="sd">    adds time and level fields, (e.g., for the deterministic data products: (latitude:360, longitude:720) -&gt; (time:1, pressure level:1, latitude:360, longitude:720)).</span>
+
+<span class="sd">    :param ds: Information on original coordinates.</span>
+<span class="sd">    :type ds: dict</span>
+
+<span class="sd">    :param ds: Dataset openned with xarray containing variables on pressure levels.</span>
+<span class="sd">    :type ds: Dataset</span>
+
+<span class="sd">    :param ds_sur: Dataset containing surface parameters openned with xarray.</span>
+<span class="sd">    :type ds_sur: Dataset</span>
+
+<span class="sd">    :param inf_coord: new coordinates</span>
+<span class="sd">    :type ex_variables: dict</span>
+
+<span class="sd">    :returns ds_pl: new dataset of pressure level variables regarding the added coordinates</span>
+<span class="sd">    :rtype: dataset</span>
+
+<span class="sd">    :returns ds_surf: new dataset of surface parameters regarding the added coordinates</span>
+<span class="sd">    :rtype: dataset</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># TODO: get ti_le from user</span>
+    <span class="n">ti_le</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">datetime64</span><span class="p">(</span><span class="s1">&#39;2018-06-23T12&#39;</span><span class="p">),</span> <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="mi">300</span><span class="p">}</span>
+    <span class="n">pl_variables</span> <span class="o">=</span> <span class="n">ex_variables</span><span class="p">[</span><span class="s1">&#39;ex_pl_name&#39;</span><span class="p">]</span>
+    <span class="n">coor_name</span> <span class="o">=</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;coor_name&#39;</span><span class="p">]</span>
+    <span class="n">inf_coord_sur_logic</span> <span class="o">=</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">]</span>
+    <span class="k">if</span> <span class="n">ds</span><span class="p">:</span>
+        <span class="n">values_pl</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">n_lat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">n_lon</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+
+        <span class="k">if</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;level&#39;</span><span class="p">]:</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]:</span>
+                <span class="n">coordinate_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">n_mem</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">n_tim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">pl_variables</span><span class="p">:</span>
+                    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_tim</span><span class="p">,</span> <span class="n">n_mem</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_lat</span><span class="p">,</span> <span class="n">n_lon</span><span class="p">))</span>
+                    <span class="n">A</span><span class="p">[:,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span>
+                    <span class="n">values_pl</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+                <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">elif</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;level&#39;</span><span class="p">]:</span>
+                <span class="n">coordinate_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">n_mem</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">n_lev</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">4</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">pl_variables</span><span class="p">:</span>
+                    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_mem</span><span class="p">,</span> <span class="n">n_lev</span><span class="p">,</span> <span class="n">n_lat</span><span class="p">,</span> <span class="n">n_lon</span><span class="p">))</span>
+                    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span>
+                    <span class="n">values_pl</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+                <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">coordinate_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">n_mem</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">pl_variables</span><span class="p">:</span>
+                    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_mem</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_lat</span><span class="p">,</span> <span class="n">n_lon</span><span class="p">))</span>
+                    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span>
+                    <span class="n">values_pl</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+                <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;coor_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coordinate_names</span>
+            <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;pre_coor_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;number&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">]</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;level&#39;</span><span class="p">]:</span>
+                <span class="k">pass</span>
+            <span class="k">elif</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]:</span>
+                <span class="n">coordinate_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">n_tim</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">pl_variables</span><span class="p">:</span>
+                    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_tim</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_lat</span><span class="p">,</span> <span class="n">n_lon</span><span class="p">))</span>
+                    <span class="n">A</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span>
+                    <span class="n">values_pl</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+                <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="k">elif</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;level&#39;</span><span class="p">]:</span>
+                <span class="n">coordinate_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">n_lev</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">pl_variables</span><span class="p">:</span>
+                    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_lev</span><span class="p">,</span> <span class="n">n_lat</span><span class="p">,</span> <span class="n">n_lon</span><span class="p">))</span>
+                    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span>
+                    <span class="n">values_pl</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+                <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">coordinate_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]]</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
+                <span class="k">for</span> <span class="n">tag</span> <span class="ow">in</span> <span class="n">pl_variables</span><span class="p">:</span>
+                    <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_lat</span><span class="p">,</span> <span class="n">n_lon</span><span class="p">))</span>
+                    <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[</span> <span class="p">:,</span> <span class="p">:]</span>
+                    <span class="n">values_pl</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+                <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+                <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+            <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;coor_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">coordinate_names</span>
+            <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;pre_coor_name&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">]</span>
+        <span class="n">ds_pl</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">values_pl</span><span class="p">,</span> <span class="n">axes</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">ds_sur</span><span class="p">:</span>
+        <span class="n">axes</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">values_sur</span> <span class="o">=</span> <span class="p">{}</span>
+        <span class="n">n_lat</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_sur</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">n_lon</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_sur</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+        <span class="k">if</span> <span class="n">inf_coord</span><span class="p">[</span><span class="s1">&#39;logic_coordinate&#39;</span><span class="p">][</span><span class="s1">&#39;member&#39;</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">inf_coord_sur_logic</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">coordinate_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">n_mem</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">ds_sur</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span><span class="p">)</span>
+                <span class="n">axes</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span> <span class="o">=</span> <span class="n">ds_sur</span><span class="p">[</span><span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">]]</span><span class="o">.</span><span class="n">values</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
+                <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_mem</span><span class="p">,</span> <span class="n">n_lat</span><span class="p">,</span> <span class="n">n_lon</span><span class="p">))</span>
+                <span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;ttr&#39;</span>
+                <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ds_sur</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:,</span> <span class="p">:]</span>
+                <span class="n">values_sur</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">inf_coord_sur_logic</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]:</span>
+                <span class="k">pass</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">coordinate_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">],</span> <span class="n">coor_name</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]]</span>
+                <span class="n">axes</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">ti_le</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]]</span>
+                <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="n">n_lat</span><span class="p">,</span> <span class="n">n_lon</span><span class="p">))</span>
+                <span class="n">tag</span> <span class="o">=</span> <span class="s1">&#39;ttr&#39;</span>
+                <span class="n">A</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">ds_sur</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span><span class="o">.</span><span class="n">values</span><span class="p">[:,</span> <span class="p">:]</span>
+                <span class="n">values_sur</span><span class="p">[</span><span class="n">tag</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="nb">tuple</span><span class="p">(</span><span class="n">coordinate_names</span><span class="p">),</span> <span class="n">A</span><span class="p">)</span>
+        <span class="n">ds_surf</span> <span class="o">=</span> <span class="n">xr</span><span class="o">.</span><span class="n">Dataset</span><span class="p">(</span><span class="n">values_sur</span><span class="p">,</span> <span class="n">axes</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">ds_surf</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="n">inf_coord</span><span class="p">,</span> <span class="n">ds_pl</span><span class="p">,</span> <span class="n">ds_surf</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">envlib</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#input">Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#running-output">Running &amp; Output</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Processing of meteorological input data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of meteorological input data from alternative variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrail Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-prototype-accfs">Calculation of prototype aCCFs</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Abolfazl Simorgh.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>

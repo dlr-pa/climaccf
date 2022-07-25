@@ -28,7 +28,7 @@ def get_pcfa(ds, member, confg):
         ri = ri_
     presistancy = np.zeros(ds.t.values.shape)
 
-    if confg['PCFA'] == 'ISSR+SAC':
+    if confg['PCFA'] == 'SAC':
         # Formation condition using  Schmidt-Appleman Criterion (Appleman, 1953)
         formation = np.zeros(ds.t.values.shape)
         [rw_thr, temp_thr] = get_cont_form_thr(ds, member, confg['SAC'])
@@ -45,7 +45,7 @@ def get_pcfa(ds, member, confg):
         presistancy[ds.t.values >= confg['ISSR']['temp_threshold']] = 0
         pcfa = presistancy
     else:
-        raise ValueError("The correct options are: ISSR+SAC and ISSR")        
+        raise ValueError("The correct options are: SAC and ISSR")        
     return pcfa
 
 

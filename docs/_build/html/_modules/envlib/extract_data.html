@@ -1,0 +1,405 @@
+
+<!DOCTYPE html>
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>envlib.extract_data &#8212; envlib V1.0 documentation</title>
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/alabaster.css" />
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+   
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <h1>Source code for envlib.extract_data</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/env python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="kn">from</span> <span class="nn">envlib.extend_dim</span> <span class="kn">import</span> <span class="o">*</span>
+
+
+<div class="viewcode-block" id="extract_data_variables"><a class="viewcode-back" href="../../modules.html#envlib.extract_data.extract_data_variables">[docs]</a><span class="k">def</span> <span class="nf">extract_data_variables</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">ds_sr</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Extract available required variables in the dataset defined with different possible names.</span>
+
+<span class="sd">    :param ds: Dataset openned with xarray.</span>
+<span class="sd">    :type ds: Dataset</span>
+
+<span class="sd">    :param ds_sr: Dataset containing surface parameters openned with xarray.</span>
+<span class="sd">    :type ds_sr: Dataset</span>
+
+<span class="sd">    :param verbose: Used to show more information.</span>
+<span class="sd">    :type verbose: bool</span>
+
+<span class="sd">    :returns ex_var_name: Available required weather variables.</span>
+<span class="sd">    :rtype: list</span>
+
+<span class="sd">    :returns variables: Assigns bool to the required wethear variables.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">variables</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;pvu&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;t&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;z&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;ttr&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;ssrd&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;q&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;r&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;u&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="s1">&#39;v&#39;</span><span class="p">:</span> <span class="kc">True</span>
+    <span class="p">}</span>
+
+    <span class="n">potential_var_names</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;potential_vorticity&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;pv&#39;</span><span class="p">,</span> <span class="s1">&#39;PVU&#39;</span><span class="p">,</span> <span class="s1">&#39;pvu&#39;</span><span class="p">,</span> <span class="s1">&#39;PV&#39;</span><span class="p">,</span><span class="s1">&#39;var060&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;Temperature&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">,</span> <span class="s1">&#39;T&#39;</span><span class="p">,</span><span class="s1">&#39;var130&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;Geopotential&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">,</span> <span class="s1">&#39;Z&#39;</span><span class="p">,</span> <span class="s1">&#39;GH&#39;</span><span class="p">,</span><span class="s1">&#39;var130’,’geopot&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;relative_humidity&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">,</span> <span class="s1">&#39;R&#39;</span><span class="p">,</span><span class="s1">&#39;var157&#39;</span><span class="p">,</span><span class="s1">&#39;rhum&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;specific_humidity&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">,</span> <span class="s1">&#39;Q&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;U_component_wind&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">,</span> <span class="s1">&#39;U&#39;</span><span class="p">,</span><span class="s1">&#39;var131&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;V_component_wind&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">,</span> <span class="s1">&#39;V&#39;</span><span class="p">,</span><span class="s1">&#39;var132&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;top_net_termal_radiation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;ttr&#39;</span><span class="p">,</span><span class="s1">&#39;var176&#39;</span><span class="p">],</span>
+        <span class="s1">&#39;surface_solar_downward_radiation&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;ssrd&#39;</span><span class="p">,</span><span class="s1">&#39;var169&#39;</span><span class="p">,</span> <span class="s1">&#39;tisr&#39;</span><span class="p">]</span> <span class="c1"># &#39;tisr&#39;: TOA incident solar radiation</span>
+    <span class="p">}</span>
+    <span class="n">dict_attrs</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="c1"># names of variables exist in dataset</span>
+    <span class="n">ex_var_name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pl_var_name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># preferred names for variables which are the first name within the potential var names</span>
+    <span class="n">pre_var_name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># TODO: check if olr is directly given</span>
+    <span class="k">for</span> <span class="n">var_</span> <span class="ow">in</span> <span class="n">potential_var_names</span><span class="p">:</span>
+        <span class="n">name_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pre_name_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">if</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;top_net_termal_radiation&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">potential_var_names</span><span class="p">[</span><span class="n">var_</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">ds_sr</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">ds_sr</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                        <span class="n">name_</span> <span class="o">=</span> <span class="s1">&#39;ttr&#39;</span>
+                        <span class="n">pre_name_</span> <span class="o">=</span> <span class="s1">&#39;ttr&#39;</span>
+                        <span class="n">dict_attrs</span><span class="p">[</span><span class="n">pre_name_</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_sr</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span> 
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                        <span class="n">name_</span> <span class="o">=</span> <span class="s1">&#39;ttr&#39;</span>
+                        <span class="n">pre_name_</span> <span class="o">=</span> <span class="s1">&#39;ttr&#39;</span>
+                        <span class="n">dict_attrs</span><span class="p">[</span><span class="n">pre_name_</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">pass</span>      
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;surface_solar_downward_radiation&#39;</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">potential_var_names</span><span class="p">[</span><span class="n">var_</span><span class="p">]:</span>
+                <span class="k">if</span> <span class="n">ds_sr</span><span class="p">:</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">ds_sr</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                        <span class="n">name_</span> <span class="o">=</span> <span class="s1">&#39;ssrd&#39;</span>
+                        <span class="n">pre_name_</span> <span class="o">=</span> <span class="s1">&#39;ssrd&#39;</span>
+                        <span class="n">dict_attrs</span><span class="p">[</span><span class="n">pre_name_</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds_sr</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span>
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">pass</span>
+                <span class="k">else</span><span class="p">:</span>    
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                        <span class="n">name_</span> <span class="o">=</span> <span class="s1">&#39;ssrd&#39;</span>
+                        <span class="n">pre_name_</span> <span class="o">=</span> <span class="s1">&#39;ssrd&#39;</span>
+                        <span class="n">dict_attrs</span><span class="p">[</span><span class="n">pre_name_</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span>    
+                    <span class="k">except</span><span class="p">:</span>
+                        <span class="k">pass</span>            
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">potential_var_names</span><span class="p">[</span><span class="n">var_</span><span class="p">]:</span>
+                <span class="k">try</span><span class="p">:</span>
+                    <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                    <span class="n">name_</span> <span class="o">=</span> <span class="n">name</span>
+                    <span class="n">pre_name_</span> <span class="o">=</span> <span class="n">potential_var_names</span><span class="p">[</span><span class="n">var_</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                    <span class="n">dict_attrs</span><span class="p">[</span><span class="n">pre_name_</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span>                    
+                <span class="k">except</span><span class="p">:</span>
+                    <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">name_</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">var_</span> <span class="o">!=</span> <span class="s1">&#39;top_net_termal_radiation&#39;</span> <span class="ow">and</span> <span class="n">var_</span> <span class="o">!=</span> <span class="s1">&#39;surface_solar_downward_radiation&#39;</span><span class="p">:</span>
+                <span class="n">pl_var_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_</span><span class="p">)</span>
+            <span class="n">ex_var_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_</span><span class="p">)</span>
+            <span class="n">pre_var_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pre_name_</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;potential_vorticity&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span> <span class="s1">&#39;---- </span><span class="se">\033</span><span class="s1">[95m List of unavailable variables required for calculating aCCF ---- </span><span class="se">\033</span><span class="s1">[0m&#39;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span> <span class="o">+</span> <span class="s1">&#39;aCCF of water vapour cannot be calculated, unless temperature and components &#39;</span>
+                                   <span class="s1">&#39;of winds are given&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;pvu&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;Temperature&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span>
+                    <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span> <span class="o">+</span> <span class="s1">&#39;aCCFs of day/night time contrails and aCCF of Ozone cannot be calculated&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;Geopotential&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span> <span class="o">+</span> <span class="s1">&#39;aCCFs of Ozone and Methane cannot be calculated&#39;</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;relative_humidity&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span> <span class="o">+</span> <span class="s1">&#39;Persistant contrail formation areas cannot be calculated, unless specific &#39;</span>
+                                   <span class="s1">&#39;humidity is given --&gt; No aCCF of contrails&#39;</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;top_net_termal_radiation&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[91m&#39;</span> <span class="o">+</span> <span class="s1">&#39;aCCF of day-time contrails cannot be calculated&#39;</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;ttr&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;surface_solar_downward_radiation&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span><span class="p">)</span>
+                <span class="c1">#print(&#39;\033[91m&#39; + &#39;aCCF of day-time and contrails cannot be calculated&#39; &quot;\033[0m&quot; &quot;\n&quot;)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;ssrd&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;specific_humidity&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;U_component_wind&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;V_component_wind&#39;</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">verbose</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;** variable &#39;</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\033</span><span class="s1">[93m&#39;</span> <span class="o">+</span> <span class="n">var_</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\033</span><span class="s2">[0m&quot;</span> <span class="s1">&#39; is not available **&#39;</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+            <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">inf_variable</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;ex_name&#39;</span><span class="p">:</span> <span class="n">ex_var_name</span><span class="p">,</span> <span class="s1">&#39;pre_name&#39;</span><span class="p">:</span> <span class="n">pre_var_name</span><span class="p">,</span> <span class="s1">&#39;logic_variable&#39;</span><span class="p">:</span> <span class="n">variables</span><span class="p">,</span>
+                    <span class="s1">&#39;ex_pl_name&#39;</span><span class="p">:</span> <span class="n">pl_var_name</span><span class="p">}</span>
+    <span class="k">return</span> <span class="n">inf_variable</span><span class="p">,</span> <span class="n">dict_attrs</span></div>
+
+
+<div class="viewcode-block" id="logic_cal_accfs"><a class="viewcode-back" href="../../modules.html#envlib.extract_data.logic_cal_accfs">[docs]</a><span class="k">def</span> <span class="nf">logic_cal_accfs</span><span class="p">(</span><span class="n">variables</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Creates a dictionary containing logical values showing the possibility to calculate each aCCF.</span>
+
+<span class="sd">    :param variables: Variables available in the given dataset.</span>
+<span class="sd">    :type variables: dict</span>
+
+<span class="sd">    :returns: dictionary containing logical values showing the possibility to calculate each aCCF.</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="n">aCCF_cal</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">H2O</span> <span class="o">=</span> <span class="p">{}</span>
+    <span class="n">pcfa</span> <span class="o">=</span> <span class="p">{}</span>
+
+    <span class="c1"># Calculation of aCCF for water vapour</span>
+    <span class="k">if</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;pvu&#39;</span><span class="p">]:</span>
+        <span class="n">H2O</span><span class="p">[</span><span class="s1">&#39;cal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">H2O</span><span class="p">[</span><span class="s1">&#39;meth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;dir&#39;</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;H2O&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">H2O</span>
+    <span class="k">elif</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;u&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;v&#39;</span><span class="p">]:</span>
+        <span class="n">H2O</span><span class="p">[</span><span class="s1">&#39;cal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="n">H2O</span><span class="p">[</span><span class="s1">&#39;meth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;indir&#39;</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;H2O&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">H2O</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;H2O&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Calculation of aCCF for Day/Night-time contrails</span>
+    <span class="k">if</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]</span> <span class="ow">and</span> <span class="p">(</span><span class="n">variables</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;q&#39;</span><span class="p">]):</span>
+        <span class="n">pcfa</span><span class="p">[</span><span class="s1">&#39;cal&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;r&#39;</span><span class="p">]:</span>
+            <span class="n">pcfa</span><span class="p">[</span><span class="s1">&#39;meth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;dir&#39;</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">pcfa</span><span class="p">[</span><span class="s1">&#39;meth&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;indir&#39;</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;pcfa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pcfa</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;nCont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;ttr&#39;</span><span class="p">]:</span>
+            <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;dCont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;dCont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">if</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;ssrd&#39;</span><span class="p">]:</span>
+            <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;contrail_adaptive&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>    
+        <span class="k">else</span><span class="p">:</span>    
+            <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;contrail_adaptive&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>   
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;pcfa&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;nCont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;dCont&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="c1"># Calculation of aCCFs for NOx emission:</span>
+    <span class="k">if</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;z&#39;</span><span class="p">]:</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;CH4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">if</span> <span class="n">variables</span><span class="p">[</span><span class="s1">&#39;t&#39;</span><span class="p">]:</span>
+            <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;O3&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="n">aCCF_cal</span><span class="p">[</span><span class="s1">&#39;CH4&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+
+    <span class="k">return</span> <span class="n">aCCF_cal</span></div>
+
+
+<div class="viewcode-block" id="extract_coordinates"><a class="viewcode-back" href="../../modules.html#envlib.extract_data.extract_coordinates">[docs]</a><span class="k">def</span> <span class="nf">extract_coordinates</span><span class="p">(</span><span class="n">ds</span><span class="p">,</span> <span class="n">ex_variables</span><span class="p">,</span> <span class="n">ds_sur</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Extract coordinates (axes) in the dataset defined with different possible names.</span>
+
+<span class="sd">    :param ds_sur:</span>
+<span class="sd">    :param ds: Dataset openned with xarray.</span>
+<span class="sd">    :type ds: Dataset</span>
+
+<span class="sd">    :returns ex_var_name: List of available coordinates.</span>
+<span class="sd">    :rtype: list</span>
+
+<span class="sd">    :returns variables: Assigns bool to the axes (e.g., if ensemble members are not available, it sets False).</span>
+<span class="sd">    :rtype: dict</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">coords</span> <span class="o">=</span> \
+        <span class="p">{</span>
+            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;member&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+        <span class="p">}</span>
+    <span class="n">potential_coord_names</span> <span class="o">=</span> \
+        <span class="p">{</span>
+            <span class="s1">&#39;time&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">,</span> <span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;Times&#39;</span><span class="p">,</span> <span class="s1">&#39;times&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;member&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;number&#39;</span><span class="p">,</span> <span class="s1">&#39;member&#39;</span><span class="p">,</span> <span class="s1">&#39;members&#39;</span><span class="p">,</span> <span class="s1">&#39;numbers&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;level&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">,</span> <span class="s1">&#39;levels&#39;</span><span class="p">,</span> <span class="s1">&#39;Levels&#39;</span><span class="p">,</span> <span class="s1">&#39;Level&#39;</span><span class="p">,</span> <span class="s1">&#39;isobaricInhPa&#39;</span><span class="p">,</span> <span class="s1">&#39;plev&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;latitudes&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Latitudes&#39;</span><span class="p">,</span> <span class="s1">&#39;Lat&#39;</span><span class="p">,</span> <span class="s1">&#39;lat&#39;</span><span class="p">,</span> <span class="s1">&#39;Lats&#39;</span><span class="p">,</span> <span class="s1">&#39;lats&#39;</span><span class="p">],</span>
+            <span class="s1">&#39;Longitude&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;longitudes&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitude&#39;</span><span class="p">,</span> <span class="s1">&#39;Longitudes&#39;</span><span class="p">,</span> <span class="s1">&#39;Lon&#39;</span><span class="p">,</span> <span class="s1">&#39;lon&#39;</span><span class="p">,</span> <span class="s1">&#39;Lons&#39;</span><span class="p">,</span> <span class="s1">&#39;lons&#39;</span><span class="p">,</span> <span class="s1">&#39;Longs&#39;</span><span class="p">,</span>
+                          <span class="s1">&#39;longs&#39;</span><span class="p">],</span>
+        <span class="p">}</span>
+    <span class="n">dict_coor_attrs</span> <span class="o">=</span> <span class="p">{}</span>    
+    <span class="n">ex_coor_name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="n">pre_coor_name</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">var_</span> <span class="ow">in</span> <span class="n">potential_coord_names</span><span class="p">:</span>
+        <span class="n">name_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="n">pre_name_</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">potential_coord_names</span><span class="p">[</span><span class="n">var_</span><span class="p">]:</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+                <span class="n">name_</span> <span class="o">=</span> <span class="n">name</span>
+                <span class="n">pre_name_</span> <span class="o">=</span> <span class="n">potential_coord_names</span><span class="p">[</span><span class="n">var_</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span>
+                <span class="n">dict_coor_attrs</span><span class="p">[</span><span class="n">pre_name_</span><span class="p">]</span> <span class="o">=</span> <span class="n">ds</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">attrs</span>
+            <span class="k">except</span><span class="p">:</span>
+                <span class="k">pass</span>
+        <span class="k">if</span> <span class="n">name_</span><span class="p">:</span>
+            <span class="n">ex_coor_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">name_</span><span class="p">)</span>
+            <span class="n">pre_coor_name</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">pre_name_</span><span class="p">)</span>
+
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;time&#39;</span><span class="p">:</span>
+            <span class="n">coords</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;member&#39;</span><span class="p">:</span>
+            <span class="n">coords</span><span class="p">[</span><span class="s1">&#39;member&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">var_</span> <span class="o">==</span> <span class="s1">&#39;level&#39;</span><span class="p">:</span>
+            <span class="n">coords</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+    <span class="n">inf_coord</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;coor_name&#39;</span><span class="p">:</span> <span class="n">ex_coor_name</span><span class="p">,</span> <span class="s1">&#39;pre_coor_name&#39;</span><span class="p">:</span> <span class="n">pre_coor_name</span><span class="p">,</span> <span class="s1">&#39;logic_coordinate&#39;</span><span class="p">:</span> <span class="n">coords</span><span class="p">}</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">coords</span><span class="p">[</span><span class="s1">&#39;time&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="ow">not</span> <span class="n">coords</span><span class="p">[</span><span class="s1">&#39;level&#39;</span><span class="p">]:</span>
+        <span class="n">inf_coord</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">ds_sur</span> <span class="o">=</span> <span class="n">extend_dimensions</span><span class="p">(</span><span class="n">inf_coord</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">ds_sur</span><span class="p">,</span> <span class="n">ex_variables</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">inf_coord</span><span class="p">,</span> <span class="n">ds</span><span class="p">,</span> <span class="n">ds_sur</span><span class="p">,</span> <span class="n">dict_coor_attrs</span></div>
+</pre></div>
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="../../index.html">envlib</a></h1>
+
+
+
+
+
+
+<p>
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
+  allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
+</p>
+
+
+
+
+
+<h3>Navigation</h3>
+<p class="caption" role="heading"><span class="caption-text">Getting started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#configuration">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#input">Input</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../gStarted.html#running-output">Running &amp; Output</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html">Processing of meteorological input data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.calc_altrv_vars">Calculation of meteorological input data from alternative variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#weather-store">Weather Store</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#module-envlib.contrail">Persistent Contrail Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../modules.html#calculation-of-prototype-accfs">Calculation of prototype aCCFs</a></li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="../../index.html">Documentation overview</a><ul>
+  <li><a href="../index.html">Module code</a><ul>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="../../search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"/>
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script>document.getElementById('searchbox').style.display = "block"</script>
+
+
+
+
+
+
+
+
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2021, Abolfazl Simorgh.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 5.0.2</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+    </div>
+
+    
+
+    
+  </body>
+</html>
