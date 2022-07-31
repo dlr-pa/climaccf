@@ -2,10 +2,10 @@
 
 
 #########################################################################################
-# Configuration of algorithmic climate change functions aCCFs
+# Configuration of the calculation of algorithmic climate change functions (aCCFs)
 #########################################################################################  
 
-## If true, efficacies are included
+## If true, efficacies are considered in the aCCF calculation
 efficacy: true              
         # Options: true, false
 efficacy-option: lee_2021
@@ -19,10 +19,10 @@ efficacy-option: lee_2021
 
 # Specifies the version of the prototype aCCF
 aCCF-V: V1.1
-        # currently 2 options: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
+        # currently 2 options for aCCFs: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
 
-# User-defined scaling factors of the above secelted aCCF version. Not recommented to 
-# be changed,unless modification of the aCCFs is wanted (e.g. sensitivity studies)
+# User-defined scaling factors of the above selected aCCF version. Not recommented to 
+# be changed from default value 1, unless modification of the aCCFs is wanted (e.g. sensitivity studies)
 aCCF-scalingF:
   CH4: 1
   CO2: 1
@@ -43,50 +43,53 @@ emission_scenario: future_scenario
 TimeHorizon: 20
         # Options: 20, 50, 100
 
-# Determination of areas favorable for the formation of persistent contrails (needed to calculate aCCF of (day/night) contrails).
-PCFA: ISSR
-       # Options: 'ISSR' (Ice-supersaturated reigons), 'SAC' (Ice-supersaturation reigons with Schmidt-Appleman Criterion (Appleman, 1953)) 
+# Determination of persistent contrail formation areas (PCFA), needed to calculate aCCF of (day/night) contrails.
+PCFA: PCFA-ISSR
+       # Options: 'PCFA-ISSR' (PCFA defined by ice-supersaturated regions with threshold for relative humidity over ice and temperature), 'PCFA-SAC' (Contrail formation with Schmidt-Appleman criterion SAC (Appleman, 1953) & 
+       # contrail persistence, if ambient air is ice supersaturated) 
 
-# Parameters for calculating Ice-supersaturated reigons (ISSR)
-ISSR:
+# Parameters for calculating ice-supersaturated regions (ISSR)
+PCFA-ISSR:
   # Specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. 
-  # Note that this threshold depends on the resolution of the input data (for more details see Dietmueller et al. 2022)
+  # Note that for persistent contrails relative humidity over ice has to be greater 100%. However to take into account subgridscale variability in humidity field of input data, the threshold of relative humidity (over ice) 
+  # has to be adopted for the selected resolution of data product (for more details see Dietmueller et al. 2022)
   rhi_threshold: 0.9
        # Options: user defined threshold value < 1. Threshold depends on the used data set, e.g., 
        # in case of the reanalysis data product ERA5 with high resolution (HRES) it is 0.9
   temp_threshold: 235
 
-# Parameters for calculating Schmidt-Appleman Criterion (SAC). These parameters can vary for different aircraft types.
-SAC:
+# Parameters for calculating Schmidt-Appleman criterion (SAC). These parameters vary for different aircraft types.
+PCFA-SAC:
   # water vapour emission's index in [kg(H2O)/kg(fuel)]
   EI_H2O: 1.25
   # Fuel specific energy in [J/kg]
   Q: 43000000.0
-  # Engine’s overall efficiency
+  # Engine's overall efficiency
   eta: 0.3
 
 
 ###########################################################################################
-# Technical Specifiactions of Aircraft/Engine dependent Parameters
+# Technical specifiactions of aircraft/engine dependent parameters
 ###########################################################################################  
 
-# Specifies NOx Emission Index (NOx_EI) and flown distance per kg burnt fuel (F_km) 
+# Specifies the values of NOx emission index (NOx_EI) and flown distance per kg burnt fuel (F_km) 
 NOx_EI&F_km: TTV
-       # Options: 'TTV' for typical transantlantic fleet mean values from literature and  'ac_dependent' for altitude and aircraft/engine dependent values
-       # Note that "If Confg['NOx_EI&F_km'] = 'TTV', the following confg['ac_type'] is ignored."
+       # Options: 'TTV' for typical transantlantic fleet mean values (NOx_EI, F_km) from literature (Penner et al. 1999, Graver and Rutherford 2018) and  
+       # 'ac_dependent' for altitude and aircraft/engine dependent values (NOx_EI, F_km) 
+       # Note that if Confg['NOx_EI&F_km'] = 'TTV', the following confg['ac_type'] is ignored.
 
-# If Confg['NOx_EI&F_km'] = 'ac_dependent', aggregated aircraft type needs to be selected. 
-# Note that these values take into account the altitude dependence of NOx_EI and F_km (for more details see Dietmueller et al. 2022)
+# If Confg['NOx_EI&F_km'] = 'ac_dependent', aircraft class (i.e. regional, single-aisle, wide-body) needs to be selected. 
+# For these aircraft classes aggregated fleet-level values of NOx_EI and F_km are provided (for more details see Dietmueller et al. 2022).
 ac_type: wide-body
        # Options: 'regional', 'single-aisle', 'wide-body'
 
 # weather-dependent coefficients for calculating NOx emission index using Boeing Fuel Flow Method 2 (BFFM2)
-Coef.BFFM2: true
+Coef.BFFM2: false
        # Options: true, false
 method_BFFM2_SH: SH
        
 ############################################################################################
-# Output Options
+# Specifies the saved output file
 ############################################################################################  
 
 # If true, the primary mode ozone (PMO) effect is included to the CH4 aCCF and the total NOx aCCF
@@ -97,7 +100,7 @@ PMO: true
 NOx_aCCF: false
       # Options: true, false
 
-# If true, all individual aCCFs are converted to K/kg(fuel) and outputted in this unit.
+# If true, all individual aCCFs are converted to the same unit of K/kg(fuel) and saved in the output file.
 unit_K/kg(fuel): false
       # Options: true, false
 
@@ -106,44 +109,64 @@ merged: true
       # Options: true, false
 
 # If true, climate hotspots (regions that are very senitive to aviation emissisions) are calculated (for more details see Dietmueller et al. 2022)
-Chotspots: false
+Chotspots: true
       # Options: true, false
 
-# If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified 
-# threshold, and 1 for areas with higher climate impacts than the threshold)
-# If false, it assigns 0 for areas with climate impacts below the specified threshold and gives actual values for those
-# areas with higher climate impacts than the threshold.
-hotspots_binary: false
+# If constant, climate hotspots are calculated based on the user-specified threshold, 
+# if dynamic, the thresholds for identifying climate hotspots are determined dynamically by calculating the 
+# selected percentile value of the probability density function of the merged aCCF over a certain geographical region (for details, see Dietmueller et al. 2022).
+Chotspots_calc_method: dynamic
+      # Options: constant, dynamic 
+
+# Specifies the constant threshold for calculating climate hotspots (if Chotspots_calc_method: constant).
+Chotspots_calc_method_cons: 1e-13
+
+# Specifies the percentile and geographical region for calculating climate hotspots (if Chotspots_calc_method: dynamic). Percentiles are saved in the output file 
+Chotspots_calc_method_dynm:
+      hotspots_percentile: 95
+            # Options: percentage < 100              
+      latitude: null 
+            # Options: (lat_min, lat_max), null  
+      longitude: null
+            # Options: (lon_min, lon_max), null              
+
+# If true, it assigns binary values to climate hotspots (0: areas with climate impacts below a specified threshold. 1: areas with climate impacts above a specified threshold)
+# If false, it assigns 0 for areas with climate impacts below the specified threshold and provides values of merged aCCFs for areas with climate impacts above the threshold.
+hotspots_binary: true
       # Options: true, false
 
-# Determines dynamically the threshold for identifying climate hotspots by calculating the e.g., 99th percentile term of the of
-# the normal distribution of the respective merged aCCF
-# The percentiles are also outputted in netCDF output file
-hotspots_percentile: 99
-      # Options: percentage < 100  
-
-# If true, all meteorological input variables are saved in the netCDF output file in same resolution as aCCFs
+# If true, meteorological input variables, needed to calculate aCCFs, are saved in the netCDF output file in same resolution as the aCCFs
 MET_variables: false
-      # Options: true, false
+      # Options: true, false      
 
 # If true, polygons containing climate hotspots will be saved in the GeoJson file
-geojson: false
+geojson: true
       # Options: true, false
 
 # Specifies the color of polygons
 color: copper
       # Options: colors of cmap, e.g., copper, jet, Reds
 
-###########################################################################################
-# Output Options for Statistical analysis of Ensemble prediction system (EPS) data products
-###########################################################################################  
+# Specifies the horizontal resolution      
+horizontal_resolution: 0.5
+      # Options: lower resolutions in degrees      
+
+# Specifies geographical region      
+lat_bound: null
+      # Options: (lat_min, lat_max), null
+lon_bound: null
+      # Options: (lon_min, lon_max), null
+
+########################################################################################################
+# Specifies output for statistical analysis, if ensemble prediction system (EPS) data products are used
+######################################################################################################## 
 
 # The following two options (confg['mean'], confg['std']) are ignored if the input data are deterministic
 
-# If true, mean values of aCCFs and variables are saved in the netCDF output file
+# If true, mean values of aCCFs and meteorological variables are saved in the output file
 mean: false
       # Options: true, false
 
-# If true, standard deviation of aCCFs and variables are saved in the netCDF output file
+# If true, standard deviation of aCCFs and meteorological variables are saved in the output file
 std: false
       # Options: true, false

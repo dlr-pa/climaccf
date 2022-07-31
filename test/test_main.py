@@ -24,6 +24,5 @@ def test_main():
     """ %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% """
     
     # Specification of output in terms of resolution and covered geographical area
-    CI = ClimateImpact(path_, horizontal_resolution=0.5, lat_bound=(33.5, 70.0), lon_bound=(-26.5, 45.5),
-                                          save_path=path_save)
+    CI = ClimateImpact(path_, path_save, **confg)
     CI.calculate_accfs(**confg)

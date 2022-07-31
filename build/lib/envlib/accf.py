@@ -5,6 +5,7 @@ import xarray as xr
 from envlib.contrail import *
 from envlib.database import *
 from envlib.emission_indices import *
+from envlib.weather_store import get_bound_indexes
 from scipy.stats import norm
 from scipy import integrate
 
@@ -175,10 +176,11 @@ class GeTaCCFs(object):
         """
         Calculates individual aCCFs, the merged aCCF and climate hotspots based on the defined configurations, parameters and etc. 
         """
-        confg = {'efficacy': False, 'efficacy-option': 'lee_2021', 'aCCF-V': 'V1.0', 'emission_scenario': 'pulse', 'PCFA': 'ISSR', 'ISSR': {'rhi_threshold': 0.95, 'temp_threshold': 235}, 'sep_ri_rw' : False, 
-                 'SAC': {'Q': 43 * 1e6, 'eta': 0.3, 'EI_H2O': 1.25}, 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False, 'merged': True, 'NOx_aCCF': True, 'NOx_EI&F_km': 'TTV', 
-                 'Chotspots': True, 'hotspots_binary': True, 'hotspots_thr': False, 'MET_variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False,
-                 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'hotspots_percentile': 99, 'method_BFFM2_SH': 'RH', 'ac_type': 'wide-body', 'aCCF-scalingF': {'CH4': 1, 'O3': 1, 'H2O': 1, 'Cont.': 1, 'CO2': 1}}
+        confg = {'efficacy': False, 'efficacy-option': 'lee_2021', 'aCCF-V': 'V1.0', 'emission_scenario': 'pulse', 'PCFA': 'PCFA-ISSR', 'PCFA-ISSR': {'rhi_threshold': 0.95, 'temp_threshold': 235}, 'sep_ri_rw' : False, 
+                 'PCFA-SAC': {'Q': 43 * 1e6, 'eta': 0.3, 'EI_H2O': 1.25}, 'climate_indicator': 'ATR', 'TimeHorizon': 20, 'PMO': False, 'merged': True, 'NOx_aCCF': True, 'NOx_EI&F_km': 'TTV', 
+                 'Chotspots': True, 'hotspots_binary': True, 'MET_variables': True, 'mean': True, 'std': True, 'pcfa': True, 'educated_guess_v1.0': False, 'Chotspots_calc_method': 'dynamic', 'Chotspots_calc_method_cons': 1e-13,
+                 'Chotspots_calc_method_dynm': {'hotspots_percentile': 95, 'latitude': False, 'longitude': False}, 'Coef.BFFM2': False, 'unit_K/kg(fuel)': False, 'method_BFFM2_SH': 'RH', 'ac_type': 'wide-body', 
+                 'aCCF-scalingF': {'CH4': 1, 'O3': 1, 'H2O': 1, 'Cont.': 1, 'CO2': 1}}
         confg.update(problem_config)
         self.variables = confg['MET_variables']
         self.aCCF_Version = confg['aCCF-V']    
@@ -355,13 +357,34 @@ class GeTaCCFs(object):
 
         if confg['Chotspots']:
             if self.merged_bool:
-                self.Hotspots = self.merged_aCCF.copy()
-                if confg['hotspots_thr']:
-                    thr = confg['hotspots_thr']
-                    self.Hotspots[self.Hotspots <= thr] = 0
+                self.Hotspots = self.merged_aCCF.copy()                
+                if confg['Chotspots_calc_method'] == 'constant':
+                    thr = confg['Chotspots_calc_method_cons']
+                    try:
+                        self.Hotspots[self.Hotspots <= thr] = 0
+                    except:
+                        thr = eval(thr)
+                        self.Hotspots[self.Hotspots <= thr] = 0    
                     if confg['hotspots_binary']:
                         self.Hotspots[self.Hotspots > thr] = 1
-                else:
+                elif confg['Chotspots_calc_method'] == 'dynamic':
+
+                    if confg['Chotspots_calc_method_dynm']['latitude']:
+                        lat_range = get_bound_indexes(self.ds.latitude.values, eval(confg['Chotspots_calc_method_dynm']['latitude']), verbose=False)
+                        lat_idx_min, lat_idx_max  =  lat_range.start, lat_range.stop
+                        check_non_range ('latitude', eval(confg['Chotspots_calc_method_dynm']['latitude']), self.ds, lat_idx_min, lat_idx_max)
+                        len_reduced_lat = self.ds.latitude.values [lat_idx_min: lat_idx_max].shape[0]
+                    else:
+                        len_reduced_lat = self.ds.latitude.values.shape[0]
+
+                    if confg['Chotspots_calc_method_dynm']['longitude']:
+                        lon_range = get_bound_indexes(self.ds.longitude.values, eval(confg['Chotspots_calc_method_dynm']['longitude']), verbose=False)
+                        lon_idx_min, lon_idx_max  =  lon_range.start, lon_range.stop
+                        check_non_range ('longitude', eval(confg['Chotspots_calc_method_dynm']['longitude']), self.ds, lon_idx_min, lon_idx_max)
+                        len_reduced_lon = self.ds.longitude.values [lon_idx_min: lon_idx_max].shape[0]
+                    else:        
+                        len_reduced_lon = self.ds.longitude.values.shape[0]     
+
                     if self.member_bool:
                         threshold_CH = np.zeros ((self.nt, self.nm, self.nl))
                         for it in range (self.nt):
@@ -369,10 +392,7 @@ class GeTaCCFs(object):
                                 for il in range (self.nl):
                                     array = self.Hotspots [it,im,il,:,:]
                                     array = np.sort(array.flatten(order='C'))
-                                    pdf = scipy.stats.norm(np.mean(array), np.std(array)).pdf(array)
-                                    cdf = integrate.cumtrapz(pdf, array, initial=array[0])
-                                    cut_cdf = cdf[-1] * confg['hotspots_percentile']/100
-                                    index = np.where (cut_cdf <= cdf)[0][0]
+                                    index = int(len_reduced_lat * len_reduced_lon * confg['Chotspots_calc_method_dynm']['hotspots_percentile']/100)-1
                                     thr = threshold_CH [it, im, il] = array [index]
                                     self.Hotspots[it,im,il,:,:][self.Hotspots[it,im,il,:,:] <= thr] = 0
                                     if confg['hotspots_binary']:
@@ -386,10 +406,7 @@ class GeTaCCFs(object):
                             for il in range (self.nl):
                                 array = self.Hotspots [it,il,:,:]
                                 array = np.sort(array.flatten(order='C'))
-                                pdf = norm(np.mean(array), np.std(array)).pdf(array)
-                                cdf = integrate.cumtrapz(pdf, array, initial=array[0])
-                                cut_cdf = cdf[-1] * confg['hotspots_percentile']/100
-                                index = np.where (cut_cdf <= cdf)[0][0]
+                                index = int(len_reduced_lat * len_reduced_lon * confg['Chotspots_calc_method_dynm']['hotspots_percentile']/100)-1
                                 thr = threshold_CH [it, il] = array [index]
                                 self.Hotspots[it,il,:,:][self.Hotspots[it,il,:,:] <= thr] = 0
                                 if confg['hotspots_binary']:
@@ -397,6 +414,8 @@ class GeTaCCFs(object):
                         attrs_hotspots_thr = {'unit': '-', 'long_name': 'threshold for climate hotspots', 'short_name': 'thr for climate hotspots'}            
                         self.var_aCCF_xr['climate_hotspots_thr'] = (tuple(self.coordinate_names[0:2]), threshold_CH, attrs_hotspots_thr)
                         self.aCCF_xr['climate_hotspots_thr'] = (tuple(self.coordinate_names[0:2]), threshold_CH, attrs_hotspots_thr)                                    
+                else:
+                    raise ValueError("The correct options for climate hotspots calculation methods are: constant and dynamic.")        
                 attrs_hotspots = {'unit': '-', 'long_name': 'climate hotspots', 'short_name': 'climate hotspots'}
                 self.var_aCCF_xr['climate_hotspots'] = (tuple(self.coordinate_names), self.Hotspots, attrs_hotspots)
                 self.aCCF_xr['climate_hotspots'] = (tuple(self.coordinate_names), self.Hotspots, attrs_hotspots)
@@ -566,3 +585,11 @@ def get_latlon(ds, member_bool):
     lat = (np.ones(shape_gridlon) * ds['t'].latitude.values).T
     lon = np.ones(shape_gridlat) * ds['t'].longitude.values
     return lat, lon
+
+def check_non_range (name, desired, ds, min_r, max_r):
+    min_d = desired[0]
+    max_d = desired[1]
+    if min_r == None or max_r == None:
+        print("Could not reduce domain along the {} axis for calculating climate hotspots".format(name))
+        print("Current bounds: ({}, {})".format(np.min(ds[name].values), np.max(ds[name].values)))
+        print("Desired bounds: ({}, {})".format(min_d, max_d))    

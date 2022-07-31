@@ -19,33 +19,34 @@ def get_pcfa(ds, member, confg):
     :returns pcfa: Presistent contrail formation areas (PCFA).
     :rtype: numpy.ndarray
     """
-    if confg['PCFA'] == 'ISSR':
-        print('\n\033[93m UserWarning: For this configuration formation of persistent contrails is possible, if temperatures are low enough (below {}K) and relative humidity (with respect to ice) is above or at {}%. However keep in mind that the threshold value for the relative humidity varies with the used forecast model and its resolution. In order to choose the appropriate threshold value, you should read the details given in Section 5.1 of the connected publication of Dietmueller et al. 2022 \033[93m\n'.format(confg['ISSR']['temp_threshold'], confg['ISSR']['rhi_threshold'] * 100))
+    if confg['PCFA'] == 'PCFA-ISSR':
+        print('\n\033[93m UserWarning: For this configuration formation of persistent contrails is possible, if temperatures are low enough (below {}K) and relative humidity (with respect to ice) is above or at {}%. However keep in mind that the threshold value for the relative humidity varies with the used forecast model and its resolution. In order to choose the appropriate threshold value, you should read the details given in Section 5.1 of the connected publication of Dietmueller et al. 2022 \033[93m\n'.format(confg['PCFA-ISSR']['temp_threshold'], confg['PCFA-ISSR']['rhi_threshold'] * 100))
 
     ri = ds.r.values
-    [ri_, rw] = get_relative_hum(ds, member)
+    if confg['PCFA'] == 'PCFA-SAC':
+        [ri_, rw] = get_relative_hum(ds, member)
     if confg['sep_ri_rw']:
         ri = ri_
     presistancy = np.zeros(ds.t.values.shape)
 
-    if confg['PCFA'] == 'SAC':
+    if confg['PCFA'] == 'PCFA-SAC':
         # Formation condition using  Schmidt-Appleman Criterion (Appleman, 1953)
         formation = np.zeros(ds.t.values.shape)
-        [rw_thr, temp_thr] = get_cont_form_thr(ds, member, confg['SAC'])
+        [rw_thr, temp_thr] = get_cont_form_thr(ds, member, confg['PCFA-SAC'])
         formation[ds.t.values <= temp_thr] = 1
         formation[rw < rw_thr] = 0
         formation[rw >= 1] = 0
 
         # persistency conditions
-        presistancy[ri >= confg['ISSR']['rhi_threshold']] = 1
+        presistancy[ri >= confg['PCFA-ISSR']['rhi_threshold']] = 1
         #presistancy[ds.t.values >= confg['ISSR']['temp_threshold']] = 0
         pcfa = formation * presistancy
-    elif confg['PCFA'] == 'ISSR':
-        presistancy[ri >= confg['ISSR']['rhi_threshold']] = 1
-        presistancy[ds.t.values >= confg['ISSR']['temp_threshold']] = 0
+    elif confg['PCFA'] == 'PCFA-ISSR':
+        presistancy[ri >= confg['PCFA-ISSR']['rhi_threshold']] = 1
+        presistancy[ds.t.values >= confg['PCFA-ISSR']['temp_threshold']] = 0
         pcfa = presistancy
     else:
-        raise ValueError("The correct options are: SAC and ISSR")        
+        raise ValueError("The correct options are: PCFA-SAC and PCFA-ISSR")        
     return pcfa
 
 

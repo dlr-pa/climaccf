@@ -7,7 +7,7 @@ from envlib.io import *
 
 
 class ClimateImpact(object):
-    def __init__(self, path, **problem_config):
+    def __init__(self, path, path_out, **problem_config):
         self.p_settings = { # Default settings
             'lat_bound': None,
             'lon_bound': None,
@@ -22,10 +22,12 @@ class ClimateImpact(object):
             'emission_scenario': 'pulse', 
             'climate_indicator': 'ATR', 
             'time_horizon': '20',
-            'ac_type': 'wide-body',    
+            'ac_type': 'wide-body', 
+            'Chotspots': True,   
             'color': 'Reds', 
             'geojson': True,
             'save_path': None}
+        self.p_settings['save_path'] = path_out    
         self.p_settings.update(problem_config)
         self.ds_pl = xr.open_dataset(path['path_pl'])
         if path['path_sur']:
@@ -34,7 +36,7 @@ class ClimateImpact(object):
             self.ds_sur = None
         ws = WeatherStore(self.ds_pl, self.ds_sur, ll_resolution=self.p_settings['horizontal_resolution'])
         if self.p_settings['lat_bound'] and self.p_settings['lon_bound']:
-            ws.reduce_domain({'latitude': self.p_settings['lat_bound'], 'longitude': self.p_settings['lon_bound']})
+            ws.reduce_domain({'latitude': eval(self.p_settings['lat_bound']), 'longitude': eval(self.p_settings['lon_bound'])})
         self.ds = ws.get_xarray()
         self.variable_names = ws.variable_names
         self.pre_variable_names = ws.pre_variable_names
