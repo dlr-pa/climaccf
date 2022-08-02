@@ -114,14 +114,15 @@ Chotspots: true
 
 # If constant, climate hotspots are calculated based on the user-specified threshold, 
 # if dynamic, the thresholds for identifying climate hotspots are determined dynamically by calculating the 
-# selected percentile value of the probability density function of the merged aCCF over a certain geographical region (for details, see Dietmueller et al. 2022).
+# percentile value of the merged aCCF over a certain geographical region (for details, see Dietmueller et al. 2022).
 Chotspots_calc_method: dynamic
       # Options: constant, dynamic 
 
 # Specifies the constant threshold for calculating climate hotspots (if Chotspots_calc_method: constant).
 Chotspots_calc_method_cons: 1e-13
 
-# Specifies the percentile and geographical region for calculating climate hotspots (if Chotspots_calc_method: dynamic). Percentiles are saved in the output file 
+# Specifies the percentage (e.g. 95%) of the percentile value as well as the geographical region for which the percentile of the merged aCCF is calculated.
+# Thus the percentile defines the dynamical threshold for climate hotspots (if Chotspots_calc_method: dynamic). Note that percentiles are saved in the output file 
 Chotspots_calc_method_dynm:
       hotspots_percentile: 95
             # Options: percentage < 100              
