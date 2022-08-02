@@ -11,9 +11,10 @@ efficacy = {'CH4': 1.18, 'O3': 1.37, 'H2O': 1, 'Cont.': 0.42, 'CO2': 1}
 emission_index = {'Cont.': 0.16, 'NOx': 13 * 1e-3}
 
 # Metric conversion factors form pulse emission to future emission scenario over differnt time horizons (see Dietmueller et al. 22)
-P20_F20 = {'CH4': 9.83, 'O3': 14.47, 'H2O': 14.47, 'Cont.': 13.42, 'CO2': 9.28}
-P20_F50 = {'CH4': 41.48, 'O3': 34.13, 'H2O': 34.13, 'Cont.': 29.46, 'CO2': 43.92}
-P20_F100 = {'CH4': 97.37, 'O3': 58.34, 'H2O': 58.34, 'Cont.': 47.31, 'CO2': 124.93}
+P20_F20 = {'CH4': 10.8, 'O3': 14.5, 'H2O': 14.5, 'Cont.': 13.6, 'CO2': 9.4}
+P20_F50 = {'CH4': 42.5, 'O3': 34.1, 'H2O': 34.1, 'Cont.': 30.1, 'CO2': 44.0}
+P20_F100 = {'CH4': 98.2, 'O3': 58.3, 'H2O': 58.3, 'Cont.': 48.9, 'CO2': 125.0}
+
 
 # Scaling factors for the first complete and consistent set of aCCFs  (aCCF-V1.0)
 aCCF_V1_0 = {'CH4':2.03 , 'O3':1.97 , 'H2O':1.92 , 'Cont.': 1, 'CO2': 1}
