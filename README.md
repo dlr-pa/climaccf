@@ -80,7 +80,8 @@ confg['aCCF-V'] = 'V1.1'
 # Option one: 'V1.0': Yin et al. (2022)
 # Option two: 'V1.1': Matthes et al. (2022)
 
-# User-defined scaling factors of the above selected aCCF version. Not recommented to be changed from default value (i.e., 1), unless modification of the aCCFs is wanted (e.g. sensitivity studies)
+# User-defined scaling factors of the above selected aCCF version. 
+# Not recommented to be changed from default value (i.e., 1), unless modification of the aCCFs is wanted (e.g. sensitivity studies)
 confg['aCCF-scalingF'] = {'CH4': 1, 'O3': 1, 'H2O': 1, 'Cont.': 1, 'CO2': 1}
 
 # Specifies the emission scenario of the climate metric. Currently, pulse emission and increasing future emission scenario (business as usual) included
@@ -104,9 +105,12 @@ confg['PCFA'] = PCFA-ISSR
 # Option one: 'PCFA-ISSR' (PCFA defined by ice-supersaturated regions with threshold for relative humidity over ice and temperature)
 # Option two: 'PCFA-SAC' (Contrail formation with Schmidt-Appleman criterion SAC (Appleman, 1953) & contrail persistence, if ambient air is ice supersaturated)
 
-# Parameters for calculating ice-supersaturated regions (ISSR). 'rhi_threshold' specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. Note that for persistent contrails relative humidity over ice has to be greater 100%. However to take into account subgridscale variability in humidity field of input data, the threshold of relative humidity (over ice) has to be adopted for the selected resolution of data product (for more details see Dietmueller et al. 2022)
+# Parameters for calculating ice-supersaturated regions (ISSR). 'rhi_threshold' specifies the threshold of relative humidity over ice in
+# order to identify ice supersaturated regions. Note that for persistent contrails relative humidity over ice has to be greater 100%. However # to take into account subgridscale variability in humidity field of input data, the threshold of relative humidity (over ice) has to be
+# adopted for the selected resolution of data product (for more details see Dietmueller et al. 2022)
 confg['ISSR'] =  {'rhi_threshold': 0.95, 'temp_threshold': 235}      
-# Options for 'rhi_threshold': user defined threshold value < 1. Threshold depends on the used data set, e.g.,in case of the reanalysis data product ERA5 with high resolution (HRES) it is 0.9
+# Options for 'rhi_threshold': user defined threshold value < 1. Threshold depends on the used data set, 
+# e.g.,in case of the reanalysis data product ERA5 with high resolution (HRES) it is 0.9
 
 # Parameters for calculating Schmidt-Appleman criterion (SAC). These parameters vary for different aircraft types.
 confg ['SAC'] = {'Q': 43 * 1e6, 'eta': 0.3, 'EI_H2O': 1.25}      
@@ -122,7 +126,8 @@ confg['NOx_EI&F_km'] = 'TTV'
 # Option two: 'ac_dependent' for altitude and aircraft/engine dependent values (NOx_EI, F_km). 
 # Note that "If Confg['NOx_EI&F_km'] = 'TTV', the following confg['ac_type'] is ignored.
 
-# If Confg['NOx_EI&F_km'] = 'ac_dependent', aircraft class (i.e. regional, single-aisle, wide-body) needs to be selected. For these aircraft classes aggregated fleet-level values of NOx_EI and F_km are provided (for more details see Dietmueller et al. 2022).
+# If Confg['NOx_EI&F_km'] = 'ac_dependent', aircraft class (i.e. regional, single-aisle, wide-body) needs to be selected. 
+# For these aircraft classes aggregated fleet-level values of NOx_EI and F_km are provided (for more details see Dietmueller et al. 2022).
 confg['ac_type'] = 'wide-body'      
 # Option one: 'regional'
 # Option two: 'single-aisle'
@@ -150,7 +155,9 @@ confg['merged'] = True
 confg['Chotspots'] = False      
 # Options: True, False
 
-# If constant, climate hotspots are calculated based on the user-specified threshold, if dynamic, the thresholds for identifying climate hotspots are determined dynamically by calculating the percentile value of the merged aCCF over a certain geographical region (for details, see Dietmueller et al. 2022).
+# If constant, climate hotspots are calculated based on the user-specified threshold, if dynamic, the thresholds for identifying climate
+#hotspots are determined dynamically by calculating the percentile value of the merged aCCF over a certain geographical region 
+# (for details, see Dietmueller et al. 2022).
 confg['Chotspots_calc_method'] = 'dynamic'
 # Option one: 'constant'
 # Option two: 'dynamic'
@@ -158,13 +165,16 @@ confg['Chotspots_calc_method'] = 'dynamic'
 # Specifies the constant threshold for calculating climate hotspots (if Chotspots_calc_method: constant)
 confg['Chotspots_calc_method_cons'] = 1e-13
 
-# Specifies the percentage (e.g. 95%) of the percentile value as well as the geographical region for which the percentile of the merged aCCF is calculated. Thus the percentile defines the dynamical threshold for climate hotspots (if Chotspots_calc_method: dynamic). Note that percentiles are saved in the output file 
+# Specifies the percentage (e.g. 95%) of the percentile value as well as the geographical region for which the percentile of the merged aCCF is calculated. 
+# Thus the percentile defines the dynamical threshold for climate hotspots (if Chotspots_calc_method: dynamic). Note that percentiles are saved in the output file 
 confg ['Chotspots_calc_method_dynm'] = {'hotspots_percentile': 95, 'latitude': False, 'longitude': False}
 # Options for 'hotspots_percentile': percentage < 100
 # Options for 'latitude': (lat_min, lat_max), False
 # Options for 'longitude': (lon_min, lon_max), False
 
-# If true, it assigns binary values to climate hotspots (0: areas with climate impacts below a specified threshold. 1: areas with climate impacts above a specified threshold). If false, it assigns 0 for areas with climate impacts below the specified threshold and provides values of merged aCCFs for areas with climate impacts above the threshold.
+# If true, it assigns binary values to climate hotspots (0: areas with climate impacts below a specified threshold. 
+# 1: areas with climate impacts above a specified threshold). 
+# If false, it assigns 0 for areas with climate impacts below the specified threshold and provides values of merged aCCFs for areas with climate impacts above the threshold.
 confg['hotspots_binary'] = False      
 # Options: True, False
 
@@ -311,10 +321,15 @@ make html
 
 Note that you **should not see** any error or warning, this information appears as red text in the terminal.
 
-
 ## Acknowledmgements
 
 This library has been developed within EU-Projects FlyATM4E and ALARM.
+
 1. **FLyATM4E** has received funding from the SESAR Joint Undertaking under the European Union's Horizon 2020 research and innovation programme under grant agreement No 891317. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
 
 2. **ALARM** has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.*.
+
+
+   
+   
+   

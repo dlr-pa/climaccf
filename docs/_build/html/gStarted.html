@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
-    <title>Installation &#8212; envlib V1.0 documentation</title>
+    <title>Installation &#8212; climaccf V1.0 documentation</title>
     <link rel="stylesheet" type="text/css" href="_static/pygments.css" />
     <link rel="stylesheet" type="text/css" href="_static/alabaster.css" />
     <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
@@ -37,14 +37,12 @@
             
   <section id="installation">
 <h1>Installation<a class="headerlink" href="#installation" title="Permalink to this heading">¶</a></h1>
-<p>The installation is the first step to working with CLIMaCCF. In the following, the steps required to install the library are provided (Some parts need to be modified,
-for instance, I need to check the current CLIMaCCF is compatible with which versions of pythons, and also, for release, we may decide to publish it under
-PyPi, so downloading or cloning the library is not the only option).</p>
+<p>The installation is the first step to working with CLIMaCCF. In the following, the steps required to install the library are provided.</p>
 <ol class="arabic simple" start="0">
 <li><p>it is highly recomended to create a virtual environment:</p></li>
 </ol>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">env_CLIMaCCF</span>
-<span class="n">conda</span> <span class="n">activate</span> <span class="n">env_CLIMaCCF</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">conda</span> <span class="n">create</span> <span class="o">-</span><span class="n">n</span> <span class="n">env_climaccf</span>
+<span class="n">conda</span> <span class="n">activate</span> <span class="n">env_climaccf</span>
 </pre></div>
 </div>
 <ol class="arabic simple">
@@ -67,112 +65,168 @@ PyPi, so downloading or cloning the library is not the only option).</p>
 <section id="configuration">
 <h1>Configuration<a class="headerlink" href="#configuration" title="Permalink to this heading">¶</a></h1>
 <p>The scope of CLIMaCCF is to provide individual and merged aCCFs as spatially and temporally resolved information considering meteorology from the actual synoptical situation, the aircraft type, the selected physical climate metric, and the selected version of prototype algorithms in individual aCCFs. Consequently, some user-preferred settings need to
-be defined. Within CLIMaCCF, theses settings are defined in a dictionary, called <em>confg</em> (i.e., confg [‘name’] = value). Notice that default
-Default values for the settings have been defined within the library database; thus, defining dictionary <em>confg</em> is optional and, if included, overwrites the default ones.</p>
+be defined. Within CLIMaCCF, theses settings are defined in a dictionary, called <em>confg</em> (i.e., confg [‘name’] = value). Notice that default values for the settings have been defined within the library database; thus, defining dictionary <em>confg</em> is optional and, if included, overwrites the default ones.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">confg</span> <span class="o">=</span> <span class="p">{}</span>
 
-<span class="sd">&quot;&quot;&quot;Configuration of algorithmic climate change functions aCCFs &quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;Configuration of the calculation of algorithmic climate change functions (aCCFs) &quot;&quot;&quot;</span>
 
 <span class="c1"># If true, efficacies are included</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;efficacy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>      <span class="c1"># Options: True, False</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;efficacy-option&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;lee et al. (2021)&#39;</span>      <span class="c1"># Option one: &#39;lee_2021&#39; (includes efficacies according to Lee et al. (2021)), Option two: {&#39;CH4&#39;: xx, &#39;O3&#39;: xx, &#39;H2O&#39;: xx, &#39;Cont.&#39;: xx, &#39;CO2&#39;: xx} (user-defined efficacies assigned to xx)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;efficacy&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># Options: True, False</span>
+
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;efficacy-option&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;lee_2021&#39;</span>
+<span class="c1"># Option one: &#39;lee_2021&#39; (efficacies according to Lee et al. (2021))</span>
+<span class="c1"># Option two: {&#39;CH4&#39;: xx, &#39;O3&#39;: xx, &#39;H2O&#39;: xx, &#39;Cont.&#39;: xx, &#39;CO2&#39;: xx} (user-defined efficacies)</span>
 
 <span class="c1"># Specifies the version of the prototype aCCF</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;aCCF-V&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;V1.1&#39;</span>      <span class="c1"># currently 2 options: &#39;V1.0&#39;: Yin et al. (2022), &#39;V1.1&#39;: Matthes et al. (2022)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;aCCF-V&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;V1.1&#39;</span>
+<span class="c1"># Currently 2 options:</span>
+<span class="c1"># Option one: &#39;V1.0&#39;: Yin et al. (2022)</span>
+<span class="c1"># Option two: &#39;V1.1&#39;: Matthes et al. (2022)</span>
 
-<span class="c1"># User-defined scaling factors of the above secelted aCCF version. Not recommented to be changed, unless modification of the aCCFs is wanted (e.g. sensitivity studies)</span>
+<span class="c1"># User-defined scaling factors of the above selected aCCF version. Not recommented to be changed from default value (i.e., 1), unless modification of the aCCFs is wanted (e.g. sensitivity studies)</span>
 <span class="n">confg</span><span class="p">[</span><span class="s1">&#39;aCCF-scalingF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;CH4&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;O3&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;H2O&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;Cont.&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;CO2&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">}</span>
 
 <span class="c1"># Specifies the emission scenario of the climate metric. Currently, pulse emission and increasing future emission scenario (business as usual) included</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;emission_scenario&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;future_scenario&#39;</span>      <span class="c1"># Options: &#39;pulse&#39; and &#39;future_scenario&#39;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;emission_scenario&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;future_scenario&#39;</span>
+<span class="c1"># Currently 2 options:</span>
+<span class="c1"># Option one: &#39;pulse&#39;</span>
+<span class="c1"># Option two: &#39;future_scenario&#39;</span>
 
 <span class="c1"># Specifies the climate indicator. Currently, Average Temperature Response (ATR) has been implemented</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;climate_indicator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ATR&#39;</span>      <span class="c1"># Options: &#39;ATR&#39;</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;climate_indicator&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;ATR&#39;</span>
+<span class="c1"># Currently 1 option: &#39;ATR&#39;</span>
 
 <span class="c1"># Specifies the time horizon (in years) over which the selected climate indicator is calculated</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;TimeHorizon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>      <span class="c1"># Options: 20, 50, 100</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;TimeHorizon&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">20</span>
+<span class="c1"># Option one: 20</span>
+<span class="c1"># Option two: 50</span>
+<span class="c1"># Option three: 100</span>
 
-<span class="c1"># Determination of areas favorable for the formation of persistent contrails (needed to calculate aCCF of (day/night) contrails).</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;PCFA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">ISSR</span>      <span class="c1"># Options: &#39;ISSR&#39; (Ice-supersaturated reigons), &#39;SAC&#39; (Ice-supersaturation reigons with Schmidt-Appleman Criterion (Appleman, 1953))</span>
+<span class="c1"># Determination of persistent contrail formation areas (PCFA), needed to calculate aCCF of (day/night) contrails.</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;PCFA&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">PCFA</span><span class="o">-</span><span class="n">ISSR</span>
+<span class="c1"># Option one: &#39;PCFA-ISSR&#39; (PCFA defined by ice-supersaturated regions with threshold for relative humidity over ice and temperature)</span>
+<span class="c1"># Option two: &#39;PCFA-SAC&#39; (Contrail formation with Schmidt-Appleman criterion SAC (Appleman, 1953) &amp; contrail persistence, if ambient air is ice supersaturated)</span>
 
-<span class="c1"># Specifies the thresholds of relative humidity over ice and temperature in order to identify ice supersaturated regions. Note that the threshold of relative humidity over ice depends on the resolution of the input data (for more details see Dietmueller et al. 2022)</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;ISSR&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="p">{</span><span class="s1">&#39;rhi_threshold&#39;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">,</span> <span class="s1">&#39;temp_threshold&#39;</span><span class="p">:</span> <span class="mi">235</span><span class="p">}</span>      <span class="c1"># Options for &#39;rhi_threshold&#39;: user defined threshold value &lt; 1. Threshold depends on the used data set, e.g., in case of the reanalysis data product ERA5 with high resolution (HRES) it is 0.9</span>
+<span class="c1"># Parameters for calculating ice-supersaturated regions (ISSR). &#39;rhi_threshold&#39; specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. Note that for persistent contrails relative humidity over ice has to be greater 100%. However to take into account subgridscale variability in humidity field of input data, the threshold of relative humidity (over ice) has to be adopted for the selected resolution of data product (for more details see Dietmueller et al. 2022)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;ISSR&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="p">{</span><span class="s1">&#39;rhi_threshold&#39;</span><span class="p">:</span> <span class="mf">0.95</span><span class="p">,</span> <span class="s1">&#39;temp_threshold&#39;</span><span class="p">:</span> <span class="mi">235</span><span class="p">}</span>
+<span class="c1"># Options for &#39;rhi_threshold&#39;: user defined threshold value &lt; 1. Threshold depends on the used data set, e.g.,in case of the reanalysis data product ERA5 with high resolution (HRES) it is 0.9</span>
 
-<span class="c1"># Parameters for calculating Schmidt-Appleman Criterion (SAC). These parameters can vary for different aircraft types.</span>
-<span class="n">confg</span> <span class="p">[</span><span class="s1">&#39;SAC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Q&#39;</span><span class="p">:</span> <span class="mi">43</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s1">&#39;EI_H2O&#39;</span><span class="p">:</span> <span class="mf">1.25</span><span class="p">}</span>      <span class="c1"># &#39;EI_H2O&#39;: water vapour emission&#39;s index in [kg(H2O)/kg(fuel)], &#39;Q&#39;: Fuel specific energy in [J/kg], &#39;eta&#39;: Engine’s overall efficiency</span>
+<span class="c1"># Parameters for calculating Schmidt-Appleman criterion (SAC). These parameters vary for different aircraft types.</span>
+<span class="n">confg</span> <span class="p">[</span><span class="s1">&#39;SAC&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Q&#39;</span><span class="p">:</span> <span class="mi">43</span> <span class="o">*</span> <span class="mf">1e6</span><span class="p">,</span> <span class="s1">&#39;eta&#39;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span> <span class="s1">&#39;EI_H2O&#39;</span><span class="p">:</span> <span class="mf">1.25</span><span class="p">}</span>
+<span class="c1"># &#39;EI_H2O&#39;: water vapour emission&#39;s index in [kg(H2O)/kg(fuel)]</span>
+<span class="c1"># &#39;Q&#39;: Fuel specific energy in [J/kg]</span>
+<span class="c1"># &#39;eta&#39;: Engine’s overall efficiency</span>
 
-<span class="sd">&quot;&quot;&quot; Technical Specifiactions of Aircraft/Engine dependent Parameters&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;Technical specifiactions of aircraft/engine dependent parameters &quot;&quot;&quot;</span>
 
-<span class="c1"># Specifies NOx Emission Index (NOx_EI) and flown distance per kg burnt fuel (F_km)</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx_EI&amp;F_km&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TTV&#39;</span>      <span class="c1"># Options: &#39;TTV&#39; for typical transantlantic fleet mean values from literature and  &#39;ac_dependent&#39; for altitude and aircraft/engine dependent values. Note that &quot;If Confg[&#39;NOx_EI&amp;F_km&#39;] = &#39;TTV&#39;, the following confg[&#39;ac_type&#39;] is ignored.&quot;</span>
+<span class="c1"># Specifies the values of NOx emission index (NOx_EI) and flown distance per kg burnt fuel (F_km)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx_EI&amp;F_km&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;TTV&#39;</span>
+<span class="c1"># Option one: &#39;TTV&#39; for typical transantlantic fleet mean values (NOx_EI, F_km) from literature (Penner et al. 1999, Graver and Rutherford 2018)</span>
+<span class="c1"># Option two: &#39;ac_dependent&#39; for altitude and aircraft/engine dependent values (NOx_EI, F_km).</span>
+<span class="c1"># Note that &quot;If Confg[&#39;NOx_EI&amp;F_km&#39;] = &#39;TTV&#39;, the following confg[&#39;ac_type&#39;] is ignored.</span>
 
-<span class="c1"># If Confg[&#39;NOx_EI&amp;F_km&#39;] = &#39;ac_dependent&#39;, aggregated aircraft type needs to be selected. Note that these values take into account the altitude dependence of NOx_EI and F_km (for more details see Dietmueller et al. 2022)</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;ac_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;wide-body&#39;</span>      <span class="c1"># Options: &#39;regional&#39;, &#39;single-aisle&#39;, &#39;wide-body&#39;</span>
+<span class="c1"># If Confg[&#39;NOx_EI&amp;F_km&#39;] = &#39;ac_dependent&#39;, aircraft class (i.e. regional, single-aisle, wide-body) needs to be selected. For these aircraft classes aggregated fleet-level values of NOx_EI and F_km are provided (for more details see Dietmueller et al. 2022).</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;ac_type&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;wide-body&#39;</span>
+<span class="c1"># Option one: &#39;regional&#39;</span>
+<span class="c1"># Option two: &#39;single-aisle&#39;</span>
+<span class="c1"># Option three: &#39;wide-body&#39;</span>
 
-
-<span class="c1"># weather-dependent coefficients for calculating NOx emission index using Boeing Fuel Flow Method 2 (BFFM2)</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Coef.BFFM2&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>      <span class="c1"># Options: True, False</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;method_BFFM2_SH&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;SH&#39;</span>
-
-<span class="sd">&quot;&quot;&quot;Output Options&quot;&quot;&quot;</span>
+<span class="sd">&quot;&quot;&quot;Specifies the saved output file &quot;&quot;&quot;</span>
 
 <span class="c1"># If true, the primary mode ozone (PMO) effect is included to the CH4 aCCF and the total NOx aCCF</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;PMO&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>      <span class="c1"># Options: True, False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;PMO&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># Options: True, False</span>
 
 <span class="c1"># If true, the total NOx aCCF is calculated (i.e. aCCF-NOx = aCCF-CH4 + aCCF-O3)</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx_aCCF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Options: True, False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;NOx_aCCF&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: True, False</span>
 
-<span class="c1"># If true, all individual aCCFs are converted to K/kg(fuel) and outputted in this unit.</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;unit_K/kg(fuel)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Options: True, False</span>
+<span class="c1"># If true, all individual aCCFs are converted to the same unit of K/kg(fuel) and saved in the output file.</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;unit_K/kg(fuel)&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: True, False</span>
 
 <span class="c1"># If true, merged non-CO2 aCCF is calculated</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;merged&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>      <span class="c1"># Options: True, False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;merged&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>
+<span class="c1"># Options: True, False</span>
 
 <span class="c1"># If true, climate hotspots (regions that are very senitive to aviation emissisions) are calculated (for more details see Dietmueller et al. 2022)</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Chotspots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Options: True, False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Chotspots&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: True, False</span>
 
-<span class="c1"># If true, it assigns binary values to climate hotspots (i.e., 0 for areas with climate impacts below the specified threshold, and 1 for areas with higher climate impacts than the threshold). If false, it assigns 0 for areas with climate impacts below the specified threshold and gives actual values for those areas with higher climate impacts than the threshold.</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_binary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Options: True, False</span>
+<span class="c1"># If constant, climate hotspots are calculated based on the user-specified threshold, if dynamic, the thresholds for identifying climate hotspots are determined dynamically by calculating the percentile value of the merged aCCF over a certain geographical region (for details, see Dietmueller et al. 2022).</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Chotspots_calc_method&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;dynamic&#39;</span>
+<span class="c1"># Option one: &#39;constant&#39;</span>
+<span class="c1"># Option two: &#39;dynamic&#39;</span>
 
-<span class="c1"># Determines dynamically the threshold for identifying climate hotspots by calculating the e.g., 99th percentile term of the of the normal distribution of the respective merged aCCF. The percentiles are also outputted in netCDF output file</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_percentile&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">99</span>      <span class="c1"># Options: percentage &lt; 100</span>
+<span class="c1"># Specifies the constant threshold for calculating climate hotspots (if Chotspots_calc_method: constant)</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;Chotspots_calc_method_cons&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1e-13</span>
 
-<span class="c1"># If true, all meteorological input variables are saved in the netCDF output file in same resolution as aCCFs</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;MET_variables&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Options: True, False</span>
+<span class="c1"># Specifies the percentage (e.g. 95%) of the percentile value as well as the geographical region for which the percentile of the merged aCCF is calculated. Thus the percentile defines the dynamical threshold for climate hotspots (if Chotspots_calc_method: dynamic). Note that percentiles are saved in the output file</span>
+<span class="n">confg</span> <span class="p">[</span><span class="s1">&#39;Chotspots_calc_method_dynm&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;hotspots_percentile&#39;</span><span class="p">:</span> <span class="mi">95</span><span class="p">,</span> <span class="s1">&#39;latitude&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span> <span class="s1">&#39;longitude&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">}</span>
+<span class="c1"># Options for &#39;hotspots_percentile&#39;: percentage &lt; 100</span>
+<span class="c1"># Options for &#39;latitude&#39;: (lat_min, lat_max), False</span>
+<span class="c1"># Options for &#39;longitude&#39;: (lon_min, lon_max), False</span>
+
+<span class="c1"># If true, it assigns binary values to climate hotspots (0: areas with climate impacts below a specified threshold. 1: areas with climate impacts above a specified threshold). If false, it assigns 0 for areas with climate impacts below the specified threshold and provides values of merged aCCFs for areas with climate impacts above the threshold.</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;hotspots_binary&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: True, False</span>
+
+<span class="c1"># If true, meteorological input variables, needed to calculate aCCFs, are saved in the netCDF output file in same resolution as the aCCFs</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;MET_variables&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: True, False</span>
 
 <span class="c1"># If true, polygons containing climate hotspots will be saved in the GeoJson file</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;geojson&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Options: True, False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;geojson&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: True, False</span>
 
 <span class="c1"># Specifies the color of polygons</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;copper&#39;</span>      <span class="c1"># Options: colors of cmap, e.g., copper, jet, Reds</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;color&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;copper&#39;</span>
+<span class="c1"># Options: colors of cmap, e.g., copper, jet, Reds</span>
 
-<span class="sd">&quot;&quot;&quot; Output Options for Statistical analysis of Ensemble prediction system (EPS) data products &quot;&quot;&quot;</span>
+<span class="c1"># Specifies the horizontal resolution</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;horizontal_resolution&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="mf">0.5</span>
+<span class="c1"># Options: lower resolutions in degrees</span>
+
+<span class="c1"># Specifies geographical region</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;lat_bound&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: (lat_min, lat_max), False</span>
+
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;lon_bound&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: (lon_min, lon_max), False</span>
+
+<span class="sd">&quot;&quot;&quot;Specifies output for statistical analysis, if ensemble prediction system (EPS) data products are used &quot;&quot;&quot;</span>
 
 <span class="c1"># The following two options (confg[&#39;mean&#39;], confg[&#39;std&#39;]) are ignored if the input data are deterministic</span>
 
 <span class="c1"># If true, mean values of aCCFs and variables are saved in the netCDF output file</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Options: True, False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;mean&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: True, False</span>
 
 <span class="c1"># If true, standard deviation of aCCFs and variables are saved in the netCDF output file</span>
-<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>      <span class="c1"># Options: True, False</span>
+<span class="n">confg</span><span class="p">[</span><span class="s1">&#39;std&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+<span class="c1"># Options: True, False</span>
 </pre></div>
 </div>
-<p>Another alternative is to include these settings in the separate configuration file and then load them in the main script.
-In the directory of CLIMaCCF, one can find a sample configuration file, including the mentioned settings in the YAML file format (i.e., config-user.yml), and can call them in the main script using</p>
+<p>Another alternative is to include these settings in the separate configuration file and then load them within the main script.
+In the directory of CLIMaCCF, one can find a sample configuration file, including the mentioned configurations in the YAML file (i.e., config-user.yml). In this case, one can load the configurations in the main script using</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="s2">&quot;config-user.yml&quot;</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ymlfile</span><span class="p">:</span> <span class="n">confg</span> <span class="o">=</span> <span class="n">yaml</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">ymlfile</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
 <section id="input">
 <h1>Input<a class="headerlink" href="#input" title="Permalink to this heading">¶</a></h1>
-<p>To calculate aCCFs, some meteorological variables are required. CLIMaCCF takes these variables as input (See Table 5 of the connected paper (i.e., Dietmüller et al. (2021)).
+<p>To calculate aCCFs, some meteorological variables are required. CLIMaCCF takes these variables as input (See Table 5 of the connected paper (i.e., Dietmüller et al. (2022)).
 These variables are Temperature, Geopotential height, Relative humidity over ice, and Potential vorticity at different pressure levels,
-and outgoing longwave radiation (or top net thermal radiation) and incoming solar radiation at the top of the atmosphere.
+and outgoing longwave radiation (or top net thermal radiation) and incoming solar radiation at the top of the atmosphere (TOA).
 The current implementation of the Library is compatible with the standard of the European Centre for Medium-Range Weather Forecasts (ECMWF) data (for both reanalysis and forecast data products).
 The user should provide two datasets, separating data provided at each pressure level and surface variables, typically collected in different datasets. Within CLIMaCCF, the directories of these two datasets are to be defined as follows:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">input_dir</span> <span class="o">=</span> <span class="p">{}</span>
-<span class="n">input_dir</span><span class="p">[</span><span class="s1">&#39;path_pl&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">dir_pressure_variables</span>  <span class="c1"># Directory for input data provided in pressure levels such as temperature, geopotential and relative humidity</span>
-<span class="n">input_dir</span><span class="p">[</span><span class="s1">&#39;path_sur&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">dir_surface_variables</span>  <span class="c1"># Directory for input data provided in single pressure level such as top net thermal radiation at the the TOA</span>
+<span class="c1"># Input data provided at pressure levels such as temperature, geopotential and relative humidity:</span>
+<span class="n">input_dir</span><span class="p">[</span><span class="s1">&#39;path_pl&#39;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">dir_pressure_variables</span>
+
+<span class="c1"># Input data provided in single pressure level such as top net thermal radiation at the TOA:</span>
+<span class="n">input_dir</span><span class="p">[</span><span class="s1">&#39;path_sur&#39;</span><span class="p">]</span> <span class="o">=</span>  <span class="n">dir_surface_variables</span>
 </pre></div>
 </div>
 <table class="docutils align-default" id="id1">
@@ -229,27 +283,29 @@ The user should provide two datasets, separating data provided at each pressure 
 </tbody>
 </table>
 <p>In addition to the locations of input data, the directory of the CLIMaCCF needs to be specified within input_dir:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">input_dir</span> <span class="p">[</span><span class="s1">&#39;path_lib&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">CLIMaCCF_dir</span>      <span class="c1"># Directory of CLIMaCCF</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Directory of CLIMaCCF:</span>
+<span class="n">input_dir</span> <span class="p">[</span><span class="s1">&#39;path_lib&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">climaccf_dir</span>
 </pre></div>
 </div>
 <p>Finally, the directory where all outputs will be written is to be inputted by the user:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">output_dir</span> <span class="o">=</span> <span class="n">dir_results</span>    <span class="c1"># Destination directory where all output will be written</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Destination directory where all output will be written:</span>
+<span class="n">output_dir</span> <span class="o">=</span> <span class="n">dir_results</span>
 </pre></div>
 </div>
 </section>
 <section id="running-output">
 <h1>Running &amp; Output<a class="headerlink" href="#running-output" title="Permalink to this heading">¶</a></h1>
 <p>After defining configurations and inputting required directories, CLIMaCCF is ready to generate outputs. First of all, we import the library:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">CLIMaCCF</span>
-<span class="kn">from</span> <span class="nn">CLIMaCCF.main_processing</span> <span class="kn">import</span> <span class="n">ClimateImpact</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">climaccf</span>
+<span class="kn">from</span> <span class="nn">climaccf.main_processing</span> <span class="kn">import</span> <span class="n">ClimateImpact</span>
 </pre></div>
 </div>
-<p>Then, the inputted variables will be processed by using the following function. The processing in this step is mainly related to 1) extracting variables within inputted data, 2) calculating required variables from alternative ones in case of missing some variables (see Table 5 of the connected paper), 3) unifying the naming and dimension of variables, and 4)changing the resolution and geographical area.
-The preferred horizontal resolution and geographical area are inputted to the function. Notice that the horizontal resolution cannot be higher than the resolution of the inputted meteorological data.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI</span> <span class="o">=</span> <span class="n">ClimateImpact</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">horizontal_resolution</span><span class="o">=</span><span class="n">resolution</span><span class="p">,</span> <span class="n">lat_bound</span><span class="o">=</span><span class="p">(</span><span class="n">lat_min</span><span class="p">,</span> <span class="n">lat_max</span><span class="p">),</span> <span class="n">lon_bound</span><span class="o">=</span><span class="p">(</span><span class="n">lon_min</span><span class="p">,</span> <span class="n">lon_max</span><span class="p">),</span> <span class="n">save_path</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
+<p>Then, the inputted variables will be processed by using the following function. The processing in this step is mainly related to 1) extracting variables within inputted data, 2) calculating required variables from alternative ones in case of missing some variables (see Table 5 of the connected paper), 3) unifying the naming and dimension of variables, and 4) changing the resolution and geographical area.
+User-preferred processings such as horizontal resolution and geographical area extracted from <em>confg</em>. Notice that the horizontal resolution cannot be higher than the resolution of the inputted meteorological data. In addition, inputting <em>confg</em> is optional and will rewrite the default settings if inputted.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI</span> <span class="o">=</span> <span class="n">ClimateImpact</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">,</span> <span class="o">**</span><span class="n">confg</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>After processing the weather data, aCCFs are calculated using the following command with respect to the defined settings in the dictionary (i.e., confg) and saved within the netCDF file format in the specified directory.</p>
+<p>After processing the weather data, aCCFs are calculated using the following command with respect to the defined settings in the dictionary (i.e., <em>confg</em>) and saved within the netCDF file format in the specified directory.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">CI</span><span class="o">.</span><span class="n">calculate_accfs</span><span class="p">(</span><span class="o">**</span><span class="n">confg</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -266,7 +322,7 @@ In addition to the netCDF file, if one selects: confg[‘geojson’] = True, con
       </div>
       <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
         <div class="sphinxsidebarwrapper">
-<h1 class="logo"><a href="index.html">envlib</a></h1>
+<h1 class="logo"><a href="index.html">climaccf</a></h1>
 
 
 
@@ -274,7 +330,7 @@ In addition to the netCDF file, if one selects: confg[‘geojson’] = True, con
 
 
 <p>
-<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=envlib&type=watch&count=true&size=large&v=2"
+<iframe src="https://ghbtns.com/github-btn.html?user=abolfazlsimorgh&repo=climaccf&type=watch&count=true&size=large&v=2"
   allowtransparency="true" frameborder="0" scrolling="0" width="200px" height="35px"></iframe>
 </p>
 
@@ -293,9 +349,9 @@ In addition to the netCDF file, if one selects: confg[‘geojson’] = True, con
 <p class="caption" role="heading"><span class="caption-text">Modules:</span></p>
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="modules.html">Processing of meteorological input data</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.calc_altrv_vars">Calculation of meteorological input data from alternative variables</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-climaccf.calc_altrv_vars">Calculation of meteorological input data from alternative variables</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#weather-store">Weather Store</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules.html#module-envlib.contrail">Persistent Contrail Formation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html#module-climaccf.contrail">Persistent Contrail Formation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules.html#calculation-of-prototype-accfs">Calculation of prototype aCCFs</a></li>
 </ul>
 

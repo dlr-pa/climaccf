@@ -82,11 +82,6 @@ NOx_EI&F_km: TTV
 # For these aircraft classes aggregated fleet-level values of NOx_EI and F_km are provided (for more details see Dietmueller et al. 2022).
 ac_type: wide-body
        # Options: 'regional', 'single-aisle', 'wide-body'
-
-# weather-dependent coefficients for calculating NOx emission index using Boeing Fuel Flow Method 2 (BFFM2)
-Coef.BFFM2: false
-       # Options: true, false
-method_BFFM2_SH: SH
        
 ############################################################################################
 # Specifies the saved output file
@@ -109,7 +104,7 @@ merged: true
       # Options: true, false
 
 # If true, climate hotspots (regions that are very senitive to aviation emissisions) are calculated (for more details see Dietmueller et al. 2022)
-Chotspots: true
+Chotspots: false
       # Options: true, false
 
 # If constant, climate hotspots are calculated based on the user-specified threshold, 
@@ -126,10 +121,10 @@ Chotspots_calc_method_cons: 1e-13
 Chotspots_calc_method_dynm:
       hotspots_percentile: 95
             # Options: percentage < 100              
-      latitude: null 
-            # Options: (lat_min, lat_max), null  
-      longitude: null
-            # Options: (lon_min, lon_max), null              
+      latitude: false 
+            # Options: (lat_min, lat_max), false  
+      longitude: false
+            # Options: (lon_min, lon_max), false              
 
 # If true, it assigns binary values to climate hotspots (0: areas with climate impacts below a specified threshold. 1: areas with climate impacts above a specified threshold)
 # If false, it assigns 0 for areas with climate impacts below the specified threshold and provides values of merged aCCFs for areas with climate impacts above the threshold.
@@ -153,10 +148,10 @@ horizontal_resolution: 0.5
       # Options: lower resolutions in degrees      
 
 # Specifies geographical region      
-lat_bound: null
-      # Options: (lat_min, lat_max), null
-lon_bound: null
-      # Options: (lon_min, lon_max), null
+lat_bound: false
+      # Options: (lat_min, lat_max), false
+lon_bound: false
+      # Options: (lon_min, lon_max), false
 
 ########################################################################################################
 # Specifies output for statistical analysis, if ensemble prediction system (EPS) data products are used

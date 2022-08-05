@@ -1,6 +1,6 @@
 import yaml
-import envlib
-from envlib.main_processing import ClimateImpact
+import climaccf
+from climaccf.main_processing import ClimateImpact
 import os
 from os import path
 
@@ -10,7 +10,7 @@ def test_main():
 
     path_here = path.abspath(path.dirname(__file__))
     test_path = path_here + '/sample_data/'
-    lib_path = path.normpath(os.getcwd() + os.sep + os.pardir) + '/envlib/'
+    lib_path = path.normpath(os.getcwd() + os.sep + os.pardir) + '/climaccf/'
     path_ = {'path_pl': test_path + 'pressure_lev_june2018_res0.5.nc', 'path_sur': test_path + 'surface_june2018_res0.5.nc', 'path_lib': lib_path}
     path_save = test_path + 'env_processed.nc'
     

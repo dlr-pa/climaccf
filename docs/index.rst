@@ -12,7 +12,7 @@ Introduction
 
 **License:** CLIMaCCF is released under GNU General Public License Licence (Version 3). Citation of the CLIMaCCF connected software documentation paper is kindly requested upon use, with software DOI for CLIMaCCF (doi:XXX) and version number:
 
-**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Mendiguchia Meuser, M. , Weder, C., Yin, F., Castino, F., Gerwe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions, GMD.
+**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Mendiguchia Meuser, M. , Weder, C., Yin, F., Castino, F., Gerwe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, Geoscientific Model Development (GMD).
 
 **Support:** Support of all general technical questions on CLIMaCCF, i.e. installation, application and development will be provided by Abolfazl Simorgh (abolfazl.simorgh@uc3m.es), Simone Dietmüller (Simone.Dietmueller@dlr.de), and Hiroshi Yamashita (Hiroshi.Yamashita@dlr.de).
 
@@ -46,19 +46,19 @@ Here is an example how one can use sample data in test directory of CLIMaCCF to 
 
 ::
 
-   import CLIMaCCF
-   from CLIMaCCF.main_processing import ClimateImpact
+   import climaccf
+   from climaccf.main_processing import ClimateImpact
 
-   path_here = 'CLIMaCCF/'
+   path_here = 'climaccf/'
    test_path = path_here + '/test/sample_data/'
-   input_dir = {'path_pl': test_path + 'sample_pl.nc', 'path_sur': test_path + 'sample_sur.nc', 'path_lib': path_here}
+   input_dir = {'path_pl': test_path + 'pressure_lev_june2018_res0.5.nc', 'path_sur': test_path + 'surface_june2018_res0.5.nc', 'path_lib': path_here}
    output_dir = test_path + 'env_processed.nc'
 
    """ %%%%%%%%%% CONFIGURATIONS %%%%%%%%%% """
 
    confg = {}
 
-   """ Configuration of algorithmic climate change functions aCCFs"""
+   """ Configuration of the calculation of algorithmic climate change functions (aCCFs) """
 
    confg['efficacy'] = True                        
    confg['efficacy-option'] = 'lee_2021'                                           
@@ -67,43 +67,35 @@ Here is an example how one can use sample data in test directory of CLIMaCCF to 
    confg['emission_scenario'] = 'future_scenario' 
    confg['climate_indicator'] = 'ATR'   
    confg['TimeHorizon'] = 20        
-   confg['PCFA'] = ISSR    
-   confg['ISSR'] = {'rhi_threshold': 0.95, 'temp_threshold': 235}    
+   confg['PCFA'] = 'PCFA-ISSR'    
+   confg['ISSR'] = {'rhi_threshold': 0.9, 'temp_threshold': 235}    
    confg ['SAC'] = {'Q': 43 * 1e6, 'eta': 0.3, 'EI_H2O': 1.25}    
 
-   """ Technical Specifiactions of Aircraft/Engine dependent Parameters"""
+   """ Technical specifiactions of aircraft/engine dependent parameters """
 
    confg['NOx_EI&F_km'] = 'TTV' 
    confg['ac_type'] = 'wide-body'    
-   confg['Coef.BFFM2'] = True           
-   confg['method_BFFM2_SH'] = 'SH'
 
-
-   """Output Options"""
+   """ Specifies the saved output file """
 
    confg['PMO'] = True                 
    confg['NOx_aCCF'] = False                    
    confg['unit_K/kg(fuel)'] = False          
    confg['merged'] = True               
-   confg['Chotspots'] = False                  
-   confg['hotspots_binary'] = False        
-   confg['hotspots_percentile'] = 99         
+   confg['Chotspots'] = False    
    confg['MET_variables'] = False            
-   confg['geojson'] = False                  
-   confg['color'] = 'copper'                 
-
+                
    """ Output Options for Statistical analysis of Ensemble prediction system (EPS) data products """
 
    confg['mean'] = False                      
    confg['std'] = False                     
      
-
     """ %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% """
 
-    CI = ClimateImpact(input_dir, horizontal_resolution=0.5, save_path=output_dir)
+    CI = ClimateImpact(input_dir, output_dir, **confg)
     CI.calculate_accfs(**confg)
 
-The output netCDF file is generated in: *CLIMaCCF/test/sample_data/env_processed.nc*. In the following, a script is provided, enabling visualize the output. 
+The output netCDF file is generated in: *climaccf/test/sample_data/env_processed.nc*. In the following, a script is provided, enabling visualize the output. 
 
 ::
 
@@ -122,7 +114,7 @@ The output netCDF file is generated in: *CLIMaCCF/test/sample_data/env_processed
     font = {'family' : 'normal',
             'size'   : 13}
 
-    path = 'CLIMaCCF/test/sample_data/env_processed.nc'
+    path = 'climaccf/test/sample_data/env_processed.nc'
     ds = xr.open_dataset(path, engine='h5netcdf')
     lats = ds['latitude'].values
     lons = ds['longitude'].values

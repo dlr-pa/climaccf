@@ -17,14 +17,14 @@ path = os.path.join(os.path.dirname(os.path.abspath('.')))
 print('[PATH]: ',path)
 sys.path.insert(0, path)
 
-path = os.path.join(os.path.dirname(os.path.abspath('.')),'envlib')
+path = os.path.join(os.path.dirname(os.path.abspath('.')),'climaccf')
 print('[PATH]: ',path)
 sys.path.insert(0, path)
 
 
 # -- Project information -----------------------------------------------------
 
-project = 'envlib'
+project = 'climaccf'
 copyright = '2021, Abolfazl Simorgh'
 author = 'Abolfazl Simorgh'
 
@@ -89,7 +89,7 @@ html_theme = 'alabaster'
 html_theme_options = {
     #'logo': 'fmp-met_logo.png', # you should locate the png image in the _static folder
     'github_user': 'abolfazlsimorgh',
-    'github_repo': 'envlib'
+    'github_repo': 'climaccf'
 }
 
 # Add any paths that contain custom static files (such as style sheets) here,
@@ -119,7 +119,7 @@ html_sidebars = {
 # -- Options for HTMLHelp output ---------------------------------------------
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'EnVLiBdoc'
+htmlhelp_basename = 'CLIMaCCFdoc'
 
 
 # -- Options for LaTeX output ------------------------------------------------
@@ -153,7 +153,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-    (master_doc, 'EnVLiB.tex', u'CLIMaCCF Documentation',
+    (master_doc, 'climaccf.tex', u'CLIMaCCF Documentation',
      u'DLR, TUHH, TUD, UC3M', 'manual'),
 ]
 

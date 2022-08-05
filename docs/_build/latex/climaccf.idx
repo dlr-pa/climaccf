@@ -1,0 +1,46 @@
+\indexentry{module@\spxentry{module}!climaccf.extract\_data@\spxentry{climaccf.extract\_data}|hyperpage}{11}
+\indexentry{climaccf.extract\_data@\spxentry{climaccf.extract\_data}!module@\spxentry{module}|hyperpage}{11}
+\indexentry{extract\_coordinates() (in module climaccf.extract\_data)@\spxentry{extract\_coordinates()}\spxextra{in module climaccf.extract\_data}|hyperpage}{11}
+\indexentry{extract\_data\_variables() (in module climaccf.extract\_data)@\spxentry{extract\_data\_variables()}\spxextra{in module climaccf.extract\_data}|hyperpage}{11}
+\indexentry{logic\_cal\_accfs() (in module climaccf.extract\_data)@\spxentry{logic\_cal\_accfs()}\spxextra{in module climaccf.extract\_data}|hyperpage}{11}
+\indexentry{module@\spxentry{module}!climaccf.extend\_dim@\spxentry{climaccf.extend\_dim}|hyperpage}{12}
+\indexentry{climaccf.extend\_dim@\spxentry{climaccf.extend\_dim}!module@\spxentry{module}|hyperpage}{12}
+\indexentry{extend\_dimensions() (in module climaccf.extend\_dim)@\spxentry{extend\_dimensions()}\spxextra{in module climaccf.extend\_dim}|hyperpage}{12}
+\indexentry{module@\spxentry{module}!climaccf.processing\_surf\_vars@\spxentry{climaccf.processing\_surf\_vars}|hyperpage}{12}
+\indexentry{climaccf.processing\_surf\_vars@\spxentry{climaccf.processing\_surf\_vars}!module@\spxentry{module}|hyperpage}{12}
+\indexentry{extend\_olr\_pl\_4d() (in module climaccf.processing\_surf\_vars)@\spxentry{extend\_olr\_pl\_4d()}\spxextra{in module climaccf.processing\_surf\_vars}|hyperpage}{12}
+\indexentry{extend\_olr\_pl\_5d() (in module climaccf.processing\_surf\_vars)@\spxentry{extend\_olr\_pl\_5d()}\spxextra{in module climaccf.processing\_surf\_vars}|hyperpage}{13}
+\indexentry{get\_olr() (in module climaccf.processing\_surf\_vars)@\spxentry{get\_olr()}\spxextra{in module climaccf.processing\_surf\_vars}|hyperpage}{13}
+\indexentry{get\_olr\_4d() (in module climaccf.processing\_surf\_vars)@\spxentry{get\_olr\_4d()}\spxextra{in module climaccf.processing\_surf\_vars}|hyperpage}{13}
+\indexentry{get\_olr\_5d() (in module climaccf.processing\_surf\_vars)@\spxentry{get\_olr\_5d()}\spxextra{in module climaccf.processing\_surf\_vars}|hyperpage}{14}
+\indexentry{module@\spxentry{module}!climaccf.calc\_altrv\_vars@\spxentry{climaccf.calc\_altrv\_vars}|hyperpage}{14}
+\indexentry{climaccf.calc\_altrv\_vars@\spxentry{climaccf.calc\_altrv\_vars}!module@\spxentry{module}|hyperpage}{14}
+\indexentry{get\_pvu() (in module climaccf.calc\_altrv\_vars)@\spxentry{get\_pvu()}\spxextra{in module climaccf.calc\_altrv\_vars}|hyperpage}{14}
+\indexentry{get\_rh\_ice() (in module climaccf.calc\_altrv\_vars)@\spxentry{get\_rh\_ice()}\spxextra{in module climaccf.calc\_altrv\_vars}|hyperpage}{15}
+\indexentry{get\_rh\_sd() (in module climaccf.calc\_altrv\_vars)@\spxentry{get\_rh\_sd()}\spxextra{in module climaccf.calc\_altrv\_vars}|hyperpage}{15}
+\indexentry{WeatherStore (class in climaccf.weather\_store)@\spxentry{WeatherStore}\spxextra{class in climaccf.weather\_store}|hyperpage}{15}
+\indexentry{\_\_init\_\_() (climaccf.weather\_store.WeatherStore method)@\spxentry{\_\_init\_\_()}\spxextra{climaccf.weather\_store.WeatherStore method}|hyperpage}{15}
+\indexentry{get\_xarray() (climaccf.weather\_store.WeatherStore method)@\spxentry{get\_xarray()}\spxextra{climaccf.weather\_store.WeatherStore method}|hyperpage}{15}
+\indexentry{reduce\_domain() (climaccf.weather\_store.WeatherStore method)@\spxentry{reduce\_domain()}\spxextra{climaccf.weather\_store.WeatherStore method}|hyperpage}{15}
+\indexentry{module@\spxentry{module}!climaccf.weather\_store@\spxentry{climaccf.weather\_store}|hyperpage}{16}
+\indexentry{climaccf.weather\_store@\spxentry{climaccf.weather\_store}!module@\spxentry{module}|hyperpage}{16}
+\indexentry{module@\spxentry{module}!climaccf.contrail@\spxentry{climaccf.contrail}|hyperpage}{16}
+\indexentry{climaccf.contrail@\spxentry{climaccf.contrail}!module@\spxentry{module}|hyperpage}{16}
+\indexentry{get\_cont\_form\_thr() (in module climaccf.contrail)@\spxentry{get\_cont\_form\_thr()}\spxextra{in module climaccf.contrail}|hyperpage}{16}
+\indexentry{get\_pcfa() (in module climaccf.contrail)@\spxentry{get\_pcfa()}\spxextra{in module climaccf.contrail}|hyperpage}{16}
+\indexentry{get\_relative\_hum() (in module climaccf.contrail)@\spxentry{get\_relative\_hum()}\spxextra{in module climaccf.contrail}|hyperpage}{17}
+\indexentry{get\_rw\_from\_specific\_hum() (in module climaccf.contrail)@\spxentry{get\_rw\_from\_specific\_hum()}\spxextra{in module climaccf.contrail}|hyperpage}{17}
+\indexentry{GeTaCCFs (class in climaccf.accf)@\spxentry{GeTaCCFs}\spxextra{class in climaccf.accf}|hyperpage}{17}
+\indexentry{\_\_init\_\_() (climaccf.accf.GeTaCCFs method)@\spxentry{\_\_init\_\_()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{17}
+\indexentry{accf\_ch4() (climaccf.accf.GeTaCCFs method)@\spxentry{accf\_ch4()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{17}
+\indexentry{accf\_dcontrail() (climaccf.accf.GeTaCCFs method)@\spxentry{accf\_dcontrail()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{18}
+\indexentry{accf\_h2o() (climaccf.accf.GeTaCCFs method)@\spxentry{accf\_h2o()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{18}
+\indexentry{accf\_ncontrail() (climaccf.accf.GeTaCCFs method)@\spxentry{accf\_ncontrail()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{18}
+\indexentry{accf\_o3() (climaccf.accf.GeTaCCFs method)@\spxentry{accf\_o3()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{18}
+\indexentry{get\_accfs() (climaccf.accf.GeTaCCFs method)@\spxentry{get\_accfs()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{19}
+\indexentry{get\_std() (climaccf.accf.GeTaCCFs method)@\spxentry{get\_std()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{19}
+\indexentry{get\_xarray() (climaccf.accf.GeTaCCFs method)@\spxentry{get\_xarray()}\spxextra{climaccf.accf.GeTaCCFs method}|hyperpage}{19}
+\indexentry{module@\spxentry{module}!climaccf.accf@\spxentry{climaccf.accf}|hyperpage}{19}
+\indexentry{climaccf.accf@\spxentry{climaccf.accf}!module@\spxentry{module}|hyperpage}{19}
+\indexentry{convert\_accf() (in module climaccf.accf)@\spxentry{convert\_accf()}\spxextra{in module climaccf.accf}|hyperpage}{19}
+\indexentry{get\_Fin() (in module climaccf.accf)@\spxentry{get\_Fin()}\spxextra{in module climaccf.accf}|hyperpage}{20}

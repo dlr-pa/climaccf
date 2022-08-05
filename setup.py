@@ -11,9 +11,9 @@ with open(path.join(here, 'README.md'), encoding='utf-8') as f:
     long_description = f.read()
 
 setup(
-  name='envlib',
-  packages=find_packages(include=['envlib']),
-  version='0.0.1',
+  name='climaccf',
+  packages=find_packages(include=['climaccf']),
+  version='1.0',
   license='lgpl-3.0',
   description='Calculation of Algorithmic Climate Change Functions',
   #long_description=long_description,
