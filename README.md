@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.6977272.svg)](https://doi.org/10.5281/zenodo.6977272)
+
 # CLIMaCCF Library
 
       
@@ -5,7 +7,7 @@
 
 The Python Library CLIMaCCF is a software package developed by UC3M and DLR. The main idea of CLIMaCCF is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). The individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged non-CO2 aCCFs that combine the individual aCCFs can be calculated.
 
-**License:** CLIMaCCF is released under GNU Lesser General Public Licence (Version 3.0). Citation of the CLIMaCCF connected software documentation paper is kindly requested upon use, with software DOI for CLIMaCCF (doi:XXX) and version number.
+**License:** CLIMaCCF is released under GNU Lesser General Public Licence (Version 3.0). Citation of the CLIMaCCF connected software documentation paper is kindly requested upon use, with software DOI for CLIMaCCF and version number.
 
 **Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Mendiguchia Meuser, M. , Weder, C., Yin, F., Castino, F., Grewe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, Geoscientific Model Development (GMD).
 
