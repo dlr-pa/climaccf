@@ -9,7 +9,7 @@ The Python Library CLIMaCCF is a software package developed by UC3M and DLR. The
 
 **License:** CLIMaCCF is released under GNU Lesser General Public License v3.0 (LGPLv3). Citing the Software Documentation Paper (Dietmüller et al. 2022) together with CLIMaCCF software DOI  (doi: 10.5281/zenodo.6977273) and version number  will serve to document the scientific impact of the software. You should consider this an obligation if you have taken advantage of CLIMaCCF.
 
-**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Meuser, M. M., Weder, C., Yin, F., Castino, F., Grewe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, GMDD.
+**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A., Soler, M., Linke, F., Lührs, B., Meuser, M. M., Weder, C., Grewe, V., Yin, F., Castino, F. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, GMDD.
 
 **Support:** Support of all general technical questions on CLIMaCCF, i.e., installation, application, and development, will be provided by Abolfazl Simorgh (abolfazl.simorgh@uc3m.es), Simone Dietmüller (Simone.Dietmueller@dlr.de), and Hiroshi Yamashita (Hiroshi.Yamashita@dlr.de). 
 
@@ -24,7 +24,7 @@ The installation is the first step to working with CLIMaCCF. In the following, t
 conda create -n env_climaccf
 conda activate env_climaccf
 ```
-1. Clone or download the repository. The ClimACCF source code is available on a public GitHub repository: https://github.com/dlr-pa/climaccf.git. The easiest way to obtain it is to clone the repository using git: git clone https://github.com/dlr-pa/climaccf.git.
+1. Clone or download the repository. The CLIMaCCF source code is available on a public GitHub repository: https://github.com/dlr-pa/climaccf.git. The easiest way to obtain it is to clone the repository using git: git clone https://github.com/dlr-pa/climaccf.git.
 
 2. Locate yourself in the CLIMaCCF (library folder) path, and run the following line, using terminal (MacOS and Linux) or cmd (Windows), which will install all dependencies:
 ```python
@@ -378,7 +378,7 @@ Note that you **should not see** any error or warning, this information appears 
 
 This library has been developed within EU-Projects FlyATM4E and ALARM.
 
-1. **FLyATM4E** has received funding from the SESAR Joint Undertaking under the European Union's Horizon 2020 research and innovation programme under grant agreement No 891317. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
+1. **FlyATM4E** has received funding from the SESAR Joint Undertaking under the European Union's Horizon 2020 research and innovation programme under grant agreement No 891317. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
 
 2. **ALARM** has received funding from the SESAR Joint Undertaking (JU) under grant agreement No 891467. The JU receives support from the European Union’s Horizon 2020 research and innovation programme and the SESAR JU members other than the Union.
 
