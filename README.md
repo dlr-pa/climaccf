@@ -7,9 +7,10 @@
 
 The Python Library CLIMaCCF is a software package developed by UC3M and DLR. The main idea of CLIMaCCF is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). The individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged non-CO2 aCCFs that combine the individual aCCFs can be calculated.
 
-**License:** CLIMaCCF is released under GNU Lesser General Public Licence (Version 3.0). Citation of the CLIMaCCF connected software documentation paper is kindly requested upon use, with software DOI for CLIMaCCF and version number.
+**License:** CLIMaCCF is released under GNU Lesser General Public Licence (Version 3.0). Citing the Software Documentation Paper together with CLIMaCCF
+software DOI (doi: 10.5281/zenodo.6977272) and version number will serve to document the scientific impact of the software. You should consider this an obligation if you have taken advantage of CLIMaCCF.
 
-**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Mendiguchia Meuser, M. , Weder, C., Yin, F., Castino, F., Grewe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, Geoscientific Model Development (GMD).
+**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A.,  Soler, M., Linke, F., Lührs, B., Meuser, M., M., Weder, C., Yin, F., Castino, F., Grewe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, Geoscientific Model Development Discussion (GMDD).
 
 **Support:** Support of all general technical questions on CLIMaCCF, i.e. installation, application and development will be provided by Abolfazl Simorgh (abolfazl.simorgh@uc3m.es), Simone Dietmüller (Simone.Dietmueller@dlr.de), and Hiroshi Yamashita (Hiroshi.Yamashita@dlr.de).
 
