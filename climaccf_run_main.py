@@ -20,7 +20,7 @@ input_dir ['path_sur'] = test_path + 'surface_june2018_res0.5.nc'
 input_dir ['path_lib'] = lib_path
 
 # Destination directory where all output will be written:
-output_dir = test_path + 'env_processed.nc'
+output_dir = test_path + 'env_processed'
 
 
 """ %%%%%%%%%%%%%%%%% LOAD CONFIGURATIONS %%%%%%%%%%%%%%%% """
@@ -29,6 +29,5 @@ with open("config-user.yml", "r") as ymlfile:
     confg = yaml.safe_load(ymlfile)
 
 """ %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% """
-# Specification of output in terms of resolution and covered geographical area
 CI = ClimateImpact(input_dir, output_dir, **confg)
 CI.calculate_accfs(**confg)

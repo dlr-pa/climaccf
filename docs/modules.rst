@@ -16,7 +16,7 @@ Calculation of meteorological input data from alternative variables
 .. automodule:: climaccf.calc_altrv_vars
    :members: get_pvu, get_rh_ice, get_rh_sd
 
-Weather Store
+Weather store
 =============
 
 .. autoclass:: climaccf.weather_store.WeatherStore
@@ -27,7 +27,7 @@ Weather Store
 .. automodule:: climaccf.weather_store
    :members: reduce_domain, get_xarray
 
-Persistent Contrail Formation
+Persistent contrail formation
 ==============================
 
 .. automodule:: climaccf.contrail

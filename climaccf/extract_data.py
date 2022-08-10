@@ -5,7 +5,7 @@ from climaccf.extend_dim import *
 
 
 def extract_data_variables(ds, ds_sr=None, verbose=False):
-    """ Extracts available required variables in the inputted dataset defined with different possible names.
+    """ Extracts available required variables of the input dataset defined with different possible names.
 
     :param ds: Dataset openned with xarray.
     :type ds: Dataset
@@ -19,7 +19,7 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
     :returns ex_var_name: Available required weather variables.
     :rtype: list
 
-    :returns variables: Assigns bool to the required wethear variables.
+    :returns variables: Assigns bool to the required weather variables.
     :rtype: dict
     """
     variables = {
@@ -228,7 +228,7 @@ def logic_cal_accfs(variables):
 
 
 def extract_coordinates(ds, ex_variables, ds_sur=None):
-    """ Extracts coordinates (axes) in the inputted dataset defined with different possible names.
+    """ Extracts coordinates (axes) of the input dataset defined with different possible names.
 
     :param ds: Dataset openned with xarray.
     :type ds: Dataset

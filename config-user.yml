@@ -153,6 +153,10 @@ lat_bound: false
 lon_bound: false
       # Options: (lon_min, lon_max), false
 
+# Specifies the output format 
+save_format: netCDF
+      # Options: netCDF (netcdf, nc) and PICKLE (pickle, Pickle)      
+
 ########################################################################################################
 # Specifies output for statistical analysis, if ensemble prediction system (EPS) data products are used
 ######################################################################################################## 

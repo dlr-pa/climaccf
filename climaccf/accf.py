@@ -457,7 +457,7 @@ class GeTaCCFs(object):
         :returns ds: xarray dataset containing user-selected variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).
         :rtype: dataset
 
-        :returns encoding
+        :returns enc: encoding
         :rtype: dict
         """
         if self.variables:

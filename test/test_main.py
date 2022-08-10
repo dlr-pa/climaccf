@@ -12,7 +12,7 @@ def test_main():
     test_path = path_here + '/sample_data/'
     lib_path = path.normpath(os.getcwd() + os.sep + os.pardir) + '/climaccf/'
     path_ = {'path_pl': test_path + 'pressure_lev_june2018_res0.5.nc', 'path_sur': test_path + 'surface_june2018_res0.5.nc', 'path_lib': lib_path}
-    path_save = test_path + 'env_processed.nc'
+    path_save = test_path + 'env_processed'
     
         
     """ %%%%%%%%%%%%%%%%% LOAD CONFIGURATIONS %%%%%%%%%%%%%%%% """
@@ -23,6 +23,5 @@ def test_main():
 
     """ %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% """
     
-    # Specification of output in terms of resolution and covered geographical area
     CI = ClimateImpact(path_, path_save, **confg)
     CI.calculate_accfs(**confg)

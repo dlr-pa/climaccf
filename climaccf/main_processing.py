@@ -4,7 +4,7 @@
 from climaccf.weather_store import *
 from climaccf.accf import *
 from climaccf.io import *
-
+import pickle
 
 class ClimateImpact(object):
     def __init__(self, path, path_out, **problem_config):
@@ -26,7 +26,8 @@ class ClimateImpact(object):
             'Chotspots': True,   
             'color': 'Reds', 
             'geojson': True,
-            'save_path': None}
+            'save_path': None,
+            'save_format': 'netCDF'}
         self.p_settings['save_path'] = path_out    
         self.p_settings.update(problem_config)
         self.ds_pl = xr.open_dataset(path['path_pl'])
@@ -57,11 +58,20 @@ class ClimateImpact(object):
         aCCFs, encoding_ = clim_imp.get_xarray()
         if self.p_settings['save_path']:
             path = self.p_settings['save_path']
-            aCCFs.to_netcdf(path,  encoding=encoding_)
-            print('\033[92m' + 'netCDF file has netCDF file has been successfully generated.' + "\033[0m" + f' (location: {path})')
-            print('** The format of the generated file is compatible with Panoply ('
-                  'https://www.giss.nasa.gov/tools/panoply/download/), an application for quickly visualizing '
-                  'data **')
+            if self.p_settings['save_format'] == 'netCDF' or self.p_settings['save_format'] == 'netcdf' or self.p_settings['save_format'] == 'nc':
+                path = path + '.nc'
+                aCCFs.to_netcdf(path,  encoding=encoding_)
+                print('\033[92m' + 'netCDF file has been successfully generated.' + "\033[0m" + f' (location: {path})')
+                print('** The format of the generated file is compatible with Panoply ('
+                    'https://www.giss.nasa.gov/tools/panoply/download/), an application for quickly visualizing '
+                    'data **')
+            elif self.p_settings['save_format'] == 'pickle' or self.p_settings['save_format'] == 'PICKLE' or self.p_settings['save_format'] == 'Pickle':
+                with open('filename.pickle', 'wb') as handle:
+                    path = path + '.pickle'
+                    pickle.dump(aCCFs, handle, protocol=pickle.HIGHEST_PROTOCOL)
+                print('\033[92m' + 'PICKLE file has been successfully generated.' + "\033[0m" + f' (location: {path})')
+            else:
+                raise ValueError("Correct options for 'save_format' are: netCDF and PICKLE.") 
         pass
         if confg['Chotspots'] and confg['geojson']: 
             chotspots = gen_geojson_hotspots (aCCFs, self.p_settings['save_path'], self.p_settings['color'], time_pl=None)

@@ -45,16 +45,20 @@ extensions = [
     'sphinx.ext.todo',
     'sphinx.ext.viewcode',
     'sphinx.ext.autodoc',
+    'sphinxcontrib.bibtex',
 ]
 
+bibtex_bibfiles = ['listb.bib']
+bibtex_default_style = 'unsrt'
+
 # Add any paths that contain templates here, relative to this directory.
-templates_path = ['_templates']
+templates_path = ['_templates'] 
 
 # The suffix(es) of source filenames.
 # You can specify multiple suffix as a list of string:
 #
 # source_suffix = ['.rst', '.md']
-source_suffix = ['.rst', '.md', '.txt']
+source_suffix = ['.rst', '.md', '.txt', '.bib']
 
 # The master toctree document.
 master_doc = 'index'

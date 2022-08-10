@@ -7,7 +7,7 @@ import xarray as xr
 
 def extend_dimensions(inf_coord, ds, ds_sur, ex_variables):
     """
-    Unifies the dimension of all types of given data as either 4-dimensional or 5-dimensional arrays, depending on
+    Unifies the dimension of all types of given data as either 4- or 5-dimensional arrays, depending on
     the existence of ensemble members. If the data has only two fields: latitude and longitude, this function
     adds time and level fields, (e.g., for the deterministic data products: (latitude:360, longitude:720) -> (time:1, pressure level:1, latitude:360, longitude:720)).
 

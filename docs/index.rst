@@ -4,22 +4,22 @@
    contain the root `toctree` directive.
 
 Climate Impact quantified using aCCF (CLIMaCCF)
-==============================
+===============================================
 
 Introduction
 ------------
-**About:** The Python Library CLIMaCCF is a software package developed by UC3M and DLR. The main idea of CLIMaCCF is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates the spatial and temporal resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). The individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged non-CO2 aCCFs that combine the individual aCCFs can be calculated.
+**Overview:** The Python Library CLIMaCCF is a software package developed by UC3M and DLR. The main idea of CLIMaCCF is to provide an open-source, easy-to-use, and flexible software tool that efficiently calculates spatially and temporally resolved climate impact of aviation emissions by using algorithmic climate change functions (aCCFs). The individual aCCFs of water vapour, NOx-induced ozone and methane, and contrail-cirrus and also merged aCCFs that combine the individual aCCFs can be calculated.
 
-**License:** CLIMaCCF is released under GNU General Public License Licence (Version 3). Citation of the CLIMaCCF connected software documentation paper is kindly requested upon use, with software DOI for CLIMaCCF (doi:XXX) and version number:
+**License:** CLIMaCCF is released under GNU Lesser General Public License v3.0 (LGPLv3). Citing the Software Documentation Paper (Dietmüller et al. 2022 :cite:p:`simonePython`) together with CLIMaCCF software DOI  (doi: 10.5281/zenodo.6977273) and version number  will serve to document the scientific impact of the software. You should consider this an obligation if you have taken advantage of CLIMaCCF.
 
-**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Mendiguchia Meuser, M. , Weder, C., Yin, F., Castino, F., Gerwe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, Geoscientific Model Development (GMD).
+**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Meuser, M. M., Weder, C., Yin, F., Castino, F., Grewe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, GMDD.
 
-**Support:** Support of all general technical questions on CLIMaCCF, i.e. installation, application and development will be provided by Abolfazl Simorgh (abolfazl.simorgh@uc3m.es), Simone Dietmüller (Simone.Dietmueller@dlr.de), and Hiroshi Yamashita (Hiroshi.Yamashita@dlr.de).
+**User support:** Support of all general technical questions on CLIMaCCF, i.e., installation, application, and development, will be provided by Abolfazl Simorgh (abolfazl.simorgh@uc3m.es), Simone Dietmüller (Simone.Dietmueller@dlr.de), and Hiroshi Yamashita (Hiroshi.Yamashita@dlr.de). 
 
-**Core developer team:** Abolfazl Simorgh (UM3M), Simone Dietmüller (DLR), Hiroshi Yamashita (DLR), Manuel Soler (UC3M), Sigrun Matthes (DLR)
+**Core developer team:** Abolfazl Simorgh (UC3M), Manuel Soler (UC3M), Simone Dietmüller (DLR), Hiroshi Yamashita (DLR), Sigrun Matthes (DLR). 
 
-Getting started:
-----------------
+Getting started
+---------------
 
 This section briefly presents the necessary information required to get started with CLIMaCCF. 
 
@@ -30,8 +30,8 @@ This section briefly presents the necessary information required to get started 
    gStarted
 
 
-Modules:
---------
+Modules
+-------
 .. toctree::
    :maxdepth: 2
    :caption: Modules:
@@ -39,10 +39,71 @@ Modules:
    modules
 
 
-An example
-----------
+Testing CLIMaCCF
+----------------
 
-Here is an example how one can use sample data in test directory of CLIMaCCF to generate output for a set of user-defined configurations:
+Here we provide an example configuration script together with some provided ERA5 sample data (retrieved from the Copernicus Climate Data Store: https://cds.climate.copernicus.eu/, European Reanalysis 5, 2020)). In order to test CLIMaCCF on your system and to test if the output is generated correctly, we recommend running CLIMaCCF using the example provided in the following. 
+
+First of all, define the configurations in a YAML file format (e.g., config-user.yml) as:
+
+::
+   
+   # Configuration of the calculation of algorithmic climate change functions (aCCFs) #
+
+   efficacy: true              
+   efficacy-option: lee_2021 
+   aCCF-V: V1.1
+   aCCF-scalingF:
+      CH4: 1
+      CO2: 1
+      Cont.: 1
+      H2O: 1
+      O3: 1
+   climate_indicator: ATR
+   emission_scenario: future_scenario
+   TimeHorizon: 20
+   PCFA: PCFA-ISSR
+   PCFA-ISSR:
+      rhi_threshold: 0.9
+   temp_threshold: 235
+   PCFA-SAC:
+      EI_H2O: 1.25
+      Q: 43000000.0
+      eta: 0.3
+
+   # Technical specifiactions of aircraft/engine dependent parameters #
+
+   NOx_EI&F_km: TTV
+   ac_type: wide-body
+         
+   # Specifies the saved output file #
+
+   PMO: true
+   NOx_aCCF: false
+   unit_K/kg(fuel): false
+   merged: true
+   Chotspots: false
+   Chotspots_calc_method: dynamic
+   Chotspots_calc_method_cons: 1e-13
+   Chotspots_calc_method_dynm:
+      hotspots_percentile: 95
+      latitude: false 
+      longitude: false
+   hotspots_binary: true
+   MET_variables: false
+   geojson: true
+   color: copper
+   horizontal_resolution: 0.5
+   lat_bound: false
+   lon_bound: false
+   save_format: netCDF
+
+   # Specifies output for statistical analysis, if ensemble prediction system (EPS) data products are used #
+
+   mean: false
+   std: false
+
+Then, by running the following script:
 
 ::
 
@@ -54,48 +115,17 @@ Here is an example how one can use sample data in test directory of CLIMaCCF to 
    input_dir = {'path_pl': test_path + 'pressure_lev_june2018_res0.5.nc', 'path_sur': test_path + 'surface_june2018_res0.5.nc', 'path_lib': path_here}
    output_dir = test_path + 'env_processed.nc'
 
-   """ %%%%%%%%%% CONFIGURATIONS %%%%%%%%%% """
+   """ %%%%%%%%%%%%%%%%% LOAD CONFIGURATIONS %%%%%%%%%%%%%%%% """
 
-   confg = {}
-
-   """ Configuration of the calculation of algorithmic climate change functions (aCCFs) """
-
-   confg['efficacy'] = True                        
-   confg['efficacy-option'] = 'lee_2021'                                           
-   confg['aCCF-V'] = 'V1.1'      
-   confg['aCCF-scalingF'] = {'CH4': 1, 'O3': 1, 'H2O': 1, 'Cont.': 1, 'CO2': 1}
-   confg['emission_scenario'] = 'future_scenario' 
-   confg['climate_indicator'] = 'ATR'   
-   confg['TimeHorizon'] = 20        
-   confg['PCFA'] = 'PCFA-ISSR'    
-   confg['ISSR'] = {'rhi_threshold': 0.9, 'temp_threshold': 235}    
-   confg ['SAC'] = {'Q': 43 * 1e6, 'eta': 0.3, 'EI_H2O': 1.25}    
-
-   """ Technical specifiactions of aircraft/engine dependent parameters """
-
-   confg['NOx_EI&F_km'] = 'TTV' 
-   confg['ac_type'] = 'wide-body'    
-
-   """ Specifies the saved output file """
-
-   confg['PMO'] = True                 
-   confg['NOx_aCCF'] = False                    
-   confg['unit_K/kg(fuel)'] = False          
-   confg['merged'] = True               
-   confg['Chotspots'] = False    
-   confg['MET_variables'] = False            
-                
-   """ Output Options for Statistical analysis of Ensemble prediction system (EPS) data products """
-
-   confg['mean'] = False                      
-   confg['std'] = False                     
+   with open("config-user.yml", "r") as ymlfile:
+      confg = yaml.safe_load(ymlfile)
      
-    """ %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% """
+   """ %%%%%%%%%%%%%%%%% MAIN %%%%%%%%%%%%%%%% """
 
-    CI = ClimateImpact(input_dir, output_dir, **confg)
-    CI.calculate_accfs(**confg)
+   CI = ClimateImpact(input_dir, output_dir, **confg)
+   CI.calculate_accfs(**confg)
 
-The output netCDF file is generated in: *climaccf/test/sample_data/env_processed.nc*. In the following, a script is provided, enabling visualize the output. 
+the output netCDF file is generated in: *climaccf/test/sample_data/env_processed.nc*. In the following, a script is provided to visualize the output. 
 
 ::
 
@@ -172,25 +202,16 @@ The output netCDF file is generated in: *climaccf/test/sample_data/env_processed
 
     main()
 
-For instance, using the script, one should get the following figure for the merged aCCF at 250hPa for 2018-06-01T06:
+For instance, using the script, one should get the following figure for the merged aCCFs at 250hPa on June 01, 2018 at 06:00 (UTC):
     
-
 .. image:: images/merged_250.png
   :width: 500
   :align: center
   :alt: aCCF-Merged
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-
 Acknowledmgements
 -----------------
-.. image:: images/Alarm_LOGO.eps
+.. image:: images/Alarm_LOGO.jpg
   :width: 100
   :align: center
   :alt: FMP-Met project
@@ -217,3 +238,5 @@ ALARM has received funding from the SESAR Joint Undertaking (JU) under grant agr
 .. |br| raw:: html
 
       <br>
+
+.. bibliography::
