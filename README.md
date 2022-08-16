@@ -15,6 +15,7 @@ The Python Library CLIMaCCF is a software package developed by UC3M and DLR. The
 
 **Core developer team:** Abolfazl Simorgh (UC3M), Manuel Soler (UC3M), Simone Dietmüller (DLR), Hiroshi Yamashita (DLR), Sigrun Matthes (DLR). 
 
+Copyright (C) 2022, Deutsches Zentrum fuer Luft- und Raumfahrt e. V., Universidad Carlos III de Madrid
 
 ## How to run the library
 The installation is the first step to working with CLIMaCCF. In the following, the steps required to install the library are provided.
