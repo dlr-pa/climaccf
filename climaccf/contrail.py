@@ -8,18 +8,18 @@ from climaccf.database import *
 
 
 def get_pcfa(ds, member, confg):
-    """ Calculates the presistent contrail formation areas (PCFA) with two options: 1) PCFA defined by ice-supersaturated regions with threshold for relative humidity over ice and temperature and 2) Contrail formation with Schmidt-Appleman criterion SAC (Appleman, 1953) & contrail persistence, if ambient air is ice supersaturated. Areas of presistent contrail formation are needed to calculate aCCF of (day/night) contrails.
+    """ Calculates the persistent contrail formation areas (PCFA) with two options: 1) PCFA defined by ice-supersaturated regions with threshold for relative humidity over ice and temperature and 2) Contrail formation with Schmidt-Appleman criterion SAC (Appleman, 1953) & contrail persistence, if ambient air is ice supersaturated. Areas of persistent contrail formation are needed to calculate aCCF of (day/night) contrails.
 
-    :param ds: Dataset openned with xarray.
+    :param ds: Dataset opened with xarray.
     :type ds: Dataset
 
-    :param member: Detemines the presense of ensemble members in the given dataset.
+    :param member: Determines the presence of ensemble members in the given dataset.
     :type member: bool
 
     :param confg: Configurations containing the selected option to calculate PCFA and required parameters for each option.
     :type member: dict
 
-    :returns pcfa: Presistent contrail formation areas (PCFA).
+    :returns pcfa: Persistent contrail formation areas (PCFA).
     :rtype: numpy.ndarray
     """
     if confg['PCFA'] == 'PCFA-ISSR':
@@ -56,10 +56,10 @@ def get_pcfa(ds, member, confg):
 def get_cont_form_thr(ds, member, SAC_config):
     """ Calculates the threshold temperature and threshold of relative humidity over water required for contrail formation (Schmidt-Applemann-Citerion, Applemann 1953). A good approximation of the Schmidt-Appleman Criterion is given in Schumann 1996. 
 
-    :param ds: Dataset openned with xarray.
+    :param ds: Dataset opened with xarray.
     :type ds: Dataset
 
-    :param member: Detemines the presense of ensemble forecasts in the given dataset.
+    :param member: Determines the presence of ensemble forecasts in the given dataset.
     :type member: bool
 
     :returns SAC_config: Configurations containing required parameters to calculate Schmidt-Applemann-Citerion.
@@ -117,10 +117,10 @@ def get_relative_hum(ds, member, intrp=True):
     to saturation of the mixed phase: i.e. with respect to saturation over ice below -23C and with respect to saturation over water above 0C. 
     In the regime in between a quadratic interpolation is applied.
 
-    :param ds: Dataset openned with xarray.
+    :param ds: Dataset opened with xarray.
     :type ds: Dataset
 
-    :param member: Detemines the presense of ensemble forecasts in the given dataset.
+    :param member: Determines the presence of ensemble forecasts in the given dataset.
     :type member: bool
 
     :returns ri: Relative humidity over ice.
@@ -162,7 +162,7 @@ def get_relative_hum(ds, member, intrp=True):
 
         rw[t_c < -23] = r[t_c < -23] * (6.1162 * np.exp((22.577 * t_c[t_c < -23]) / (273.78 + t_c[t_c < -23]))) / (
                 6.0612 * np.exp((18.102 * t_c[t_c < -23]) / (249.52 + t_c[t_c < -23])))
-        """Set r over 100 equal to 100 for Schumman formula, since at r = 100, T_Crit = TLC"""
+        """Set r over 100 equal to 100 for Schumann formula, since at r = 100, T_Crit = TLC"""
 
         rw[rw > 1] = 1
 
@@ -231,10 +231,10 @@ def get_rw_from_specific_hum(ds, member):
     """ 
     Calculates relative humidity over water from specific humidity.
 
-    :param ds: Dataset openned with xarray.
+    :param ds: Dataset opened with xarray.
     :type ds: Dataset
 
-    :param member: Detemines the presense of ensemble forecasts in the given dataset.
+    :param member: Determines the presence of ensemble forecasts in the given dataset.
     :type member: bool
 
     :returns r_w: Relative humidity over water.

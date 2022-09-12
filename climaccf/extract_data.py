@@ -7,10 +7,10 @@ from climaccf.extend_dim import *
 def extract_data_variables(ds, ds_sr=None, verbose=False):
     """ Extracts available required variables of the input dataset defined with different possible names.
 
-    :param ds: Dataset openned with xarray.
+    :param ds: Dataset opened with xarray.
     :type ds: Dataset
 
-    :param ds_sr: Dataset containing surface parameters openned with xarray.
+    :param ds_sr: Dataset containing surface parameters opened with xarray.
     :type ds_sr: Dataset
 
     :param verbose: Used to show more information.
@@ -130,7 +130,7 @@ def extract_data_variables(ds, ds_sr=None, verbose=False):
         elif var_ == 'relative_humidity':
             if verbose:
                 print('** variable ' + '\033[93m' + var_ + "\033[0m" ' is not available **')
-                print('\033[91m' + 'Persistant contrail formation areas cannot be calculated, unless specific '
+                print('\033[91m' + 'Persistent contrail formation areas cannot be calculated, unless specific '
                                    'humidity is given --> No aCCF of contrails' "\033[0m" "\n")
             variables['r'] = False
 
@@ -230,7 +230,7 @@ def logic_cal_accfs(variables):
 def extract_coordinates(ds, ex_variables, ds_sur=None):
     """ Extracts coordinates (axes) of the input dataset defined with different possible names.
 
-    :param ds: Dataset openned with xarray.
+    :param ds: Dataset opened with xarray.
     :type ds: Dataset
 
     :returns ex_var_name: List of available coordinates.

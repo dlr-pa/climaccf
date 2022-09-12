@@ -21,7 +21,7 @@ efficacy-option: lee_2021
 aCCF-V: V1.1
         # currently 2 options for aCCFs: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
 
-# User-defined scaling factors of the above selected aCCF version. Not recommented to 
+# User-defined scaling factors of the above selected aCCF version. Not recommended to
 # be changed from default value 1, unless modification of the aCCFs is wanted (e.g. sensitivity studies)
 aCCF-scalingF:
   CH4: 1
@@ -69,12 +69,12 @@ PCFA-SAC:
 
 
 ###########################################################################################
-# Technical specifiactions of aircraft/engine dependent parameters
+# Technical specifications of aircraft/engine dependent parameters
 ###########################################################################################  
 
 # Specifies the values of NOx emission index (NOx_EI) and flown distance per kg burnt fuel (F_km) 
 NOx_EI&F_km: TTV
-       # Options: 'TTV' for typical transantlantic fleet mean values (NOx_EI, F_km) from literature (Penner et al. 1999, Graver and Rutherford 2018) and  
+       # Options: 'TTV' for typical transatlantic fleet mean values (NOx_EI, F_km) from literature (Penner et al. 1999, Graver and Rutherford 2018) and
        # 'ac_dependent' for altitude and aircraft/engine dependent values (NOx_EI, F_km) 
        # Note that if Confg['NOx_EI&F_km'] = 'TTV', the following confg['ac_type'] is ignored.
 
@@ -103,7 +103,7 @@ unit_K/kg(fuel): false
 merged: true
       # Options: true, false
 
-# If true, climate hotspots (regions that are very senitive to aviation emissisions) are calculated (for more details see Dietmueller et al. 2022)
+# If true, climate hotspots (regions that are very sensitive to aviation emissions) are calculated (for more details see Dietmueller et al. 2022)
 Chotspots: false
       # Options: true, false
 

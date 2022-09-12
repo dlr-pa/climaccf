@@ -9,10 +9,10 @@ def extend_olr_pl_4d(sur_var, pl_var, index, fore_step):
     Calculates outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
     [J/m2], and extends (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, OLR is calculated in 3D (i.e., level, latitude, longitude).
 
-    :param sur_var: Dataset containing surface parameters openned with xarray.
+    :param sur_var: Dataset containing surface parameters opened with xarray.
     :type sur_var: Dataset
 
-    :param pl_var: Dataset containing pressure level parameters openned with xarray.
+    :param pl_var: Dataset containing pressure level parameters opened with xarray.
     :type pl_var: Dataset
 
     :param index: Index of the time.
@@ -72,10 +72,10 @@ def extend_olr_pl_5d(sur_var, pl_var, index, fore_step):
     Calculates outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
     [J/m2], and extends (duplicating) it to all pressure levels for consistency of dimensions. For a specific time, OLR is calculated in 4D (i.e., number, level, latitude, longitude).
 
-    :param sur_var: Dataset containing surface parameters openned with xarray.
+    :param sur_var: Dataset containing surface parameters opened with xarray.
     :type sur_var: Dataset
 
-    :param pl_var: Dataset containing pressure level parameters openned with xarray.
+    :param pl_var: Dataset containing pressure level parameters opened with xarray.
     :type pl_var: Dataset
 
     :param index: Index of the time that exists in the dataset of pressure level parameters at this step.
@@ -98,10 +98,10 @@ def get_olr_4d(sur_var, pl_var, thr, fore_step=None):
     """ Calculates outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
     [J/m2]. OLR is calculated in 4D (i.e, time, level, latitude, longitude).
 
-    :param sur_var: Dataset containing surface parameters openned with xarray.
+    :param sur_var: Dataset containing surface parameters opened with xarray.
     :type sur_var: Dataset
 
-    :param pl_var: Dataset containing pressure level parameters openned with xarray.
+    :param pl_var: Dataset containing pressure level parameters opened with xarray.
     :type pl_var: Dataset
 
     :param thr: Thresholds to automatically determine forecast steps.
@@ -162,10 +162,10 @@ def get_olr_5d(sur_var, pl_var, thr, fore_step=None):
     """ Calculates outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
     [J/m2]. OLR is calculated in 5D (i.e, time, number, level, latitude, longitude).
 
-    :param sur_var: Dataset containing surface parameters openned with xarray.
+    :param sur_var: Dataset containing surface parameters opened with xarray.
     :type sur_var: Dataset
 
-    :param pl_var: Dataset containing pressure level parameters openned with xarray.
+    :param pl_var: Dataset containing pressure level parameters opened with xarray.
     :type pl_var: Dataset
 
     :param thr: Thresholds to automatically determine forecast steps.
@@ -224,12 +224,12 @@ def get_olr_5d(sur_var, pl_var, thr, fore_step=None):
 
 def get_olr(sur_var, pl_var, number=True, fore_step=None):
     """ Calculates outgoing longwave radiation (OLR) [W/m2] at TOA from the parameter top net thermal radiation (ttr)
-        [J/m2]. OLR is calculated in 5D or 4D depending on the existance of ensemble members.
+        [J/m2]. OLR is calculated in 5D or 4D depending on the existence of ensemble members.
 
-        :param sur_var: Dataset containing surface parameters openned with xarray.
+        :param sur_var: Dataset containing surface parameters opened with xarray.
         :type sur_var: Dataset
 
-        :param pl_var: Dataset containing pressure level parameters openned with xarray.
+        :param pl_var: Dataset containing pressure level parameters opened with xarray.
         :type pl_var: Dataset
 
         :param number: Determines whether the weather data contains ensemble members or not.

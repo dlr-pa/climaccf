@@ -122,10 +122,10 @@ class WeatherStore(WeatherStore_):
         """
         Processes the weather data.
 
-        :param weather_data: Dataset openned with xarray containing variables on different pressure levels.
+        :param weather_data: Dataset opened with xarray containing variables on different pressure levels.
         :type ds: Dataset
 
-        :param weather_data_sur: Dataset openned with xarray containing variables on single pressure level (i.e., outgoing longwave radiation in this case).
+        :param weather_data_sur: Dataset opened with xarray containing variables on single pressure level (i.e., outgoing longwave radiation in this case).
         :type ds: Dataset
 
         """
@@ -159,7 +159,7 @@ class WeatherStore(WeatherStore_):
 
         self.wd = weather_data
         # check the consistency of lat-long fields within datasets of surface and pressure level parameters
-        # TODO: Consider the range (i.e., on data set has latitude: (20, 60) and the other one latitude: (30, 70) --> consider (30,60)) and also stick to lower resultion one
+        # TODO: Consider the range (i.e., on data set has latitude: (20, 60) and the other one latitude: (30, 70) --> consider (30,60)) and also stick to lower resolution one
         # TODO: For the following condition, also check if merged aCCF is needed. If yes, search for shortwave flux, time or methods implemented by Ben for determining whether we have daytime contrails or not, the process ttr
         if weather_data_sur and inf_variables['logic_variable']['ttr']:
             self.wd_sur = weather_data_sur

@@ -14,10 +14,10 @@ def extend_dimensions(inf_coord, ds, ds_sur, ex_variables):
     :param inf_coord: Information on original coordinates.
     :type inf_coord: dict
 
-    :param ds: Dataset openned with xarray containing variables on pressure levels.
+    :param ds: Dataset opened with xarray containing variables on pressure levels.
     :type ds: Dataset
 
-    :param ds_sur: Dataset containing surface parameters openned with xarray.
+    :param ds_sur: Dataset containing surface parameters opened with xarray.
     :type ds_sur: Dataset
 
     :param ex_variables: New coordinates

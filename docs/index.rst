@@ -12,7 +12,7 @@ Introduction
 
 **License:** CLIMaCCF is released under GNU Lesser General Public License v3.0 (LGPLv3). Citing the Software Documentation Paper (Dietmüller et al. 2022 :cite:p:`simonePython`) together with CLIMaCCF software DOI  (doi: 10.5281/zenodo.6977273) and version number  will serve to document the scientific impact of the software. You should consider this an obligation if you have taken advantage of CLIMaCCF.
 
-**Citation info:** Dietmüller, S. Matthes, S., Dahlmann, K., Yamashita, H., Soler, M., Simorgh, A., Linke, F., Lührs, B., Meuser, M. M., Weder, C., Yin, F., Castino, F., Grewe, V. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, GMDD.
+**Citation info:** Dietmüller, S., Matthes, S., Dahlmann, K., Yamashita, H., Simorgh, A., Soler, M., Linke, F., Lührs, B., Meuser, M. M., Weder, C., Grewe, V., Yin, F., Castino, F. (2022): A python library for computing individual and merged non-CO2 algorithmic climate change functions: CLIMaCCF V1.0, GMDD.
 
 **User support:** Support of all general technical questions on CLIMaCCF, i.e., installation, application, and development, will be provided by Abolfazl Simorgh (abolfazl.simorgh@uc3m.es), Simone Dietmüller (Simone.Dietmueller@dlr.de), and Hiroshi Yamashita (Hiroshi.Yamashita@dlr.de). 
 
@@ -71,7 +71,7 @@ First of all, define the configurations in a YAML file format (e.g., config-user
       Q: 43000000.0
       eta: 0.3
 
-   # Technical specifiactions of aircraft/engine dependent parameters #
+   # Technical specifications of aircraft/engine dependent parameters #
 
    NOx_EI&F_km: TTV
    ac_type: wide-body
@@ -209,8 +209,8 @@ For instance, using the script, one should get the following figure for the merg
   :align: center
   :alt: aCCF-Merged
 
-Acknowledmgements
------------------
+Acknowledgments
+---------------
 .. image:: images/Alarm_LOGO.jpg
   :width: 100
   :align: center

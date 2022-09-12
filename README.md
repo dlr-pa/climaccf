@@ -20,10 +20,12 @@ Copyright (C) 2022, Deutsches Zentrum fuer Luft- und Raumfahrt e. V., Universida
 ## How to run the library
 The installation is the first step to working with CLIMaCCF. In the following, the steps required to install the library are provided.
 
-0. It is highly recomended to create a virtual environment (e.g., env_climaccf):
+0. It is highly recommended to create a virtual environment (e.g., env_climaccf)  with Python version 3.8 (or 3.9):
 ```python
-conda create -n env_climaccf
+conda create -n env_climaccf python==3.8
 conda activate env_climaccf
+pip install setuptools~=49.6.0
+pip install pint~=0.19.2
 ```
 1. Clone or download the repository. The CLIMaCCF source code is available on a public GitHub repository: https://github.com/dlr-pa/climaccf.git. The easiest way to obtain it is to clone the repository using git: git clone https://github.com/dlr-pa/climaccf.git.
 
@@ -89,7 +91,7 @@ efficacy-option: lee_2021
 aCCF-V: V1.1
         # currently 2 options for aCCFs: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
 
-# User-defined scaling factors of the above selected aCCF version. Not recommented to 
+# User-defined scaling factors of the above selected aCCF version. Not recommended to 
 # be changed from default value 1, unless modification of the aCCFs is wanted (e.g. sensitivity studies)
 aCCF-scalingF:
   CH4: 1
@@ -137,12 +139,12 @@ PCFA-SAC:
 
 
 ###########################################################################################
-# Technical specifiactions of aircraft/engine dependent parameters
+# Technical specifications of aircraft/engine dependent parameters
 ###########################################################################################  
 
 # Specifies the values of NOx emission index (NOx_EI) and flown distance per kg burnt fuel (F_km) 
 NOx_EI&F_km: TTV
-       # Options: 'TTV' for typical transantlantic fleet mean values (NOx_EI, F_km) from literature (Penner et al. 1999, Graver and Rutherford 2018) and  
+       # Options: 'TTV' for typical transatlantic fleet mean values (NOx_EI, F_km) from literature (Penner et al. 1999, Graver and Rutherford 2018) and  
        # 'ac_dependent' for altitude and aircraft/engine dependent values (NOx_EI, F_km) 
        # Note that if Confg['NOx_EI&F_km'] = 'TTV', the following confg['ac_type'] is ignored.
 
@@ -171,7 +173,7 @@ unit_K/kg(fuel): false
 merged: true
       # Options: true, false
 
-# If true, climate hotspots (regions that are very senitive to aviation emissisions) are calculated (for more details see Dietmueller et al. 2022)
+# If true, climate hotspots (regions that are very sensitive to aviation emissions) are calculated (for more details see Dietmueller et al. 2022)
 Chotspots: false
       # Options: true, false
 
@@ -296,7 +298,7 @@ PCFA-SAC:
     Q: 43000000.0
     eta: 0.3
 
-# Technical specifiactions of aircraft/engine dependent parameters #
+# Technical specifications of aircraft/engine dependent parameters #
 
 NOx_EI&F_km: TTV
 ac_type: wide-body
@@ -375,7 +377,7 @@ make html
 
 Note that you **should not see** any error or warning, this information appears as red text in the terminal.
 
-## Acknowledmgements
+## Acknowledgements
 
 This library has been developed within EU-Projects FlyATM4E and ALARM.
 

@@ -3,7 +3,7 @@ Installation
 
 The installation is the first step to working with CLIMaCCF. In the following, the steps required to install the library are provided.
 
-0. It is highly recomended to create a virtual environment (e.g., env_climaccf):
+0. It is highly recommended to create a virtual environment (e.g., env_climaccf):
 
 ::
 
@@ -30,7 +30,7 @@ git clone https://github.com/dlr-pa/climaccf.git.
 Configuration
 =============
 
-The scope of CLIMaCCF is to provide individual and merged aCCFs as spatially and temporally resolved information considering meteorology from the actual synoptical situation, the aircraft type, the selected physical climate metric, and the selected version of prototype algorithms in individual aCCFs :cite:p:`simonePython`. Consequently, some user-preferred settings need to be defined. The easiest (and user-friendliest, less error-prone) way is to use a configuration file. In CLIMaCCF, the configuration settings are included in a YAML file and named *config-user.yml*. YAML is a human-friendly markup language and is commonly used for configuration files. In the following, a sample configuration file located in the CLIMaCCF folder is provided:
+The scope of CLIMaCCF is to provide individual and merged aCCFs as spatially and temporally resolved information considering meteorology from the actual synoptical situation, the aircraft type, the selected physical climate metric, and the selected version of prototype algorithms in individual aCCFs :cite:p:`simonePython`. Consequently, some user-preferred settings need to be defined. The easiest (and user-friendliest, less error-prone) way is to use a configuration file. In CLIMaCCF, the configuration settings are included in a YAML file named *config-user.yml*. YAML is a human-friendly markup language and is commonly used for configuration files. In the following, a sample YAML user configuration file (aslo located in the CLIMaCCF folder) is provided:
 
 ::
 
@@ -56,7 +56,7 @@ The scope of CLIMaCCF is to provide individual and merged aCCFs as spatially and
   aCCF-V: V1.1
           # currently 2 options for aCCFs: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
 
-  # User-defined scaling factors of the above selected aCCF version. Not recommented to be changed from default value 1, unless modification of the aCCFs is wanted (e.g. sensitivity studies)
+  # User-defined scaling factors of the above selected aCCF version. Not recommended to be changed from default value 1, unless modification of the aCCFs is wanted (e.g. sensitivity studies)
   aCCF-scalingF:
     CH4: 1
     CO2: 1
@@ -98,11 +98,11 @@ The scope of CLIMaCCF is to provide individual and merged aCCFs as spatially and
     eta: 0.3
 
 
-  #** Technical specifiactions of aircraft/engine dependent parameters **#
+  #** Technical specifications of aircraft/engine dependent parameters **#
 
   # Specifies the values of NOx emission index (NOx_EI) and flown distance per kg burnt fuel (F_km) 
   NOx_EI&F_km: TTV
-        # Options: 'TTV' for typical transantlantic fleet mean values (NOx_EI, F_km) from literature (Penner et al. 1999, Graver and Rutherford 2018) and 'ac_dependent' for altitude and aircraft/engine dependent values (NOx_EI, F_km). Note that if Confg['NOx_EI&F_km'] = 'TTV', the following confg['ac_type'] is ignored.
+        # Options: 'TTV' for typical transatlantic fleet mean values (NOx_EI, F_km) from literature (Penner et al. 1999, Graver and Rutherford 2018) and 'ac_dependent' for altitude and aircraft/engine dependent values (NOx_EI, F_km). Note that if Confg['NOx_EI&F_km'] = 'TTV', the following confg['ac_type'] is ignored.
 
   # If Confg['NOx_EI&F_km'] = 'ac_dependent', aircraft class (i.e. regional, single-aisle, wide-body) needs to be selected. For these aircraft classes aggregated fleet-level values of NOx_EI and F_km are provided (for more details see Dietmueller et al. 2022).
   ac_type: wide-body
@@ -126,7 +126,7 @@ The scope of CLIMaCCF is to provide individual and merged aCCFs as spatially and
   merged: true
         # Options: true, false
 
-  # If true, climate hotspots (regions that are very senitive to aviation emissisions) are calculated (for more details see Dietmueller et al. 2022)
+  # If true, climate hotspots (regions that are very sensitive to aviation emissions) are calculated (for more details see Dietmueller et al. 2022)
   Chotspots: false
         # Options: true, false
 
@@ -202,7 +202,7 @@ Input
 =====
 
 To calculate aCCFs within CLIMaCCF, meteorological input parameters are required. These input parameters are listed in Table 1, together with their physical unit.
-The current implementation of the Library is compatible with the standard of the European Centre for Medium-Range Weather Forecasts (ECMWF) data (for both reanalysis and forecast data products) (https://www.ecmwf.int). In the case of taking ECWMF input data, the respective short names and parameter ID are given in Table 1. 
+The current implementation of the Library is compatible with the standard of the European Centre for Medium-Range Weather Forecasts (ECMWF) data (for both reanalysis and forecast data products) (https://www.ecmwf.int). In the case of taking ECMWF input data, the respective short names and parameter ID are given in Table 1.
 The user has to provide two datasets: one for input data provided at each pressure level and one for input data provided on one single pressure level (e.g., surface layer or top of atmosphere (TOA)). Within CLIMaCCF, the directories of these two datasets are defined in climaccf_run_main.py:
 
 ::
@@ -215,14 +215,14 @@ The user has to provide two datasets: one for input data provided at each pressu
     input_dir['path_sur'] =  dir_surface_variables 
     
 
-.. list-table:: Meteorological input parameters needed to calculate aCCFs within CLIMaCCF. Respective ECWMF short names, units, and parameter IDs are provided.  
+.. list-table:: Meteorological input parameters needed to calculate aCCFs within CLIMaCCF. Respective ECMWF short names, units, and parameter IDs are provided.
    :widths: 30 15 15 15
    :header-rows: 1
 
    * - **Parameter**
      - **Short name**
      - **Units**
-     - **ECWMF parameter ID**
+     - **ECMWF parameter ID**
    * - Pressure
      - pres
      - :math:`[K.m^{2}/Kg.s]`
@@ -277,7 +277,7 @@ After defining configurations and input and output directories, CLIMaCCF is prep
     import climaccf
     from climaccf.main_processing import ClimateImpact
 
-First, the input meteorological variables will be processed. This processing step is mainly related to 1) extracting variables of input data, 2) calculating required variables from alternative ones in case of missing variables (for details, see Table 5 of Dietmüller et al. 2022 :cite:p:`simonePython`), 3) unifying the naming and dimension of variables, and 4) changing the resolution and geographical area. 
+First, the input meteorological variables will be processed. This processing step is mainly related to 1) extracting variables of input data, 2) calculating required variables from alternative ones in case of missing variables (for details, see Table 5 of Dietmüller et al. 2022 :cite:p:`simonePython`), 3) unifying the naming and dimension of variables, and 4) changing the resolution and geographical area of the output.
 The horizontal resolution and the geographical region of the output can be selected in the user configuration file (config-user.yml). Notice that the horizontal resolution cannot be higher than the resolution of the meteorological input data, and the decrease in resolution is a factor :math:`i` of natural numbers. For instance, if the resolution of meteorological input data is :math:`0.25^{\circ} \times 0.25^{\circ}`, the resolution can be reduced to :math:`i \cdot 0.25^{\circ} \times i \cdot 0.25^{\circ}`, for :math:`i \in` N.
 
 ::

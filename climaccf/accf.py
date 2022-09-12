@@ -108,7 +108,7 @@ class GeTaCCFs(object):
         Calculates the aCCF of night-time contrails according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
         temperature response as over next 20 years, assuming pulse emissions (P-ATR20-contrails [K/km]). To calculate the aCCF of night-time contrails,
         meteorological variables temperature and relative humidity over ice are required. Notice that,
-        relative humidity over ice is required for the detemiation of presistent contrail formation areas.
+        relative humidity over ice is required for the determination of persistent contrail formation areas.
 
         :returns accf: Algorithmic climate change function of nighttime contrails.
         :rtype: numpy.ndarray
@@ -133,7 +133,7 @@ class GeTaCCFs(object):
         Calculates the aCCF of day-time contrails according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
         temperature response as over next 20 years, assuming pulse emissions (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
         meteorological variables temperature and relative humidity over ice are required. Notice that,
-        relative humidity over ice is required for the detemiation of presistent contrail formation areas.
+        relative humidity over ice is required for the determination of persistent contrail formation areas.
         
 
         :returns accf: Algorithmic climate change function of day-time contrails.
