@@ -14,7 +14,7 @@ def get_EIs (ac_type, path):
     interp_NOx_EI = {}
     interp_inverse_EI = {}
 
-    name_NOx_EI = ['EI NOx regional [g/kg(fuel)]', 'EI NOx single-aisle [g/kg(fuel)]', 'EI NOx wide-body [g/kg(fuel)]']
+    name_NOx_EI = ['EI NOx regional [g/kg(Fuel)]', 'EI NOx single-aisle [g/kg(Fuel)]', 'EI NOx wide-body [g/kg(Fuel)]']
     name_type = ['regional', 'single-aisle', 'wide-body']
     name_inverse_EI = ['flown distance [km/kg(fuel)] regional', 'flown distance [km/kg(fuel)] single-aisle', 'flown distance [km/kg(fuel)] wide-body']
 

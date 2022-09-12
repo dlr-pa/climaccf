@@ -37,8 +37,13 @@ def extend_ssrd_pl_5d(sur_var, pl_var):
     """
     arr = np.zeros(pl_var.t.values.shape)
     n_l = len(pl_var.level.values)
-    for i_l in range(n_l):
-        arr[:, :, i_l, :, :] = sur_var['ssrd'].values[:, :, :, :]
+    potential_var_names = ['ssrd','var169', 'tisr'] 
+    for pvn in potential_var_names:
+        try:
+            for i_l in range(n_l):
+                arr[:, :, i_l, :, :] = sur_var[pvn].values[:, :, :, :]
+        except:
+            pass
     return arr
 
 def extend_ssrd_pl_4d(sur_var, pl_var):
@@ -46,8 +51,13 @@ def extend_ssrd_pl_4d(sur_var, pl_var):
     """
     arr = np.zeros(pl_var.t.values.shape)
     n_l = len(pl_var.level.values)
-    for i_l in range(n_l):
-        arr[:, i_l, :, :] = sur_var['ssrd'].values[:, :, :]
+    potential_var_names = ['ssrd','var169', 'tisr'] 
+    for pvn in potential_var_names:
+        try:
+            for i_l in range(n_l):
+                arr[:, i_l, :, :] = sur_var[pvn].values[:, :, :]
+        except:
+            pass           
     return arr
 
 
@@ -57,13 +67,13 @@ def get_ssrd(sur_var, pl_var, number=True):
     if number:
         ssrd_ = extend_ssrd_pl_5d(sur_var, pl_var)
         ssrd = ssrd_
-        ssrd[ssrd_ <= 0.1] = 0 # night
-        ssrd[ssrd_ > 0.1] = 1 # day
+        ssrd[ssrd_ == 0] = 0 # night
+        ssrd[ssrd_ != 0] = 1 # day
     else:
         ssrd_ = extend_ssrd_pl_4d(sur_var, pl_var)
         ssrd = ssrd_
-        ssrd[ssrd_ <= 0.1] = 0 # night
-        ssrd[ssrd_ > 0.1] = 1 # day
+        ssrd[ssrd_ == 0] = 0 # night
+        ssrd[ssrd_ != 0] = 1 # day
     return ssrd
 
 
