@@ -432,8 +432,9 @@ class GeTaCCFs(object):
                         self.var_aCCF_xr[name_ + '_mean'] = (tuple(coor_without_mem), arr)
                 else:
                     for name_ in name_accfs:
-                        arr = np.mean(self.aCCF_xr[name_][1], axis=1)
-                        self.aCCF_xr[name_ + '_mean'] = (tuple(coor_without_mem), arr)
+                        if name_ != 'climate_hotspots_thr':
+                            arr = np.mean(self.aCCF_xr[name_][1], axis=1)
+                            self.aCCF_xr[name_ + '_mean'] = (tuple(coor_without_mem), arr)
             if confg['std']:
                 if self.variables:
                     for name_ in name_var_accfs:
@@ -441,8 +442,9 @@ class GeTaCCFs(object):
                         self.var_aCCF_xr[name_ + '_std'] = (tuple(coor_without_mem), arr)
                 else:
                     for name_ in name_accfs:
-                        arr = self.get_std(self.aCCF_xr[name_][1])
-                        self.aCCF_xr[name_ + '_std'] = (tuple(coor_without_mem), arr)
+                        if name_ != 'climate_hotspots_thr':
+                            arr = self.get_std(self.aCCF_xr[name_][1])
+                            self.aCCF_xr[name_ + '_std'] = (tuple(coor_without_mem), arr)
         if confg['Coef.BFFM2']:
             C1, C2 = get_BFFM2_c1c2(self, confg['method_BFFM2_SH'])
             self.var_aCCF_xr['C1'] = (tuple(self.coordinate_names), C1)
