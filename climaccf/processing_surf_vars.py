@@ -67,13 +67,13 @@ def get_ssrd(sur_var, pl_var, number=True):
     if number:
         ssrd_ = extend_ssrd_pl_5d(sur_var, pl_var)
         ssrd = ssrd_
-        ssrd[ssrd_ == 0] = 0 # night
-        ssrd[ssrd_ != 0] = 1 # day
+        ssrd[ssrd_ <= 0.2] = 0 # night
+        ssrd[ssrd_ >  0.2] = 1 # day
     else:
         ssrd_ = extend_ssrd_pl_4d(sur_var, pl_var)
         ssrd = ssrd_
-        ssrd[ssrd_ == 0] = 0 # night
-        ssrd[ssrd_ != 0] = 1 # day
+        ssrd[ssrd_ <= 0.2] = 0 # night
+        ssrd[ssrd_ >  0.2] = 1 # day
     return ssrd
 
 
