@@ -50,7 +50,7 @@ class GeTaCCFs(object):
         # Weather data
         self.t = ds['t'].values
         self.gp = ds['z'].values
-        self.Fin = get_Fin(ds, self.lat)
+        self.Fin = get_Fin(self)
         self.r = ds['r'].values
         self.pvu = ds['pv'].values * 1e6
 
@@ -451,7 +451,7 @@ class GeTaCCFs(object):
             self.aCCF_xr['C1'] = (tuple(self.coordinate_names), C1)                
             self.var_aCCF_xr['C2'] = (tuple(self.coordinate_names), C2)
             self.aCCF_xr['C2'] = (tuple(self.coordinate_names), C2)
-
+        self.var_aCCF_xr['Fin'] = (tuple(self.coordinate_names), self.Fin)   
     def get_xarray(self):
         """
         Creates an xarray dataset containing user-selected variables.
@@ -544,8 +544,7 @@ def convert_accf(name, value, confg):
         raise ValueError(" The current version only employs average temperature response (ATR) as the climate indicator.")
     return value
 
-
-def get_Fin(ds, lat):
+def get_Fin(self):
     """
     Calculates TOA incoming solar radiation.
 
@@ -558,16 +557,22 @@ def get_Fin(ds, lat):
     :returns Fin: Incoming solar radiation. 
     :rtype: numpy.ndarray
     """
-    date = str(ds['time'].values[0])
-    month = date[5:7]
-    day = date[8:10]
-    N = (int(month) - 1) * 30 + int(day)  # Day of year
-    delta = -23.44 * np.cos(np.deg2rad(360 / 365 * (N + 10)))
-    S = 1360  # W/m2, Solar constant
-    theta = np.sin(np.deg2rad(lat)) * np.sin(np.deg2rad(delta)) + np.cos(np.deg2rad(lat)) * np.cos(np.deg2rad(delta))
-    Fin = S * theta
+    Fin = np.zeros (self.ds.t.values.shape)
+    for t in range(self.nt):
+        date = str(self.ds['time'].values[t])
+        month = date[5:7]
+        day = date[8:10]
+        N = (int(month) - 1) * 30 + int(day)  # Day of year
+        delta = -23.44 * np.cos(np.deg2rad(360 / 365 * (N + 10)))
+        S = 1360  # W/m2, Solar constant
+        theta = np.sin(np.deg2rad(self.lat)) * np.sin(np.deg2rad(delta)) + np.cos(np.deg2rad(self.lat)) * np.cos(np.deg2rad(delta))
+        for l in range(self.nl):
+            if self.member_bool:
+                for m in range(self.nm):
+                    Fin[t,m,l,:,:] = S * theta
+            else:
+                Fin[t,l,:,:] = S * theta        
     return Fin
-
 
 def get_encoding_dict(list_name, encoding):
     encoding_ = {'dtype': encoding}
