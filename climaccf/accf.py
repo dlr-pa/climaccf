@@ -194,11 +194,22 @@ class GeTaCCFs(object):
         self.base = aCCF_V1_0
 
         # PCFA:
-        self.pcfa = get_pcfa(self.ds, self.member_bool, confg)
+        self.sac, self.issr, self.pcfa = get_pcfa(self.ds, self.member_bool, confg)
         if confg['pcfa']:
             attrs_pcfa = {'unit': '-', 'long_name': 'persistent contrail formation areas [0,1]', 'short_name': 'pcfa'}
             self.var_aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa, attrs_pcfa)
             self.aCCF_xr['pcfa'] = (tuple(self.coordinate_names), self.pcfa, attrs_pcfa) 
+            
+            # Saving issr
+            attrs_issr = {'unit': '-', 'long_name': 'Ice supersaturated regions [0,1]', 'short_name': 'issr'}
+            self.var_aCCF_xr['issr'] = (tuple(self.coordinate_names), self.issr, attrs_issr)
+            self.aCCF_xr['issr'] = (tuple(self.coordinate_names), self.issr, attrs_issr) 
+            
+            # Saving SAC
+            if confg['PCFA-SAC']:
+                attrs_sac = {'unit': '-', 'long_name': 'Schmidt-Appleman criterion [0,1]', 'short_name': 'sac'}
+                self.var_aCCF_xr['sac'] = (tuple(self.coordinate_names), self.sac, attrs_sac)
+                self.aCCF_xr['sac'] = (tuple(self.coordinate_names), self.sac, attrs_sac) 
         
         
         # CH4:
