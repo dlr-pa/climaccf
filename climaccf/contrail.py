@@ -38,19 +38,20 @@ def get_pcfa(ds, member, confg):
         [rw_thr, temp_thr] = get_cont_form_thr(ds, member, confg['PCFA-SAC'])
         formation[ds.t.values <= temp_thr] = 1
         formation[rw < rw_thr] = 0
-        formation[rw >= 1] = 0
+        formation[rw > 1] = 0
 
         # persistency conditions
         presistancy[ri >= confg['PCFA-ISSR']['rhi_threshold']] = 1
-        #presistancy[ds.t.values >= confg['ISSR']['temp_threshold']] = 0
+        presistancy[ds.t.values >= confg['PCFA-ISSR']['temp_threshold']] = 0
         pcfa = formation * presistancy
     elif confg['PCFA'] == 'PCFA-ISSR':
+        formation = np.ones(ds.t.values.shape)
         presistancy[ri >= confg['PCFA-ISSR']['rhi_threshold']] = 1
         presistancy[ds.t.values >= confg['PCFA-ISSR']['temp_threshold']] = 0
-        pcfa = presistancy
+        pcfa = presistancy 
     else:
         raise ValueError("The correct options are: PCFA-SAC and PCFA-ISSR")        
-    return pcfa
+    return formation, presistancy, pcfa
 
 
 def get_cont_form_thr(ds, member, SAC_config):
@@ -109,6 +110,7 @@ def get_cont_form_thr(ds, member, SAC_config):
             T_Crit[:, i, :, :] = shape * T_crit
             T = ds.t.values[:, i, :, :]
             rcontr[:, i, :, :] = 0.8 * (G * (T - T_Crit[:, i, :, :]) + eL_T(T_Crit[:, i, :, :])) / eL_T(T)
+            rcontr = rcontr.clip(0.0, 1.0)
     return rcontr, T_Crit
 
 
