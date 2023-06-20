@@ -21,7 +21,7 @@ efficacy-option: lee_2021
 aCCF-V: V1.1
         # currently 2 options for aCCFs: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
 
-# User-defined scaling factors of the above selected aCCF version. Not recommended to
+# User-defined scaling factors of the above selected aCCF version. Not recommended to 
 # be changed from default value 1, unless modification of the aCCFs is wanted (e.g. sensitivity studies)
 aCCF-scalingF:
   CH4: 1
@@ -146,6 +146,10 @@ color: copper
 # Specifies the horizontal resolution      
 horizontal_resolution: 0.5
       # Options: lower resolutions in degrees      
+
+# Specifies the forecast step   
+forecast_step: 6
+      # Options: int in hours (ERA5 HRES: 1, ERA5 ensemble: 3)   
 
 # Specifies geographical region      
 lat_bound: false

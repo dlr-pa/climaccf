@@ -153,6 +153,8 @@ class WeatherStore(WeatherStore_):
         self.coordinates_bool = inf_coordinates['logic_coordinate']
         self.pre_coordinate_names = inf_coordinates['pre_coor_name']
         self.aCCF_bool = logic_cal_accfs(inf_variables['logic_variable'])
+        self.forecast_step = self.cfg['forecast_step']
+        
         if self.cfg['save_as_xr']:
             self.var_xr = {}
             self.coor_xr = {}
@@ -224,17 +226,17 @@ class WeatherStore(WeatherStore_):
                 tag_ = 'olr'
                 if flipud:
                     if inf_coordinates['logic_coordinate']['member']:
-                        A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, :, ::-1,
+                        A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'], self.forecast_step)[:, :, :, ::-1,
                             :].astype(self.cfg['format'])
                     else:
-                        A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, ::-1,
+                        A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'], self.forecast_step)[:, :, ::-1,
                             :].astype(self.cfg['format'])
                 else:
                     if inf_coordinates['logic_coordinate']['member']:
-                        A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, :, :,
+                        A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'], self.forecast_step)[:, :, :, :,
                             :].astype(self.cfg['format'])
                     else:
-                        A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'])[:, :, :,
+                        A = get_olr(self.wd_sur, self.wd, inf_coordinates['logic_coordinate']['member'], self.forecast_step)[:, :, :,
                             :].astype(self.cfg['format'])
 
             elif tag_ == 'ssrd':

@@ -147,6 +147,10 @@ color: copper
 horizontal_resolution: 0.5
       # Options: lower resolutions in degrees      
 
+# Specifies the forecast step   
+forecast_step: 6
+      # Options: int in hours (ERA5 HRES: 1, ERA5 ensemble: 3)   
+
 # Specifies geographical region      
 lat_bound: false
       # Options: (lat_min, lat_max), false

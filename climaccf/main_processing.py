@@ -35,7 +35,7 @@ class ClimateImpact(object):
             self.ds_sur = xr.open_dataset(path['path_sur'])
         else:
             self.ds_sur = None
-        ws = WeatherStore(self.ds_pl, self.ds_sur, ll_resolution=self.p_settings['horizontal_resolution'])
+        ws = WeatherStore(self.ds_pl, self.ds_sur, ll_resolution=self.p_settings['horizontal_resolution'], forecast_step=self.p_settings['forecast_step'])
         if self.p_settings['lat_bound'] and self.p_settings['lon_bound']:
             ws.reduce_domain({'latitude': eval(self.p_settings['lat_bound']), 'longitude': eval(self.p_settings['lon_bound'])})
         self.ds = ws.get_xarray()
