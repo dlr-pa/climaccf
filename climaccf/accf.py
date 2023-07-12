@@ -77,15 +77,15 @@ class GeTaCCFs(object):
         accf[accf < 0] = 0
         if self.aCCF_Version == 'V1.0':  
             accf = accf * self.sf ['O3']/self.base['O3']  
-        elif self.aCCF_Version == 'V1.1':
+        elif self.aCCF_Version == 'V1.0A':
             accf = accf * self.sf ['O3']/self.eg['O3']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2023) ('V1.0') and 'Matthes et al. (2023) ('V1.0A') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.0A'.")        
         return accf
 
     def accf_ch4(self):
         """
-        Calculates the aCCF of methane according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
+        Calculates the aCCF of methane according to Yin et al. 2023 (aCCF-V1.0) and Matthes et al. 2023 (aCCF-V1.0A): aCCF values are  given in average 
         temperature response as over next 20 years, assuming pulse emission (P-ATR20-methane [K/kg(NO2)]). To calculate the aCCF of methane, meteorological
         variables geopotential and incoming solar radiation are required.
 
@@ -97,15 +97,15 @@ class GeTaCCFs(object):
         accf[accf > 0] = 0
         if self.aCCF_Version == 'V1.0':  
             accf = accf * self.sf ['CH4']/self.base['CH4'] 
-        elif self.aCCF_Version == 'V1.1':
+        elif self.aCCF_Version == 'V1.0A':
             accf = accf * self.sf ['CH4']/self.eg['CH4']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2023) ('V1.0') and 'Matthes et al. (2023) ('V1.0A') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.0A'.")        
         return accf
 
     def accf_ncontrail(self):
         """
-        Calculates the aCCF of night-time contrails according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
+        Calculates the aCCF of night-time contrails according to Yin et al. 2023 (aCCF-V1.0) and Matthes et al. 2023 (aCCF-V1.0A): aCCF values are  given in average 
         temperature response as over next 20 years, assuming pulse emissions (P-ATR20-contrails [K/km]). To calculate the aCCF of night-time contrails,
         meteorological variables temperature and relative humidity over ice are required. Notice that,
         relative humidity over ice is required for the determination of persistent contrail formation areas.
@@ -122,15 +122,15 @@ class GeTaCCFs(object):
         accf[accf < 0] = 0
         if self.aCCF_Version == 'V1.0':  
             accf = accf * self.sf ['Cont.']/self.base['Cont.']  
-        elif self.aCCF_Version == 'V1.1':
+        elif self.aCCF_Version == 'V1.0A':
             accf = accf * self.sf ['Cont.']/ self.eg['Cont.']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2023) ('V1.0') and 'Matthes et al. (2023) ('V1.0A') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.0A'.")        
         return accf
 
     def accf_dcontrail(self):
         """
-        Calculates the aCCF of day-time contrails according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
+        Calculates the aCCF of day-time contrails according to Yin et al. 2023 (aCCF-V1.0) and Matthes et al. 2023 (aCCF-V1.0A): aCCF values are  given in average 
         temperature response as over next 20 years, assuming pulse emissions (P-ATR20-contrails [K/km]). To calculate the aCCF of day-time contrails,
         meteorological variables temperature and relative humidity over ice are required. Notice that,
         relative humidity over ice is required for the determination of persistent contrail formation areas.
@@ -147,15 +147,15 @@ class GeTaCCFs(object):
         accf = accf * self.pcfa  # [Unit: K/km]
         if self.aCCF_Version == 'V1.0':  
             accf = accf * self.sf ['Cont.']/self.base['Cont.']
-        elif self.aCCF_Version == 'V1.1':
+        elif self.aCCF_Version == 'V1.0A':
             accf = accf * self.sf ['Cont.']/self.eg['Cont.']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2023) ('V1.0') and 'Matthes et al. (2023) ('V1.0A') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.0A'.")        
         return accf
 
     def accf_h2o(self):
         """
-        Calculates the aCCF of water vapour according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in average 
+        Calculates the aCCF of water vapour according to Yin et al. 2023 (aCCF-V1.0) and Matthes et al. 2023 (aCCF-V1.0A): aCCF values are  given in average 
         temperature response as over next 20 years, assuming pulse emission (P-ATR20-water-vapour [K/kg(fuel)]). To calculate the aCCF of water vapour,
         meteorological variable potential vorticity is required.
 
@@ -166,10 +166,10 @@ class GeTaCCFs(object):
         accf = 4.05e-16 + 1.48e-16 * np.absolute(self.pvu)
         if self.aCCF_Version == 'V1.0':  
             accf = accf * self.sf ['H2O']/self.base['H2O'] 
-        elif self.aCCF_Version == 'V1.1':
+        elif self.aCCF_Version == 'V1.0A':
             accf = accf * self.sf ['H2O']/self.eg['H2O']     
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2023) ('V1.0') and 'Matthes et al. (2023) ('V1.0A') have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.0A'.")        
         return accf
 
     def get_accfs(self, **problem_config):
@@ -189,7 +189,7 @@ class GeTaCCFs(object):
         if confg['educated_guess_v1.0']:
             self.eg = confg['educated_guess_v1.0']
         else:
-            self.eg = aCCF_V1_1
+            self.eg = aCCF_V1_0A
 
         self.base = aCCF_V1_0
 
