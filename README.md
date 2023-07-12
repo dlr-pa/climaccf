@@ -88,8 +88,8 @@ efficacy-option: lee_2021
         #    O3: xx
 
 # Specifies the version of the prototype aCCF
-aCCF-V: V1.1
-        # currently 2 options for aCCFs: 'V1.0': Yin et al. (2022), 'V1.1': Matthes et al. (2022)
+aCCF-V: V1.0
+        # currently 2 options for aCCFs: 'V1.0': Yin et al. (2023), 'V1.0A': Matthes et al. (2023)
 
 # User-defined scaling factors of the above selected aCCF version. Not recommended to 
 # be changed from default value 1, unless modification of the aCCFs is wanted (e.g. sensitivity studies)
