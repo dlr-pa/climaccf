@@ -65,7 +65,7 @@ class GeTaCCFs(object):
 
     def accf_o3(self):
         """
-        Calculates the aCCF of ozone according to Yin et al. 2022 (aCCF-V1.0) and Matthes et al. 2022 (aCCF-V1.1): aCCF values are  given in 
+        Calculates the aCCF of ozone according to Yin et al. 2023 (aCCF-V1.0) and Matthes et al. 2023 (aCCF-V1.0A): aCCF values are  given in 
         average temperature response as over next 20 years, assuming pulse emission (P-ATR20-ozone [K/kg(NO2)]). To calculate the aCCF of ozone, 
         meteorological variables temperature and geopotential are required.
 
