@@ -265,10 +265,10 @@ class GeTaCCFs(object):
         attrs_CO2 = {'unit': 'K kg(fuel)**-1', 'long_name': 'algorithmic climate change function of CO2', 'short_name': 'aCCF of CO2'}
         if self.aCCF_Version == 'V1.0':
             self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)*self.sf['CO2']/self.base['CO2']   # P-ATR20-CO2 [K/kg(fuel)]
-        elif self.aCCF_Version  == 'V1.1':
+        elif self.aCCF_Version  == 'V1.0A':
             self.aCCF_CO2 =  6.94 * 1e-16 * np.ones(self.t.shape)*self.sf['CO2']/self.eg['CO2'] 
         else:
-            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2022) ('V1.0') and 'Matthes et al. (2022) ('V1.1) have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.1'.")        
+            raise ValueError("Currently, the versions of aCCFs reported in Yin et al. (2023) ('V1.0') and 'Matthes et al. (2022) ('V1.0A) have been implemented; thus, the correct option is confg['aCCF-V'] = 'V1.0' or 'V1.0A'.")        
         self.aCCF_CO2 = convert_accf('CO2', self.aCCF_CO2, confg)
         self.var_aCCF_xr['aCCF_CO2'] = (tuple(self.coordinate_names), self.aCCF_CO2, attrs_CO2)
         self.aCCF_xr['aCCF_CO2'] = (tuple(self.coordinate_names), self.aCCF_CO2, attrs_CO2)
