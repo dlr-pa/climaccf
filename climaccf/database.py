@@ -19,6 +19,6 @@ P20_F100 = {'CH4': 98.2, 'O3': 58.3, 'H2O': 58.3, 'Cont.': 48.9, 'CO2': 125.0}
 # Scaling factors for the first complete and consistent set of aCCFs  (aCCF-V1.0)
 aCCF_V1_0 = {'CH4':2.03 , 'O3':1.97 , 'H2O':1.92 , 'Cont.': 1, 'CO2': 1}
 
-# Educated guess factors after Matthes et al. 2022 (aCCF-V1.1)
-aCCF_V1_1 = {'CH4': 35, 'O3': 11, 'H2O': 3, 'Cont.': 3, 'CO2': 1} 
+# AIRCLIM calibration factors after Matthes et al. 2023 (aCCF-V1.0A)
+aCCF_V1_0A = {'CH4': 35, 'O3': 11, 'H2O': 3, 'Cont.': 3, 'CO2': 1} 
 
