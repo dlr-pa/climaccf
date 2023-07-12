@@ -279,7 +279,7 @@ First of all, define the configurations in a YAML file format (e.g., config-user
 
 efficacy: true              
 efficacy-option: lee_2021 
-aCCF-V: V1.1
+aCCF-V: V1.0
 aCCF-scalingF:
     CH4: 1
     CO2: 1
