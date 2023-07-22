@@ -18,7 +18,7 @@ efficacy-option: lee_2021
         #    O3: xx
 
 # Specifies the version of the prototype aCCF
-aCCF-V: V1.0
+aCCF-V: V1.0A
         # currently 2 options for aCCFs: 'V1.0': Yin et al. (2023), 'V1.0A': Matthes et al. (2023)
 
 # User-defined scaling factors of the above selected aCCF version. Not recommended to 
@@ -49,11 +49,11 @@ PCFA: PCFA-ISSR
        # contrail persistence, if ambient air is ice supersaturated) 
 
 # Parameters for calculating ice-supersaturated regions (ISSR)
-PCFA-ISSR:
+PCFA-SAC:
   # Specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. 
   # Note that for persistent contrails relative humidity over ice has to be greater 100%. However to take into account subgridscale variability in humidity field of input data, the threshold of relative humidity (over ice) 
   # has to be adopted for the selected resolution of data product (for more details see Dietmueller et al. 2022)
-  rhi_threshold: 0.9
+  rhi_threshold: 0.95
        # Options: user defined threshold value < 1. Threshold depends on the used data set, e.g., 
        # in case of the reanalysis data product ERA5 with high resolution (HRES) it is 0.9
   temp_threshold: 235
@@ -100,7 +100,7 @@ unit_K/kg(fuel): false
       # Options: true, false
 
 # If true, merged non-CO2 aCCF is calculated
-merged: true
+merged: false
       # Options: true, false
 
 # If true, climate hotspots (regions that are very sensitive to aviation emissions) are calculated (for more details see Dietmueller et al. 2022)
@@ -148,7 +148,7 @@ horizontal_resolution: 0.5
       # Options: lower resolutions in degrees      
 
 # Specifies the forecast step   
-forecast_step: 6
+forecast_step: 3
       # Options: int in hours (ERA5 HRES: 1, ERA5 ensemble: 3)   
 
 # Specifies geographical region      
