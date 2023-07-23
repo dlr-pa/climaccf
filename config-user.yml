@@ -132,7 +132,7 @@ hotspots_binary: true
       # Options: true, false
 
 # If true, meteorological input variables, needed to calculate aCCFs, are saved in the netCDF output file in same resolution as the aCCFs
-MET_variables: false
+MET_variables: true
       # Options: true, false      
 
 # If true, polygons containing climate hotspots will be saved in the GeoJson file
