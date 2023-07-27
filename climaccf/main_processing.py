@@ -32,7 +32,11 @@ class ClimateImpact(object):
         self.p_settings.update(problem_config)
         self.ds_pl = xr.open_dataset(path['path_pl'])
         if path['path_sur']:
-            self.ds_sur = xr.open_dataset(path['path_sur'])
+            ds_sur = xr.open_dataset(path['path_sur'])
+            if 'expver' in list(ds_sur.coords.keys()):
+                self.ds_sur = ds_sur.isel(expver = 0)
+            else:
+                self.ds_sur = ds_sur    
         else:
             self.ds_sur = None
         ws = WeatherStore(self.ds_pl, self.ds_sur, ll_resolution=self.p_settings['horizontal_resolution'], forecast_step=self.p_settings['forecast_step'])
