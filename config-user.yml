@@ -49,7 +49,7 @@ PCFA: PCFA-ISSR
        # contrail persistence, if ambient air is ice supersaturated) 
 
 # Parameters for calculating ice-supersaturated regions (ISSR)
-PCFA-SAC:
+PCFA-ISSR:
   # Specifies the threshold of relative humidity over ice in order to identify ice supersaturated regions. 
   # Note that for persistent contrails relative humidity over ice has to be greater 100%. However to take into account subgridscale variability in humidity field of input data, the threshold of relative humidity (over ice) 
   # has to be adopted for the selected resolution of data product (for more details see Dietmueller et al. 2022)
