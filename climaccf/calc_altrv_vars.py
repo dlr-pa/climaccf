@@ -67,7 +67,7 @@ def get_pvu_ens(ds):
                               ds['level'].values[in_lvl] * np.ones(shape_gridlat),
                               ds['level'].values[below] * np.ones(shape_gridlat)]) * units.mbar
 
-                PV = calc.potential_vorticity_baroclinic(PT, p, U, V, dx, dy, lat * units.degree, longitude=lon * units.degree)
+                PV = calc.potential_vorticity_baroclinic(PT, p, U, V, dx, dy, lat * units.degree)
                 pvu[i, j, k, :, :, :] = PV.magnitude
 
     return pvu
