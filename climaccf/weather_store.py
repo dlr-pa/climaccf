@@ -6,6 +6,9 @@ from datetime import datetime
 from scipy.signal import convolve2d, convolve
 from climaccf.extract_data import *
 from climaccf.processing_surf_vars import *
+from climaccf.calc_altrv_vars import get_pvu_det, get_pvu_ens 
+from climaccf.contrail import get_rw_from_specific_hum, get_r_ice_from_r_w
+import copy
 
 
 def get_bound_indexes(arr, bounds, verbose=False):
@@ -280,9 +283,43 @@ class WeatherStore(WeatherStore_):
         if self.cfg['predecimate']:
             self.axes['latitude'] = self.axes['latitude'][::2 ** self.downsample_steps]
             self.axes['longitude'] = self.axes['longitude'][::2 ** self.downsample_steps]
+            
+        self.ds_xr = xr.Dataset(self.var_xr, self.axes)
+        ### Calculation of PV from alternative variables, i.e., temperature and components of wind
+        if 'pv' not in self.pre_variable_names and 't' in self.pre_variable_names and 'u' in self.pre_variable_names and 'v' in self.pre_variable_names:
+            pv_dict = {}
+            if inf_coordinates['logic_coordinate']['member']:
+                pv = get_pvu_ens(self.ds_xr)[:,:,:,1,:,:]
+                pv_dict['pv'] = (tuple(self.coordinate_names), pv, {'units': '"K m**2 kg**-1 s**-1"', 'long_name': 'Potential vorticity', 'NOTE': 'calculated from alternative variables'})         
+            else:
+                pv = get_pvu_det(self.ds_xr)[:,:,1,:,:]
+                pv_dict['pv'] = (tuple(self.coordinate_names), pv, {'units': '"K m**2 kg**-1 s**-1"', 'long_name': 'Potential vorticity', 'NOTE': 'calculated from alternative variables'})                
+            # adapt dimenstions to calculation of pv, i.e., first and last pressure levels need to be removed. 
+            self.axes ['level'] = self.axes['level'][1:-1]       
+            ds_xr_pv = xr.Dataset(pv_dict, self.axes)      
+            self.ds_xr = self.ds_xr.isel(level=slice(1, -1))
+            self.ds_xr = xr.merge([self.ds_xr, ds_xr_pv])
+            ds_xr_pv.close()
+            self.var_xr = {var_name: self.ds_xr[var_name] for var_name in self.ds_xr.data_vars}      
+        
+        
+        ### Calculation of relative humidity over ice from alternative variables, i.e., temperature and specific humidity
+        if 'r' not in self.pre_variable_names and 't' in self.pre_variable_names and 'q' in self.pre_variable_names:
+            r_dict = {}
+            r_w = get_rw_from_specific_hum(self.ds_xr, inf_coordinates['logic_coordinate']['member'])     
+            r_i = get_r_ice_from_r_w (r_w, self.ds_xr.t.values)   
+            r_dict['r'] =  (tuple(self.coordinate_names), r_i, {'units': '[-]', 'long_name': 'Relative humidity', 'standard_name': 'relative_humidity'})       
+            ds_xr_r = xr.Dataset(r_dict, self.axes)      
+            self.ds_xr = xr.merge([self.ds_xr, ds_xr_r])
+            ds_xr_r.close()
+            self.var_xr = {var_name: self.ds_xr[var_name] for var_name in self.ds_xr.data_vars}        
+
+            
         if self.cfg['save_as_xr']:
-            ds_xr = xr.Dataset(self.var_xr, self.axes)
-            #ds_xr.to_netcdf('/Users/abolfazlsimorgh/Desktop/data.nc')
+            pass
+        
+               
+
 
     def get_xarray(self):
         """
@@ -291,7 +328,7 @@ class WeatherStore(WeatherStore_):
         :returns ds: xarray dataset containing user-selected variables (e.g., merged aCCFs, mean aCCFs, Climate hotspots).
         :rtype: dataset
         """
-        return xr.Dataset(self.var_xr, self.axes)
+        return self.ds_xr
 
     def reduce_domain(self, bounds, verbose=False):
         """

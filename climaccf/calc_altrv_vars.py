@@ -7,7 +7,7 @@ from metpy.units import units
 import xarray as xr
 
 
-def get_pvu(ds):
+def get_pvu_ens(ds):
     """
     Calculates potential vorticity [in PVU] from meteorological variables pressure, temperature and x and y component of the wind using MetPy (https://www.unidata.ucar.edu/software/metpy/).
 
@@ -67,8 +67,72 @@ def get_pvu(ds):
                               ds['level'].values[in_lvl] * np.ones(shape_gridlat),
                               ds['level'].values[below] * np.ones(shape_gridlat)]) * units.mbar
 
-                PV = calc.potential_vorticity_baroclinic(PT, p, U, V, dx, dy, lat * units.degree)
+                PV = calc.potential_vorticity_baroclinic(PT, p, U, V, dx, dy, lat * units.degree, longitude=lon * units.degree)
                 pvu[i, j, k, :, :, :] = PV.magnitude
+
+    return pvu
+
+
+def get_pvu_det(ds):
+    """
+    Calculates potential vorticity [in PVU] from meteorological variables pressure, temperature and x and y component of the wind using MetPy (https://www.unidata.ucar.edu/software/metpy/).
+
+    :param ds: Dataset opened with xarray.
+    :type ds: Dataset
+
+    :returns PVU: potential vorticity [in PVU]
+    :rtype: numpy.ndarray
+    """
+    Levels = ds['level'].values
+    Ava_levels = Levels[1:-1]
+    pvu = np.zeros((len(ds['time'].values), len(Ava_levels), 3, len(ds['latitude'].values), len(ds['longitude'].values)))
+
+    for k in range(len(Ava_levels)):
+        level = Ava_levels[k]
+        in_lvl = np.where(level == ds['level'].values)
+        above = in_lvl[0][0] - 1
+        below = in_lvl[0][0] + 1
+
+        Tna = ds['t'].values[:, above, :, :]
+        Una = ds['u'].values[:, above, :, :]
+        Vna = ds['v'].values[:, above, :, :]
+
+        Tn = ds['t'].values[:, in_lvl[0][0], :, :]
+        Un = ds['u'].values[:, in_lvl[0][0], :, :]
+        Vn = ds['v'].values[:, in_lvl[0][0], :, :]
+
+        Tnb = ds['t'].values[:, below, :, :]
+        Unb = ds['u'].values[:, below, :, :]
+        Vnb = ds['v'].values[:, below, :, :]
+
+        p_above_u = ds['level'].values[above]  * units.mbar
+        p_lvl_u   = ds['level'].values[in_lvl] * units.mbar
+        p_below_u = ds['level'].values[below]  * units.mbar
+        shape_gridlat = Un[0, :, :].shape
+        shape_gridlon = (Un[0, :, :]).T.shape
+
+        lat = (np.ones(shape_gridlon) * ds['u'].latitude.values).T
+        lon = np.ones(shape_gridlat) * ds['u'].longitude.values
+
+        R = 6371000  # disregard h
+        dx = (lon[0, 1] - lon[0, 0]) * np.pi / 180 * R * units.meter
+        dy = (lat[0, 0] - lat[1, 0]) * np.pi / 180 * R * units.meter
+
+        for i in range(0, len(ds['time'].values)):
+            PT_above_u = calc.potential_temperature(p_above_u, Tna[i, :, :] * units.kelvin)
+            PT_lvl_u = calc.potential_temperature(p_lvl_u, Tn[i, :, :] * units.kelvin)
+            PT_below_u = calc.potential_temperature(p_below_u, Tnb[i, :, :] * units.kelvin)
+
+            # Assemble inputs to PV function from higher in the atmosphere to closer to the surface
+            PT = np.array([PT_above_u.magnitude, PT_lvl_u.magnitude, PT_below_u.magnitude]) * units.kelvin
+            U = np.array([Una[i, :, :], Un[i, :, :], Unb[i, :, :]]) * units.meter / units.second
+            V = np.array([Vna[i, :, :], Vn[i, :, :], Vnb[i, :, :]]) * units.meter / units.second
+            p = np.array([ds['level'].values[above] * np.ones(shape_gridlat),
+                            ds['level'].values[in_lvl] * np.ones(shape_gridlat),
+                            ds['level'].values[below] * np.ones(shape_gridlat)]) * units.mbar
+
+            PV = calc.potential_vorticity_baroclinic(PT, p, U, V, dx, dy, lat * units.degree)
+            pvu[i, k, :, :, :] = PV.magnitude
 
     return pvu
 

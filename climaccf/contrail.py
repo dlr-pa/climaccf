@@ -268,3 +268,11 @@ def get_rw_from_specific_hum(ds, member):
                                                                                 t[:, i, :, :] * units.kelvin,
                                                                                 sh[:, i, :, :]).magnitude
     return r_w
+
+
+def get_r_ice_from_r_w (r_w, t):
+    # Conversion to celsius:
+    t = t - 273.15
+    ri = r_w * (6.0612 * np.exp((18.102 * t) / (249.52 + t))) / (6.1162 * np.exp((22.577 * t) / (273.78 + t)))
+    return ri
+

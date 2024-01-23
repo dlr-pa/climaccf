@@ -43,7 +43,8 @@ class ClimateImpact(object):
         if self.p_settings['lat_bound'] and self.p_settings['lon_bound']:
             ws.reduce_domain({'latitude': eval(self.p_settings['lat_bound']), 'longitude': eval(self.p_settings['lon_bound'])})
         self.ds = ws.get_xarray()
-        self.variable_names = ws.variable_names
+        self.variable_names = ws.variable_names        
+        
         self.pre_variable_names = ws.pre_variable_names
         self.coordinate_names = ws.coordinate_names
         self.pre_coordinate_names = ws.pre_coordinate_names
