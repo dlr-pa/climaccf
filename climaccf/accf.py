@@ -57,9 +57,11 @@ class GeTaCCFs(object):
         if self.aCCF_bool['contrail_adaptive']:
             self.ssrd = ds['ssrd'].values
             self.night = self.ssrd.copy()
-            self.night [self.ssrd == 0] = 1
-            self.night [self.ssrd != 0 ] = 0
-            self.day = self.ssrd
+            self.day = self.ssrd.copy()
+            self.night [self.ssrd <= 1.0] = 1
+            self.night [self.ssrd > 1.0 ] = 0
+            self.day [self.ssrd <= 1.0] = 0
+            self.day [self.ssrd > 1.0 ] = 1
         if self.aCCF_bool['dCont']:
             self.olr = ds['olr'].values
 
