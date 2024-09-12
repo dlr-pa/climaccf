@@ -34,7 +34,10 @@ class ClimateImpact(object):
         if path['path_sur']:
             ds_sur = xr.open_dataset(path['path_sur'])
             if 'expver' in list(ds_sur.coords.keys()):
-                self.ds_sur = ds_sur.isel(expver = 0)
+                try:
+                    self.ds_sur = ds_sur.isel(expver = 0)
+                except:
+                    self.ds_sur = ds_sur
             else:
                 self.ds_sur = ds_sur    
         else:
