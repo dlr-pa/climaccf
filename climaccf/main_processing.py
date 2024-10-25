@@ -31,8 +31,20 @@ class ClimateImpact(object):
         self.p_settings['save_path'] = path_out    
         self.p_settings.update(problem_config)
         self.ds_pl = xr.open_dataset(path['path_pl'])
+        coords_to_rename = {}
+        if 'valid_time' in ds_pl.coords:
+            coords_to_rename['valid_time'] = 'time'
+        if 'pressure_level' in ds_pl.coords:
+            coords_to_rename['pressure_level'] = 'level'
+        if coords_to_rename:
+            ds_pl = ds_pl.rename(**coords_to_rename)
         if path['path_sur']:
             ds_sur = xr.open_dataset(path['path_sur'])
+            coords_to_rename = {}
+            if 'valid_time' in ds_sur.coords:
+                coords_to_rename['valid_time'] = 'time'
+            if coords_to_rename:
+                ds_pl = ds_pl.rename(**coords_to_rename)
             if 'expver' in list(ds_sur.coords.keys()):
                 try:
                     self.ds_sur = ds_sur.isel(expver = 0)
