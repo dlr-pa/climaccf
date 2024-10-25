@@ -20,23 +20,20 @@ Copyright (C) 2022, Deutsches Zentrum fuer Luft- und Raumfahrt e. V., Universida
 ## How to run the library
 The installation is the first step to working with CLIMaCCF. In the following, the steps required to install the library are provided.
 
-0. It is highly recommended to create a virtual environment (e.g., env_climaccf)  with Python version 3.8 (or 3.9):
+0. It is highly recommended to create a virtual environment (e.g., env_climaccf)  with Python versions >= 3.10:
 ```python
-conda create -n env_climaccf python==3.8
-conda activate env_climaccf
-pip install setuptools~=49.6.0
-pip install pint~=0.19.2
+conda create -n env_climaccf python==3.10
 ```
 1. Clone or download the repository. The CLIMaCCF source code is available on a public GitHub repository: https://github.com/dlr-pa/climaccf.git. The easiest way to obtain it is to clone the repository using git: git clone https://github.com/dlr-pa/climaccf.git.
 
 2. Locate yourself in the CLIMaCCF (library folder) path, and run the following line, using terminal (MacOS and Linux) or cmd (Windows), which will install all dependencies:
 ```python
-python setup.py install
+pip install -e . 
 ```
 it will install all required dependency.
 3. The installation package contains a set of sample data and an example script for testing purposes. To run it at the library folder, enter the following command:
 ```python
-python setup.py pytest
+pytest
 ```
 The library runs successfully if env_processed.nc is generated at the library folder/test/sample_data/. One can visualize the file using a visualization tool.
 
