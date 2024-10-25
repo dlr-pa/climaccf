@@ -269,7 +269,7 @@ class WeatherStore(WeatherStore_):
                         A = self.wd[tag].values[:, :, :, :, :].astype(self.cfg['format'])
                     else:
                         A = self.wd[tag].values[:, :, :, :].astype(self.cfg['format'])
-            if self.cfg['predecimate']:
+            if self.cfg['predecimate'] and self.downsample_steps > 0:
                 if inf_coordinates['logic_coordinate']['member']:
                     A = self.decimate_5d(A)
                 else:
@@ -280,7 +280,7 @@ class WeatherStore(WeatherStore_):
             self.values[tag_] = A
             if self.cfg['save_as_xr']:
                 self.var_xr[tag_] = (tuple(self.coordinate_names), A, dict_var_attrs[tag_])
-        if self.cfg['predecimate']:
+        if self.cfg['predecimate'] and self.downsample_steps > 0:
             self.axes['latitude'] = self.axes['latitude'][::2 ** self.downsample_steps]
             self.axes['longitude'] = self.axes['longitude'][::2 ** self.downsample_steps]
             

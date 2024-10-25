@@ -117,51 +117,29 @@ def get_olr_4d(sur_var, pl_var, thr, fore_step=None):
     :returns arr: OLR in 4D (i.e., time, level, latitude, longitude).
     :rtype: numpy.ndarray
     """
-    n_t = len(pl_var['time'].values)
-    olr = np.zeros(pl_var['t'].values.shape)
-    for i_t in range(n_t):
-        index = np.where(sur_var['time'].values == pl_var['time'].values[i_t])
-        if list(index[0]) != []:
-            if sur_var.ttr.values[i_t, 2, 2] != sur_var.ttr.values[i_t, 2, 2]:
-                olr[i_t, :, :, :] = np.zeros(pl_var['t'][0, :, :, :].values.shape)
-            else:
-                if fore_step:
-                    array = extend_olr_pl_4d(sur_var, pl_var, index, fore_step)
-                    olr[i_t, :, :, :] = array
-                    if i_t == 0:
-                        print('selected forecast step: ',  fore_step, 'HR')
-                else:
-                    mean_values = np.mean(sur_var['ttr'].values[index, :, :])
-                    if thr['1hr'] - thr['range'] <= mean_values <= thr['1hr'] + thr['range']:
-                        array = extend_olr_pl_4d(sur_var, pl_var, index, 1)
-                        olr[i_t, :, :, :] = array
-                        if i_t == 0:
-                            print('Forecast step has not been selected manually and determined automatically. Forecast step: 1 hour')
-                    elif thr['3hr'] - thr['range'] <= mean_values <= thr['3hr'] + thr['range']:
-                        array = extend_olr_pl_4d(sur_var, pl_var, index, 3)
-                        olr[i_t, :, :, :] = array
-                        if i_t == 0:
-                            print('Forecast step has not been selected manually and determined automatically. Forecast step: 3 hours')
-                    elif thr['6hr'] - thr['range'] <= mean_values <= thr['6hr'] + thr['range']:
-                        array = extend_olr_pl_4d(sur_var, pl_var, index, 6)
-                        olr[i_t, :, :, :] = array
-                        if i_t == 0:
-                            print('Forecast step has not been selected manually and determined automatically. Forecast step: 6 hours')
-                    elif thr['9hr'] - thr['range'] <= mean_values <= thr['9hr'] + thr['range']:
-                        array = extend_olr_pl_4d(sur_var, pl_var, index, 9)
-                        olr[i_t, :, :, :] = array
-                        if i_t == 0:
-                            print('Forecast step has not been selected manually and determined automatically. Forecast step: 9 hours')
-                    elif thr['12hr'] - thr['range'] <= mean_values <= thr['12hr'] + thr['range']:
-                        array = extend_olr_pl_4d(sur_var, pl_var, index, 12)
-                        olr[i_t, :, :, :] = array
-                        if i_t == 0:
-                            print('Forecast step has not been selected manually and determined automatically. Forecast step: 12 hours')
-                    else:
-                        raise ValueError(
-                            "forecast step is not included within the default defined values and it must be "
-                            "set manually")
-    return olr
+    if not fore_step:
+        # assuming that the forecast step is the same for each time index
+        # not tested!
+        mean_values = sur_var['ttr'].isel(time=0).values.mean()
+        if thr['1hr'] - thr['range'] <= mean_values <= thr['1hr'] + thr['range']:
+            fore_step = 1
+        elif thr['3hr'] - thr['range'] <= mean_values <= thr['3hr'] + thr['range']:
+            fore_step = 3
+        elif thr['6hr'] - thr['range'] <= mean_values <= thr['6hr'] + thr['range']:
+            fore_step = 6
+        elif thr['9hr'] - thr['range'] <= mean_values <= thr['9hr'] + thr['range']:
+            fore_step = 9
+        elif thr['12hr'] - thr['range'] <= mean_values <= thr['12hr'] + thr['range']:
+            fore_step = 12
+        else:
+            raise ValueError(
+                "forecast step is not included within the default defined values and it must be "
+                "set manually")
+        print(f'Forecast step has not been selected manually and determined automatically. Forecast step: {fore_step} hour')
+
+    olr_fast = sur_var['ttr'] / (fore_step * 3600)
+    olr_fast = olr_fast.expand_dims(dim={"level": np.arange(len(pl_var.level.values))})
+    return olr_fast.transpose("time", "level", "latitude", "longitude").to_numpy()
 
 
 def get_olr_5d(sur_var, pl_var, thr, fore_step=None):
