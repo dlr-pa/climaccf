@@ -24,14 +24,13 @@ The installation is the first step to working with CLIMaCCF. In the following, t
 ```python
 conda create -n env_climaccf python==3.10
 ```
-1. Clone or download the repository. The CLIMaCCF source code is available on a public GitHub repository: https://github.com/dlr-pa/climaccf.git. The easiest way to obtain it is to clone the repository using git: git clone https://github.com/dlr-pa/climaccf.git.
-
-2. Locate yourself in the CLIMaCCF (library folder) path, and run the following line, using terminal (MacOS and Linux) or cmd (Windows), which will install all dependencies:
+1. Clone or download the repository. The CLIMaCCF source code is available on a public GitHub repository: https://github.com/dlr-pa/climaccf.git. The easiest way to obtain it is to clone the repository using git: git clone https://github.com/dlr-pa/climaccf.git. Then, Locate yourself in the CLIMaCCF (library folder) path, and run the following line, using terminal (MacOS and Linux) or cmd (Windows), which will install all dependencies:
 ```python
 pip install -e . 
 ```
-it will install all required dependency.
-3. The installation package contains a set of sample data and an example script for testing purposes. To run it at the library folder, enter the following command:
+or directly use: pip install git+https://github.com/dlr-pa/climaccf.git 
+
+2. The installation package contains a set of sample data and an example script for testing purposes. To run it at the library folder, enter the following command:
 ```python
 pytest
 ```
