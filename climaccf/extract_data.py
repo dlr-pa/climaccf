@@ -262,7 +262,7 @@ def extract_coordinates(ds, ex_variables, ds_sur=None):
         pre_name_ = []
         for name in potential_coord_names[var_]:
             try:
-                ds.coords[name]
+                len(ds.coords[name].values)
                 name_ = name
                 pre_name_ = potential_coord_names[var_][0]
                 dict_coor_attrs[pre_name_] = ds[name].attrs
