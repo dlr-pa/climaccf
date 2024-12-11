@@ -100,7 +100,7 @@ class ClimateImpact(object):
             path_json = os.path.split(path) [0]
             print('\033[92m' + 'GeoJSON files have netCDF file has been successfully generated.' + "\033[0m" + f' (location: {path_json}'+'/json_files/)')
         if confg['output_aCCFs']:
-            return aCCF
+            return aCCFs
     def auto_plotting(self):
         pass
 
