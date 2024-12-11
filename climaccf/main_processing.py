@@ -27,6 +27,7 @@ class ClimateImpact(object):
             'color': 'Reds', 
             'geojson': True,
             'save_path': None,
+            'output_aCCFs': None, 
             'save_format': 'netCDF'}
         self.p_settings['save_path'] = path_out    
         self.p_settings.update(problem_config)
@@ -98,7 +99,8 @@ class ClimateImpact(object):
             chotspots = gen_geojson_hotspots (aCCFs, self.p_settings['save_path'], self.p_settings['color'], time_pl=None)
             path_json = os.path.split(path) [0]
             print('\033[92m' + 'GeoJSON files have netCDF file has been successfully generated.' + "\033[0m" + f' (location: {path_json}'+'/json_files/)')
-
+        if confg['output_aCCFs']:
+            return aCCF
     def auto_plotting(self):
         pass
 
