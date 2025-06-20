@@ -28,11 +28,18 @@ class ClimateImpact(object):
             'geojson': True,
             'save_path': None,
             'output_aCCFs': None, 
-            'save_format': 'netCDF'}
+            'save_format': 'netCDF'}    
+        
         self.p_settings['save_path'] = path_out    
         self.p_settings.update(problem_config)
         ds_pl = xr.open_dataset(path['path_pl'])
+        all_dims = ds_pl[list(ds_pl.data_vars)[0]].dims
+        if all_dims[0] in ('number', 'member') and all_dims[1] in ('time', 'valid_time'):
+            new_order = ('valid_time', 'number') + all_dims[2:]
+            ds_pl = ds_pl.transpose(*new_order)
+
         coords_to_rename = {}
+
         if 'valid_time' in ds_pl.coords:
             coords_to_rename['valid_time'] = 'time'
         if 'pressure_level' in ds_pl.coords:
@@ -40,8 +47,14 @@ class ClimateImpact(object):
         if coords_to_rename:
             ds_pl = ds_pl.rename(**coords_to_rename)
         self.ds_pl = ds_pl
+
         if path['path_sur']:
             ds_sur = xr.open_dataset(path['path_sur'])
+            all_dims = ds_sur[list(ds_sur.data_vars)[0]].dims
+            if all_dims[0] in ('number', 'member') and all_dims[1] in ('time', 'valid_time'):
+                new_order = ('valid_time', 'number') + all_dims[2:]
+                ds_sur = ds_sur.transpose(*new_order)
+
             coords_to_rename = {}
             if 'valid_time' in ds_sur.coords:
                 coords_to_rename['valid_time'] = 'time'
@@ -60,7 +73,7 @@ class ClimateImpact(object):
         if self.p_settings['lat_bound'] and self.p_settings['lon_bound']:
             ws.reduce_domain({'latitude': eval(self.p_settings['lat_bound']), 'longitude': eval(self.p_settings['lon_bound'])})
         self.ds = ws.get_xarray()
-        self.variable_names = ws.variable_names        
+        self.variable_names = ws.variable_names   
         
         self.pre_variable_names = ws.pre_variable_names
         self.coordinate_names = ws.coordinate_names
