@@ -571,20 +571,22 @@ def get_Fin(self):
     :rtype: numpy.ndarray
     """
     Fin = np.zeros (self.ds.t.values.shape)
-    for t in range(self.nt):
-        date = str(self.ds['time'].values[t])
-        month = date[5:7]
-        day = date[8:10]
-        N = (int(month) - 1) * 30 + int(day)  # Day of year
-        delta = -23.44 * np.cos(np.deg2rad(360 / 365 * (N + 10)))
-        S = 1360  # W/m2, Solar constant
-        theta = np.sin(np.deg2rad(self.lat)) * np.sin(np.deg2rad(delta)) + np.cos(np.deg2rad(self.lat)) * np.cos(np.deg2rad(delta))
+    S = 1360  # W/m2, Solar constant
+
+    days_of_year = self.ds.time.dt.dayofyear.values  # 1 to 365 for regular years, and 1 to 366 for leap years
+    deltas = -23.44 * np.cos(np.deg2rad(360 / 365 * (days_of_year + 10)))
+    thetas = [
+        np.sin(np.deg2rad(self.lat)) * np.sin(np.deg2rad(delta)) + np.cos(np.deg2rad(self.lat)) * np.cos(np.deg2rad(delta))
+        for delta in deltas
+    ]
+
+    for t, theta in zip(range(self.nt), thetas):
         for l in range(self.nl):
             if self.member_bool:
                 for m in range(self.nm):
                     Fin[t,m,l,:,:] = S * theta
             else:
-                Fin[t,l,:,:] = S * theta        
+                Fin[t,l,:,:] = S * theta
     return Fin
 
 def get_encoding_dict(list_name, encoding):
